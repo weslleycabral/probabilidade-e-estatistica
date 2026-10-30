@@ -1,0 +1,1352 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Verificação de Modelos — Probabilidade e Estatística: A Ciência da Incerteza</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=IBM+Plex+Sans+Condensed:wght@500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Sans+3:wght@500;600;700&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<link rel="stylesheet" href="leitor.css">
+<script>try{var c=JSON.parse(localStorage.getItem('leitor-config')||'{}');for(var k in c)document.documentElement.setAttribute('data-'+k,c[k]);}catch(e){}</script>
+</head>
+<body data-pagina="cap09">
+<header class="barra">
+  <button class="botao" id="abrir-sumario" type="button" aria-label="Sumário" aria-expanded="false">☰</button>
+  <a class="livro" href="index.html">Probabilidade e Estatística: A Ciência da Incerteza</a>
+  <span class="onde">Capítulo 9 · Verificação de Modelos</span>
+  <button class="botao" id="abrir-ajustes" type="button" aria-label="Ajustes de leitura" aria-expanded="false">Aa</button>
+  <div class="progresso" id="progresso"></div>
+</header>
+<nav class="sumario" id="sumario" aria-label="Sumário do capítulo"><ol><li class="nivel-2"><a href="#sec-9.1"><span class="n">9.1</span> Verificação do Modelo Amostral</a></li><li class="nivel-3"><a href="#subsec-9.1.1"><span class="n">9.1.1</span> Gráficos de Resíduos e de Probabilidade</a></li><li class="nivel-3"><a href="#subsec-9.1.2"><span class="n">9.1.2</span> O Teste Qui-quadrado de Aderência</a></li><li class="nivel-3"><a href="#subsec-9.1.3"><span class="n">9.1.3</span> Predição e Validação Cruzada</a></li><li class="nivel-3"><a href="#subsec-9.1.4"><span class="n">9.1.4</span> O Que Fazemos Quando um Modelo Falha?</a></li><li class="nivel-2"><a href="#sec-9.2"><span class="n">9.2</span> Verificação de Conflito entre a Priori e Dados</a></li><li class="nivel-2"><a href="#sec-9.3"><span class="n">9.3</span> O Problema das Verificações Múltiplas</a></li></ol></nav>
+<div class="ajustes" id="ajustes" hidden></div>
+<main class="corpo">
+<h1 id="cap-9"><span class="n">Capítulo 9</span><span class="t">Verificação de Modelos</span></h1>
+<section class="esboco"><h4>Esboço do capítulo</h4><ul><li><strong>Seção 1</strong> Verificação do Modelo Amostral</li>
+<li><strong>Seção 2</strong> Verificação de Conflito entre a Priori e Dados</li>
+<li><strong>Seção 3</strong> O Problema das Verificações Múltiplas</li></ul></section>
+<p>Os métodos de inferência estatística desenvolvidos nos Capítulos 6 a 8
+dependem todos de várias suposições. Por exemplo, no Capítulo 6 supusemos que os
+dados \(s\) foram gerados por uma distribuição do modelo estatístico
+\(\{P_\theta : \theta \in \Omega\}\). No Capítulo 7, supusemos também que nossa
+incerteza sobre o verdadeiro valor do parâmetro \(\theta\) do modelo podia ser
+descrita por uma distribuição de probabilidade a priori<sup class="nota-ref nota-termo"><a href="#nota-1" id="ref-1">1</a></sup> \(\Pi\). Assim, quaisquer
+inferências obtidas têm validade questionável se essas suposições não fizerem
+sentido numa aplicação particular.</p>
+<p>De fato, toda metodologia estatística se baseia em suposições ou escolhas feitas
+pelo analista estatístico, e elas precisam ser verificadas se quisermos ter
+confiança de que nossas inferências são relevantes. Chamamos o processo de
+verificar essas suposições de <em>verificação de modelos<sup class="nota-ref nota-termo"><a href="#nota-2" id="ref-2">2</a></sup></em>, o tema deste
+capítulo. Obviamente, isso tem enorme importância nas aplicações da estatística,
+e a boa prática estatística exige que se faça uma verificação de modelos eficaz.
+Os métodos vão desde métodos gráficos bastante informais até avaliações de
+hipóteses mais elaboradas, e discutiremos vários deles.</p>
+<h2 id="sec-9.1"><span class="n">9.1</span> <span class="t">Verificação do Modelo Amostral</span></h2>
+<p>Os métodos de inferência baseados em frequência começam com um modelo estatístico
+\(\{f_\theta : \theta \in \Omega\}\) para a verdadeira distribuição que gerou os
+dados \(s\). Isso significa que estamos supondo que a verdadeira distribuição dos
+dados observados está nesse conjunto. Se essa suposição não for verdadeira, então
+parece razoável questionar a relevância de quaisquer inferências que façamos
+depois sobre \(\theta\).</p>
+<p>Exceto em circunstâncias relativamente raras, nunca podemos saber de modo
+categórico que um modelo está correto. O máximo que podemos esperar é conseguir
+avaliar se os dados observados \(s\) poderiam plausivelmente ter surgido do modelo.</p>
+<p>Se os dados observados forem surpreendentes para cada distribuição do modelo,
+então temos evidência de que o modelo está incorreto. Isso nos leva a pensar em
+calcular um valor-p para verificar se o modelo está correto. É claro que, nessa
+situação, a hipótese nula<sup class="nota-ref nota-termo"><a href="#nota-3" id="ref-3">3</a></sup> é que o modelo está correto; a alternativa é que o
+modelo poderia ser qualquer um dos outros modelos possíveis para o tipo de dados
+com que estamos lidando.</p>
+<p>Recordemos agora nossa discussão sobre valores-p no Capítulo 6, onde distinguimos
+entre significância prática e significância estatística. Observou-se que, embora
+um valor-p possa indicar que uma hipótese nula é falsa, em termos práticos o
+desvio em relação à hipótese nula pode ser tão pequeno que não tem importância
+para a aplicação. Quando o tamanho da amostra<sup class="nota-ref nota-termo"><a href="#nota-4" id="ref-4">4</a></sup> fica grande, é inevitável que
+qualquer abordagem razoável por meio de valores-p detecte esse desvio e indique
+que a hipótese nula é falsa. Isso também vale quando fazemos a verificação de
+modelos usando valores-p. A solução é estimar, de alguma forma, o tamanho do
+desvio do modelo em relação ao modelo correto e, assim, determinar se o modelo
+será ou não adequado para a aplicação. Mesmo que no fim aceitemos usar o modelo,
+ainda assim é valioso saber que detectamos evidência de que o modelo está
+incorreto, quando for esse o caso.</p>
+<p>Uma abordagem de verificação de modelos por valor-p consiste em especificar uma
+<em>estatística de discrepância<sup class="nota-ref nota-termo"><a href="#nota-5" id="ref-5">5</a></sup></em> \(D : S \to R^1\) que mede os desvios em relação
+ao modelo em consideração. Tipicamente, valores grandes de \(D\) devem indicar que
+ocorreu um desvio. O valor efetivo \(D(s)\), é claro, não é necessariamente uma
+indicação disso. A questão relevante é se o valor observado \(D(s)\) é ou não
+surpreendente sob a suposição de que o modelo está correto. Portanto, precisamos
+avaliar se \(D(s)\) está ou não numa região de baixa probabilidade para a
+distribuição dessa quantidade quando o modelo está correto. Por exemplo,
+considere a densidade de uma possível estatística \(D\) desenhada na Figura 9.1.1.
+Aqui, um valor \(D(s)\) na cauda esquerda (perto de 0), na cauda direita (além
+de 15) ou entre as duas modas (no intervalo de cerca de 7 a 9) indicaria, em
+qualquer dos casos, que o modelo está incorreto, porque esses valores têm baixa
+probabilidade de ocorrer quando o modelo está correto.</p>
+<figure class="figura">
+<img class="figura" src="figuras/fig-9.1.1.png" alt="">
+<figcaption id="figura-9.1.1"><span class="rot">Figura 9.1.1:</span> Gráfico de uma densidade de uma estatística de discrepância \(D\).</figcaption>
+</figure>
+<p>A discussão acima impõe a restrição de que, quando o modelo está correto, \(D\)
+tenha uma única distribuição, isto é, a distribuição não pode depender de
+\(\theta\). Para muitas estatísticas de discrepância de uso comum, essa
+distribuição é unimodal. Um valor na cauda direita indica então uma falta de
+ajuste, ou <em>subajuste<sup class="nota-ref nota-termo"><a href="#nota-6" id="ref-6">6</a></sup></em>, do modelo (as discrepâncias são anormalmente
+grandes); um valor na cauda esquerda indica então <em>sobreajuste<sup class="nota-ref nota-termo"><a href="#nota-7" id="ref-7">7</a></sup></em> do modelo
+(as discrepâncias são anormalmente pequenas).</p>
+<p>Há dois métodos gerais disponíveis para obter uma única distribuição para o
+cálculo de valores-p. Um dos métodos exige que \(D\) seja ancilar.</p>
+<div class="def definicao" id="definicao-9.1.1"><div class="cab"><span class="rot">Definição 9.1.1</span></div><div class="txt"><p>Uma estatística \(D\) cuja distribuição sob o modelo não depende de \(\theta\) é
+chamada <em>ancilar</em>, isto é, se \(s \sim P_\theta\), então \(D(s)\) tem a mesma
+distribuição para todo \(\theta \in \Omega\).</p></div></div>
+<p>Se \(D\) é ancilar, então ela tem uma única distribuição especificada pelo modelo.
+Se \(D(s)\) é um valor surpreendente para essa distribuição, então temos evidência
+contra a veracidade do modelo.</p>
+<p>Não é verdade que qualquer \(D\) ancilar sirva como estatística de discrepância
+útil. Por exemplo, se \(D\) é uma constante, então ela é ancilar, mas obviamente
+não é útil para verificar o modelo. Portanto, precisamos ter cuidado ao escolher
+\(D\).</p>
+<p>Muitas vezes conseguimos encontrar estatísticas ancilares úteis para um modelo
+olhando para os <em>resíduos</em>. Em termos gerais, os resíduos se baseiam na
+informação dos dados que sobra depois de ajustarmos o modelo. Se usamos toda a
+informação relevante dos dados para o ajuste, então os resíduos não devem conter
+nenhuma informação útil para a inferência sobre o parâmetro \(\theta\). O
+Exemplo 9.1.1 vai ilustrar com mais clareza o que entendemos por resíduos. Os
+resíduos têm um papel importante na verificação de modelos.</p>
+<p>O segundo método funciona com qualquer estatística de discrepância \(D\). Para
+isso, usamos a distribuição condicional<sup class="nota-ref nota-termo"><a href="#nota-8" id="ref-8">8</a></sup> de \(D\) dado o valor de uma estatística
+suficiente<sup class="nota-ref nota-termo"><a href="#nota-9" id="ref-9">9</a></sup> \(T\). Pelo Teorema 8.1.2, essa distribuição condicional é a mesma para
+todo valor de \(\theta\). Se \(D(s)\) é um valor surpreendente para essa
+distribuição, então temos evidência contra a veracidade do modelo.</p>
+<p>Às vezes as duas abordagens que acabamos de descrever concordam, mas nem sempre.
+Considere alguns exemplos.</p>
+<div class="ex" id="exemplo-9.1.1"><div class="cab"><span class="rot">Exemplo 9.1.1</span> <span class="nome">Normal de Locação</span></div><div class="txt fim"><p>Vamos supor que \((x_1, \ldots, x_n)\) é uma amostra de uma distribuição
+\(N(\mu, \sigma_0^2)\), em que \(\mu \in R^1\) é desconhecido e \(\sigma_0^2\) é
+conhecido. Sabemos que \(\bar{x}\) é uma estatística suficiente minimal<sup class="nota-ref nota-termo"><a href="#nota-10" id="ref-10">10</a></sup> para esse
+problema (ver Exemplo 6.1.7). Além disso, \(\bar{x}\) representa o ajuste do
+modelo aos dados, já que é a estimativa<sup class="nota-ref nota-termo"><a href="#nota-11" id="ref-11">11</a></sup> do valor desconhecido do parâmetro
+\(\mu\).</p>
+<p>Agora considere
+<span class="eq">\[
+  r = r(x_1, \ldots, x_n) = (r_1, \ldots, r_n) = (x_1 - \bar{x}, \ldots, x_n - \bar{x})
+\]</span>
+como uma definição possível do resíduo. Observe que podemos reconstruir os dados
+originais a partir dos valores de \(\bar{x}\) e \(r\).</p>
+<p>Acontece que \(R = (X_1 - \bar{X}, \ldots, X_n - \bar{X})\) tem uma distribuição
+que não depende de \(\mu\), com \(E(R_i) = 0\) e
+<span class="mat-quebravel">\(\Cov(R_i, R_j)\) \({}= \sigma_0^2(\delta_{ij} - 1/n)\)</span> para todos \(i, j\)
+(\(\delta_{ij} = 1\) quando \(i = j\) e \(0\) caso contrário). Além disso, \(R\) é
+independente de \(\bar{X}\) e \(R_i \sim N(0, \sigma_0^2(1 - 1/n))\) (ver Problemas
+9.1.19 e 9.1.20).</p>
+<p>Assim, temos que \(r\) é ancilar, e também o é qualquer estatística de
+discrepância \(D\) que dependa dos dados apenas por meio de \(r\). Além disso, a
+distribuição condicional de \(D(R)\) dado \(\bar{X} = \bar{x}\) é igual à
+distribuição marginal<sup class="nota-ref nota-termo"><a href="#nota-12" id="ref-12">12</a></sup> de \(D(R)\), porque elas são independentes. Portanto, as duas
+abordagens para obter um valor-p concordam aqui, sempre que a estatística de
+discrepância depender dos dados apenas por meio de \(r\).</p>
+<p>Pelo Teorema 4.6.6, temos que
+<span class="eq">\[
+  D(R) = \frac{1}{\sigma_0^2}\sum_{i=1}^{n} R_i^2
+       = \frac{1}{\sigma_0^2}\sum_{i=1}^{n} \bigl(X_i - \bar{X}\bigr)^2
+\]</span>
+tem distribuição \(\chi^2(n - 1)\); logo, essa é uma estatística de discrepância
+possível. Portanto, o valor-p
+<span class="eq">\begin{equation}
+  P(D &gt; D(r)),
+  \tag{9.1.1}
+\end{equation}</span>
+em que \(D \sim \chi^2(n - 1)\), fornece uma avaliação de se o modelo está ou não
+correto.</p>
+<p>Observe que valores de (9.1.1) perto de 0 ou perto de 1 são ambos evidência
+contra o modelo, já que ambos indicam que \(D(r)\) está numa região de baixa
+probabilidade quando se supõe que o modelo está correto. Um valor perto de 0
+indica que \(D(r)\) está na cauda direita, enquanto um valor perto de 1 indica que
+\(D(r)\) está na cauda esquerda.</p>
+<p>A necessidade de examinar a cauda esquerda da distribuição de \(D(r)\), além da
+direita, se vê da seguinte forma. Considere a situação em que, na verdade,
+estamos amostrando de uma distribuição \(N(\mu, \sigma^2)\) em que \(\sigma^2\) é
+muito menor que \(\sigma_0^2\). Nesse caso, esperamos que \(D(r)\) seja um valor na
+cauda esquerda, porque \(E(D(R)) = (n - 1)\sigma^2/\sigma_0^2\).</p>
+<p>Há obviamente muitas outras escolhas possíveis para a estatística \(D\).
+Atualmente, não existe uma teoria que prescreva uma escolha em vez de outra. Uma
+ressalva deve ser feita, porém. A escolha de uma estatística \(D\) não pode se
+basear em olhar os dados primeiro. Fazer isso invalida o cálculo do valor-p
+descrito acima, pois teríamos então de condicionar à característica dos dados
+que nos levou a escolher aquela \(D\) em particular.</p></div></div>
+<div class="ex" id="exemplo-9.1.2"><div class="cab"><span class="rot">Exemplo 9.1.2</span> <span class="nome">Normal de Locação-Escala</span></div><div class="txt fim"><p>Vamos supor que \((x_1, \ldots, x_n)\) é uma amostra de uma distribuição
+\(N(\mu, \sigma^2)\), em que \((\mu, \sigma^2) \in R^1 \times (0, \infty)\) é
+desconhecido. Sabemos que \((\bar{x}, s^2)\) é uma estatística suficiente minimal
+para esse modelo (Exemplo 6.1.8). Considere
+<span class="eq">\[
+  r = r(x_1, \ldots, x_n) = (r_1, \ldots, r_n)
+    = \left(\frac{x_1 - \bar{x}}{s}, \ldots, \frac{x_n - \bar{x}}{s}\right)
+\]</span>
+como uma definição possível do resíduo. Observe que podemos reconstruir os dados
+a partir dos valores de \((\bar{x}, s^2)\) e \(r\).</p>
+<p>Acontece que \(R\) tem uma distribuição que não depende de \((\mu, \sigma^2)\) (e,
+portanto, é ancilar — ver Desafio 9.1.28), além de ser independente de
+\((\bar{X}, S^2)\). Assim, mais uma vez, as duas abordagens para obter um valor-p
+concordam aqui, desde que a estatística de discrepância dependa dos dados apenas
+por meio de \(r\).</p>
+<p>Uma estatística de discrepância possível é dada por
+<span class="eq">\[
+  D(r) = -\frac{1}{n}\sum_{i=1}^{n} \ln\!\left(\frac{r_i^2}{n - 1}\right).
+\]</span>
+Para usar essa estatística na verificação do modelo<sup class="nota-ref nota-termo"><a href="#nota-13" id="ref-13">13</a></sup>, precisamos obter sua
+distribuição quando o modelo está correto. Depois, comparamos o valor observado
+\(D(r)\) com essa distribuição, para ver se ele é surpreendente.</p>
+<p>Podemos fazer isso por simulação. Como a distribuição de \(D(R)\) não depende de
+\((\mu, \sigma^2)\), podemos gerar \(N\) amostras de tamanho \(n\) da distribuição
+\(N(0, 1)\) (ou de qualquer outra distribuição normal) e calcular \(D(R)\) para cada
+amostra. Depois, olhamos para histogramas dos valores simulados para ver se
+\(D(r)\), da amostra original, é um valor surpreendente, isto é, se está numa região
+de baixa probabilidade, como uma cauda esquerda ou direita.</p>
+<p>Por exemplo, suponha que observamos a amostra</p>
+<div class="centro"><div class="tbl"><table><tr><th>\(-2{,}08\)</th><th>\(-0{,}28\)</th><th>\(2{,}01\)</th><th>\(-1{,}37\)</th><th>\(40{,}08\)</th></tr></table></div></div>
+<p>obtendo o valor \(D(r) = 4{,}93\). Então, simulando \(10^4\) valores da distribuição
+de \(D\), sob a suposição de que o modelo está correto, obtivemos o histograma de
+densidade dado na Figura 9.1.2. Veja o Apêndice B para um código usado nessa
+simulação. O valor \(D(r) = 4{,}93\) está bem na cauda direita e, portanto, indica
+que a amostra não vem de uma distribuição normal. De fato, apenas \(0{,}0057\) dos
+valores simulados são maiores, de modo que essa é uma evidência clara contra a
+veracidade do modelo.</p>
+<div class="centro"><p><img class="figura" src="figuras/fig-9.1.2.png" alt="">
+<figcaption id="figura-9.1.2"><span class="rot">Figura 9.1.2:</span> Um histograma de densidade de uma simulação de \(10^4\) valores de
+\(D\) no Exemplo 9.1.2.</figcaption></p></div>
+<p>Obviamente, há outras funções possíveis de \(r\) que poderíamos usar aqui para
+verificar o modelo. Em particular,
+<span class="mat-quebravel">\(D_{\text{assim}}(r)\) \({}= (n - 1)^{-3/2}\sum_{i=1}^{n} r_i^3\)</span>, a
+<em>estatística de assimetria<sup class="nota-ref nota-termo"><a href="#nota-14" id="ref-14">14</a></sup></em>, e
+<span class="mat-quebravel">\(D_{\text{curtose}}(r)\) \({}= (n - 1)^{-2}\sum_{i=1}^{n} r_i^4\)</span>, a
+<em>estatística de curtose</em>, são de uso comum. A estatística de assimetria mede
+a simetria dos dados, enquanto a estatística de curtose mede o “grau de pico” dos
+dados. Como acabamos de descrever, podemos simular a distribuição dessas
+estatísticas sob a suposição de normalidade e depois comparar os valores
+observados com essas distribuições para ver se temos alguma evidência contra o
+modelo (ver Problema Computacional 9.1.27).</p></div></div>
+<p>Os exemplos a seguir apresentam contextos em que as duas abordagens para calcular
+um valor-p na verificação de modelos não coincidem.</p>
+<div class="ex" id="exemplo-9.1.3"><div class="cab"><span class="rot">Exemplo 9.1.3</span> <span class="nome">Cauchy de Locação-Escala</span></div><div class="txt fim"><p>Vamos supor que \((x_1, \ldots, x_n)\) é uma amostra da distribuição dada
+por \(\mu + \sigma Z\), em que \(Z \sim t(1)\) e
+\((\mu, \sigma^2) \in R^1 \times (0, \infty)\) é desconhecido. Desta vez,
+\((\bar{x}, s^2)\) não é uma estatística suficiente minimal, mas a estatística \(r\)
+definida no Exemplo 9.1.2 continua sendo ancilar (Desafio 9.1.28). Podemos
+novamente simular valores da distribuição de \(R\) (basta gerar amostras da
+distribuição \(t(1)\) e calcular \(r\) para cada amostra) para estimar valores-p de
+qualquer estatística de discrepância, como as estatísticas \(D(r)\) discutidas no
+Exemplo 9.1.2.</p></div></div>
+<div class="ex" id="exemplo-9.1.4"><div class="cab"><span class="rot">Exemplo 9.1.4</span> <span class="nome">Teste Exato de Fisher</span></div><div class="txt fim"><p>Suponha que tomamos uma amostra de \(n\) indivíduos de uma população de estudantes
+e observamos os valores \((a_1, b_1), \ldots, (a_n, b_n)\), em que \(a_i\) é o sexo
+(\(A = 1\) indica masculino, \(A = 2\) indica feminino) e \(b_i\) é uma variável
+categórica para a situação de emprego em tempo parcial (\(B = 1\) indica empregado,
+\(B = 2\) indica desempregado). Assim, cada indivíduo é classificado em uma de
+quatro categorias, a saber,
+<span class="eq">\begin{align*}
+  &amp;\text{Categoria 1, quando } A = 1,\ B = 1,\\
+  &amp;\text{Categoria 2, quando } A = 1,\ B = 2,\\
+  &amp;\text{Categoria 3, quando } A = 2,\ B = 1,\\
+  &amp;\text{Categoria 4, quando } A = 2,\ B = 2.
+\end{align*}</span></p>
+<p>Suponha que nosso modelo para essa situação seja que \(A\) e \(B\) são independentes
+com \(P(A = 1) = \alpha_1\), \(P(B = 1) = \beta_1\), em que \(\alpha_1 \in [0, 1]\) e
+\(\beta_1 \in [0, 1]\) são completamente desconhecidos. Então, denotando por
+\(X_{ij}\) a contagem da categoria em que \(A = i\), \(B = j\), o Exemplo 2.8.5 dá que
+<span class="eq">\[
+  (X_{11}, X_{12}, X_{21}, X_{22}) \sim
+  \text{Multinomial}(n, \alpha_1\beta_1, \alpha_1\beta_2, \alpha_2\beta_1, \alpha_2\beta_2).
+\]</span>
+Como veremos no Capítulo 10, esse modelo equivale a dizer que não há relação
+entre sexo e situação de emprego.</p>
+<p>Denotando as contagens observadas nas caselas por
+\((x_{11}, x_{12}, x_{21}, x_{22})\), a função de verossimilhança<sup class="nota-ref nota-termo"><a href="#nota-15" id="ref-15">15</a></sup> é dada por
+<span class="eq">\begin{align*}
+  &amp;(\alpha_1\beta_1)^{x_{11}}(\alpha_1\beta_2)^{x_{12}}(\alpha_2\beta_1)^{x_{21}}(\alpha_2\beta_2)^{x_{22}}\\
+  &amp;= \alpha_1^{x_{11}+x_{12}}(1 - \alpha_1)^{n - x_{11} - x_{12}}\,
+     \beta_1^{x_{11}+x_{21}}(1 - \beta_1)^{n - x_{11} - x_{21}}\\
+  &amp;= \alpha_1^{x_{1\cdot}}(1 - \alpha_1)^{n - x_{1\cdot}}\,
+     \beta_1^{x_{\cdot 1}}(1 - \beta_1)^{n - x_{\cdot 1}},
+\end{align*}</span>
+em que <span class="mat-quebravel">\((x_{1\cdot}, x_{\cdot 1})\) \({}= (x_{11} + x_{12}, x_{11} + x_{21})\)</span>. Portanto,
+o EMV (Problema 9.1.14) é dado por
+<span class="eq">\[
+  (\hat{\alpha}_1, \hat{\beta}_1) = \left(\frac{x_{1\cdot}}{n}, \frac{x_{\cdot 1}}{n}\right).
+\]</span>
+Observe que \(\hat{\alpha}_1\) é a proporção de homens na amostra e \(\hat{\beta}_1\)
+é a proporção de todos os empregados na amostra. Como \((x_{1\cdot}, x_{\cdot 1})\)
+determina a função de verossimilhança e pode ser calculado a partir dela, temos
+que \((x_{1\cdot}, x_{\cdot 1})\) é uma estatística suficiente minimal.</p>
+<p>Neste exemplo, uma definição natural de resíduo não parece evidente. Por isso,
+consideramos a distribuição condicional dos dados, dada a estatística suficiente
+minimal. A distribuição condicional da amostra \((A_1, B_1), \ldots, (A_n, B_n)\),
+dados os valores \((x_{1\cdot}, x_{\cdot 1})\), é a distribuição uniforme<sup class="nota-ref nota-termo"><a href="#nota-16" id="ref-16">16</a></sup> no
+conjunto de todas as amostras em que as restrições
+<span class="eq">\begin{equation}
+  \begin{aligned}
+    x_{11} + x_{12} &amp;= x_{1\cdot},\\
+    x_{11} + x_{21} &amp;= x_{\cdot 1},\\
+    x_{11} + x_{12} + x_{21} + x_{22} &amp;= n
+  \end{aligned}
+  \tag{9.1.2}
+\end{equation}</span>
+são satisfeitas. Observe que, dados \((x_{1\cdot}, x_{\cdot 1})\), todos os outros
+valores em (9.1.2) ficam determinados quando especificamos um valor para
+\(x_{11}\).</p>
+<p>Pode-se mostrar que o número dessas amostras é igual a (ver Problema 9.1.21)
+<span class="eq">\[
+  \binom{n}{x_{1\cdot}}\binom{n}{x_{\cdot 1}}.
+\]</span>
+Agora, o número de amostras com valores prescritos para \(x_{1\cdot}\),
+\(x_{\cdot 1}\) e \(x_{11} = i\) é dado por
+<span class="eq">\[
+  \binom{n}{x_{1\cdot}}\binom{x_{1\cdot}}{i}\binom{n - x_{1\cdot}}{x_{\cdot 1} - i}.
+\]</span>
+Portanto, a função de probabilidade condicional<sup class="nota-ref nota-termo"><a href="#nota-17" id="ref-17">17</a></sup> de \(x_{11}\), dados
+\((x_{1\cdot}, x_{\cdot 1})\), é
+<span class="eq">\[
+  P(x_{11} = i \mid x_{1\cdot}, x_{\cdot 1})
+  = \frac{\binom{n}{x_{1\cdot}}\binom{x_{1\cdot}}{i}\binom{n - x_{1\cdot}}{x_{\cdot 1} - i}}
+         {\binom{n}{x_{1\cdot}}\binom{n}{x_{\cdot 1}}}
+  = \frac{\binom{x_{1\cdot}}{i}\binom{n - x_{1\cdot}}{x_{\cdot 1} - i}}{\binom{n}{x_{\cdot 1}}}.
+\]</span>
+Essa é a função de probabilidade<sup class="nota-ref nota-termo"><a href="#nota-18" id="ref-18">18</a></sup> Hipergeométrica\((n, x_{\cdot 1}, x_{1\cdot})\).</p>
+<p>Assim, temos evidência contra o modelo sempre que \(x_{11}\) estiver bem nas caudas
+dessa distribuição. Avaliar isso exige uma tabela dessa distribuição ou o uso de
+um pacote estatístico que tenha a função de distribuição hipergeométrica
+embutida.</p>
+<p>Como exemplo numérico simples, suponha que tomamos uma amostra de \(n = 20\)
+estudantes, obtendo \(x_{\cdot 1} = 12\) desempregados, \(x_{1\cdot} = 6\) homens e
+\(x_{11} = 2\) homens empregados. Então, a função de probabilidade
+Hipergeométrica\((20, 12, 6)\) é dada pela tabela a seguir.</p>
+<div class="centro"><div class="tbl"><table><tr><th>\(i\)</th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th></tr><tr><td>\(p(i)\)</td><td>\(0{,}001\)</td><td>\(0{,}017\)</td><td>\(0{,}119\)</td><td>\(0{,}318\)</td><td>\(0{,}358\)</td><td>\(0{,}163\)</td><td>\(0{,}024\)</td></tr></table></div></div>
+<p>A probabilidade de obter um valor tão longe nas caudas quanto \(x_{11} = 2\), ou
+mais longe, é igual à probabilidade de observar um valor de \(x_{11}\) com
+probabilidade de ocorrência tão pequena quanto a de \(x_{11} = 2\), ou menor. Esse
+valor-p é igual a
+<span class="eq">\[
+  (0{,}119 + 0{,}017 + 0{,}001) + 0{,}024 = 0{,}161.
+\]</span>
+Portanto, não temos evidência contra o modelo de independência entre \(A\) e \(B\).
+É claro que o tamanho da amostra aqui é bem pequeno.</p>
+<p>Há outra abordagem para testar a independência de \(A\) e \(B\) aqui. Em particular,
+poderíamos supor apenas a independência da amostra inicial, sem classificação, e
+então sempre temos
+<span class="eq">\[
+  (X_{11}, X_{12}, X_{21}, X_{22}) \sim
+  \text{Multinomial}(n, \alpha_{11}, \alpha_{12}, \alpha_{21}, \alpha_{22}),
+\]</span>
+em que os \(\alpha_{ij}\) formam uma distribuição de probabilidade desconhecida.
+Dado esse modelo, poderíamos então testar a independência de \(A\) e \(B\).
+Discutiremos isso na Seção 10.2.</p></div></div>
+<p>Outra abordagem para a verificação de modelos procede da seguinte forma.
+Ampliamos o modelo para incluir mais distribuições e então testamos a hipótese
+nula de que o verdadeiro modelo é o submodelo com que começamos. Se pudermos
+aplicar os métodos da Seção 8.2 para chegar a um teste uniformemente mais
+poderoso<sup class="nota-ref nota-termo"><a href="#nota-19" id="ref-19">19</a></sup> (UMP) dessa hipótese nula, então teremos uma verificação de desvios em
+relação ao modelo de interesse — pelo menos dos desvios expressos pelas
+alternativas possíveis no modelo ampliado. Se o modelo passar nessa verificação,
+porém, ainda precisamos verificar a validade do modelo ampliado. Isso pode ser
+visto como uma técnica para gerar estatísticas de discrepância \(D\) relevantes.</p>
+<h3 id="subsec-9.1.1"><span class="n">9.1.1</span> <span class="t">Gráficos de Resíduos e de Probabilidade</span></h3>
+<p>Há outra abordagem, mais informal, para verificar se o modelo está correto, que
+é frequentemente usada quando temos resíduos disponíveis. Esses métodos envolvem
+vários gráficos dos resíduos, que devem exibir características específicas se o
+modelo estiver correto. Embora essa abordagem não tenha o rigor da abordagem por
+valor-p, ela é boa para mostrar desvios grosseiros das suposições do modelo.
+Ilustramos isso com alguns exemplos.</p>
+<div class="ex" id="exemplo-9.1.5"><div class="cab"><span class="rot">Exemplo 9.1.5</span> <span class="nome">Modelos Normais de Locação e de Locação-Escala</span></div><div class="txt fim"><p>Usando os resíduos do modelo normal de locação<sup class="nota-ref nota-termo"><a href="#nota-20" id="ref-20">20</a></sup> discutido no Exemplo 9.1.1, temos
+que \(E(R_i) = 0\) e \(\Var(R_i) = \sigma_0^2(1 - 1/n)\). Padronizamos
+esses valores para que eles também tenham variância<sup class="nota-ref nota-termo"><a href="#nota-21" id="ref-21">21</a></sup> 1 e assim obtemos os
+resíduos padronizados \((r_1^*, \ldots, r_n^*)\) dados por
+<span class="eq">\begin{equation}
+  r_i^* = \sqrt{\frac{n}{\sigma_0^2(n - 1)}}\,(x_i - \bar{x}).
+  \tag{9.1.3}
+\end{equation}</span>
+Os resíduos padronizados têm distribuição \(N(0, 1)\) e, supondo que \(n\) seja
+razoavelmente grande, pode-se mostrar que eles são aproximadamente
+independentes. Assim, podemos pensar em \(r_1^*, \ldots, r_n^*\) como uma amostra
+aproximada da distribuição \(N(0, 1)\).</p>
+<p>Portanto, um gráfico dos pontos \((i, r_i^*)\) não deve exibir nenhum padrão
+discernível. Além disso, todos os valores na direção \(y\) devem estar em
+\((-3, 3)\), a não ser, é claro, que \(n\) seja muito grande, caso em que podemos
+esperar alguns valores fora desse intervalo. Um padrão discernível, ou vários
+valores extremos, pode ser tomado como alguma evidência de que a suposição do
+modelo não está correta. Tenha sempre em mente, porém, que qualquer padrão
+observado poderia ter surgido simplesmente da variabilidade amostral quando o
+verdadeiro modelo está correto. Simular alguns desses gráficos de resíduos (basta
+gerar várias amostras de tamanho \(n\) da distribuição \(N(0, 1)\) e obter um gráfico
+de resíduos para cada amostra) nos dará uma ideia de se o padrão observado é ou
+não incomum.</p>
+<p>A Figura 9.1.3 mostra um gráfico dos resíduos padronizados (9.1.3) para uma
+amostra de 100 da distribuição \(N(0, 1)\). A Figura 9.1.4 mostra um gráfico dos
+resíduos padronizados para uma amostra de 100 da distribuição dada por
+\(3^{-1/2}Z\), em que \(Z \sim t(3)\). Observe que uma distribuição \(t(3)\) tem média
+0 e variância igual a 3, de modo que \(\Var(3^{-1/2}Z) = 1\)
+(Problema 4.6.16). A Figura 9.1.5 mostra os resíduos padronizados para uma
+amostra de 100 de uma distribuição Exponencial\((1)\).</p>
+<div class="centro"><p><img class="figura" src="figuras/fig-9.1.3.png" alt="">
+<figcaption id="figura-9.1.3"><span class="rot">Figura 9.1.3:</span> Um gráfico dos resíduos padronizados para uma amostra de 100 de
+uma distribuição \(N(0, 1)\).</figcaption></p></div>
+<div class="centro"><p><img class="figura" src="figuras/fig-9.1.4.png" alt="">
+<figcaption id="figura-9.1.4"><span class="rot">Figura 9.1.4:</span> Um gráfico dos resíduos padronizados para uma amostra de 100 de
+\(X = 3^{-1/2}Z\), em que \(Z \sim t(3)\).</figcaption></p></div>
+<div class="centro"><p><img class="figura" src="figuras/fig-9.1.5.png" alt="">
+<figcaption id="figura-9.1.5"><span class="rot">Figura 9.1.5:</span> Um gráfico dos resíduos padronizados para uma amostra de 100 de
+uma distribuição Exponencial\((1)\).</figcaption></p></div>
+<p>Observe que as distribuições dos resíduos padronizados de todas essas amostras
+têm média 0 e variância igual a 1. A diferença entre as Figuras 9.1.3 e 9.1.4 se
+deve ao fato de a distribuição \(t\) ter caudas muito mais longas. Isso se reflete
+no fato de alguns dos resíduos padronizados estarem fora de \((-3, 3)\) na
+Figura 9.1.4, mas não na Figura 9.1.3. Embora as duas distribuições sejam
+bastante diferentes — por exemplo, a distribuição \(N(0, 1)\) tem todos os seus
+momentos, enquanto a distribuição \(3^{-1/2}t(3)\) tem apenas dois momentos —, os
+gráficos dos resíduos padronizados são, fora isso, muito parecidos. A diferença
+entre as Figuras 9.1.3 e 9.1.5 se deve à assimetria da distribuição
+Exponencial\((1)\), que é assimétrica à direita.</p>
+<p>Usando os resíduos do modelo normal de locação-escala discutido no
+Exemplo 9.1.2, definimos os resíduos padronizados \(r_1^*, \ldots, r_n^*\) por
+<span class="eq">\begin{equation}
+  r_i^* = \sqrt{\frac{n}{s^2(n - 1)}}\,(x_i - \bar{x}).
+  \tag{9.1.4}
+\end{equation}</span>
+Aqui, a variância desconhecida é estimada por \(s^2\). Novamente, pode-se mostrar
+que, quando \(n\) é grande, \((r_1^*, \ldots, r_n^*)\) é uma amostra aproximada da
+distribuição \(N(0, 1)\). Assim, fazemos o gráfico dos valores \((i, r_i^*)\) e o
+interpretamos exatamente como descrevemos para o modelo normal de locação.</p></div></div>
+<p>É muito comum, nas aplicações estatísticas, supor alguma forma básica para a
+distribuição dos dados; por exemplo, podemos supor que estamos amostrando de uma
+distribuição normal com alguma média e variância. Para avaliar essa suposição, o
+uso de um <em>gráfico de probabilidade</em> tem se mostrado muito útil.</p>
+<p>Para ilustrar, suponha que \((x_1, \ldots, x_n)\) seja uma amostra de uma
+distribuição \(N(\mu, \sigma^2)\). Então pode-se mostrar que, quando \(n\) é grande,
+a esperança<sup class="nota-ref nota-termo"><a href="#nota-22" id="ref-22">22</a></sup> da \(i\)-ésima estatística de ordem satisfaz
+<span class="eq">\begin{equation}
+  E(X_{(i)}) \approx \mu + \sigma\Phi^{-1}(i/(n + 1)).
+  \tag{9.1.5}
+\end{equation}</span>
+Se o valor \(x_j\) dos dados corresponde à estatística de ordem \(x_{(i)}\) (isto é,
+\(x_{(i)} = x_j\)), então chamamos \(\Phi^{-1}(i/(n + 1))\) de <em>escore normal<sup class="nota-ref nota-termo"><a href="#nota-23" id="ref-23">23</a></sup></em> de
+\(x_j\) na amostra. Então (9.1.5) indica que, se fizermos o gráfico dos pontos
+\((x_{(i)}, \Phi^{-1}(i/(n + 1)))\), eles devem ficar aproximadamente sobre uma reta
+com intercepto \(\mu\) e inclinação \(\sigma\). Chamamos esse gráfico de
+<em>gráfico de probabilidade normal<sup class="nota-ref nota-termo"><a href="#nota-24" id="ref-24">24</a></sup></em> ou <em>gráfico de quantis normais</em>.
+Gráficos semelhantes podem ser obtidos para outras distribuições.</p>
+<div class="ex" id="exemplo-9.1.6"><div class="cab"><span class="rot">Exemplo 9.1.6</span> <span class="nome">Normal de Locação-Escala</span></div><div class="txt fim"><p>Suponha que queremos avaliar se o seguinte conjunto de dados pode ou não ser
+considerado uma amostra de tamanho \(n = 10\) de alguma distribuição normal.</p>
+<div class="centro"><div class="tbl"><table><tr><th>2,00</th><th>0,28</th><th>0,47</th><th>3,33</th><th>1,66</th><th>8,17</th><th>1,18</th><th>4,15</th><th>6,43</th><th>1,77</th></tr></table></div></div>
+<p>As estatísticas de ordem<sup class="nota-ref nota-termo"><a href="#nota-25" id="ref-25">25</a></sup> e os escores normais associados para essa amostra são
+dados na tabela a seguir.</p>
+<div class="centro"><div class="tbl"><table><tr><th>\(i\)</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th></tr><tr><td>\(x_{(i)}\)</td><td>\(0{,}28\)</td><td>\(0{,}47\)</td><td>\(1{,}18\)</td><td>\(1{,}66\)</td><td>\(1{,}77\)</td></tr><tr><td>\(\Phi^{-1}(i/(n + 1))\)</td><td>\(-1{,}34\)</td><td>\(-0{,}91\)</td><td>\(-0{,}61\)</td><td>\(-0{,}35\)</td><td>\(-0{,}12\)</td></tr><tr><td>\(i\)</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td></tr><tr><td>\(x_{(i)}\)</td><td>\(2{,}00\)</td><td>\(3{,}33\)</td><td>\(4{,}15\)</td><td>\(6{,}43\)</td><td>\(8{,}17\)</td></tr><tr><td>\(\Phi^{-1}(i/(n + 1))\)</td><td>\(0{,}11\)</td><td>\(0{,}34\)</td><td>\(0{,}60\)</td><td>\(0{,}90\)</td><td>\(1{,}33\)</td></tr></table></div></div>
+<p>Os valores
+<span class="eq">\[
+  (x_{(i)}, \Phi^{-1}(i/(n + 1)))
+\]</span>
+são então representados na Figura 9.1.6. Há algum desvio claro em relação a uma
+reta aqui, mas observe que é difícil dizer se isso é inesperado numa amostra
+desse tamanho de uma distribuição normal. Novamente, recomenda-se simular algumas
+amostras do mesmo tamanho (digamos, de uma distribuição \(N(0, 1)\)) e olhar seus
+gráficos de probabilidade normal. Neste caso, concluímos que o gráfico da
+Figura 9.1.6 parece razoável.</p></div></div>
+<figure class="figura">
+<img class="figura" src="figuras/tikz-f6948d0b1c77.svg" alt="" style="width: min(100%, 28.3em)">
+<figcaption id="figura-9.1.6"><span class="rot">Figura 9.1.6:</span> Gráfico de probabilidade normal dos dados do Exemplo 9.1.6.</figcaption>
+</figure>
+<p>Veremos no Capítulo 10 que o uso de gráficos de probabilidade normal de resíduos
+padronizados é uma parte importante da verificação de modelos mais complicados.
+Assim, embora eles não sejam realmente necessários aqui, consideramos algumas
+das características desses gráficos ao avaliar se uma amostra vem ou não de um
+modelo normal de locação ou de locação-escala.</p>
+<p>Suponha que \(n\) seja grande, de modo que possamos considerar os resíduos
+padronizados, dados por (9.1.3) ou (9.1.4), como uma amostra aproximada da
+distribuição \(N(0, 1)\). Então, um gráfico de probabilidade normal dos resíduos
+padronizados deve ser aproximadamente linear, com intercepto em \(y\)
+aproximadamente igual a 0 e inclinação aproximadamente igual a 1. Se obtivermos
+um desvio substancial disso, então temos evidência de que o modelo suposto está
+incorreto.</p>
+<p>Na Figura 9.1.7, fizemos um gráfico de probabilidade normal dos resíduos
+padronizados de uma amostra de \(n = 25\) de uma distribuição \(N(0, 1)\). Na
+Figura 9.1.8, fizemos um gráfico de probabilidade normal dos resíduos
+padronizados de uma amostra de \(n = 25\) da distribuição dada por
+\(X = 3^{-1/2}Z\), em que \(Z \sim t(3)\). As duas distribuições têm média 0 e
+variância 1, de modo que a diferença entre os gráficos de probabilidade normal
+se deve a outras diferenças entre as distribuições.</p>
+<figure class="figura">
+<img class="figura" src="figuras/fig-9.1.7.png" alt="">
+<figcaption id="figura-9.1.7"><span class="rot">Figura 9.1.7:</span> Gráfico de probabilidade normal dos resíduos padronizados de uma
+amostra de 25 de uma distribuição \(N(0, 1)\).</figcaption>
+</figure>
+<figure class="figura">
+<img class="figura" src="figuras/fig-9.1.8.png" alt="">
+<figcaption id="figura-9.1.8"><span class="rot">Figura 9.1.8:</span> Gráfico de probabilidade normal dos resíduos padronizados de uma
+amostra de 25 de \(X = 3^{-1/2}Z\), em que \(Z \sim t(3)\).</figcaption>
+</figure>
+<h3 id="subsec-9.1.2"><span class="n">9.1.2</span> <span class="t">O Teste Qui-quadrado de Aderência</span></h3>
+<p>O teste qui-quadrado de aderência<sup class="nota-ref nota-termo"><a href="#nota-26" id="ref-26">26</a></sup> tem um lugar histórico importante em qualquer
+discussão sobre a avaliação da correção de modelos. Usamos esse teste para
+avaliar se uma variável aleatória<sup class="nota-ref nota-termo"><a href="#nota-27" id="ref-27">27</a></sup> categórica \(W\), que assume valores no espaço
+amostral<sup class="nota-ref nota-termo"><a href="#nota-28" id="ref-28">28</a></sup> finito \(\{1, 2, \ldots, k\}\), tem ou não uma medida de probabilidade<sup class="nota-ref nota-termo"><a href="#nota-29" id="ref-29">29</a></sup>
+especificada \(P\), depois de observar uma amostra \((w_1, \ldots, w_n)\). Quando
+temos uma variável aleatória discreta que assume infinitos valores, dividimos os
+valores possíveis em \(k\) categorias e fazemos \(W\) simplesmente indicar qual
+categoria ocorreu. Se temos uma variável aleatória quantitativa, então dividimos
+\(R^1\) em \(k\) subintervalos e fazemos \(W\) indicar em qual intervalo a resposta
+ocorreu. Na prática, queremos verificar se um modelo de probabilidade<sup class="nota-ref nota-termo"><a href="#nota-30" id="ref-30">30</a></sup>
+específico, dado por \(P\), está ou não correto para \(W\), com base numa amostra
+observada.</p>
+<p>Sejam \((X_1, \ldots, X_k)\) as contagens, ou frequências, observadas de
+\(1, \ldots, k\), respectivamente. Se \(P\) está correta, então, pelo
+Exemplo 2.8.5,
+<span class="eq">\[
+  (X_1, \ldots, X_k) \sim \text{Multinomial}(n, p_1, \ldots, p_k),
+\]</span>
+em que \(p_i = P(\{i\})\). Isso implica que \(E(X_i) = np_i\) e
+\(\Var(X_i) = np_i(1 - p_i)\) (lembre que
+\(X_i \sim \text{Binomial}(n, p_i)\)). Disso, deduzimos que
+<span class="eq">\begin{equation}
+  R_i = \frac{X_i - np_i}{\sqrt{np_i(1 - p_i)}} \xrightarrow{D} N(0, 1)
+  \tag{9.1.6}
+\end{equation}</span>
+quando \(n \to \infty\) (ver Exemplo 4.4.9).</p>
+<p>Para \(n\) finito, a distribuição de \(R_i\), quando o modelo está correto, depende
+de \(P\), mas a distribuição limite<sup class="nota-ref nota-termo"><a href="#nota-31" id="ref-31">31</a></sup> não depende. Assim, podemos pensar nos \(R_i\)
+como resíduos padronizados quando \(n\) é grande. Portanto, pareceria que uma
+estatística de discrepância razoável é dada pela soma dos quadrados dos resíduos
+padronizados, com \(\sum_{i=1}^{k} R_i^2\) distribuída aproximadamente como
+\(\chi^2(k)\). No entanto, vale a restrição \(x_1 + \cdots + x_k = n\); logo, os
+\(R_i\) não são independentes, e a distribuição limite não é \(\chi^2(k)\). Temos,
+porém, o seguinte resultado, que fornece uma estatística de discrepância
+semelhante.</p>
+<div class="teo teorema" id="teorema-9.1.1"><div class="cab"><span class="rot">Teorema 9.1.1</span></div><div class="txt"><p>Se \((X_1, \ldots, X_k) \sim \text{Multinomial}(n, p_1, \ldots, p_k)\), então
+<span class="eq">\[
+  X^2 = \sum_{i=1}^{k} (1 - p_i)R_i^2
+      = \sum_{i=1}^{k} \frac{(X_i - np_i)^2}{np_i} \xrightarrow{D} \chi^2(k - 1)
+\]</span>
+quando \(n \to \infty\).</p></div></div>
+<p>A demonstração desse resultado é um pouco complicada demais para este texto;
+veja, por exemplo, o Teorema 17.2 de <em>Asymptotic Statistics</em>, de A. W. van
+der Vaart (Cambridge University Press, Cambridge, 1998), que usaremos aqui.</p>
+<p>Chamamos \(X^2\) de <em>estatística qui-quadrado</em>. O processo de avaliar se o
+modelo está correto calculando o valor-p \(P(X^2 \ge X_0^2)\), em que
+\(X^2 \sim \chi^2(k - 1)\) e \(X_0^2\) é o valor observado da estatística
+qui-quadrado, é chamado <em>teste qui-quadrado de aderência</em>. Valores-p
+pequenos, perto de 0, fornecem evidência de que o modelo de probabilidade está
+incorreto. Valores-p pequenos indicam que alguns dos resíduos são grandes demais.</p>
+<p>Observe que o \(i\)-ésimo termo da estatística qui-quadrado pode ser escrito como
+<span class="eq">\[
+  \frac{(X_i - np_i)^2}{np_i}
+  = \frac{(\text{número na casela $i$} - \text{número esperado na casela $i$})^2}
+         {\text{número esperado na casela $i$}}.
+\]</span>
+Recomenda-se, por exemplo em <em>Statistical Methods</em>, de G. Snedecor e
+W. Cochran (Iowa State Press, 6.<sup>a</sup> ed., Ames, 1967), que se use
+agrupamento (combinação de caselas) para garantir que \(E(X_i) = np_i \ge 1\) para
+todo \(i\), pois simulações mostraram que isso melhora a precisão da aproximação
+do valor-p.</p>
+<p>Consideramos uma aplicação importante.</p>
+<div class="ex" id="exemplo-9.1.7"><div class="cab"><span class="rot">Exemplo 9.1.7</span> <span class="nome">Testando a Precisão de um Gerador de Números Aleatórios</span></div><div class="txt fim"><p>Na prática, toda simulação de Monte Carlo<sup class="nota-ref nota-termo"><a href="#nota-32" id="ref-32">32</a></sup> pode ser vista como um conjunto de
+operações matemáticas aplicadas a uma sequência de números \(U_1, U_2, \ldots\) em
+\([0, 1]\) que deveriam ser i.i.d. Uniforme\([0, 1]\). É claro que eles não podem
+satisfazer essa exigência exatamente, porque são gerados de acordo com alguma
+função determinística. Tipicamente, escolhe-se uma função
+\(f : [0, 1]^m \to [0, 1]\), que é aplicada iterativamente para obter a sequência.
+Assim, selecionamos \(U_1, \ldots, U_m\) como <em>valores-semente</em> iniciais e
+então \(U_{m+1} = f(U_1, \ldots, U_m)\), \(U_{m+2} = f(U_2, \ldots, U_{m+1})\) etc.
+Há muitas possibilidades para \(f\), e muita pesquisa e estudo foram dedicados a
+selecionar funções que produzam sequências que imitem adequadamente as
+propriedades de uma sequência i.i.d. Uniforme\([0, 1]\).</p>
+<p>É claro que é sempre possível que a \(f\) usada num pacote estatístico ou outro
+programa em particular seja muito ruim. Nesse caso, os resultados das simulações
+podem estar grosseiramente errados. Como avaliamos se uma \(f\) em particular é ou
+não boa? Uma abordagem é aplicar uma bateria de testes estatísticos para ver se a
+sequência se comporta como sabemos que uma sequência ideal se comportaria.</p>
+<p>Por exemplo, se a sequência \(U_1, U_2, \ldots\) é i.i.d. Uniforme\([0, 1]\), então
+<span class="eq">\[
+  \lceil 10U_1 \rceil, \lceil 10U_2 \rceil, \ldots
+\]</span>
+é i.i.d. Uniforme\(\{1, 2, \ldots, 10\}\) (\(\lceil x \rceil\) denota o menor inteiro
+maior que \(x\); por exemplo, \(\lceil 3{,}2 \rceil = 4\)).<sup class="nota-ref nota-tradutor"><a href="#nota-33" id="ref-33">33</a></sup> Assim,
+podemos testar a adequação da função \(f\) subjacente gerando \(U_1, \ldots, U_n\)
+para \(n\) grande, fazendo \(x_i = \lceil 10U_i \rceil\) e então aplicando um teste
+qui-quadrado de aderência com as 10 categorias \(\{1, \ldots, 10\}\), cada uma com
+probabilidade de casela igual a \(1/10\).</p>
+<p>Fazer isso com um pacote estatístico popular (com \(n = 10^4\)) deu a seguinte
+tabela de contagens \(x_i\) e resíduos padronizados \(r_i\), como especificados
+em (9.1.6).</p>
+<div class="centro"><div class="tbl"><table><tr><th>\(i\)</th><th>\(x_i\)</th><th colspan="1">\(r_i\)</th></tr><tr><td>1</td><td>993</td><td>\(-0{,}23333\)</td></tr><tr><td>2</td><td>1044</td><td>\(1{,}46667\)</td></tr><tr><td>3</td><td>1061</td><td>\(2{,}03333\)</td></tr><tr><td>4</td><td>1021</td><td>\(0{,}70000\)</td></tr><tr><td>5</td><td>1017</td><td>\(0{,}56667\)</td></tr><tr><td>6</td><td>973</td><td>\(-0{,}90000\)</td></tr><tr><td>7</td><td>975</td><td>\(-0{,}83333\)</td></tr><tr><td>8</td><td>965</td><td>\(-1{,}16667\)</td></tr><tr><td>9</td><td>996</td><td>\(-0{,}13333\)</td></tr><tr><td>10</td><td>955</td><td>\(-1{,}50000\)</td></tr></table></div></div>
+<p>Todos os resíduos padronizados parecem razoáveis como valores possíveis de uma
+distribuição \(N(0, 1)\). Além disso,
+<span class="eq">\begin{align*}
+  X_0^2 &amp;= (1 - 0{,}1)\left\{
+  \begin{aligned}
+    &amp;(-0{,}23333)^2 + (1{,}46667)^2 + (2{,}03333)^2\\
+    &amp;+ (0{,}70000)^2 + (0{,}56667)^2 + (-0{,}90000)^2\\
+    &amp;+ (-0{,}83333)^2 + (-1{,}16667)^2 + (-0{,}13333)^2\\
+    &amp;+ (-1{,}50000)^2
+  \end{aligned}\right\}\\
+  &amp;= 11{,}0560
+\end{align*}</span>
+dá o valor-p \(P(X^2 \ge 11{,}0560) = 0{,}27190\) quando \(X^2 \sim \chi^2(9)\). Isso
+indica que não temos evidência de que o gerador de números aleatórios seja
+defeituoso.</p>
+<p>É claro que a história não termina com um único teste como esse. Muitas outras
+características da sequência devem ser testadas. Por exemplo, poderíamos querer
+investigar as propriedades de independência da sequência e, assim, testar se cada
+combinação possível \((i, j)\) ocorre com probabilidade \(1/100\) etc.</p></div></div>
+<p>De modo mais geral, não teremos uma distribuição de probabilidade prescrita \(P\)
+para \(X\), mas sim um modelo estatístico \(\{P_\theta : \theta \in \Omega\}\), em que
+cada \(P_\theta\) é uma medida de probabilidade no conjunto finito
+\(\{1, 2, \ldots, k\}\). Então, com base na amostra do modelo, temos que
+<span class="eq">\[
+  (X_1, \ldots, X_k) \sim \text{Multinomial}(n, p_1(\theta), \ldots, p_k(\theta)),
+\]</span>
+em que \(p_i(\theta) = P_\theta(\{i\})\).</p>
+<p>Talvez uma maneira natural de avaliar se esse modelo se ajusta ou não aos dados
+seja encontrar o EMV \(\hat{\theta}\) a partir da função de verossimilhança
+<span class="eq">\[
+  L(\theta \mid x_1, \ldots, x_k) = (p_1(\theta))^{x_1} \cdots (p_k(\theta))^{x_k}
+\]</span>
+e então olhar para os resíduos padronizados
+<span class="eq">\[
+  r_i(\hat{\theta}) = \frac{x_i - np_i(\hat{\theta})}
+                           {\sqrt{np_i(\hat{\theta})(1 - p_i(\hat{\theta}))}}.
+\]</span>
+Temos o seguinte resultado, que enunciamos sem demonstração.</p>
+<div class="teo teorema" id="teorema-9.1.2"><div class="cab"><span class="rot">Teorema 9.1.2</span></div><div class="txt"><p>Sob certas condições (semelhantes às discutidas na Seção 6.5), temos que
+\(R_i(\hat{\theta}) \xrightarrow{D} N(0, 1)\) e
+<span class="eq">\[
+  X^2 = \sum_{i=1}^{k} (1 - p_i(\hat{\theta}))R_i^2(\hat{\theta})
+      = \sum_{i=1}^{k} \frac{(X_i - np_i(\hat{\theta}))^2}{np_i(\hat{\theta})}
+      \xrightarrow{D} \chi^2(k - 1 - \dim\Omega)
+\]</span>
+quando \(n \to \infty\).</p></div></div>
+<p>Por \(\dim\Omega\) entendemos a dimensão do conjunto \(\Omega\). Em termos gerais,
+ela é o número mínimo de coordenadas necessárias para especificar um ponto do
+conjunto; por exemplo, uma reta exige uma coordenada (a distância positiva ou
+negativa a partir de um ponto fixo), uma circunferência exige uma coordenada, um
+plano em \(R^3\) exige duas coordenadas etc. É claro que esse resultado implica
+que o número de caselas precisa satisfazer \(k &gt; 1 + \dim\Omega\).</p>
+<p>Considere um exemplo.</p>
+<div class="ex" id="exemplo-9.1.8"><div class="cab"><span class="rot">Exemplo 9.1.8</span> <span class="nome">Testando a Exponencialidade</span></div><div class="txt fim"><p>Suponha que uma amostra de tempos de vida de lâmpadas (medidos em milhares de
+horas) supostamente vem de uma distribuição Exponencial\((\theta)\), em que
+\(\theta \in \Omega = (0, \infty)\) é desconhecido. Aqui, então, \(\dim\Omega = 1\),
+e precisamos de pelo menos duas caselas para o teste qui-quadrado. O fabricante
+espera que a maioria das lâmpadas dure pelo menos 1000 horas, que 50% durem
+menos de 2000 horas e que a maioria tenha queimado até 3000 horas. Assim, com
+base nisso, dividimos o espaço amostral como
+<span class="eq">\[
+  (0, \infty) = (0, 1] \cup (1, 2] \cup (2, 3] \cup (3, \infty).
+\]</span></p>
+<p>Suponha que foi tomada uma amostra de \(n = 30\) lâmpadas e que se obtiveram as
+contagens \(x_1 = 5\), \(x_2 = 16\), \(x_3 = 8\) e \(x_4 = 1\) para os quatro intervalos,
+respectivamente. Então, a função de verossimilhança baseada nessas contagens é
+dada por
+<span class="eq">\[
+  L(\theta \mid x_1, \ldots, x_4 0 = (1 - e^{-\theta})^5(e^{-\theta} - e^{-2\theta})^{16}
+  (e^{-2\theta} - e^{-3\theta})^8(e^{-3\theta})^1,
+\]</span>
+<sup class="nota-ref nota-tradutor"><a href="#nota-34" id="ref-34">34</a></sup>porque,
+por exemplo, a probabilidade de um valor cair em \((1, 2]\) é
+\(e^{-\theta} - e^{-2\theta}\), e temos \(x_2 = 16\) observações nesse intervalo. A
+Figura 9.1.9 é um gráfico da log-verossimilhança<sup class="nota-ref nota-termo"><a href="#nota-35" id="ref-35">35</a></sup>.</p>
+<div class="centro"><p><img class="figura" src="figuras/tikz-c096ef632120.svg" alt="" style="width: min(100%, 30.4em)">
+<figcaption id="figura-9.1.9"><span class="rot">Figura 9.1.9:</span> Gráfico da função de log-verossimilhança do Exemplo 9.1.8.</figcaption></p></div>
+<p>Fazendo sucessivamente o gráfico da verossimilhança<sup class="nota-ref nota-termo"><a href="#nota-36" id="ref-36">36</a></sup> em intervalos cada vez
+menores, determinou-se que o EMV é \(\hat{\theta} = 0{,}603535\). Esse valor leva às
+probabilidades
+<span class="eq">\begin{align*}
+  p_1(\hat{\theta}) &amp;= 1 - e^{-0{,}603535} = 0{,}453125,\\
+  p_2(\hat{\theta}) &amp;= e^{-0{,}603535} - e^{-2(0{,}603535)} = 0{,}247803,\\
+  p_3(\hat{\theta}) &amp;= e^{-2(0{,}603535)} - e^{-3(0{,}603535)} = 0{,}135517,\\
+  p_4(\hat{\theta}) &amp;= e^{-3(0{,}603535)} = 0{,}163555,
+\end{align*}</span>
+aos valores ajustados
+<span class="eq">\begin{align*}
+  30p_1(\hat{\theta}) &amp;= 13{,}59375,\\
+  30p_2(\hat{\theta}) &amp;= 7{,}43409,\\
+  30p_3(\hat{\theta}) &amp;= 4{,}06551,\\
+  30p_4(\hat{\theta}) &amp;= 4{,}90665,
+\end{align*}</span>
+e aos resíduos padronizados
+<span class="eq">\begin{align*}
+  r_1(\hat{\theta}) &amp;= (5 - 13{,}59375)\big/\sqrt{30(0{,}453125)(1 - 0{,}453125)} = -3{,}151875,\\
+  r_2(\hat{\theta}) &amp;= (16 - 7{,}43409)\big/\sqrt{30(0{,}247803)(1 - 0{,}247803)} = 3{,}622378,\\
+  r_3(\hat{\theta}) &amp;= (8 - 4{,}06551)\big/\sqrt{30(0{,}135517)(1 - 0{,}135517)} = 2{,}098711,\\
+  r_4(\hat{\theta}) &amp;= (1 - 4{,}90665)\big/\sqrt{30(0{,}163555)(1 - 0{,}163555)} = -1{,}928382.
+\end{align*}</span>
+Observe que dois dos resíduos padronizados parecem grandes. Por fim, calculamos
+<span class="eq">\begin{align*}
+  X_0^2 &amp;= (1 - 0{,}453125)(-3{,}151875)^2 + (1 - 0{,}247803)(3{,}622378)^2\\
+        &amp;\quad + (1 - 0{,}135517)(2{,}098711)^2 + (1 - 0{,}163555)(-1{,}928382)^2\\
+        &amp;= 22{,}221018
+\end{align*}</span>
+e
+<span class="eq">\[
+  P(X^2 \ge 22{,}221018) = 0{,}0000
+\]</span>
+quando \(X^2 \sim \chi^2(2)\). Portanto, temos forte evidência de que o modelo
+Exponencial\((\theta)\) não está correto para esses dados, e não usaríamos esse
+modelo para fazer inferência sobre \(\theta\).</p>
+<p>Observe que usamos o EMV de \(\theta\) baseado nos dados de contagem, e não na
+amostra original! Se, em vez disso, usássemos o EMV de \(\theta\) baseado na
+amostra original (neste caso, igual a \(\bar{x}\) e muito mais fácil de calcular),
+então o Teorema 9.1.2 deixaria de ser válido.</p></div></div>
+<p>O teste qui-quadrado de aderência é apenas uma das muitas estatísticas de
+discrepância que foram propostas para a verificação de modelos na literatura
+estatística. A abordagem geral é selecionar uma estatística de discrepância \(D\),
+como \(X^2\), tal que a distribuição exata ou assintótica de \(D\) não dependa de
+\(\theta\) e seja conhecida. Calculamos então um valor-p baseado em \(D\). O
+<em>teste de Kolmogorov–Smirnov</em> e o <em>teste de Cramer–von Mises</em> são
+outros exemplos dessas estatísticas de discrepância, mas não os discutimos aqui.</p>
+<h3 id="subsec-9.1.3"><span class="n">9.1.3</span> <span class="t">Predição e Validação Cruzada</span></h3>
+<p>Talvez o teste mais rigoroso a que um modelo ou uma teoria científica pode ser
+submetido seja avaliar quão bem ele prediz dados novos depois de ter sido ajustado
+a um conjunto de dados independente. De fato, essa é uma etapa crucial na aceitação
+de qualquer teoria científica nova desenvolvida empiricamente — para ser aceita,
+ela precisa predizer resultados novos, além dos dados que levaram à sua formulação.</p>
+<p>Se um modelo não faz um bom trabalho ao predizer dados novos, é razoável dizer que
+temos evidência contra a correção do modelo. Se o modelo for simples demais, o
+modelo ajustado vai subajustar os dados observados e também os dados futuros. Se o
+modelo for complicado demais, ele vai sobreajustar os dados originais, e isso será
+detectado quando considerarmos os dados novos à luz desse modelo ajustado.</p>
+<p>Em aplicações estatísticas, em geral não podemos esperar até que dados novos sejam
+gerados para verificar o modelo. Por isso, os estatísticos usam uma técnica chamada
+<em>validação cruzada<sup class="nota-ref nota-termo"><a href="#nota-37" id="ref-37">37</a></sup></em>. Para isso, dividimos um conjunto de dados original
+\(x_1, \ldots, x_n\) em duas partes: o <em>conjunto de treinamento<sup class="nota-ref nota-termo"><a href="#nota-38" id="ref-38">38</a></sup></em> \(T\), formado por
+\(k\) dos valores dos dados e usado para ajustar o modelo; e o <em>conjunto de
+validação<sup class="nota-ref nota-termo"><a href="#nota-39" id="ref-39">39</a></sup></em> \(V\), formado pelos \(n - k\) valores restantes. Com base nos dados de
+treinamento, construímos preditores de vários aspectos dos dados de validação.
+Usando as discrepâncias entre os valores preditos e os reais, avaliamos então se o
+conjunto de validação \(V\) é ou não surpreendente como uma possível amostra futura do
+modelo.</p>
+<p>É claro que existem
+<span class="eq">\[
+\binom{n}{k}
+\]</span>
+divisões possíveis desse tipo dos dados, e não gostaríamos de tomar uma decisão com
+base em apenas uma delas. Assim, uma análise de validação cruzada terá de levar isso
+em conta. Além disso, teremos de decidir como medir as discrepâncias entre \(T\) e \(V\)
+e escolher um valor para \(k\). Não aprofundamos mais esse tema neste texto.</p>
+<h3 id="subsec-9.1.4"><span class="n">9.1.4</span> <span class="t">O Que Fazemos Quando um Modelo Falha?</span></h3>
+<p>Até aqui nos preocupamos em determinar se um modelo suposto é ou não apropriado,
+dados os dados observados. Suponha que o resultado da nossa verificação do modelo
+seja que decidimos que um determinado modelo é <em>inapropriado</em>. O que fazemos
+agora?</p>
+<p>Talvez a resposta óbvia seja dizer que temos de encontrar um modelo mais apropriado
+— um que passe na nossa verificação do modelo. Não é óbvio como devemos proceder,
+mas os estatísticos desenvolveram algumas técnicas.</p>
+<p>Uma das técnicas mais simples é o <em>método das transformações</em>. Por exemplo,
+suponha que observamos uma amostra \(y_1, \ldots, y_n\) da distribuição dada por
+\(Y = \exp(X)\) com \(X \sim N(\mu, \sigma^2)\). Um gráfico de probabilidade normal
+baseado nos \(y_i\), como na Figura 9.1.10, vai detectar evidência de não normalidade
+da distribuição. Transformar esses valores \(y_i\) em \(\ln y_i\), porém, vai produzir um
+gráfico de probabilidade normal de aparência razoável, como na Figura 9.1.11.</p>
+<p>Assim, nesse caso, uma transformação simples da amostra produz um conjunto de dados
+que passa nessa verificação. Na verdade, isso é algo que os estatísticos fazem com
+frequência. Várias transformações da família das <em>transformações de potência</em>,
+dadas por \(Y^p\) para \(p \neq 0\), ou a transformação logarítmica \(\ln Y\), são testadas
+para ver se uma suposição sobre a distribuição pode ser satisfeita por uma amostra
+transformada. Veremos algumas aplicações disso no Capítulo 10. Surpreendentemente,
+essa técnica simples muitas vezes funciona, embora não haja garantia de que sempre
+funcionará.</p>
+<p>Talvez a transformação mais aplicada seja a logarítmica, quando os valores dos dados
+são positivos (note que isso é uma necessidade para essa transformação). Outra
+transformação muito comum é a da raiz quadrada, isto é, \(p = 1/2\), quando temos dados
+de contagem. É claro que não é correto testar muitas, muitas transformações até
+encontrar uma que faça os gráficos de probabilidade ou os gráficos de resíduos
+parecerem aceitáveis. Em vez disso, testamos algumas transformações simples.</p>
+<figure class="figura">
+<img class="figura" src="figuras/fig-9.1.10.png" alt="">
+<figcaption id="figura-9.1.10"><span class="rot">Figura 9.1.10:</span> Gráfico de probabilidade normal de uma amostra de \(n = 50\) da
+distribuição dada por \(Y = \exp(X)\) com \(X \sim N(0, 1)\).</figcaption>
+</figure>
+<figure class="figura">
+<img class="figura" src="figuras/fig-9.1.11.png" alt="">
+<figcaption id="figura-9.1.11"><span class="rot">Figura 9.1.11:</span> Gráfico de probabilidade normal de uma amostra de \(n = 50\) da
+distribuição dada por \(\ln Y\), em que \(Y = \exp(X)\) e \(X \sim N(0, 1)\).</figcaption>
+</figure>
+<section class="resumo"><h4>Resumo da Seção 9.1</h4><ul><li>A verificação do modelo é um componente fundamental da aplicação prática da
+estatística.</li>
+<li>Uma abordagem para a verificação do modelo consiste em escolher uma estatística
+de discrepância \(D\) e depois avaliar se o valor observado de \(D\) é ou não
+surpreendente, calculando um valor-p.</li>
+<li>O cálculo do valor-p exige que a distribuição de \(D\) seja conhecida sob a
+suposição de que o modelo é correto. Há duas abordagens para conseguir isso. Uma
+consiste em escolher \(D\) ancilar, e a outra consiste em calcular o valor-p usando a
+distribuição condicional dos dados dada a estatística suficiente minimal.</li>
+<li>A estatística qui-quadrado de aderência é uma estatística de discrepância muito
+usada. Para amostras grandes, com as contagens esperadas das caselas determinadas
+pelo EMV baseado na verossimilhança multinomial, a estatística qui-quadrado de
+aderência é aproximadamente ancilar.</li>
+<li>Há também muitos métodos informais de verificação do modelo baseados em
+diversos gráficos de resíduos.</li>
+<li>Se um modelo é rejeitado, há várias técnicas para modificá-lo. Em geral, elas
+envolvem transformações dos dados. Além disso, um modelo que falha num procedimento
+de verificação ainda pode ser útil, se o desvio em relação ao modelo correto for
+pequeno.</li></ul></section>
+<h4 class="bloco bloco-exercicios">Exercícios</h4>
+<p class="exerc" id="exerc-9.1.1"><span class="k">9.1.1</span> Suponha que se admite que a amostra a seguir vem de uma distribuição
+\(N(\theta, 4)\), com \(\theta \in R^1\) desconhecido.</p>
+<div class="centro"><div class="tbl"><table><tr><th>\(1{,}8\)</th><th>\(2{,}1\)</th><th>\(-3{,}8\)</th><th>\(-1{,}7\)</th><th>\(-1{,}3\)</th><th>\(1{,}1\)</th><th>\(1{,}0\)</th><th>\(0{,}0\)</th><th>\(3{,}3\)</th><th>\(1{,}0\)</th></tr><tr><td>\(-0{,}4\)</td><td>\(-0{,}1\)</td><td>\(2{,}3\)</td><td>\(-1{,}6\)</td><td>\(1{,}1\)</td><td>\(-1{,}3\)</td><td>\(3{,}3\)</td><td>\(-4{,}9\)</td><td>\(-1{,}1\)</td><td>\(1{,}9\)</td></tr></table></div></div>
+<p>Verifique esse modelo usando a estatística de discrepância do Exemplo 9.1.1.</p>
+<p class="exerc" id="exerc-9.1.2"><span class="k">9.1.2</span> Suponha que se admite que a amostra a seguir vem de uma distribuição
+\(N(\theta, 2)\), com \(\theta\) desconhecido.</p>
+<div class="centro"><div class="tbl"><table><tr><th>\(-0{,}4\)</th><th>\(1{,}9\)</th><th>\(-0{,}3\)</th><th>\(-0{,}2\)</th><th>\(0{,}0\)</th><th>\(0{,}0\)</th><th>\(-0{,}1\)</th><th>\(-1{,}1\)</th><th>\(2{,}0\)</th><th>\(0{,}4\)</th></tr></table></div></div>
+<p><span class="parte"><span class="pl">(a)</span>  Faça o gráfico dos resíduos padronizados.</span><span class="parte"><span class="pl">(b)</span>  Construa um gráfico de probabilidade normal dos resíduos padronizados.</span><span class="parte"><span class="pl">(c)</span>  Que conclusões você tira com base nos resultados dos itens (a) e (b)?</span></p>
+<p class="exerc" id="exerc-9.1.3"><span class="k">9.1.3</span> Suponha que se admite que a amostra a seguir vem de uma distribuição
+\(N(\mu, \sigma^2)\), em que \(\mu \in R^1\) e \(\sigma^2 &gt; 0\) são desconhecidos.</p>
+<div class="centro"><div class="tbl"><table><tr><th>\(14{,}0\)</th><th>\(9{,}4\)</th><th>\(12{,}1\)</th><th>\(13{,}4\)</th><th>\(6{,}3\)</th><th>\(8{,}5\)</th><th>\(7{,}1\)</th><th>\(12{,}4\)</th><th>\(13{,}3\)</th><th>\(9{,}1\)</th></tr></table></div></div>
+<p><span class="parte"><span class="pl">(a)</span>  Faça o gráfico dos resíduos padronizados.</span><span class="parte"><span class="pl">(b)</span>  Construa um gráfico de probabilidade normal dos resíduos padronizados.</span><span class="parte"><span class="pl">(c)</span>  Que conclusões você tira com base nos resultados dos itens (a) e (b)?</span></p>
+<p class="exerc" id="exerc-9.1.4"><span class="k">9.1.4</span> Suponha que a tabela a seguir foi obtida classificando os membros de
+uma amostra de \(n = 10\) de uma população de estudantes segundo as variáveis de
+classificação \(A\) e \(B\), em que \(A = 0, 1\) indica homem, mulher e \(B = 0, 1\) indica
+conservador, liberal.</p>
+<div class="centro"><div class="tbl"><table><tr><th></th><th>\(B = 0\)</th><th>\(B = 1\)</th></tr><tr><td>\(A = 0\)</td><td>2</td><td>1</td></tr><tr><td>\(A = 1\)</td><td>3</td><td>4</td></tr></table></div></div>
+<p>Verifique o modelo que diz que gênero e orientação política são independentes,
+usando o teste exato de Fisher.</p>
+<p class="exerc" id="exerc-9.1.5"><span class="k">9.1.5</span> A amostra de \(n = 20\) a seguir deveria vir de uma distribuição
+Uniforme\([0, 1]\).</p>
+<div class="centro"><div class="tbl"><table><tr><th>\(0{,}11\)</th><th>\(0{,}56\)</th><th>\(0{,}72\)</th><th>\(0{,}18\)</th><th>\(0{,}26\)</th><th>\(0{,}32\)</th><th>\(0{,}42\)</th><th>\(0{,}22\)</th><th>\(0{,}96\)</th><th>\(0{,}04\)</th></tr><tr><td>\(0{,}45\)</td><td>\(0{,}22\)</td><td>\(0{,}08\)</td><td>\(0{,}65\)</td><td>\(0{,}32\)</td><td>\(0{,}88\)</td><td>\(0{,}76\)</td><td>\(0{,}32\)</td><td>\(0{,}21\)</td><td>\(0{,}80\)</td></tr></table></div></div>
+<p>Depois de agrupar os dados, usando uma partição em cinco intervalos de mesmo
+comprimento, faça o teste qui-quadrado de aderência para avaliar se temos ou não
+evidência contra essa suposição. Registre os resíduos padronizados.</p>
+<p class="exerc" id="exerc-9.1.6"><span class="k">9.1.6</span> Suponha que um dado é lançado 1000 vezes e que se obtêm as seguintes
+frequências para o número de pontos na face de cima quando o dado para.</p>
+<div class="centro"><div class="tbl"><table><tr><th>\(x_1\)</th><th>\(x_2\)</th><th>\(x_3\)</th><th>\(x_4\)</th><th>\(x_5\)</th><th>\(x_6\)</th></tr><tr><td>163</td><td>178</td><td>142</td><td>150</td><td>183</td><td>184</td></tr></table></div></div>
+<p>Usando o teste qui-quadrado de aderência, avalie se temos evidência de que esse
+dado não é simétrico. Registre os resíduos padronizados.</p>
+<p class="exerc" id="exerc-9.1.7"><span class="k">9.1.7</span> Suponha que o espaço amostral de uma resposta é dado por
+\(S = \{0, 1, 2, 3, \ldots\}\).
+<span class="parte"><span class="pl">(a)</span>  Suponha que um estatístico acredita que, na verdade, a resposta vai estar
+no conjunto \(S = \{10, 11, 12, 13, \ldots\}\) e, por isso, escolhe uma medida de
+probabilidade \(P\) que reflete isso. Quando os dados são coletados, porém, observa-se
+o valor \(s = 3\). Qual é um valor-p apropriado para informar como medida de quão
+surpreendente esse valor é como valor possível de \(P\)?</span><span class="parte"><span class="pl">(b)</span>  Suponha, em vez disso, que \(P\) seja uma distribuição Geométrica\((0{,}1)\).
+Determine um valor-p apropriado para informar como medida de quão surpreendente
+\(s = 3\) é como valor possível de \(P\).</span></p>
+<p class="exerc" id="exerc-9.1.8"><span class="k">9.1.8</span> Suponha que observamos \(s = 3\) caras em \(n = 10\) lançamentos
+independentes de uma moeda supostamente honesta. Calcule um valor-p que avalie quão
+surpreendente esse valor é como valor possível da distribuição prescrita. Não use o
+teste qui-quadrado.</p>
+<p class="exerc" id="exerc-9.1.9"><span class="k">9.1.9</span> Suponha que você verifica um modelo calculando um valor-p baseado em
+alguma estatística de discrepância e conclui que não há evidência contra o modelo.
+Isso significa que o modelo é correto? Explique sua resposta.</p>
+<p class="exerc" id="exerc-9.1.10"><span class="k">9.1.10</span> Suponha que lhe dizem que as notas padronizadas numa prova têm
+distribuição \(N(0, 1)\). A nota padronizada de um estudante é \(-4\). Calcule um
+valor-p apropriado para avaliar se a afirmação é ou não correta.</p>
+<p class="exerc" id="exerc-9.1.11"><span class="k">9.1.11</span> Afirma-se que uma moeda está sendo lançada em lançamentos
+independentes. Você está um tanto cético quanto à independência dos lançamentos,
+porque sabe que algumas pessoas treinam o lançamento de moedas para aumentar a
+frequência de obter cara. Assim, você quer avaliar a independência de
+\((x_1, \ldots, x_n)\) de uma distribuição Bernoulli\((\theta)\).
+<span class="parte"><span class="pl">(a)</span>  Mostre que a distribuição condicional de \((x_1, \ldots, x_n)\) dado
+\(\bar{x}\) é uniforme no conjunto de todas as sequências de comprimento \(n\) com
+entradas em \(\{0, 1\}\).</span><span class="parte"><span class="pl">(b)</span>  Usando essa distribuição condicional, determine a distribuição do número de
+1s observados nas primeiras \(\lfloor n/2 \rfloor\) observações. (Sugestão: a
+distribuição hipergeométrica.)</span><span class="parte"><span class="pl">(c)</span>  Suponha que você observa \((1, 1, 1, 1, 1, 0, 0, 0, 0, 1)\). Calcule um
+valor-p apropriado para avaliar a independência desses lançamentos usando (b).</span></p>
+<h4 class="bloco bloco-exercicios-computacionais">Exercícios computacionais</h4>
+<p class="exerc" id="exerc-9.1.12"><span class="k">9.1.12</span> Para os dados do Exercício 9.1.1, apresente um gráfico de
+probabilidade normal dos resíduos padronizados e comente-o.</p>
+<p class="exerc" id="exerc-9.1.13"><span class="k">9.1.13</span> Gere 25 amostras da distribuição \(N(0, 1)\) com \(n = 10\) e observe seus
+gráficos de probabilidade normal. Tire as conclusões gerais que puder.</p>
+<p class="exerc" id="exerc-9.1.14"><span class="k">9.1.14</span> Suponha que a tabela a seguir foi obtida classificando os membros de
+uma amostra de \(n = 100\) de uma população de estudantes segundo as variáveis de
+classificação \(A\) e \(B\), em que \(A = 0, 1\) indica homem, mulher e \(B = 0, 1\) indica
+conservador, liberal.</p>
+<div class="centro"><div class="tbl"><table><tr><th></th><th>\(B = 0\)</th><th>\(B = 1\)</th></tr><tr><td>\(A = 0\)</td><td>20</td><td>15</td></tr><tr><td>\(A = 1\)</td><td>36</td><td>29</td></tr></table></div></div>
+<p>Verifique o modelo de que gênero e orientação política são independentes usando o
+teste exato de Fisher.</p>
+<p class="exerc" id="exerc-9.1.15"><span class="k">9.1.15</span> Usando um software, gere uma amostra de \(n = 1000\) da distribuição
+Binomial\((10;\, 0{,}2)\). Depois, usando o teste qui-quadrado de aderência, verifique
+que essa amostra vem de fato dessa distribuição. Use agrupamento para garantir que
+\(E(X_i) = np_i \geq 1\). O que você concluiria se obtivesse um valor-p próximo de 0?</p>
+<p class="exerc" id="exerc-9.1.16"><span class="k">9.1.16</span> Usando um pacote estatístico, gere uma amostra de \(n = 1000\) da
+distribuição Poisson\((5)\). Depois, usando o teste qui-quadrado de aderência baseado
+no agrupamento das observações em cinco caselas escolhidas para garantir que
+\(E(X_i) = np_i \geq 1\), verifique que essa amostra vem de fato dessa distribuição. O
+que você concluiria se obtivesse um valor-p próximo de 0?</p>
+<p class="exerc" id="exerc-9.1.17"><span class="k">9.1.17</span> Usando um pacote estatístico, gere uma amostra de \(n = 1000\) da
+distribuição \(N(0, 1)\). Depois, usando o teste qui-quadrado de aderência baseado no
+agrupamento das observações em cinco caselas escolhidas para garantir que
+\(E(X_i) = np_i \geq 1\), verifique que essa amostra vem de fato dessa distribuição. O
+que você concluiria se obtivesse um valor-p próximo de 0?</p>
+<h4 class="bloco bloco-problemas">Problemas</h4>
+<p class="exerc" id="exerc-9.1.18"><span class="k">9.1.18</span> (<em>Distribuição normal multivariada<sup class="nota-ref nota-termo"><a href="#nota-40" id="ref-40">40</a></sup></em>) Diz-se que um vetor
+aleatório \(Y = (Y_1, \ldots, Y_k)\) tem distribuição normal multivariada com vetor de
+médias \(\mu \in R^k\) e matriz de variâncias \(\Sigma = (\sigma_{ij}) \in R^{k \times k}\)
+se
+<span class="eq">\[
+a_1 Y_1 + \cdots + a_k Y_k \sim N\!\left(\sum_{i=1}^{k} a_i \mu_i,\
+\sum_{i=1}^{k} \sum_{j=1}^{k} a_i a_j \sigma_{ij}\right)
+\]</span>
+para toda escolha de \(a_1, \ldots, a_k \in R^1\). Escrevemos \(Y \sim N_k(\mu, \Sigma)\).
+Prove que \(E(Y_i) = \mu_i\), \(\Cov(Y_i, Y_j) = \sigma_{ij}\) e que
+\(Y_i \sim N(\mu_i, \sigma_{ii})\). (Sugestão: Teorema 3.3.4.)</p>
+<p class="exerc" id="exerc-9.1.19"><span class="k">9.1.19</span> No Exemplo 9.1.1, prove que o resíduo \(R = (R_1, \ldots, R_n)\) tem
+distribuição normal multivariada (veja o Problema 9.1.18) com vetor de médias
+\(\mu = (0, \ldots, 0)\) e matriz de variâncias
+\(\Sigma = (\sigma_{ij}) \in R^{k \times k}\)<sup class="nota-ref nota-tradutor"><a href="#nota-41" id="ref-41">41</a></sup>, em que
+\(\sigma_{ij} = -\sigma_0^2/n\) quando \(i \neq j\) e
+\(\sigma_{ii} = \sigma_0^2(1 - 1/n)\). (Sugestão: Teorema 4.6.1.)</p>
+<p class="exerc" id="exerc-9.1.20"><span class="k">9.1.20</span> Se \(Y = (Y_1, \ldots, Y_k)\) tem distribuição normal multivariada com
+vetor de médias \(\mu \in R^k\) e matriz de variâncias
+\(\Sigma = (\sigma_{ij}) \in R^{k \times k}\), e se \(X = (X_1, \ldots, X_l)\) tem
+distribuição normal multivariada com vetor de médias \(\nu \in R^l\) e matriz de
+variâncias \(\Upsilon = (\tau_{ij}) \in R^{l \times l}\), pode-se mostrar que \(Y\) e \(X\)
+são independentes sempre que \(\sum_{i=1}^{k} a_i Y_i\) e \(\sum_{i=1}^{l} b_i X_i\) forem
+independentes para toda escolha de \((a_1, \ldots, a_k)\) e \((b_1, \ldots, b_l)\). Use
+esse fato para mostrar que, no Exemplo 9.1.1, \(\bar{X}\) e \(R\) são independentes.
+(Sugestão: Teorema 4.6.2 e Problema 9.1.19.)</p>
+<p class="exerc" id="exerc-9.1.21"><span class="k">9.1.21</span> No Exemplo 9.1.4, prove que
+<span class="mat-quebravel">\((\hat{\alpha}_1, \hat{\beta}_1)\) \({}= (x_{1\cdot}/n, x_{\cdot 1}/n)\)</span> é o EMV.</p>
+<p class="exerc" id="exerc-9.1.22"><span class="k">9.1.22</span> No Exemplo 9.1.4, prove que o número de amostras que satisfazem as
+restrições (9.1.2) é igual a
+<span class="eq">\[
+\binom{n}{x_{1\cdot}} \binom{n}{x_{\cdot 1}}.
+\]</span>
+(Sugestão: usando \(i\) para a contagem \(x_{11}\), mostre que o número dessas amostras é
+igual a
+<span class="eq">\[
+\binom{n}{x_{1\cdot}}
+\sum_{i = \max\{0,\, x_{1\cdot} + x_{\cdot 1} - n\}}^{\min\{x_{1\cdot},\, x_{\cdot 1}\}}
+\binom{x_{1\cdot}}{i} \binom{n - x_{1\cdot}}{x_{\cdot 1} - i}
+\]</span>
+e some isso usando o fato de que a soma das probabilidades
+da distribuição Hipergeométrica\((n, x_{\cdot 1}, x_{1\cdot})\) é igual a 1.)</p>
+<h4 class="bloco bloco-problemas-computacionais">Problemas computacionais</h4>
+<p class="exerc" id="exerc-9.1.23"><span class="k">9.1.23</span> Para os dados do Exercício 9.1.3, faça uma simulação para estimar o
+valor-p da estatística de discrepância do Exemplo 9.1.2. Faça um histograma de
+densidade dos valores simulados. (Sugestão: veja o Apêndice B para o código
+apropriado.)</p>
+<p class="exerc" id="exerc-9.1.24"><span class="k">9.1.24</span> Com \(n = 10\), gere \(10^4\) valores da estatística de discrepância do
+Exemplo 9.1.2 quando temos uma amostra de uma distribuição \(N(0, 1)\). Faça um
+histograma de densidade com eles. Repita isso, mas agora gerando de uma distribuição
+de Cauchy<sup class="nota-ref nota-termo"><a href="#nota-42" id="ref-42">42</a></sup>. Compare os histogramas (não se esqueça de garantir que os dois gráficos
+tenham as mesmas escalas).</p>
+<p class="exerc" id="exerc-9.1.25"><span class="k">9.1.25</span> Os dados a seguir deveriam vir de uma distribuição
+Exponencial\((\theta)\), em que \(\theta &gt; 0\) é desconhecido.</p>
+<div class="centro"><div class="tbl"><table><tr><th>\(1{,}5\)</th><th>\(1{,}6\)</th><th>\(1{,}4\)</th><th>\(9{,}7\)</th><th>\(12{,}1\)</th><th>\(2{,}7\)</th><th>\(2{,}2\)</th><th>\(1{,}6\)</th><th>\(6{,}8\)</th><th>\(0{,}1\)</th></tr><tr><td>\(0{,}8\)</td><td>\(1{,}7\)</td><td>\(8{,}0\)</td><td>\(0{,}2\)</td><td>\(12{,}3\)</td><td>\(2{,}2\)</td><td>\(0{,}2\)</td><td>\(0{,}6\)</td><td>\(10{,}1\)</td><td>\(4{,}9\)</td></tr></table></div></div>
+<p>Verifique esse modelo usando um teste qui-quadrado de aderência baseado nos
+intervalos
+<span class="eq">\[
+(-\infty; 2{,}0],\ (2{,}0; 4{,}0],\ (4{,}0; 6{,}0],\ (6{,}0; 8{,}0],\ (8{,}0; 10{,}0],\ (10{,}0; \infty).
+\]</span>
+(Sugestão: calcule o EMV fazendo o gráfico da log-verossimilhança em intervalos
+sucessivamente menores.)</p>
+<p class="exerc" id="exerc-9.1.26"><span class="k">9.1.26</span> A tabela a seguir, tirada de <em>Introduction to the Practice of
+Statistics</em>, de D. Moore e G. McCabe (W. H. Freeman, Nova York, 1999), dá as medidas,
+em miligramas, da ingestão diária de cálcio de 38 mulheres com idades entre 18 e 24
+anos.</p>
+<div class="centro"><div class="tbl"><table><tr><th>808</th><th>882</th><th>1062</th><th>970</th><th>909</th><th>802</th><th>374</th><th>416</th><th>784</th><th>997</th></tr><tr><td>651</td><td>716</td><td>438</td><td>1420</td><td>1425</td><td>948</td><td>1050</td><td>976</td><td>572</td><td>403</td></tr><tr><td>626</td><td>774</td><td>1253</td><td>549</td><td>1325</td><td>446</td><td>465</td><td>1269</td><td>671</td><td>696</td></tr><tr><td>1156</td><td>684</td><td>1933</td><td>748</td><td>1203</td><td>2433</td><td>1255</td><td>110</td><td></td><td></td></tr></table></div></div>
+<p><span class="parte"><span class="pl">(a)</span>  Suponha que o modelo especifica um modelo normal de locação para esses
+dados com \(\sigma_0^2 = (500)^2\). Faça um teste qui-quadrado de aderência nesses
+dados usando os intervalos \((-\infty, 600]\), \((600, 1200]\), \((1200, 1800]\),
+\((1800, \infty)\). (Sugestão: faça o gráfico da log-verossimilhança em intervalos
+sucessivamente menores para determinar o EMV com cerca de uma casa decimal. Para
+determinar o intervalo inicial do gráfico, use do EMV global de \(\mu\) menos três
+erros padrão até o EMV global mais três erros padrão.)</span><span class="parte"><span class="pl">(b)</span>  Compare o EMV de \(\mu\) obtido no item (a) com o EMV dos dados não agrupados.</span><span class="parte"><span class="pl">(c)</span>  Seria mais realista supor que a variância \(\sigma^2\) também é desconhecida.
+Registre a log-verossimilhança dos dados agrupados. (Métodos numéricos mais
+sofisticados são necessários para encontrar o EMV de \((\mu, \sigma^2)\) nesse caso.)</span></p>
+<p class="exerc" id="exerc-9.1.27"><span class="k">9.1.27</span> Gere \(10^4\) valores das estatísticas de discrepância
+\(D_{\mathrm{skew}}\) e \(D_{\mathrm{kurtosis}}\) do Exemplo 9.1.2 quando temos uma
+amostra de \(n = 10\) de uma distribuição \(N(0, 1)\). Faça histogramas de densidade com
+eles. Indique como você usaria esses histogramas para avaliar a suposição de
+normalidade quando tivéssemos uma amostra real de tamanho 10. Repita isso para
+\(n = 20\) e compare as distribuições.</p>
+<h4 class="bloco bloco-desafios">Desafios</h4>
+<p class="exerc" id="exerc-9.1.28"><span class="k">9.1.28</span> (MV) Prove que, quando \((x_1, \ldots, x_n)\) é uma amostra da
+distribuição dada por \(\mu + \sigma Z\), em que \(Z\) tem uma distribuição conhecida e
+\((\mu, \sigma^2) \in R^1 \times (0, \infty)\) é desconhecido, a estatística
+<span class="eq">\[
+r(x_1, \ldots, x_n) = \left(\frac{x_1 - \bar{x}}{s}, \ldots,
+\frac{x_n - \bar{x}}{s}\right)
+\]</span>
+é ancilar. (Sugestão: escreva um elemento da amostra como \(x_i = \mu + \sigma z_i\) e
+depois mostre que \(r(x_1, \ldots, x_n)\) pode ser escrita como função dos \(z_i\).)</p>
+<h2 id="sec-9.2"><span class="n">9.2</span> <span class="t">Verificação de Conflito entre a Priori e Dados</span></h2>
+<p>A metodologia bayesiana acrescenta a medida de probabilidade a priori \(\Pi\)
+ao modelo estatístico \(\{P_\theta : \theta \in \negrito{\Omega}\}\), para a
+análise estatística subsequente. Os métodos da Seção 9.1 foram concebidos para
+verificar se os dados observados podem, de forma realista, ser considerados
+provenientes de uma distribuição em \(\{P_\theta : \theta \in \negrito{\Omega}\}\).
+Ao acrescentar a priori, estamos, na prática, dizendo que o nosso conhecimento
+sobre a distribuição verdadeira nos leva a atribuir a probabilidade preditiva a
+priori<sup class="nota-ref nota-termo"><a href="#nota-43" id="ref-43">43</a></sup> \(M\), dada por \(M(A) = E_\Pi(P_\theta(A))\) para \(A \subset
+\negrito{\Omega}\), para descrever o processo que gera os dados. Pareceria,
+então, que uma abordagem bayesiana sensata de verificação do modelo seria
+comparar os dados observados \(s\) com a distribuição dada por \(M\), para ver se
+eles são surpreendentes ou não.</p>
+<p>Suponha que concluíssemos que o modelo bayesiano é incorreto depois de decidir
+que \(s\) é um valor surpreendente segundo \(M\). Isso nos diz apenas, porém, que é
+improvável que a medida de probabilidade \(M\) tenha produzido os dados, e não
+que o modelo \(\{P_\theta : \theta \in \negrito{\Omega}\}\) estava errado.
+Considere o exemplo a seguir.</p>
+<div class="ex" id="exemplo-9.2.1"><div class="cab"><span class="rot">Exemplo 9.2.1</span> <span class="nome">Conflito entre a Priori e Dados<sup class="nota-ref nota-termo"><a href="#nota-44" id="ref-44">44</a></sup></span></div><div class="txt fim"><p>Suponha que obtemos uma amostra formada por \(n = 20\) valores de \(s = 1\) do
+modelo com \(\negrito{\Omega} = \{1, 2\}\) e funções de probabilidade da resposta
+básica dadas pela tabela a seguir.</p>
+<div class="centro"><div class="tbl"><table><tr><th></th><th>\(s = 0\)</th><th>\(s = 1\)</th></tr><tr><td>\(f_1(s)\)</td><td>\(0{,}9\)</td><td>\(0{,}1\)</td></tr><tr><td>\(f_2(s)\)</td><td>\(0{,}1\)</td><td>\(0{,}9\)</td></tr></table></div></div>
+<p>Então a probabilidade de obter essa amostra de \(f_2\) é dada por \((0{,}9)^{20} =
+0{,}12158\), que é um valor razoável; portanto, não temos evidência contra o modelo
+\(\{f_1, f_2\}\).</p>
+<p>Suponha que colocamos em \(\negrito{\Omega}\) uma priori dada por \(\Pi(\{1\}) =
+0{,}9999\), de modo que estamos praticamente certos de que \(\theta = 1\). Então a
+probabilidade de obter esses dados da preditiva a priori \(M\) é
+<span class="eq">\[
+(0{,}9999)\,(0{,}1)^{20} + (0{,}0001)\,(0{,}9)^{20} = 1{,}2158 \times 10^{-5}.
+\]</span>
+A probabilidade a priori de observar uma amostra de 20 cuja probabilidade
+preditiva a priori não seja maior que \(1{,}2158 \times 10^{-5}\) pode ser calculada
+(usando um software estatístico para tabelar a preditiva a priori) e é de
+aproximadamente \(0{,}04\). Isso nos diz que os dados observados estão “nas caudas”
+da preditiva a priori e, portanto, são surpreendentes, o que nos leva a concluir
+que temos evidência de que \(M\) é incorreta.</p>
+<p>Assim, neste exemplo, verificar o modelo \(\{f_\theta : \theta \in
+\negrito{\Omega}\}\) nos leva a concluir que ele é plausível para os dados
+observados. Por outro lado, verificar o modelo dado por \(M\) nos leva à conclusão
+de que o modelo bayesiano é implausível.</p></div></div>
+<p>A lição do Exemplo 9.2.1 é que o modelo pode falhar de duas maneiras no
+contexto bayesiano. Primeiro, os dados \(s\) podem ser surpreendentes à luz do
+modelo \(\{f_\theta : \theta \in \negrito{\Omega}\}\). Segundo, mesmo quando os
+dados provêm plausivelmente desse modelo, a priori e os dados podem estar em
+conflito. Esse conflito ocorre sempre que a priori atribui a maior parte da sua
+probabilidade a distribuições do modelo para as quais os dados são
+surpreendentes. Em qualquer das duas situações, as inferências tiradas do
+modelo bayesiano podem ser falhas.</p>
+<p>Se, no entanto, a priori atribui probabilidade (ou densidade) positiva a todo
+valor possível de \(\theta\), então os resultados de consistência da inferência
+bayesiana mencionados no Capítulo 7 indicam que uma grande quantidade de dados
+supera um conflito entre a priori e dados (ver o Exemplo 9.2.4). Isso acontece
+porque o efeito da priori diminui à medida que a quantidade de dados aumenta.
+Assim, a existência de um conflito entre a priori e dados não significa
+necessariamente que as nossas inferências estejam erradas. Ainda assim, é útil
+saber se esse conflito existe ou não, pois muitas vezes é difícil detectar se
+temos ou não dados suficientes para evitar o problema.</p>
+<p>Portanto, devemos primeiro usar as verificações discutidas na Seção 9.1 para
+garantir que os dados \(s\) provêm plausivelmente do modelo \(\{f_\theta : \theta
+\in \negrito{\Omega}\}\). Se aceitamos o modelo, procuramos então algum conflito
+entre a priori e dados. Vejamos agora como fazer isso.</p>
+<p>A distribuição preditiva a priori de qualquer estatística ancilar é igual à sua
+distribuição sob o modelo amostral<sup class="nota-ref nota-termo"><a href="#nota-45" id="ref-45">45</a></sup>, isto é, a sua distribuição preditiva a
+priori não é afetada pela escolha da priori. Assim, o valor observado de uma
+estatística ancilar não pode nos dizer nada sobre a existência de um conflito
+entre a priori e dados. Concluímos daí que, se vamos usar alguma função dos
+dados para avaliar se há ou não conflito entre a priori e dados, então a
+distribuição marginal dela tem de depender de \(\theta\).</p>
+<p>Mostramos agora que a distribuição condicional preditiva a priori dos dados,
+dada uma estatística suficiente minimal \(T\), é independente da priori.</p>
+<div class="teo teorema" id="teorema-9.2.1"><div class="cab"><span class="rot">Teorema 9.2.1</span></div><div class="txt"><p>Suponha que \(T\) é uma estatística suficiente para o modelo \(\{f_\theta :
+\theta \in \negrito{\Omega}\}\) para os dados \(s\). Então a distribuição
+preditiva a priori condicional dos dados \(s\) dado \(T\) é independente da
+priori \(\pi\).</p></div></div>
+<div class="dem fim"><span class="rot">Demonstração.</span> <p>Vamos demonstrar isso no caso em que cada distribuição amostral<sup class="nota-ref nota-termo"><a href="#nota-46" id="ref-46">46</a></sup> \(f_\theta\) e a
+priori \(\pi\) são discretas. Um argumento semelhante pode ser desenvolvido para
+o caso mais geral.</p>
+<p>Pelo Teorema 6.1.1 (teorema da fatoração<sup class="nota-ref nota-termo"><a href="#nota-47" id="ref-47">47</a></sup>), temos que
+<span class="eq">\[
+f_\theta(s) = h(s)\,g_\theta(T(s))
+\]</span>
+para certas funções \(g_\theta\) e \(h\). Portanto, a função de probabilidade
+preditiva a priori de \(s\) é dada por
+<span class="eq">\[
+m(s) = h(s) \sum_{\theta \in \negrito{\Omega}} g_\theta(T(s))\,\pi(\theta).
+\]</span></p>
+<p>A função de probabilidade preditiva a priori de \(T\) em \(t\) é dada por
+<span class="eq">\[
+m^*(t) = \sum_{\{s : T(s) = t\}} h(s) \sum_{\theta \in \negrito{\Omega}}
+g_\theta(t)\,\pi(\theta).
+\]</span>
+Portanto, a função de probabilidade preditiva a priori condicional dos dados
+\(s\) dado \(T(s) = t\) é
+<span class="eq">\[
+m(s \mid T = t) = \frac{h(s) \sum_{\theta \in \negrito{\Omega}}
+g_\theta(t)\,\pi(\theta)}{\sum_{\{s' : T(s') = t\}} h(s') \sum_{\theta \in
+\negrito{\Omega}} g_\theta(t)\,\pi(\theta)} = \frac{h(s)}{\sum_{\{s' : t(s') =
+t\}} h(s')},
+\]</span>
+que é independente de \(\pi\).<sup class="nota-ref nota-tradutor"><a href="#nota-48" id="ref-48">48</a></sup></p></div>
+<p>Assim, pelo Teorema 9.2.1, concluímos que nenhum aspecto dos dados além do
+valor de uma estatística suficiente minimal pode nos dizer algo sobre a
+existência de um conflito entre a priori e dados. Portanto, se quisermos basear
+a nossa verificação de conflito entre a priori e dados na preditiva a priori,
+devemos usar a preditiva a priori de uma estatística suficiente minimal.
+Considere os exemplos a seguir.</p>
+<div class="ex" id="exemplo-9.2.2"><div class="cab"><span class="rot">Exemplo 9.2.2</span> <span class="nome">Verificação de uma Priori Beta para um Modelo de Bernoulli</span></div><div class="txt fim"><p>Suponha que \((x_1, \ldots, x_n)\) é uma amostra de um modelo
+\(\text{Bernoulli}(\theta)\), em que \(\theta \in [0, 1]\) é desconhecido, e que
+\(\theta\) recebe uma distribuição a priori \(\text{Beta}(\alpha, \beta)\). Temos
+então que a contagem amostral \(y = \sum_{i=1}^n x_i\) é uma estatística
+suficiente minimal com distribuição \(\text{Binomial}(n, \theta)\). Portanto, a
+função de probabilidade preditiva a priori de \(y\) é dada por
+<span class="eq">\begin{align*}
+m(y) &amp;= \binom{n}{y} \int_0^1 \theta^y (1 - \theta)^{n-y}
+\frac{\Gamma(\alpha + \beta)}{\Gamma(\alpha)\,\Gamma(\beta)}
+\theta^{\alpha-1} (1 - \theta)^{\beta-1}\, d\theta \\
+&amp;= \frac{\Gamma(n + 1)}{\Gamma(y + 1)\,\Gamma(n - y + 1)}
+\frac{\Gamma(\alpha + \beta)}{\Gamma(\alpha)\,\Gamma(\beta)}
+\frac{\Gamma(y + \alpha)\,\Gamma(n - y + \beta)}{\Gamma(n + \alpha + \beta)} \\
+&amp;\propto \frac{\Gamma(y + \alpha)\,\Gamma(n - y + \beta)}{\Gamma(y +
+1)\,\Gamma(n - y + 1)}.
+\end{align*}</span></p>
+<p>Observe agora que, quando \(\alpha = \beta = 1\), temos \(m(y) = 1/(n+1)\), isto é,
+a preditiva a priori de \(y\) é \(\text{Uniforme}\{0, 1, \ldots, n\}\), e nenhum
+valor de \(y\) é surpreendente. Isso não é inesperado, pois, com a priori
+uniforme em \(\theta\), estamos implicitamente dizendo que qualquer contagem \(y\)
+é razoável.</p>
+<p>Por outro lado, quando \(\alpha = \beta = 2\), a priori põe mais peso em torno
+de \(1/2\). A preditiva a priori é então proporcional a \((y + 1)(n - y + 1)\).
+Essa preditiva a priori está representada na Figura 9.2.1 para \(n = 20\).
+Observe que contagens próximas de 0 ou de 20 levam a evidência de que há um
+conflito entre os dados e a priori. Por exemplo, se obtemos a contagem \(y = 3\),
+podemos avaliar quão surpreendente é esse valor calculando a probabilidade de
+obter um valor com probabilidade de ocorrência menor. Usando a simetria da
+preditiva a priori, temos que essa probabilidade é igual a (usando um software
+estatístico para o cálculo) \(m(0) + m(2) + m(19) + m(20) =
+0{,}0688876\).<sup class="nota-ref nota-tradutor"><a href="#nota-49" id="ref-49">49</a></sup> Portanto, a observação \(y = 3\) não é
+surpreendente ao nível de 5%.</p>
+<p>Suponha agora que \(n = 50\) e \(\alpha = 2\), \(\beta = 4\). A média dessa priori é
+\(2/(2 + 4) = 1/3\), e a priori é assimétrica à direita. A preditiva a priori
+está representada na Figura 9.2.2. Claramente, valores de \(y\) próximos de 50
+dão evidência contra o modelo neste caso. Por exemplo, se observamos \(y = 35\),
+a probabilidade de obter uma contagem com probabilidade de ocorrência menor é
+dada por (usando um software estatístico para o cálculo) \(m(36) + \cdots +
+m(50) = 0{,}0500457\).<sup class="nota-ref nota-tradutor"><a href="#nota-50" id="ref-50">50</a></sup> Somente valores mais
+extremos que esse dariam evidência contra o modelo ao nível de 5%.</p></div></div>
+<figure class="figura">
+<img class="figura" src="figuras/tikz-3445ff105326.svg" alt="" style="width: min(100%, 29.0em)">
+<figcaption id="figura-9.2.1"><span class="rot">Figura 9.2.1:</span> Gráfico da preditiva a priori da contagem amostral \(y\) no
+Exemplo 9.2.2 quando \(\alpha = \beta = 2\) e \(n = 20\).</figcaption>
+</figure>
+<figure class="figura">
+<img class="figura" src="figuras/tikz-60c78902fd0a.svg" alt="" style="width: min(100%, 29.1em)">
+<figcaption id="figura-9.2.2"><span class="rot">Figura 9.2.2:</span> Gráfico da preditiva a priori da contagem amostral \(y\) no
+Exemplo 9.2.2 quando \(\alpha = 2\), \(\beta = 4\) e \(n = 50\).</figcaption>
+</figure>
+<div class="ex" id="exemplo-9.2.3"><div class="cab"><span class="rot">Exemplo 9.2.3</span> <span class="nome">Verificação de uma Priori Normal para um Modelo Normal de Locação</span></div><div class="txt fim"><p>Suponha que \((x_1, \ldots, x_n)\) é uma amostra de uma distribuição \(N(\mu,
+\sigma_0^2)\), em que \(\mu \in R^1\) é desconhecido e \(\sigma_0^2\) é conhecido.
+Suponha que tomamos como distribuição a priori de \(\mu\) uma \(N(\mu_0,
+\tau_0^2)\), para alguma escolha especificada de \(\mu_0\) e \(\tau_0^2\). Note que
+\(\bar{x}\) é uma estatística suficiente minimal para esse modelo; assim,
+precisamos comparar o valor observado dessa estatística com a sua distribuição
+preditiva a priori para avaliar se há ou não conflito entre a priori e dados.</p>
+<p>Podemos escrever \(\bar{x} = \mu + z\), em que \(\mu \sim N(\mu_0, \tau_0^2)\) é
+independente de \(z \sim N(0, \sigma_0^2/n)\). Daí deduzimos imediatamente (ver
+o Exercício 9.2.3) que a distribuição preditiva a priori de \(\bar{x}\) é
+\(N(\mu_0, \tau_0^2 + \sigma_0^2/n)\). Pela simetria da densidade preditiva a
+priori em torno de \(\mu_0\), vemos imediatamente que o valor-p apropriado é
+<span class="eq">\begin{equation}
+M(|\bar{X} - \mu_0| \le |\bar{x} - \mu_0|) = 2\bigl(1 - \Phi(|\bar{x} -
+\mu_0| / (\tau_0^2 + \sigma_0^2/n)^{1/2})\bigr). \tag{9.2.1}
+\end{equation}</span>
+Assim, um valor pequeno de (9.2.1)<sup class="nota-ref nota-tradutor"><a href="#nota-51" id="ref-51">51</a></sup> é evidência de que há um conflito entre os
+dados observados e a priori, isto é, a priori está pondo a maior parte da sua
+massa em valores de \(\mu\) para os quais os dados observados são
+surpreendentes.</p></div></div>
+<p>Outra possibilidade de verificação do modelo nesse contexto é olhar para a
+distribuição preditiva a posteriori<sup class="nota-ref nota-termo"><a href="#nota-52" id="ref-52">52</a></sup> dos dados. Considere, porém, o exemplo a
+seguir.</p>
+<div class="ex" id="exemplo-9.2.4"><div class="cab"><span class="rot">Exemplo 9.2.4</span> <span class="nome">Continuação do Exemplo 9.2.1</span></div><div class="txt fim"><p>Lembre que, no Exemplo 9.2.1, concluímos que existia um conflito entre a
+priori e dados. Note, porém, que a probabilidade a posteriori<sup class="nota-ref nota-termo"><a href="#nota-53" id="ref-53">53</a></sup> de \(\theta = 2\)
+é
+<span class="eq">\[
+\frac{(0{,}0001)\,(0{,}9)^{20}}{(0{,}9999)\,(0{,}1)^{20} + (0{,}0001)\,(0{,}9)^{20}}
+\approx 1.
+\]</span>
+Portanto, a probabilidade preditiva a posteriori da sequência observada de 20
+valores de 1 é \(0{,}12158\), o que não indica nenhum conflito entre a priori e
+dados. Notamos, porém, que neste exemplo a quantidade de dados é suficiente
+para superar a priori; assim, somos levados a uma inferência sensata sobre
+\(\theta\).</p></div></div>
+<p>O problema de usar a preditiva a posteriori para avaliar se existe ou não um
+conflito entre a priori e dados é que temos um caso do chamado <em>uso
+duplo dos dados</em>. Isso porque ajustamos o modelo, isto é, construímos a
+preditiva a posteriori, usando os dados observados, e depois tentamos usar
+essa preditiva a posteriori para avaliar se existe ou não um conflito entre a
+priori e dados. O uso duplo dos dados resulta em avaliações otimistas demais
+da validade do modelo bayesiano e muitas vezes não detecta discrepâncias. Não
+discutiremos mais a verificação do modelo a posteriori neste texto.</p>
+<p>Aqui apenas tocamos no básico da verificação de conflito entre a priori e
+dados. Com modelos mais complicados, existe a possibilidade de verificar
+componentes individuais de uma priori, por exemplo, os componentes da priori
+especificada no Exemplo 7.1.4 para o modelo normal de locação e escala<sup class="nota-ref nota-termo"><a href="#nota-54" id="ref-54">54</a></sup>, para
+determinar com mais precisão onde surge um conflito entre a priori e dados.
+Além disso, as estatísticas ancilares têm um papel na verificação de conflito
+entre a priori e dados, pois precisamos remover toda variação ancilar ao
+calcular o valor-p, já que essa variação não depende da priori. Além disso,
+quando a distribuição preditiva a priori de uma estatística suficiente minimal
+é contínua, é preciso tratar de questões sobre como exatamente os valores-p
+devem ser calculados. Todos esses são temas para um curso mais avançado de
+estatística.</p>
+<section class="resumo"><h4>Resumo da Seção 9.2</h4><ul><li>Na inferência bayesiana, há duas fontes possíveis de incorreção do
+  modelo. Primeiro, o modelo amostral dos dados pode estar incorreto. Segundo,
+  mesmo que o modelo amostral esteja correto, a priori pode estar em conflito
+  com os dados, no sentido de que a maior parte da probabilidade a priori é
+  atribuída a distribuições do modelo para as quais os dados são
+  surpreendentes.</li>
+<li>Primeiro verificamos se o modelo amostral está correto, usando os
+  métodos da Seção 9.1. Se não encontramos evidência contra o modelo
+  amostral, verificamos em seguida se há conflito entre a priori e dados,
+  vendo se o valor observado de uma estatística suficiente minimal é
+  surpreendente ou não em relação à distribuição preditiva a priori dessa
+  quantidade.</li>
+<li>Mesmo que exista um conflito entre a priori e dados, as inferências a
+  posteriori ainda podem ser válidas se tivermos dados suficientes.</li></ul></section>
+<h4 class="bloco bloco-exercicios">Exercícios</h4>
+<p class="exerc" id="exerc-9.2.1"><span class="k">9.2.1</span> Suponha que observamos o valor \(s = 2\) do modelo dado pela
+tabela a seguir.</p>
+<div class="centro"><div class="tbl"><table><tr><th></th><th>\(s = 1\)</th><th>\(s = 2\)</th><th>\(s = 3\)</th></tr><tr><td>\(f_1(s)\)</td><td>\(1/3\)</td><td>\(1/3\)</td><td>\(1/3\)</td></tr><tr><td>\(f_2(s)\)</td><td>\(1/3\)</td><td>\(0\)</td><td>\(2/3\)</td></tr></table></div></div>
+<p><span class="parte"><span class="pl">(a)</span>  Os dados observados nos levam a duvidar da validade do modelo?
+Explique por quê.</span><span class="parte"><span class="pl">(b)</span>  Suponha que a priori dada por \(\pi(1) = 0{,}3\) é colocada sobre o
+parâmetro \(\theta \in \{1, 2\}\). Há alguma evidência de conflito entre a
+priori e dados? (Sugestão: calcule a preditiva a priori de cada conjunto de
+dados possível e avalie se o conjunto de dados observado é surpreendente ou
+não.)</span><span class="parte"><span class="pl">(c)</span>  Repita o item (b) usando a priori dada por \(\pi(1) = 0{,}01\).</span></p>
+<p class="exerc" id="exerc-9.2.2"><span class="k">9.2.2</span> Suponha que uma amostra de \(n = 6\) é tirada de uma distribuição
+\(\text{Bernoulli}(\theta)\), em que \(\theta\) tem distribuição a priori
+\(\text{Beta}(3, 3)\). Se for obtido o valor \(n\bar{x} = 2\), determine se há
+algum conflito entre a priori e dados.</p>
+<p class="exerc" id="exerc-9.2.3"><span class="k">9.2.3</span> No Exemplo 9.2.3, mostre que a distribuição preditiva a priori
+de \(\bar{x}\) é dada pela distribuição \(N(\mu_0, \tau_0^2 + \sigma_0^2/n)\).</p>
+<p class="exerc" id="exerc-9.2.4"><span class="k">9.2.4</span> Suponha que temos uma amostra de \(n = 5\) de uma distribuição
+\(N(\mu, 2)\), em que \(\mu\) é desconhecido, e que é observado o valor \(\bar{x} =
+7{,}3\). Uma priori \(N(0, 1)\) é colocada sobre \(\mu\). Calcule o valor-p
+apropriado para verificar se há conflito entre a priori e dados.</p>
+<p class="exerc" id="exerc-9.2.5"><span class="k">9.2.5</span> Suponha que \(x \sim \text{Uniforme}[0, \theta]\) e \(\theta \sim
+\text{Uniforme}[0, 1]\). Se for observado o valor \(x = 2{,}2\), determine um
+valor-p apropriado para verificar se há conflito entre a priori e dados.</p>
+<h4 class="bloco bloco-exercicios-computacionais">Exercícios computacionais</h4>
+<p class="exerc" id="exerc-9.2.6"><span class="k">9.2.6</span> Suponha que uma amostra de \(n = 20\) é tirada de uma distribuição
+\(\text{Bernoulli}(\theta)\), em que \(\theta\) tem distribuição a priori
+\(\text{Beta}(3, 3)\). Se for obtido o valor \(n\bar{x} = 6\), determine se há
+algum conflito entre a priori e dados.</p>
+<h4 class="bloco bloco-problemas">Problemas</h4>
+<p class="exerc" id="exerc-9.2.7"><span class="k">9.2.7</span> Suponha que \((x_1, \ldots, x_n)\) é uma amostra de uma
+distribuição \(N(\mu, \sigma_0^2)\), em que \(\mu \sim N(\mu_0, \tau_0^2)\).
+Determine a distribuição preditiva a priori de \(\bar{x}\).</p>
+<p class="exerc" id="exerc-9.2.8"><span class="k">9.2.8</span> Suponha que \((x_1, \ldots, x_n)\) é uma amostra de uma
+distribuição \(\text{Exponencial}(\theta)\), em que \(\theta \sim
+\text{Gama}(\alpha_0, \beta_0)\). Determine a distribuição preditiva a priori
+de \(\bar{x}\).</p>
+<p class="exerc" id="exerc-9.2.9"><span class="k">9.2.9</span> Suponha que \((s_1, \ldots, s_n)\) é uma amostra de uma
+distribuição \(\text{Multinomial}(1, \theta_1, \ldots, \theta_k)\), em que
+\((\theta_1, \ldots, \theta_{k-1}) \sim \text{Dirichlet}(\alpha_1, \ldots,
+\alpha_k)\). Determine a distribuição preditiva a priori de \((x_1, \ldots,
+x_k)\), em que \(x_i\) é a contagem na \(i\)-ésima categoria.</p>
+<p class="exerc" id="exerc-9.2.10"><span class="k">9.2.10</span> Suponha que \((x_1, \ldots, x_n)\) é uma amostra de uma
+distribuição \(\text{Uniforme}[0, \theta]\), em que \(\theta\) tem densidade a
+priori dada por <span class="mat-quebravel">\(\pi_{\alpha,\beta}(\theta)\) \({}= \theta^{-\alpha}
+I_{[\beta,\infty)}(\theta)/(\alpha - 1)\beta^{\alpha-1}\)</span>, com \(\alpha &gt; 1\),
+\(\beta &gt; 0\).<sup class="nota-ref nota-tradutor"><a href="#nota-55" id="ref-55">55</a></sup>
+Determine a distribuição preditiva a priori de \(x_{(n)}\).</p>
+<p class="exerc" id="exerc-9.2.11"><span class="k">9.2.11</span> Suponha que estamos no contexto do Exemplo 9.2.3. Determine o
+valor-p limite para a verificação de conflito entre a priori e dados quando
+\(n \to \infty\). Interprete o significado desse valor-p em termos da priori e
+do valor verdadeiro de \(\mu\).</p>
+<p class="exerc" id="exerc-9.2.12"><span class="k">9.2.12</span> Suponha que \(x \sim\) distribuição \(\text{Geométrica}(\theta)\) e
+\(\theta \sim \text{Uniforme}[0, 1]\).
+<span class="parte"><span class="pl">(a)</span>  Determine o valor-p apropriado para verificar se há conflito entre a
+priori e dados.</span><span class="parte"><span class="pl">(b)</span>  Com base no valor-p determinado no item (a), descreva as
+circunstâncias em que haverá evidência de conflito entre a priori e dados.</span><span class="parte"><span class="pl">(c)</span>  Se usamos uma priori contínua que é positiva num ponto, isso é uma
+afirmação de que o ponto é possível. À luz disso, discuta se faz sentido ou não
+uma priori contínua que seja positiva em \(\theta = 0\) para a distribuição
+\(\text{Geométrica}(\theta)\).</span></p>
+<h4 class="bloco bloco-desafios">Desafios</h4>
+<p class="exerc" id="exerc-9.2.13"><span class="k">9.2.13</span> Suponha que \(X_1, \ldots, X_n\) é uma amostra de uma
+distribuição \(N(\mu, \sigma^2)\), em que \(\mu \mid \sigma^2 \sim N(\mu_0,
+\tau_0^2\sigma^2)\) e \(1/\sigma^2 \sim \text{Gama}(\alpha_0, \beta_0)\).
+Determine uma forma para a densidade preditiva a priori de \((\bar{X}, S^2)\)
+que você possa calcular sem integrar. (Sugestão: use as manipulações
+algébricas encontradas na Seção 7.5.)</p>
+<h2 id="sec-9.3"><span class="n">9.3</span> <span class="t">O Problema das Verificações Múltiplas</span></h2>
+<p>Como mencionamos ao longo deste texto, a verificação do modelo faz parte da boa
+prática estatística. Em outras palavras, devemos sempre desconfiar do valor de
+um trabalho estatístico em que os pesquisadores não fizeram, e não relataram os
+resultados de, uma verificação do modelo razoavelmente rigorosa. Cabe de fato a
+quem relata resultados estatísticos nos convencer de que os seus modelos são
+razoáveis para os dados coletados, tendo em mente os efeitos tanto do
+subajuste quanto do sobreajuste.</p>
+<p>Neste capítulo, apresentamos <em>algumas</em> das abordagens de verificação do
+modelo disponíveis. Concentramo-nos nas principais categorias de procedimentos
+e, talvez, nos métodos mais usados dentro delas. Há muitos outros. Neste ponto,
+não podemos dizer que alguma abordagem seja o melhor método possível. Talvez
+mais pesquisa sobre o tema traga uma compreensão maior nesse sentido, e então
+uma recomendação mais clara possa ser feita.</p>
+<p>Uma recomendação que pode ser feita já, porém, é que não é razoável fazer a
+verificação do modelo aplicando todos os procedimentos de verificação do modelo
+possíveis. Um exemplo simples ilustra a insensatez de tal abordagem.</p>
+<div class="ex" id="exemplo-9.3.1"><div class="cab"><span class="rot">Exemplo 9.3.1</span></div><div class="txt fim"><p>Suponha que \((x_1, \ldots, x_n)\) deveria ser uma amostra da distribuição
+\(N(0, 1)\). Suponha que decidimos verificar esse modelo calculando os
+valores-p
+<span class="eq">\[
+P_i = P(X_i^2 \ge x_i^2)
+\]</span>
+para \(i = 1, \ldots, n\), em que \(X_i^2 \sim \chi^2(1)\). Além disso, decidimos
+que o modelo é incorreto se o mínimo desses valores-p for menor que \(0{,}05\).</p>
+<p>Considere agora o comportamento desse método em amostragens repetidas quando o
+modelo está correto. Temos que
+<span class="eq">\[
+\min\{P_1, \ldots, P_n\} &lt; 0{,}05
+\]</span>
+se e somente se
+<span class="eq">\[
+\max\{x_1^2, \ldots, x_n^2\} \ge \chi_{0{,}95}^2(1),
+\]</span>
+e, portanto,
+<span class="eq">\begin{align*}
+&amp;P(\min\{P_1, \ldots, P_n\} &lt; 0{,}05) \\
+&amp;\quad = P(\max\{X_1^2, \ldots, X_n^2\} \ge \chi_{0{,}95}^2(1)) = 1 -
+P(\max\{X_1^2, \ldots, X_n^2\} \le \chi_{0{,}05}^2(1)) \\
+&amp;\quad = 1 - \prod_{i=1}^n P(X_i^2 \le \chi_{0{,}95}^2(1)) = 1 - (0{,}95)^n \to 1
+\end{align*}</span>
+quando \(n \to \infty\).<sup class="nota-ref nota-tradutor"><a href="#nota-56" id="ref-56">56</a></sup> Isso nos diz
+que, se \(n\) for grande o bastante, rejeitaremos o modelo com certeza quase
+absoluta, mesmo ele estando correto! Note que \(n\) não precisa ser muito grande
+para que haja uma probabilidade apreciável de cometer um erro. Por exemplo,
+quando \(n = 10\), a probabilidade de cometer um erro é \(0{,}40\); quando \(n = 20\),
+a probabilidade de cometer um erro é \(0{,}64\); e, quando \(n = 100\), a
+probabilidade de cometer um erro é \(0{,}99\).</p></div></div>
+<p>Podemos aprender uma lição importante com o Exemplo 9.3.1: se realizamos
+procedimentos de verificação do modelo demais, é quase certo que encontraremos
+algo errado, mesmo que o modelo esteja correto. O remédio para isso é decidir,
+antes de observar os dados de fato (para que as nossas escolhas não sejam
+determinadas pelos dados efetivamente obtidos), uns poucos procedimentos
+relevantes de verificação do modelo a serem realizados, e aplicar somente
+esses.</p>
+<p>O problema que estamos discutindo aqui às vezes é chamado de problema das
+<em>comparações múltiplas<sup class="nota-ref nota-termo"><a href="#nota-57" id="ref-57">57</a></sup></em>, que surge também em outras situações; por
+exemplo, ver a Seção 10.4.1, em que várias médias são comparadas por meio de
+testes dois a dois para diferenças entre as médias. Uma abordagem para evitar o
+problema das comparações múltiplas é simplesmente baixar o ponto de corte do
+valor-p, de modo que a probabilidade de cometer um engano seja adequadamente
+pequena. Por exemplo, se decidíssemos, no Exemplo 9.3.1, que só há evidência
+contra o modelo quando um valor-p individual é menor que \(0{,}0001\), então a
+probabilidade de cometer um engano seria \(0{,}01\) quando \(n = 100\). Uma
+dificuldade dessa abordagem, em geral, é que os nossos procedimentos de
+verificação do modelo não serão independentes, e nem sempre parece possível
+determinar um ponto de corte apropriado para os valores-p individuais. São
+necessários métodos mais avançados para lidar com esse problema.</p>
+<section class="resumo"><h4>Resumo da Seção 9.3</h4><ul><li>Fazer verificações do modelo demais não é uma boa ideia, pois
+  invariavelmente encontraremos algo que nos leve a concluir que o modelo é
+  incorreto. Em vez de embarcar numa “expedição de pesca”, em que simplesmente
+  continuamos verificando o modelo, é melhor escolher uns poucos procedimentos
+  antes de ver os dados e usar esses, e somente esses, na verificação do
+  modelo.</li></ul></section>
+<section class="notas" aria-label="Notas do capítulo"><h4>Notas do capítulo</h4><ol><li id="nota-1" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">a priori</span> — no original, <em lang="en">prior</em></span> <a class="voltar" href="#ref-1" aria-label="Voltar ao texto">↩</a></li><li id="nota-2" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">verificação de modelos</span> — no original, <em lang="en">model checking</em></span> <a class="voltar" href="#ref-2" aria-label="Voltar ao texto">↩</a></li><li id="nota-3" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">hipótese nula</span> — no original, <em lang="en">null hypothesis</em></span> <a class="voltar" href="#ref-3" aria-label="Voltar ao texto">↩</a></li><li id="nota-4" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">tamanho da amostra</span> — no original, <em lang="en">sample size</em></span> <a class="voltar" href="#ref-4" aria-label="Voltar ao texto">↩</a></li><li id="nota-5" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">estatística de discrepância</span> — no original, <em lang="en">discrepancy statistic</em></span> <a class="voltar" href="#ref-5" aria-label="Voltar ao texto">↩</a></li><li id="nota-6" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">subajuste</span> — no original, <em lang="en">underfitting</em></span> <a class="voltar" href="#ref-6" aria-label="Voltar ao texto">↩</a></li><li id="nota-7" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">sobreajuste</span> — no original, <em lang="en">overfitting</em></span> <a class="voltar" href="#ref-7" aria-label="Voltar ao texto">↩</a></li><li id="nota-8" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">distribuição condicional</span> — no original, <em lang="en">conditional distribution</em></span> <a class="voltar" href="#ref-8" aria-label="Voltar ao texto">↩</a></li><li id="nota-9" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">estatística suficiente</span> — no original, <em lang="en">sufficient statistic</em></span> <a class="voltar" href="#ref-9" aria-label="Voltar ao texto">↩</a></li><li id="nota-10" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">estatística suficiente minimal</span> — no original, <em lang="en">minimal sufficient statistic</em></span> <a class="voltar" href="#ref-10" aria-label="Voltar ao texto">↩</a></li><li id="nota-11" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">estimativa</span> — no original, <em lang="en">estimate</em></span> <a class="voltar" href="#ref-11" aria-label="Voltar ao texto">↩</a></li><li id="nota-12" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">distribuição marginal</span> — no original, <em lang="en">marginal distribution</em></span> <a class="voltar" href="#ref-12" aria-label="Voltar ao texto">↩</a></li><li id="nota-13" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">verificação do modelo</span> — no original, <em lang="en">model checking</em></span> <a class="voltar" href="#ref-13" aria-label="Voltar ao texto">↩</a></li><li id="nota-14" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">assimetria</span> — no original, <em lang="en">skewness</em></span> <a class="voltar" href="#ref-14" aria-label="Voltar ao texto">↩</a></li><li id="nota-15" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">função de verossimilhança</span> — no original, <em lang="en">likelihood function</em></span> <a class="voltar" href="#ref-15" aria-label="Voltar ao texto">↩</a></li><li id="nota-16" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">distribuição uniforme</span> — no original, <em lang="en">uniform distribution</em></span> <a class="voltar" href="#ref-16" aria-label="Voltar ao texto">↩</a></li><li id="nota-17" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">função de probabilidade condicional</span> — no original, <em lang="en">conditional probability function</em></span> <a class="voltar" href="#ref-17" aria-label="Voltar ao texto">↩</a></li><li id="nota-18" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">função de probabilidade</span> — no original, <em lang="en">probability function</em></span> <a class="voltar" href="#ref-18" aria-label="Voltar ao texto">↩</a></li><li id="nota-19" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">teste uniformemente mais poderoso</span> — no original, <em lang="en">uniformly most powerful test</em></span> <a class="voltar" href="#ref-19" aria-label="Voltar ao texto">↩</a></li><li id="nota-20" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">modelo normal de locação</span> — no original, <em lang="en">location normal model</em></span> <a class="voltar" href="#ref-20" aria-label="Voltar ao texto">↩</a></li><li id="nota-21" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">variância</span> — no original, <em lang="en">variance</em></span> <a class="voltar" href="#ref-21" aria-label="Voltar ao texto">↩</a></li><li id="nota-22" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">esperança</span> — no original, <em lang="en">expectation</em></span> <a class="voltar" href="#ref-22" aria-label="Voltar ao texto">↩</a></li><li id="nota-23" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">escore normal</span> — no original, <em lang="en">normal score</em></span> <a class="voltar" href="#ref-23" aria-label="Voltar ao texto">↩</a></li><li id="nota-24" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">gráfico de probabilidade normal</span> — no original, <em lang="en">normal probability plot</em></span> <a class="voltar" href="#ref-24" aria-label="Voltar ao texto">↩</a></li><li id="nota-25" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">estatísticas de ordem</span> — no original, <em lang="en">order statistics</em></span> <a class="voltar" href="#ref-25" aria-label="Voltar ao texto">↩</a></li><li id="nota-26" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">teste qui-quadrado de aderência</span> — no original, <em lang="en">chi-squared goodness of fit test</em></span> <a class="voltar" href="#ref-26" aria-label="Voltar ao texto">↩</a></li><li id="nota-27" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">variável aleatória</span> — no original, <em lang="en">random variable</em></span> <a class="voltar" href="#ref-27" aria-label="Voltar ao texto">↩</a></li><li id="nota-28" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">espaço amostral</span> — no original, <em lang="en">sample space</em></span> <a class="voltar" href="#ref-28" aria-label="Voltar ao texto">↩</a></li><li id="nota-29" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">medida de probabilidade</span> — no original, <em lang="en">probability measure</em></span> <a class="voltar" href="#ref-29" aria-label="Voltar ao texto">↩</a></li><li id="nota-30" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">modelo de probabilidade</span> — no original, <em lang="en">probability model</em></span> <a class="voltar" href="#ref-30" aria-label="Voltar ao texto">↩</a></li><li id="nota-31" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">distribuição limite</span> — no original, <em lang="en">limiting distribution</em></span> <a class="voltar" href="#ref-31" aria-label="Voltar ao texto">↩</a></li><li id="nota-32" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">simulação de Monte Carlo</span> — no original, <em lang="en">Monte Carlo simulation</em></span> <a class="voltar" href="#ref-32" aria-label="Voltar ao texto">↩</a></li><li id="nota-33" class="nota-tradutor"><span class="tipo">Nota do tradutor</span> <span class="conteudo">O original diz
+“menor inteiro maior que \(x\)”; a definição usual de \(\lceil x \rceil\) é o menor
+inteiro maior ou igual a \(x\) (os dois só diferem quando \(x\) é inteiro).</span> <a class="voltar" href="#ref-33" aria-label="Voltar ao texto">↩</a></li><li id="nota-34" class="nota-tradutor"><span class="tipo">Nota do tradutor</span> <span class="conteudo">O original traz “\(x_4 0 =\)”; pelo contexto, seria “\(x_4) =\)”.</span> <a class="voltar" href="#ref-34" aria-label="Voltar ao texto">↩</a></li><li id="nota-35" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">log-verossimilhança</span> — no original, <em lang="en">log-likelihood</em></span> <a class="voltar" href="#ref-35" aria-label="Voltar ao texto">↩</a></li><li id="nota-36" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">verossimilhança</span> — no original, <em lang="en">likelihood</em></span> <a class="voltar" href="#ref-36" aria-label="Voltar ao texto">↩</a></li><li id="nota-37" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">validação cruzada</span> — no original, <em lang="en">cross-validation</em></span> <a class="voltar" href="#ref-37" aria-label="Voltar ao texto">↩</a></li><li id="nota-38" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">conjunto de treinamento</span> — no original, <em lang="en">training set</em></span> <a class="voltar" href="#ref-38" aria-label="Voltar ao texto">↩</a></li><li id="nota-39" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">conjunto de validação</span> — no original, <em lang="en">validation set</em></span> <a class="voltar" href="#ref-39" aria-label="Voltar ao texto">↩</a></li><li id="nota-40" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">distribuição normal multivariada</span> — no original, <em lang="en">multivariate normal distribution</em></span> <a class="voltar" href="#ref-40" aria-label="Voltar ao texto">↩</a></li><li id="nota-41" class="nota-tradutor"><span class="tipo">Nota do tradutor</span> <span class="conteudo">O original traz
+\(R^{k \times k}\); pela dimensão de \(R\) seria \(R^{n \times n}\)</span> <a class="voltar" href="#ref-41" aria-label="Voltar ao texto">↩</a></li><li id="nota-42" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">de Cauchy</span> — no original, <em lang="en">Cauchy</em></span> <a class="voltar" href="#ref-42" aria-label="Voltar ao texto">↩</a></li><li id="nota-43" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">preditiva a priori</span> — no original, <em lang="en">prior predictive</em></span> <a class="voltar" href="#ref-43" aria-label="Voltar ao texto">↩</a></li><li id="nota-44" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">conflito entre a priori e dados</span> — no original, <em lang="en">prior–data conflict</em></span> <a class="voltar" href="#ref-44" aria-label="Voltar ao texto">↩</a></li><li id="nota-45" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">modelo amostral</span> — no original, <em lang="en">sampling model</em></span> <a class="voltar" href="#ref-45" aria-label="Voltar ao texto">↩</a></li><li id="nota-46" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">distribuição amostral</span> — no original, <em lang="en">sampling distribution</em></span> <a class="voltar" href="#ref-46" aria-label="Voltar ao texto">↩</a></li><li id="nota-47" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">teorema da fatoração</span> — no original, <em lang="en">factorization theorem</em></span> <a class="voltar" href="#ref-47" aria-label="Voltar ao texto">↩</a></li><li id="nota-48" class="nota-tradutor"><span class="tipo">Nota do tradutor</span> <span class="conteudo">No último somatório, o original traz
+\(t(s')\) minúsculo; pelo resto da conta seria \(T(s')\).</span> <a class="voltar" href="#ref-48" aria-label="Voltar ao texto">↩</a></li><li id="nota-49" class="nota-tradutor"><span class="tipo">Nota do tradutor</span> <span class="conteudo">O valor \(0{,}0688876\) é o de \(m(0) + m(1) + m(19) + m(20)\);
+os valores com probabilidade menor que a de \(y = 3\) dariam <span class="mat-quebravel">\(m(0) + m(1) + m(2)\) \({}+ m(18) + m(19)\) \({}+ m(20) \approx 0{,}1011\)</span>.</span> <a class="voltar" href="#ref-49" aria-label="Voltar ao texto">↩</a></li><li id="nota-50" class="nota-tradutor"><span class="tipo">Nota do tradutor</span> <span class="conteudo">Pela fórmula de \(m(y)\) acima, \(m(36) + \cdots +
+m(50) \approx 0{,}0350\); o valor \(0{,}0500457\) não confere.</span> <a class="voltar" href="#ref-50" aria-label="Voltar ao texto">↩</a></li><li id="nota-51" class="nota-tradutor"><span class="tipo">Nota do tradutor</span> <span class="conteudo">O original traz \(\le\) dentro de
+\(M(\cdot)\) em (9.2.1); para o valor-p (e para bater com o lado direito) seria
+\(|\bar{X} - \mu_0| \ge |\bar{x} - \mu_0|\).</span> <a class="voltar" href="#ref-51" aria-label="Voltar ao texto">↩</a></li><li id="nota-52" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">preditiva a posteriori</span> — no original, <em lang="en">posterior predictive</em></span> <a class="voltar" href="#ref-52" aria-label="Voltar ao texto">↩</a></li><li id="nota-53" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">a posteriori</span> — no original, <em lang="en">posterior</em></span> <a class="voltar" href="#ref-53" aria-label="Voltar ao texto">↩</a></li><li id="nota-54" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">modelo normal de locação e escala</span> — no original, <em lang="en">location-scale normal model</em></span> <a class="voltar" href="#ref-54" aria-label="Voltar ao texto">↩</a></li><li id="nota-55" class="nota-tradutor"><span class="tipo">Nota do tradutor</span> <span class="conteudo">Para que a densidade integre 1, o fator \((\alpha -
+1)\beta^{\alpha-1}\) deveria multiplicar, e não dividir: <span class="mat-quebravel">\(\pi_{\alpha,\beta}(\theta)\) \({}= (\alpha - 1)\beta^{\alpha-1}\theta^{-\alpha} I_{[\beta,\infty)}(\theta)\)</span>.</span> <a class="voltar" href="#ref-55" aria-label="Voltar ao texto">↩</a></li><li id="nota-56" class="nota-tradutor"><span class="tipo">Nota do tradutor</span> <span class="conteudo">Na segunda linha, o original traz
+\(\chi_{0{,}05}^2(1)\); pelo resto da conta seria \(\chi_{0{,}95}^2(1)\).</span> <a class="voltar" href="#ref-56" aria-label="Voltar ao texto">↩</a></li><li id="nota-57" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">comparações múltiplas</span> — no original, <em lang="en">multiple comparisons</em></span> <a class="voltar" href="#ref-57" aria-label="Voltar ao texto">↩</a></li></ol></section>
+<nav class="paginacao"><a class="ant" href="cap08.html">← Capítulo 8</a><a class="prox" href="cap10.html">Capítulo 10 →</a></nav>
+</main>
+<script>
+window.MathJax = { tex: { inlineMath: [["\\(", "\\)"]], displayMath: [["\\[", "\\]"]], tags: "none",
+  macros: { allowbreak: "", nolinebreak: "", upshape: "", itshape: "", sloppy: "", negrito: ["\\boldsymbol{#1}", 1],
+    Var: "\\operatorname{Var}", Cov: "\\operatorname{Cov}", Corr: "\\operatorname{Corr}", Sd: "\\operatorname{Sd}" } },
+  output: { font: "mathjax-stix2" }, svg: { fontCache: "global" }, options: { enableMenu: false } };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@4.0.0/tex-svg.js"></script>
+<script src="leitor.js"></script>
+</body>
+</html>

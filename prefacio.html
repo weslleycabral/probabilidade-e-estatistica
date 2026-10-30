@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Prefácio — Probabilidade e Estatística: A Ciência da Incerteza</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=IBM+Plex+Sans+Condensed:wght@500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Sans+3:wght@500;600;700&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<link rel="stylesheet" href="leitor.css">
+<script>try{var c=JSON.parse(localStorage.getItem('leitor-config')||'{}');for(var k in c)document.documentElement.setAttribute('data-'+k,c[k]);}catch(e){}</script>
+</head>
+<body data-pagina="prefacio">
+<header class="barra">
+  <button class="botao" id="abrir-sumario" type="button" aria-label="Sumário" aria-expanded="false">☰</button>
+  <a class="livro" href="index.html">Probabilidade e Estatística: A Ciência da Incerteza</a>
+  <span class="onde">Prefácio</span>
+  <button class="botao" id="abrir-ajustes" type="button" aria-label="Ajustes de leitura" aria-expanded="false">Aa</button>
+  <div class="progresso" id="progresso"></div>
+</header>
+<nav class="sumario" id="sumario" aria-label="Sumário do capítulo"><ol></ol></nav>
+<div class="ajustes" id="ajustes" hidden></div>
+<main class="corpo">
+<h1 id="cap-sn"><span class="t">Prefácio</span></h1>
+<p>Este livro é um texto introdutório de probabilidade e estatística, voltado
+para estudantes que cursaram um ano de cálculo na universidade e procuram uma
+introdução à probabilidade e à estatística com conteúdo matemático. Sempre que
+possível, apresentamos os detalhes matemáticos, e espera-se que os estudantes
+queiram adquirir algum domínio sobre eles, além de aprender a conduzir
+análises de dados. Todas as metodologias habituais de um curso introdutório
+típico são apresentadas, assim como parte da teoria que as justifica.</p>
+<p>O texto pode ser usado com ou sem um pacote estatístico de computador. Na
+nossa opinião, os estudantes devem perceber a importância de várias técnicas
+computacionais nas aplicações, e o livro procura mostrar isso. Por isso,
+achamos que os aspectos computacionais do assunto, como o método de Monte
+Carlo, devem ser abordados, mesmo que não se use um pacote estatístico. Quase
+qualquer pacote estatístico serve. O apêndice <strong>Cálculos</strong> traz uma
+introdução à linguagem R. Ele cobre todos os aspectos da linguagem necessários
+para fazer as contas do texto. Além disso, fornecemos o código R de todas as
+contas mais complicadas. Os estudantes podem usar esses exemplos como modelo
+para problemas que envolvam esse tipo de conta, por exemplo, com amostragem de
+Gibbs<sup class="nota-ref nota-termo"><a href="#nota-1" id="ref-1">1</a></sup>. Também fornecemos, numa seção à parte desse apêndice, código do Minitab
+para as contas um pouco mais trabalhosas, por exemplo, a amostragem de Gibbs.
+Não é preciso ter experiência com programação para resolver os problemas.</p>
+<p>Organizamos os exercícios do livro em grupos, para ajudar quem o usa. Os
+<strong>Exercícios</strong> servem para todos os estudantes e oferecem prática na
+aplicação dos conceitos discutidos numa seção. Os <strong>Problemas</strong> exigem
+uma compreensão maior, e o estudante pode esperar passar mais tempo pensando
+neles. Se um problema estiver marcado com (MV), ele vai exigir alguma
+familiaridade com cálculo de várias variáveis além do primeiro curso de
+cálculo, embora esses problemas não sejam necessariamente difíceis. Os
+<strong>Desafios</strong> são problemas que a maioria dos estudantes vai achar
+difíceis; são só para os estudantes que não têm dificuldade com os
+<strong>Exercícios</strong> e os <strong>Problemas</strong>. Há também
+<strong>Exercícios computacionais</strong> e <strong>Problemas computacionais</strong>, nos
+quais se espera que os estudantes usem um pacote estatístico para chegar às
+soluções.</p>
+<p>Incluímos vários <strong>Tópicos para discussão</strong>, pensados para estimular o
+pensamento crítico dos estudantes. Ao longo de todo o livro, procuramos levar
+os estudantes além do domínio das técnicas, para que pensem no assunto num
+quadro de referência mais amplo. É importante que os estudantes adquiram uma
+base matemática sólida nas técnicas básicas de probabilidade e estatística, e
+acreditamos que este livro os ajudará a conseguir isso. Em última análise,
+porém, essas disciplinas são aplicadas em contextos do mundo real, e por isso
+é igualmente importante que os estudantes entendam como aplicá-las e quais
+questões surgem. Muitas vezes, os <strong>Tópicos para discussão</strong> não têm
+resposta certa; o objetivo deles é fazer o estudante pensar sobre o assunto.
+Se fossem usados para avaliação, seriam respondidos em forma de dissertação e
+corrigidos pela maturidade que o estudante mostrasse em relação às questões
+envolvidas. Os Tópicos para discussão provavelmente são mais adequados a
+turmas menores, mas também vão beneficiar os estudantes que simplesmente os
+lerem e refletirem sobre a relevância deles.</p>
+<p>Algumas seções do livro estão marcadas como Avançado. Esse material é voltado
+a estudantes com mais maturidade matemática (por exemplo, que estejam
+cursando, ou já tenham cursado, uma segunda disciplina de cálculo). Todo o
+material Avançado pode ser omitido, sem perda de continuidade, pelo professor
+que assim desejar. Em particular, o último capítulo do texto está marcado como
+Avançado e só seria dado num curso introdutório de nível alto, voltado a
+especialistas. Além disso, muitas demonstrações aparecem na última seção de
+muitos capítulos, intitulada Demonstrações Adicionais (Avançado). O professor
+pode escolher quais dessas demonstrações (se alguma) deseja apresentar aos
+seus alunos.</p>
+<p>Assim, achamos que o material do texto é apresentado de forma flexível, o que
+permite ao professor encontrar um nível adequado para os estudantes a quem
+ensina. Um apêndice de <strong>Fundamentos Matemáticos</strong> revisa alguns
+conceitos matemáticos de um primeiro curso de cálculo, caso os estudantes
+precisem relembrá-los, e traz também breves introduções a derivadas parciais,
+integrais duplas etc.</p>
+<p>O Capítulo 1 apresenta o modelo de probabilidade<sup class="nota-ref nota-termo"><a href="#nota-2" id="ref-2">2</a></sup> e motiva o estudo da
+probabilidade. São desenvolvidas as propriedades básicas de uma medida de
+probabilidade<sup class="nota-ref nota-termo"><a href="#nota-3" id="ref-3">3</a></sup>.</p>
+<p>O Capítulo 2 trata de distribuições discretas, contínuas e conjuntas, e dos
+efeitos de uma mudança de variável<sup class="nota-ref nota-termo"><a href="#nota-4" id="ref-4">4</a></sup>. Também introduz o tema da simulação a
+partir de uma distribuição de probabilidade. A mudança de variável
+multivariada é desenvolvida numa seção Avançada.</p>
+<p>O Capítulo 3 introduz a esperança<sup class="nota-ref nota-termo"><a href="#nota-5" id="ref-5">5</a></sup>. São discutidos a função geradora<sup class="nota-ref nota-termo"><a href="#nota-6" id="ref-6">6</a></sup> de
+probabilidade, os momentos e a função geradora de momentos<sup class="nota-ref nota-termo"><a href="#nota-7" id="ref-7">7</a></sup> de uma variável
+aleatória<sup class="nota-ref nota-termo"><a href="#nota-8" id="ref-8">8</a></sup>. Este capítulo desenvolve algumas das principais desigualdades
+usadas em probabilidade. Uma seção sobre funções características está incluída
+como tópico Avançado.</p>
+<p>O Capítulo 4 trata de distribuições amostrais e limites. Convergência em
+probabilidade<sup class="nota-ref nota-termo"><a href="#nota-9" id="ref-9">9</a></sup>, convergência com probabilidade 1<sup class="nota-ref nota-termo"><a href="#nota-10" id="ref-10">10</a></sup>, as leis fraca e forte dos
+grandes números, convergência em distribuição<sup class="nota-ref nota-termo"><a href="#nota-11" id="ref-11">11</a></sup> e o teorema central do limite<sup class="nota-ref nota-termo"><a href="#nota-12" id="ref-12">12</a></sup>
+são todos apresentados, junto com diversas aplicações, como o método de Monte
+Carlo. A teoria da distribuição normal, necessária para muitas aplicações
+estatísticas, também é tratada aqui.</p>
+<p>Como já dissemos, os Capítulos 1 a 4 incluem material sobre técnicas de Monte
+Carlo. A simulação é um aspecto fundamental da aplicação da teoria da
+probabilidade, e, na nossa visão, seu ensino deve estar integrado à teoria
+desde o começo. Isso revela o poder da probabilidade para resolver problemas
+do mundo real e ajuda a convencer os estudantes de que ela é muito mais do que
+apenas uma teoria matemática interessante. Nenhum profissional da área se
+afasta da teoria quando usa o computador para fazer contas, nem o contrário.
+Acreditamos que essa é uma forma mais moderna de ensinar o assunto. Esse
+material pode ser omitido, porém, se o professor pensar de outro modo ou
+achar que não há tempo suficiente para tratá-lo bem.</p>
+<p>O Capítulo 5 é uma introdução à inferência estatística. Na maior parte, ele
+se ocupa de preparar o terreno para o desenvolvimento de uma metodologia mais
+formal nos capítulos seguintes. Por isso, questões práticas — como a coleta
+adequada de dados, a apresentação de dados por técnicas gráficas e métodos
+informais de inferência, como a estatística descritiva — são discutidas
+aqui.</p>
+<p>O Capítulo 6 trata de muitos dos métodos padrão de inferência para problemas
+de uma amostra. A justificativa teórica desses métodos é desenvolvida
+principalmente por meio da função de verossimilhança<sup class="nota-ref nota-termo"><a href="#nota-13" id="ref-13">13</a></sup>, mas o tratamento<sup class="nota-ref nota-termo"><a href="#nota-14" id="ref-14">14</a></sup> ainda é
+bastante informal. São apresentados métodos básicos de inferência, como o erro
+padrão<sup class="nota-ref nota-termo"><a href="#nota-15" id="ref-15">15</a></sup> de uma estimativa<sup class="nota-ref nota-termo"><a href="#nota-16" id="ref-16">16</a></sup>, os intervalos de confiança e os valores-p. Há também
+uma seção dedicada a métodos livres de distribuição<sup class="nota-ref nota-termo"><a href="#nota-17" id="ref-17">17</a></sup> (não paramétricos), como o
+bootstrap<sup class="nota-ref nota-termo"><a href="#nota-18" id="ref-18">18</a></sup>.</p>
+<p>O Capítulo 7 aborda muitos dos mesmos problemas discutidos no Capítulo 6, mas
+agora de uma perspectiva bayesiana. O ponto de vista adotado aqui não é que os
+métodos bayesianos sejam melhores, nem, aliás, piores que os do Capítulo 6.
+Nossa visão é, antes, que os métodos bayesianos surgem naturalmente quando o
+estatístico acrescenta outro ingrediente — a distribuição a priori<sup class="nota-ref nota-termo"><a href="#nota-19" id="ref-19">19</a></sup> — ao modelo. A
+adequação dela, ou do modelo amostral<sup class="nota-ref nota-termo"><a href="#nota-20" id="ref-20">20</a></sup> para os dados, é resolvida pelos
+métodos de verificação de modelos<sup class="nota-ref nota-termo"><a href="#nota-21" id="ref-21">21</a></sup> do Capítulo 9. Não é nossa intenção fazer
+os estudantes adotarem uma filosofia particular. Em vez disso, o texto
+apresenta aos estudantes um amplo espectro do pensamento estatístico.</p>
+<p>Os capítulos seguintes tratam das abordagens frequentista e bayesiana dos
+diversos problemas discutidos. O material bayesiano está em seções claramente
+identificadas e pode ser omitido sem perda de continuidade, se assim se
+desejar. Nos últimos anos, porém, ficou claro que a metodologia bayesiana é
+amplamente usada nas aplicações. Por isso, achamos importante que os
+estudantes tenham contato com ela, assim como com as abordagens
+frequentistas, cedo na sua formação estatística.</p>
+<p>O Capítulo 8 trata das justificativas tradicionais de otimalidade oferecidas
+para algumas inferências estatísticas. Em particular, são discutidos alguns
+aspectos da estimação<sup class="nota-ref nota-termo"><a href="#nota-22" id="ref-22">22</a></sup> não viesada ótima e o teorema de Neyman–Pearson. Há
+também uma breve introdução à teoria da decisão<sup class="nota-ref nota-termo"><a href="#nota-23" id="ref-23">23</a></sup>. Este capítulo é mais formal e
+matemático que os Capítulos 5, 6 e 7, e pode ser omitido, sem perda de
+continuidade, se o professor quiser dar ênfase a métodos e aplicações.</p>
+<p>O Capítulo 9 trata da verificação de modelos. Pusemos a verificação de
+modelos num capítulo separado para ressaltar sua importância nas aplicações.
+Na prática, a verificação de modelos é o modo como os estatísticos justificam
+as escolhas que fazem ao selecionar os ingredientes de um problema
+estatístico. Embora essas escolhas sejam inerentemente subjetivas, os métodos
+deste capítulo fornecem verificações para garantir que as escolhas feitas
+sejam sensatas à luz dos dados observados objetivos.</p>
+<p>O Capítulo 10 trata da análise estatística das relações entre variáveis. Ele
+inclui material sobre regressão linear simples e múltipla, ANOVA, planejamento
+de experimentos<sup class="nota-ref nota-termo"><a href="#nota-24" id="ref-24">24</a></sup> e tabelas de contingência. A ênfase deste capítulo está nas
+aplicações.</p>
+<p>O Capítulo 11 trata de processos estocásticos. Em particular, cadeias de
+Markov e Monte Carlo via cadeias de Markov são abordados neste capítulo, assim
+como o movimento browniano<sup class="nota-ref nota-termo"><a href="#nota-25" id="ref-25">25</a></sup> e sua relevância em finanças. São apresentados
+tópicos bastante sofisticados, mas o tratamento é inteiramente elementar. O
+Capítulo 11 depende apenas do material dos Capítulos 1 a 4.</p>
+<p>Um curso semestral de probabilidade cobriria os Capítulos 1–4 e talvez parte
+do Capítulo 11. Um curso semestral de estatística, na sequência, cobriria os
+Capítulos 5–7 e 9–10. O Capítulo 8 não é necessário, mas algumas partes,
+como a teoria da estimação não viesada e os testes ótimos, são adequadas a um
+curso mais teórico.</p>
+<p>Um curso básico de dois semestres de probabilidade e estatística cobriria os
+Capítulos 1–6 e 9–10. Um curso assim abrange todos os temas tradicionais,
+inclusive a teoria básica da probabilidade, os conceitos básicos de
+inferência estatística e os temas habituais de estatística aplicada
+introdutória. Cobrir o livro inteiro levaria três semestres, que poderiam ser
+organizados de várias maneiras.</p>
+<p>As seções Avançadas podem ser omitidas ou incluídas, conforme o nível dos
+estudantes, sem perda de continuidade. O mesmo vale para os Capítulos 7, 8 e
+11.</p>
+<p>Estudantes que já fizeram um curso introdutório de estatística aplicada sem
+cálculo também vão tirar proveito de um curso baseado neste texto. Embora os
+temas sejam parecidos, aqui eles são apresentados com mais profundidade e
+rigor. Por exemplo, <em>Introduction to the Practice of Statistics</em>, 6ª
+ed., de D. Moore e G. McCabe (W. H. Freeman, 2009), é um excelente texto, e
+acreditamos que o nosso livro serviria de base sólida para um curso de
+continuação.</p>
+<p>Há um Manual de Soluções do Professor (<em>Instructor's Solutions Manual</em>)
+disponível na editora.</p>
+<p>A segunda edição contém muito mais exercícios básicos que a primeira. Além
+disso, reescrevemos várias seções, com o objetivo de deixar o material mais
+claro para os estudantes. Uma das metas da reescrita foi dividir o material
+em partes menores e mais fáceis de digerir, para que as ideias principais se
+destaquem com mais nitidez. Houve também uma reformulação tipográfica
+completa que, a nosso ver, também ajuda nisso. Nos apêndices, acrescentamos
+material sobre o pacote estatístico R, além das respostas dos exercícios
+ímpares, que os estudantes podem usar para conferir sua compreensão.</p>
+<p>Muito obrigado aos revisores e usuários pelos seus comentários: Abbas Alhakim
+(Clarkson University), Michelle Baillargeon (McMaster University), Arne C.
+Bathke (University of Kentucky), Lisa A. Bloomer (Middle Tennessee State
+University), Christopher Brown (California Lutheran University), Jem N.
+Corcoran (University of Colorado), Guang Cheng (Purdue University), Yi Cheng
+(Indiana University South Bend), Eugene Demidenko (Dartmouth College), Robert
+P. Dobrow (Carleton College), John Ferdinands (Calvin College), Soledad A.
+Fernandez (The Ohio State University), Paramjit Gill (University of British
+Columbia Okanagan), Marvin Glover (Milligan College), Ellen Gundlach (Purdue
+University), Paul Gustafson (University of British Columbia), Jan Hannig
+(Colorado State University), Solomon W. Harrar (The University of Montana),
+Susan Herring (Sonoma State University), George F. Hilton (Pacific Union
+College), Chun Jin (Central Connecticut State University), Paul Joyce
+(University of Idaho), Hubert Lilliefors (George Washington University), Andy
+R. Magid (University of Oklahoma), Phil McDonnough (University of Toronto),
+Julia Morton (Nipissing University), Jean D. Opsomer (Colorado State
+University), Randall H. Rieger (West Chester University), Robert L. Schaefer
+(Miami University), Osnat Stramer (University of Iowa), Tim B. Swartz (Simon
+Fraser University), Glen Takahara (Queen's University), Robert D. Thompson
+(Hunter College), David C. Vaughan (Wilfrid Laurier University), Joseph J.
+Walker (Georgia State University), Chad Westerland (University of Arizona),
+Dongfeng Wu (Mississippi State University), Yuehua Wu (York University),
+Nicholas Zaino (University of Rochester). Em particular, o professor Chris
+Andrews (State University of New York) forneceu muitas correções à primeira
+edição.</p>
+<p>Os autores também agradecem a muitas pessoas que ajudaram no desenvolvimento
+deste projeto. Em particular, nossos colegas e alunos da University of
+Toronto nos apoiaram muito. Ping Gao, Aysha Hashim, Gun Ho Jang, Hadas
+Moshonov e Mahinda Samarakoon ajudaram de muitas formas. Vários dos conjuntos
+de dados do Capítulo 10 são usados há muitos anos em disciplinas da
+University of Toronto e foram, acreditamos, compilados pelo trabalho do
+falecido professor Daniel B. DeLury. O professor David Moore, da Purdue
+University, ajudou fornecendo várias das tabelas do fim do livro. Patrick
+Farace, Anne Scanlan-Rohrer, Chris Spavins, Danielle Swearengin, Brian
+Tedesco, Vivien Weiss e Katrina Wilhelm, da W. H. Freeman, deram muito apoio
+e incentivo. Nossas famílias nos ajudaram com sua paciência e carinho
+enquanto trabalhávamos no que às vezes parecia uma tarefa sem fim; muito
+obrigado a Rosemary e Heather Evans e a Margaret Fulford.</p>
+<p><em>Michael Evans e Jeffrey Rosenthal</em><br>
+<em>Toronto, 2009</em></p>
+<p>Há vários anos deixamos o livro disponível gratuitamente na web. Esta versão
+corrige uma série de problemas apontados pelos usuários. Somos gratos a todos
+que nos chamaram a atenção para eles (veja a página antiga na web para os
+agradecimentos individuais) e continuaremos a fazer correções à medida que
+formos informados.</p>
+<p><em>Michael Evans e Jeffrey Rosenthal</em><br>
+<em>Toronto, 2023</em></p>
+<section class="notas" aria-label="Notas do capítulo"><h4>Notas do capítulo</h4><ol><li id="nota-1" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">amostragem de Gibbs</span> — no original, <em lang="en">Gibbs sampling</em></span> <a class="voltar" href="#ref-1" aria-label="Voltar ao texto">↩</a></li><li id="nota-2" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">modelo de probabilidade</span> — no original, <em lang="en">probability model</em></span> <a class="voltar" href="#ref-2" aria-label="Voltar ao texto">↩</a></li><li id="nota-3" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">medida de probabilidade</span> — no original, <em lang="en">probability measure</em></span> <a class="voltar" href="#ref-3" aria-label="Voltar ao texto">↩</a></li><li id="nota-4" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">mudança de variável</span> — no original, <em lang="en">change of variable</em></span> <a class="voltar" href="#ref-4" aria-label="Voltar ao texto">↩</a></li><li id="nota-5" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">esperança</span> — no original, <em lang="en">expectation</em></span> <a class="voltar" href="#ref-5" aria-label="Voltar ao texto">↩</a></li><li id="nota-6" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">função geradora</span> — no original, <em lang="en">generating function</em></span> <a class="voltar" href="#ref-6" aria-label="Voltar ao texto">↩</a></li><li id="nota-7" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">função geradora de momentos</span> — no original, <em lang="en">moment-generating function</em></span> <a class="voltar" href="#ref-7" aria-label="Voltar ao texto">↩</a></li><li id="nota-8" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">variável aleatória</span> — no original, <em lang="en">random variable</em></span> <a class="voltar" href="#ref-8" aria-label="Voltar ao texto">↩</a></li><li id="nota-9" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">convergência em probabilidade</span> — no original, <em lang="en">convergence in probability</em></span> <a class="voltar" href="#ref-9" aria-label="Voltar ao texto">↩</a></li><li id="nota-10" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">convergência com probabilidade 1</span> — no original, <em lang="en">convergence with probability 1</em></span> <a class="voltar" href="#ref-10" aria-label="Voltar ao texto">↩</a></li><li id="nota-11" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">convergência em distribuição</span> — no original, <em lang="en">convergence in distribution</em></span> <a class="voltar" href="#ref-11" aria-label="Voltar ao texto">↩</a></li><li id="nota-12" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">teorema central do limite</span> — no original, <em lang="en">central limit theorem</em></span> <a class="voltar" href="#ref-12" aria-label="Voltar ao texto">↩</a></li><li id="nota-13" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">função de verossimilhança</span> — no original, <em lang="en">likelihood function</em></span> <a class="voltar" href="#ref-13" aria-label="Voltar ao texto">↩</a></li><li id="nota-14" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">tratamento</span> — no original, <em lang="en">treatment</em></span> <a class="voltar" href="#ref-14" aria-label="Voltar ao texto">↩</a></li><li id="nota-15" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">erro padrão</span> — no original, <em lang="en">standard error</em></span> <a class="voltar" href="#ref-15" aria-label="Voltar ao texto">↩</a></li><li id="nota-16" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">estimativa</span> — no original, <em lang="en">estimate</em></span> <a class="voltar" href="#ref-16" aria-label="Voltar ao texto">↩</a></li><li id="nota-17" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">métodos livres de distribuição</span> — no original, <em lang="en">distribution-free methods</em></span> <a class="voltar" href="#ref-17" aria-label="Voltar ao texto">↩</a></li><li id="nota-18" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">bootstrap</span> — no original, <em lang="en">bootstrapping</em></span> <a class="voltar" href="#ref-18" aria-label="Voltar ao texto">↩</a></li><li id="nota-19" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">a priori</span> — no original, <em lang="en">prior</em></span> <a class="voltar" href="#ref-19" aria-label="Voltar ao texto">↩</a></li><li id="nota-20" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">modelo amostral</span> — no original, <em lang="en">sampling model</em></span> <a class="voltar" href="#ref-20" aria-label="Voltar ao texto">↩</a></li><li id="nota-21" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">verificação de modelos</span> — no original, <em lang="en">model checking</em></span> <a class="voltar" href="#ref-21" aria-label="Voltar ao texto">↩</a></li><li id="nota-22" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">estimação</span> — no original, <em lang="en">estimation</em></span> <a class="voltar" href="#ref-22" aria-label="Voltar ao texto">↩</a></li><li id="nota-23" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">teoria da decisão</span> — no original, <em lang="en">decision theory</em></span> <a class="voltar" href="#ref-23" aria-label="Voltar ao texto">↩</a></li><li id="nota-24" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">planejamento de experimentos</span> — no original, <em lang="en">design of experiments</em></span> <a class="voltar" href="#ref-24" aria-label="Voltar ao texto">↩</a></li><li id="nota-25" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">movimento browniano</span> — no original, <em lang="en">Brownian motion</em></span> <a class="voltar" href="#ref-25" aria-label="Voltar ao texto">↩</a></li></ol></section>
+<nav class="paginacao"><span></span><a class="prox" href="cap01.html">Capítulo 1 →</a></nav>
+</main>
+<script>
+window.MathJax = { tex: { inlineMath: [["\\(", "\\)"]], displayMath: [["\\[", "\\]"]], tags: "none",
+  macros: { allowbreak: "", nolinebreak: "", upshape: "", itshape: "", sloppy: "", negrito: ["\\boldsymbol{#1}", 1],
+    Var: "\\operatorname{Var}", Cov: "\\operatorname{Cov}", Corr: "\\operatorname{Corr}", Sd: "\\operatorname{Sd}" } },
+  output: { font: "mathjax-stix2" }, svg: { fontCache: "global" }, options: { enableMenu: false } };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@4.0.0/tex-svg.js"></script>
+<script src="leitor.js"></script>
+</body>
+</html>

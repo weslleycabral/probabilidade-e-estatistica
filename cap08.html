@@ -1,0 +1,2375 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Inferências Ótimas — Probabilidade e Estatística: A Ciência da Incerteza</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=IBM+Plex+Sans+Condensed:wght@500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Sans+3:wght@500;600;700&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<link rel="stylesheet" href="leitor.css">
+<script>try{var c=JSON.parse(localStorage.getItem('leitor-config')||'{}');for(var k in c)document.documentElement.setAttribute('data-'+k,c[k]);}catch(e){}</script>
+</head>
+<body data-pagina="cap08">
+<header class="barra">
+  <button class="botao" id="abrir-sumario" type="button" aria-label="Sumário" aria-expanded="false">☰</button>
+  <a class="livro" href="index.html">Probabilidade e Estatística: A Ciência da Incerteza</a>
+  <span class="onde">Capítulo 8 · Inferências Ótimas</span>
+  <button class="botao" id="abrir-ajustes" type="button" aria-label="Ajustes de leitura" aria-expanded="false">Aa</button>
+  <div class="progresso" id="progresso"></div>
+</header>
+<nav class="sumario" id="sumario" aria-label="Sumário do capítulo"><ol><li class="nivel-2"><a href="#sec-8.1"><span class="n">8.1</span> Estimação Não Viesada Ótima</a></li><li class="nivel-3"><a href="#subsec-8.1.1"><span class="n">8.1.1</span> O Teorema de Rao–Blackwell e a Rao–Blackwellização</a></li><li class="nivel-3"><a href="#subsec-8.1.2"><span class="n">8.1.2</span> Completude e o Teorema de Lehmann–Scheffé</a></li><li class="nivel-3"><a href="#subsec-8.1.3"><span class="n">8.1.3</span> A Desigualdade de Cramer–Rao (Avançado)</a></li><li class="nivel-2"><a href="#sec-8.2"><span class="n">8.2</span> Testes de Hipóteses Ótimos</a></li><li class="nivel-3"><a href="#subsec-8.2.1"><span class="n">8.2.1</span> A Função Poder de um Teste</a></li><li class="nivel-3"><a href="#subsec-8.2.2"><span class="n">8.2.2</span> Erros Tipo I e Tipo II</a></li><li class="nivel-3"><a href="#subsec-8.2.3"><span class="n">8.2.3</span> Regiões de Rejeição e Funções de Teste</a></li><li class="nivel-3"><a href="#subsec-8.2.4"><span class="n">8.2.4</span> O Teorema de Neyman–Pearson</a></li><li class="nivel-3"><a href="#subsec-8.2.5"><span class="n">8.2.5</span> Testes da Razão de Verossimilhança (Avançado)</a></li><li class="nivel-2"><a href="#sec-8.3"><span class="n">8.3</span> Inferências Bayesianas Ótimas</a></li><li class="nivel-2"><a href="#sec-8.4"><span class="n">8.4</span> Teoria da Decisão (Avançado)</a></li><li class="nivel-2"><a href="#sec-8.5"><span class="n">8.5</span> Demonstrações Adicionais (Avançado)</a></li></ol></nav>
+<div class="ajustes" id="ajustes" hidden></div>
+<main class="corpo">
+<h1 id="cap-8"><span class="n">Capítulo 8</span><span class="t">Inferências Ótimas</span></h1>
+<section class="esboco"><h4>Esboço do capítulo</h4><ul><li><strong>Seção 1</strong> Estimação Não Viesada Ótima</li>
+<li><strong>Seção 2</strong> Testes de Hipóteses Ótimos</li>
+<li><strong>Seção 3</strong> Inferências Bayesianas Ótimas</li>
+<li><strong>Seção 4</strong> Teoria da Decisão (Avançado)</li>
+<li><strong>Seção 5</strong> Demonstrações Adicionais (Avançado)</li></ul></section>
+<p>No Capítulo 5, apresentamos o ingrediente básico da inferência
+estatística: o modelo estatístico. No Capítulo 6, desenvolvemos métodos de
+inferência baseados apenas no modelo, por meio da função de verossimilhança<sup class="nota-ref nota-termo"><a href="#nota-1" id="ref-1">1</a></sup>. No
+Capítulo 7, acrescentamos a distribuição a priori<sup class="nota-ref nota-termo"><a href="#nota-2" id="ref-2">2</a></sup> para o parâmetro do modelo, o
+que levou à distribuição a posteriori<sup class="nota-ref nota-termo"><a href="#nota-3" id="ref-3">3</a></sup> como base para obter métodos de
+inferência.</p>
+<p>Tanto com a verossimilhança<sup class="nota-ref nota-termo"><a href="#nota-4" id="ref-4">4</a></sup> quanto com a distribuição a posteriori, porém, as
+inferências foram obtidas, em grande parte, com base na intuição. Por exemplo,
+quando tínhamos uma característica de interesse \(\psi(\theta)\), nada na teoria
+dos Capítulos 6 e 7 nos obrigava a escolher um estimador, um intervalo de
+confiança<sup class="nota-ref nota-termo"><a href="#nota-5" id="ref-5">5</a></sup> ou de credibilidade ou um procedimento de teste em particular. Uma
+teoria completa da inferência estatística, porém, prescreveria totalmente
+nossas inferências.</p>
+<p>Uma tentativa de resolver essa questão é introduzir uma medida de desempenho
+para as inferências e, então, escolher a inferência que se sai melhor com
+respeito a essa medida. Por exemplo, podemos escolher medir o desempenho dos
+estimadores pelo seu erro quadrático médio<sup class="nota-ref nota-termo"><a href="#nota-6" id="ref-6">6</a></sup> (MSE) e, então, tentar obter um
+estimador com o menor MSE possível. Essa é a abordagem de otimalidade da
+inferência, e ela tem tido bastante sucesso em vários problemas. Neste
+capítulo, veremos vários sucessos da abordagem de otimalidade na obtenção de
+inferências.</p>
+<p>Às vezes, a medida de desempenho que usamos pode ser considerada como baseada
+no que se chama de <em>função de perda<sup class="nota-ref nota-termo"><a href="#nota-7" id="ref-7">7</a></sup></em>. As funções de perda formam a base de
+mais uma abordagem da inferência estatística, chamada <em>teoria da decisão<sup class="nota-ref nota-termo"><a href="#nota-8" id="ref-8">8</a></sup></em>.
+Embora nem sempre uma medida de desempenho seja baseada numa função de perda,
+isso vale em alguns dos problemas mais importantes da inferência estatística. A
+teoria da decisão fornece um arcabouço geral para discutir esses problemas. Uma
+breve introdução à teoria da decisão é dada na Seção 8.4, como tópico avançado.</p>
+<h2 id="sec-8.1"><span class="n">8.1</span> <span class="t">Estimação Não Viesada Ótima</span></h2>
+<p>Suponha que queremos estimar a característica real \(\psi(\theta)\) do modelo
+estatístico \(\{f_\theta : \theta \in \negrito{\Omega}\}\). Se observamos os dados
+\(s\), uma estimativa<sup class="nota-ref nota-termo"><a href="#nota-9" id="ref-9">9</a></sup> é um valor \(T(s)\) que o estatístico espera que esteja perto
+do verdadeiro valor de \(\psi(\theta)\). Dizemos que \(T\) é um <em>estimador</em> de
+\(\psi\). O erro da estimativa é dado por \(\lvert T(s) - \psi(\theta)\rvert\). Por
+várias razões (a maioria ligada à matemática), é mais conveniente considerar o
+erro quadrático \((T(s) - \psi(\theta))^2\).</p>
+<p>É claro que gostaríamos que esse erro quadrático fosse o menor possível. Como não
+conhecemos o verdadeiro valor de \(\theta\), isso nos leva a considerar as
+distribuições do erro quadrático quando \(s\) tem distribuição dada por
+\(f_\theta\), para cada \(\theta \in \negrito{\Omega}\). Gostaríamos, então, de
+escolher o estimador \(T\) de modo que essas distribuições fiquem o mais
+concentradas possível em torno de 0. Uma medida conveniente da concentração
+dessas distribuições em torno de 0 é dada por suas médias, isto é,
+<span class="eq">\begin{equation}
+\mathrm{MSE}_\theta(T) = E_\theta((T - \psi(\theta))^2),
+\tag{8.1.1}\end{equation}</span>
+chamada de <em>erro quadrático médio</em> (lembre a Definição 6.3.1).</p>
+<p>Um <em>estimador ótimo</em> de \(\psi(\theta)\) é, então, um \(T\) que minimiza
+(8.1.1) para todo \(\theta \in \negrito{\Omega}\). Em outras palavras, \(T\) seria
+ótimo se, para qualquer outro estimador \(T^*\) definido em \(S\), tivéssemos
+<span class="eq">\[
+\mathrm{MSE}_\theta(T) \le \mathrm{MSE}_\theta(T^*)
+\]</span>
+para cada \(\theta\). Infelizmente, pode-se mostrar que, exceto em circunstâncias
+muito artificiais, não existe tal \(T\); por isso, precisamos modificar nosso
+problema de otimização.</p>
+<p>Essa modificação consiste em restringir os estimadores \(T\) que admitiremos como
+escolhas possíveis para a inferência. Considere um estimador \(T\) tal que
+\(E_\theta(T)\) não existe ou é infinito. Pode-se mostrar, então, que (8.1.1) é
+infinito (veja o Desafio 8.1.26). Assim, primeiro restringiremos nossa busca aos
+\(T\) para os quais \(E_\theta(T)\) é finito para todo \(\theta\).</p>
+<p>Outras restrições aos tipos de estimadores que consideramos usam o resultado a
+seguir (lembre também o Teorema 6.3.1).</p>
+<div class="teo teorema" id="teorema-8.1.1"><div class="cab"><span class="rot">Teorema 8.1.1</span></div><div class="txt"><p>Se \(T\) é tal que \(E(T^2)\) é finito, então
+<span class="eq">\[
+E((T - c)^2) = \Var(T) + (E(T) - c)^2,
+\]</span>
+Isso é minimizado tomando \(c = E(T)\).</p></div></div>
+<div class="dem fim"><span class="rot">Demonstração.</span> <p>Temos que
+<span class="eq">\begin{align}
+E((T - c)^2) &amp;= E((T - E(T) + E(T) - c)^2) \notag\\
+&amp;= E((T - E(T))^2) + 2E(T - E(T))(E(T) - c) + (E(T) - c)^2 \notag\\
+&amp;= \Var(T) + (E(T) - c)^2, \tag{8.1.2}
+\end{align}</span>
+pois \(E(T - E(T)) = E(T) - E(T) = 0\). Como \((E(T) - c)^2 \ge 0\) e \(\Var(T)\) não
+depende de \(c\), o valor de (8.1.2) é minimizado tomando \(c = E(T)\).</p></div>
+<h3 id="subsec-8.1.1"><span class="n">8.1.1</span> <span class="t">O Teorema de Rao–Blackwell e a Rao–Blackwellização</span></h3>
+<p>Vamos provar que, quando procuramos um \(T\) que minimize (8.1.1), podemos
+restringir ainda mais nossa atenção a estimadores \(T\) que dependem dos dados
+apenas por meio do valor de uma estatística suficiente<sup class="nota-ref nota-termo"><a href="#nota-10" id="ref-10">10</a></sup>. Isso simplifica nossa
+busca, pois a suficiência muitas vezes resulta numa redução da dimensão dos
+dados (lembre a discussão e os exemplos da Seção 6.1.1). Antes, porém,
+precisamos da seguinte propriedade da suficiência.</p>
+<div class="teo teorema" id="teorema-8.1.2"><div class="cab"><span class="rot">Teorema 8.1.2</span></div><div class="txt"><p>Uma estatística \(U\) é suficiente para um modelo se e somente se a distribuição
+condicional<sup class="nota-ref nota-termo"><a href="#nota-11" id="ref-11">11</a></sup> dos dados \(s\) dado \(U = u\) é a mesma para todo
+\(\theta \in \negrito{\Omega}\).</p></div></div>
+<div class="dem fim"><span class="rot">Demonstração.</span> <p>Veja a Seção 8.5 para a demonstração deste resultado.</p></div>
+<p>A consequência desse resultado é que a informação contida nos dados \(s\) além do
+valor \(U(s) = u\) não pode nos dizer nada sobre o verdadeiro valor de \(\theta\),
+porque essa informação vem de uma distribuição que não depende do parâmetro.
+Observe que o Teorema 8.1.2 é uma caracterização da suficiência, alternativa à
+dada na Seção 6.1.1.</p>
+<p>Considere um exemplo simples que ilustra o conteúdo do Teorema 8.1.2.</p>
+<div class="ex" id="exemplo-8.1.1"><div class="cab"><span class="rot">Exemplo 8.1.1</span></div><div class="txt fim"><p>Suponha que \(S = \{1, 2, 3, 4\}\), \(\negrito{\Omega} = \{a, b\}\), em que as duas
+distribuições de probabilidade são dadas pela tabela a seguir.</p>
+<div class="centro"><div class="tbl"><table><tr><th></th><th>\(s = 1\)</th><th>\(s = 2\)</th><th>\(s = 3\)</th><th>\(s = 4\)</th></tr><tr><td>\(\theta = a\)</td><td>\(1/2\)</td><td>\(1/6\)</td><td>\(1/6\)</td><td>\(1/6\)</td></tr><tr><td>\(\theta = b\)</td><td>\(1/4\)</td><td>\(1/4\)</td><td>\(1/4\)</td><td>\(1/4\)</td></tr></table></div></div>
+<p>Então <span class="mat-quebravel">\(L(\cdot \mid 2)\) \({}= L(\cdot \mid 3)\) \({}= L(\cdot \mid 4)\)</span> e, assim,
+\(U : S \longrightarrow \{0, 1\}\), dada por \(U(1) = 0\) e
+\(U(2) = U(3) = U(4) = 1\), é uma estatística suficiente.</p>
+<p>Como necessariamente \(s = 1\) quando observamos \(U(s) = 0\), a distribuição
+condicional da resposta \(s\), dado \(U(s) = 0\), é degenerada em 1 (isto é, toda a
+massa de probabilidade está no ponto 1) tanto para \(\theta = a\) quanto para
+\(\theta = b\). Quando \(\theta = a\), a distribuição condicional da resposta \(s\),
+dado \(U(s) = 1\), põe \(1/3\) de sua massa em cada um dos pontos de \(\{2, 3, 4\}\),
+e o mesmo acontece quando \(\theta = b\). Assim, dado \(U(s) = 1\), as distribuições
+condicionais são as da tabela a seguir.</p>
+<div class="centro"><div class="tbl"><table><tr><th></th><th>\(s = 1\)</th><th>\(s = 2\)</th><th>\(s = 3\)</th><th>\(s = 4\)</th></tr><tr><td>\(\theta = a\)</td><td>\(0\)</td><td>\(1/3\)</td><td>\(1/3\)</td><td>\(1/3\)</td></tr><tr><td>\(\theta = b\)</td><td>\(0\)</td><td>\(1/3\)</td><td>\(1/3\)</td><td>\(1/3\)</td></tr></table></div></div>
+<p>Vemos, portanto, que as distribuições condicionais de fato não dependem de
+\(\theta\).</p></div></div>
+<p>Agora combinamos os Teoremas 8.1.1 e 8.1.2 para mostrar que podemos restringir
+nossa atenção a estimadores \(T\) que dependem dos dados apenas por meio do valor
+de uma estatística suficiente \(U\). Pelo Teorema 8.1.2, podemos denotar a medida
+de probabilidade condicional<sup class="nota-ref nota-termo"><a href="#nota-12" id="ref-12">12</a></sup> de \(s\), dado \(U(s) = u\), por \(P(\cdot \mid U = u)\),
+isto é, essa medida de probabilidade<sup class="nota-ref nota-termo"><a href="#nota-13" id="ref-13">13</a></sup> não depende de \(\theta\), pois é a mesma
+para todo \(\theta \in \negrito{\Omega}\).</p>
+<p>Para um estimador \(T\) de \(\psi(\theta)\) tal que \(E_\theta(T)\) é finito para todo
+\(\theta\), tome \(T_U(s)\) igual à esperança condicional<sup class="nota-ref nota-termo"><a href="#nota-14" id="ref-14">14</a></sup> de \(T\) dado o valor de
+\(U(s)\), ou seja,
+<span class="eq">\[
+T_U(s) = E_{P(\cdot \mid U = U(s))}(T),
+\]</span>
+isto é, \(T_U\) é o valor médio<sup class="nota-ref nota-termo"><a href="#nota-15" id="ref-15">15</a></sup> de \(T\) quando tomamos a média usando
+\(P(\cdot \mid U = U(s))\). Observe que \(T_U(s_1) = T_U(s_2)\) sempre que
+\(U(s_1) = U(s_2)\) (isso porque <span class="mat-quebravel">\(P(\cdot \mid U = U(s_1))\) \({}=
+P(\cdot \mid U = U(s_2))\)</span>) e, assim, \(T_U\) depende dos dados \(s\) apenas por
+meio do valor de \(U(s)\).</p>
+<div class="teo teorema" id="teorema-8.1.3"><div class="cab"><span class="rot">Teorema 8.1.3</span> <span class="nome">(Rao–Blackwell)</span></div><div class="txt"><p>Suponha que \(U\) é uma estatística suficiente e que \(E_\theta(T^2)\) é finito para
+todo \(\theta\). Então \(\mathrm{MSE}_\theta(T_U) \le \mathrm{MSE}_\theta(T)\) para
+todo \(\theta \in \negrito{\Omega}\).</p></div></div>
+<div class="dem fim"><span class="rot">Demonstração.</span> <p>Seja \(P_{\theta,U}\) a medida de probabilidade marginal de \(U\) induzida por
+\(P_\theta\). Pelo teorema da esperança<sup class="nota-ref nota-termo"><a href="#nota-16" id="ref-16">16</a></sup> total (veja o Teorema 3.5.2), temos que
+<span class="eq">\[
+\mathrm{MSE}_\theta(T) = E_{P_{\theta,U}}\Bigl(E_{P(\cdot \mid U = u)}((T - \psi(\theta))^2)\Bigr),
+\]</span>
+em que \(E_{P(\cdot \mid U = u)}((T - \psi(\theta))^2)\) denota o MSE condicional
+de \(T\), dado \(U = u\). Agora, pelo Teorema 8.1.1,
+<span class="eq">\begin{equation}
+E_{P(\cdot \mid U = u)}((T - \psi(\theta))^2) = \Var_{P(\cdot \mid U = u)}(T) + (E_{P(\cdot \mid U = u)}(T) - \psi(\theta))^2.
+\tag{8.1.3}\end{equation}</span>
+Como os dois termos em (8.1.3) são não negativos, e lembrando a definição de
+\(T_U\), temos
+<span class="eq">\begin{align*}
+\mathrm{MSE}_\theta(T) &amp;= E_{P_{\theta,U}}(\Var_{P(\cdot \mid U = u)}(T)) + E_{P_{\theta,U}}((T_U(s) - \psi(\theta))^2)\\
+&amp;\ge E_{P_{\theta,U}}((T_U(s) - \psi(\theta))^2).
+\end{align*}</span>
+Agora <span class="mat-quebravel">\((T_U(s) - \psi(\theta))^2\) \({}= E_{P(\cdot \mid U = u)}((T_U(s) - \psi(\theta))^2)\)</span>
+(Teorema 3.5.4) e, assim, pelo teorema da esperança total,
+<span class="eq">\begin{align*}
+E_{P_{\theta,U}}((T_U(s) - \psi(\theta))^2) &amp;= E_{P_{\theta,U}}\Bigl(E_{P(\cdot \mid U = u)}((T_U(s) - \psi(\theta))^2)\Bigr)\\
+&amp;= E_{P_\theta}((T_U(s) - \psi(\theta))^2) = \mathrm{MSE}_\theta(T_U)
+\end{align*}</span>
+e o teorema está provado.</p></div>
+<p>O Teorema 8.1.3 mostra que sempre podemos melhorar (ou, pelo menos, não piorar)
+qualquer estimador \(T\) que tenha segundo momento finito, substituindo \(T(s)\) pela
+estimativa \(T_U(s)\). Esse processo às vezes é chamado de
+<em>Rao–Blackwellização</em> de um estimador.</p>
+<p>Observe que tomar \(E = E_\theta\) e \(c = \psi(\theta)\) no Teorema 8.1.1 implica
+<span class="eq">\begin{equation}
+\mathrm{MSE}_\theta(T) = \Var_\theta(T) + (E_\theta(T) - \psi(\theta))^2.
+\tag{8.1.4}\end{equation}</span>
+Assim, o MSE de \(T\) pode ser decomposto como a soma da variância<sup class="nota-ref nota-termo"><a href="#nota-17" id="ref-17">17</a></sup> de \(T\) com o
+quadrado do viés de \(T\) (isso também foi provado no Teorema 6.3.1).</p>
+<p>O Teorema 8.1.1 tem outra consequência importante, pois (8.1.4) é minimizado
+tomando \(\psi(\theta) = E_\theta(T)\). Isso indica que, em média, o estimador \(T\)
+fica mais perto (em termos de erro quadrático) de \(E_\theta(T)\) do que de
+qualquer outro valor. Assim, se estamos amostrando da distribuição especificada
+por \(\theta\), \(T(s)\) é uma estimativa natural de \(E_\theta(T)\). Portanto, para
+uma característica geral \(\psi(\theta)\), faz sentido restringir a atenção a
+estimadores com viés igual a 0. Isso leva à definição a seguir.</p>
+<div class="def definicao" id="definicao-8.1.1"><div class="cab"><span class="rot">Definição 8.1.1</span></div><div class="txt"><p>Um estimador \(T\) de \(\psi(\theta)\) é <em>não viesado<sup class="nota-ref nota-termo"><a href="#nota-18" id="ref-18">18</a></sup></em> se
+\(E_\theta(T) = \psi(\theta)\) para todo \(\theta \in \negrito{\Omega}\).</p></div></div>
+<p>Observe que, para estimadores não viesados com segundo momento finito, (8.1.4)
+se torna
+<span class="eq">\[
+\mathrm{MSE}_\theta(T) = \Var_\theta(T).
+\]</span>
+Portanto, nossa busca por um estimador ótimo se tornou a busca por um estimador
+não viesado de menor variância. Se tal estimador existe, damos a ele um nome
+especial.</p>
+<div class="def definicao" id="definicao-8.1.2"><div class="cab"><span class="rot">Definição 8.1.2</span></div><div class="txt"><p>Um estimador não viesado de \(\psi(\theta)\) com a menor variância para cada
+\(\theta \in \negrito{\Omega}\) é chamado de <em>estimador não viesado de
+variância uniformemente mínima<sup class="nota-ref nota-termo"><a href="#nota-19" id="ref-19">19</a></sup> (UMVU)</em>.</p></div></div>
+<p>É importante notar que o teorema de Rao–Blackwell (Teorema 8.1.3) também se
+aplica a estimadores não viesados. Isso porque a Rao–Blackwellização de um
+estimador não viesado produz um estimador não viesado, como mostra o resultado a
+seguir.</p>
+<div class="teo teorema" id="teorema-8.1.4"><div class="cab"><span class="rot">Teorema 8.1.4</span> <span class="nome">(Rao–Blackwell para estimadores não viesados)</span></div><div class="txt"><p>Se \(T\) tem segundo momento finito, é não viesado para \(\psi(\theta)\) e \(U\) é uma
+estatística suficiente, então \(E_\theta(T_U) = \psi(\theta)\) para todo
+\(\theta \in \negrito{\Omega}\) (logo, \(T_U\) também é não viesado para
+\(\psi(\theta)\)) e \(\Var_\theta(T_U) \le \Var_\theta(T)\).</p></div></div>
+<div class="dem fim"><span class="rot">Demonstração.</span> <p>Usando o teorema da esperança total (Teorema 3.5.2), temos
+<span class="eq">\[
+E_\theta(T_U) = E_{P_{\theta,U}}(T_U) = E_{P_{\theta,U}}\bigl(E_{P(\cdot \mid U = u)}(T)\bigr) = E_\theta(T) = \psi(\theta).
+\]</span>
+Assim, \(T_U\) é não viesado para \(\psi(\theta)\) e
+\(\mathrm{MSE}_\theta(T) = \Var_\theta(T)\),
+\(\mathrm{MSE}_\theta(T_U) = \Var_\theta(T_U)\). Aplicando o Teorema 8.1.3,
+obtemos \(\Var_\theta(T_U) \le \Var_\theta(T)\).</p></div>
+<p>Há muitas situações em que a teoria da estimação<sup class="nota-ref nota-termo"><a href="#nota-20" id="ref-20">20</a></sup> não viesada leva a bons
+estimadores. O exemplo a seguir, porém, mostra que em alguns problemas não
+existem estimadores não viesados e, portanto, a teoria tem algumas limitações.</p>
+<div class="ex" id="exemplo-8.1.2"><div class="cab"><span class="rot">Exemplo 8.1.2</span> <span class="nome">A Inexistência de um Estimador Não Viesado</span></div><div class="txt fim"><p>Suponha que \((x_1, \ldots, x_n)\) é uma amostra da Bernoulli\((\theta)\) e que
+queremos encontrar um estimador UMVU de \(\psi(\theta) = \theta/(1 - \theta)\), a
+chance a favor da ocorrência de um sucesso. Pelo Teorema 8.1.4, podemos
+restringir nossa busca a estimadores não viesados \(T\) que sejam funções da
+estatística suficiente \(n\bar{x}\).</p>
+<p>Tal \(T\) satisfaz \(E_\theta(T(n\bar{X})) = \theta/(1 - \theta)\) para todo
+\(\theta \in [0, 1]\). Lembrando que \(n\bar{X} \sim \text{Binomial}(n, \theta)\),
+isso implica
+<span class="eq">\[
+\frac{\theta}{1 - \theta} = \sum_{k=0}^{n} T(k) \binom{n}{k} \theta^k (1 - \theta)^{n-k}
+\]</span>
+para todo \(\theta \in [0, 1]\). Pelo teorema binomial<sup class="nota-ref nota-termo"><a href="#nota-21" id="ref-21">21</a></sup>, temos
+<span class="eq">\[
+(1 - \theta)^{n-k} = \sum_{l=0}^{n-k} \binom{n-k}{l} (-1)^l \theta^l.
+\]</span>
+Substituindo isso na expressão anterior para \(\theta/(1 - \theta)\) e
+escrevendo-a em termos de potências de \(\theta\), chegamos
+à igualdade a seguir:<sup class="nota-ref nota-tradutor"><a href="#nota-22" id="ref-22">22</a></sup>
+<span class="eq">\begin{equation}
+\frac{\theta}{1 - \theta} = \sum_{m=0}^{n} \left( \sum_{k=0}^{m} T(k) \binom{n}{k} (-1)^{m-k} \right) \theta^m.
+\tag{8.1.5}\end{equation}</span>
+Agora, o lado esquerdo de (8.1.5) vai para \(\infty\) quando \(\theta \to 1\), mas o
+lado direito é um polinômio em \(\theta\), que é limitado em \([0, 1]\). Portanto,
+não pode existir um estimador não viesado de \(\psi\).</p></div></div>
+<p>Se uma característica \(\psi(\theta)\) tem um estimador não viesado, diz-se que ela
+é <em>U-estimável</em>. Deve-se ter em mente, porém, que o fato de um parâmetro não
+ser U-estimável não significa que não podemos estimá-lo! Por exemplo, \(\psi\) no
+Exemplo 8.1.2 é uma função injetora<sup class="nota-ref nota-termo"><a href="#nota-23" id="ref-23">23</a></sup> de \(\theta\); assim, o EMV de \(\psi\) é dado
+por \(\bar{x}/(1 - \bar{x})\) (veja o Teorema 6.2.1), e esse parece um estimador
+razoável, mesmo sendo viesado.</p>
+<h3 id="subsec-8.1.2"><span class="n">8.1.2</span> <span class="t">Completude e o Teorema de Lehmann–Scheffé</span></h3>
+<p>Em certas circunstâncias, se existe um estimador não viesado que é função de uma
+estatística suficiente \(U\), então só existe um estimador assim; logo, ele tem de
+ser UMVU. Precisamos do conceito de completude<sup class="nota-ref nota-termo"><a href="#nota-24" id="ref-24">24</a></sup> para estabelecer isso.</p>
+<div class="def definicao" id="definicao-8.1.3"><div class="cab"><span class="rot">Definição 8.1.3</span></div><div class="txt"><p>Uma estatística \(U\) é <em>completa</em> se qualquer função \(h\) de \(U\) que satisfaça
+\(E_\theta(h(U)) = 0\) para todo \(\theta \in \negrito{\Omega}\) também satisfaz
+\(h(U(s)) = 0\) com probabilidade 1 para cada \(\theta \in \negrito{\Omega}\) (isto
+é, \(P_\theta(\{s : h(U(s)) = 0\}) = 1\) para todo \(\theta \in \negrito{\Omega}\)).</p></div></div>
+<p>Em teoria das probabilidades, tratamos duas funções como equivalentes se elas
+diferem apenas num conjunto de probabilidade 0, pois a probabilidade de as
+funções assumirem valores diferentes num valor observado da resposta é 0. Assim,
+na Definição 8.1.3, não precisamos distinguir entre \(h\) e a constante 0. Portanto,
+uma estatística \(U\) é completa se o único estimador não viesado de 0 baseado em
+\(U\) é o próprio 0.</p>
+<p>Podemos agora obter o resultado a seguir.</p>
+<div class="teo teorema" id="teorema-8.1.5"><div class="cab"><span class="rot">Teorema 8.1.5</span> <span class="nome">(Lehmann–Scheffé)</span></div><div class="txt"><p>Se \(U\) é uma estatística suficiente completa e se \(T\) depende dos dados apenas
+por meio do valor de \(U\), tem segundo momento finito para todo \(\theta\) e é não
+viesado para \(\psi(\theta)\), então \(T\) é UMVU.</p></div></div>
+<div class="dem fim"><span class="rot">Demonstração.</span> <p>Suponha que \(T^*\) também é um estimador não viesado de \(\psi(\theta)\). Pelo
+Teorema 8.1.4, podemos supor que \(T^*\) depende dos dados apenas por meio do valor
+de \(U\). Então existem funções \(h\) e \(h^*\) tais que \(T(s) = h(U(s))\) e
+\(T^*(s) = h^*(U(s))\) e
+<span class="eq">\[
+0 = E_\theta(T) - E_\theta(T^*) = E_\theta(h(U)) - E_\theta(h^*(U)) = E_\theta(h(U) - h^*(U)).
+\]</span>
+Pela completude de \(U\), temos \(h(U) = h^*(U)\) com probabilidade 1 para cada
+\(\theta \in \negrito{\Omega}\), o que implica \(T = T^*\) com probabilidade 1 para
+cada \(\theta \in \negrito{\Omega}\). Isso diz que existe, essencialmente, um único
+estimador não viesado de \(\psi(\theta)\) baseado em \(U\) e, portanto, ele tem de
+ser UMVU.</p></div>
+<p>O teorema de Rao–Blackwell para estimadores não viesados (Teorema 8.1.4), junto
+com o teorema de Lehmann–Scheffé, fornece um método para obter um estimador UMVU
+de \(\psi(\theta)\). Suponha que conseguimos encontrar um estimador não viesado
+\(T\) com segundo momento finito. Se também temos uma estatística suficiente
+completa \(U\), então, pelo Teorema 8.1.4, \(T_U(s) = E_{P(\cdot \mid U = U(s))}(T)\)
+é não viesado para \(\psi(\theta)\) e depende dos dados apenas por meio do valor
+de \(U\), pois \(T_U(s_1) = T_U(s_2)\) sempre que \(U(s_1) = U(s_2)\). Portanto, pelo
+Teorema 8.1.5, \(T_U\) é UMVU para \(\psi(\theta)\).</p>
+<p>Não é necessário que, num dado problema, exista uma estatística suficiente
+completa. Na verdade, pode-se provar que a única candidata a isso é uma
+estatística suficiente minimal<sup class="nota-ref nota-termo"><a href="#nota-25" id="ref-25">25</a></sup> (lembre a definição na Seção 6.1.1). Assim, num
+dado problema, precisamos obter uma estatística suficiente minimal e, então,
+determinar se ela é completa ou não. Ilustramos isso com um exemplo.</p>
+<div class="ex" id="exemplo-8.1.3"><div class="cab"><span class="rot">Exemplo 8.1.3</span> <span class="nome">Normal de Locação</span></div><div class="txt fim"><p>Suponha que \((x_1, \ldots, x_n)\) é uma amostra de uma distribuição
+\(N(\mu, \sigma_0^2)\), em que \(\mu \in R^1\) é desconhecido e \(\sigma_0^2 &gt; 0\) é
+conhecido. No Exemplo 6.1.7, mostramos que \(\bar{x}\) é uma estatística
+suficiente minimal para esse modelo.</p>
+<p>Na verdade, \(\bar{x}\) também é completa para esse modelo. A demonstração disso é
+um pouco trabalhosa e é apresentada na Seção 8.5.</p>
+<p>Como \(\bar{x}\) é uma estatística suficiente minimal completa, \(T(\bar{x})\) é um
+estimador UMVU de sua média \(E_\mu(T(\bar{X}))\) sempre que \(T\) tem segundo
+momento finito para todo \(\mu \in R^1\). Em particular, \(\bar{x}\) é o estimador
+UMVU de \(\mu\), pois \(E_\mu(\bar{X}) = \mu\) e
+<span class="mat-quebravel">\(E_\mu(\bar{X}^2)\) \({}= (\sigma_0^2/n)\) \({}+ \mu^2 &lt; \infty\)</span>. Além disso,
+\(\bar{x} + \sigma_0 z_p\) é o estimador UMVU de
+<span class="mat-quebravel">\(E_\mu(\bar{X} + \sigma_0 z_p)\) \({}= \mu + \sigma_0 z_p\)</span> (o \(p\)-ésimo quantil da
+verdadeira distribuição).</p></div></div>
+<p>Os argumentos necessários para mostrar a completude de uma estatística
+suficiente minimal num problema costumam ser parecidos com o que foi exigido no
+Exemplo 8.1.3 (veja o Desafio 8.1.27). Em vez de entrar nesses detalhes técnicos
+aqui, citamos alguns exemplos importantes em que a estatística suficiente minimal
+é completa.</p>
+<div class="ex" id="exemplo-8.1.4"><div class="cab"><span class="rot">Exemplo 8.1.4</span> <span class="nome">Normal de Locação e Escala</span></div><div class="txt fim"><p>Suponha que \((x_1, \ldots, x_n)\) é uma amostra de uma distribuição
+\(N(\mu, \sigma^2)\), em que \(\mu \in R^1\) e \(\sigma &gt; 0\) são desconhecidos. O
+parâmetro desse modelo é bidimensional e é dado por
+\((\mu, \sigma^2) \in R^1 \times (0, \infty)\).</p>
+<p>Mostramos, no Exemplo 6.1.8, que \((\bar{x}, s^2)\) é uma estatística suficiente
+minimal para esse modelo. Na verdade, pode-se mostrar que \((\bar{x}, s^2)\) é uma
+estatística suficiente minimal completa. Portanto, \(T(\bar{x}, s^2)\) é um
+estimador UMVU de \(E_\theta(T(\bar{X}, S^2))\) sempre que o segundo momento de
+\(T(\bar{x}, s^2)\) é finito para todo \((\mu, \sigma^2)\). Em particular, \(\bar{x}\)
+é o estimador UMVU de \(\mu\) e \(s^2\) é UMVU para \(\sigma^2\).</p></div></div>
+<div class="ex" id="exemplo-8.1.5"><div class="cab"><span class="rot">Exemplo 8.1.5</span> <span class="nome">Modelos Livres de Distribuição</span></div><div class="txt fim"><p>Suponha que \((x_1, \ldots, x_n)\) é uma amostra de alguma distribuição contínua em
+\(R^1\). O modelo estatístico é formado por todas as distribuições contínuas em
+\(R^1\).</p>
+<p>Pode-se mostrar que as estatísticas de ordem<sup class="nota-ref nota-termo"><a href="#nota-26" id="ref-26">26</a></sup> \((x_{(1)}, \ldots, x_{(n)})\) formam
+uma estatística suficiente minimal completa para esse modelo. Portanto,
+\(T(x_{(1)}, \ldots, x_{(n)})\) é UMVU para
+<span class="eq">\[
+E_\theta(T(X_{(1)}, \ldots, X_{(n)}))
+\]</span>
+sempre que
+<span class="eq">\begin{equation}
+E_\theta(T^2(X_{(1)}, \ldots, X_{(n)})) &lt; \infty
+\tag{8.1.6}\end{equation}</span>
+para toda distribuição contínua. Em particular, isso acontece se
+\(T : R^n \to R^1\) é limitada. Por exemplo, se
+<span class="eq">\[
+T(x_{(1)}, \ldots, x_{(n)}) = \frac{1}{n} \sum_{i=1}^{n} I_A(x_{(i)}),
+\]</span>
+a frequência relativa<sup class="nota-ref nota-termo"><a href="#nota-27" id="ref-27">27</a></sup> do evento \(A\) na amostra, então
+\(T(x_{(1)}, \ldots, x_{(n)})\) é UMVU para
+<span class="mat-quebravel">\(E_\theta(T(X_{(1)}, \ldots, X_{(n)}))\) \({}= P_\theta(A)\)</span>.</p>
+<p>Agora mude a hipótese do modelo, de modo que \((x_1, \ldots, x_n)\) seja uma
+amostra de alguma distribuição contínua em \(R^1\) que possui seus primeiros \(m\)
+momentos. Novamente, pode-se mostrar que as estatísticas de ordem formam uma
+estatística suficiente minimal completa. Portanto,
+\(T(x_{(1)}, \ldots, x_{(n)})\) é UMVU para \(E_\theta(T(X_{(1)}, \ldots, X_{(n)}))\)
+sempre que (8.1.6) vale para toda distribuição contínua que possui seus
+primeiros \(m\) momentos. Por exemplo, se \(m = 2\), isso implica que
+\(T(x_{(1)}, \ldots, x_{(n)}) = \bar{x}\) é UMVU para \(E_\theta(\bar{X})\). Quando
+\(m = 4\), temos que \(s^2\) é UMVU para a variância populacional (veja o Exercício
+8.1.2).</p></div></div>
+<h3 id="subsec-8.1.3"><span class="n">8.1.3</span> <span class="t">A Desigualdade de Cramer–Rao (Avançado)</span></h3>
+<p>Existe uma desigualdade fundamental que vale para a variância de um estimador
+\(T\). Ela é dada pela <em>desigualdade de Cramer–Rao<sup class="nota-ref nota-termo"><a href="#nota-28" id="ref-28">28</a></sup></em> (às vezes chamada de
+<em>desigualdade da informação</em>). Ela é um corolário da desigualdade a seguir.</p>
+<div class="teo teorema" id="teorema-8.1.6"><div class="cab"><span class="rot">Teorema 8.1.6</span> <span class="nome">(Desigualdade da covariância<sup class="nota-ref nota-termo"><a href="#nota-29" id="ref-29">29</a></sup>)</span></div><div class="txt"><p>Suponha \(T, U_\theta : S \to R^1\) e \(E_\theta(T^2) &lt; \infty\),
+\(0 &lt; E_\theta(U_\theta^2) &lt; \infty\) para todo \(\theta \in \negrito{\Omega}\).
+Então
+<span class="eq">\[
+\Var_\theta(T) \ge \frac{(\Cov_\theta(T, U_\theta))^2}{\Var_\theta(U_\theta)}
+\]</span>
+para todo \(\theta \in \negrito{\Omega}\). Vale a igualdade se e somente se
+<span class="eq">\[
+T(s) = E_\theta(T) + \frac{\Cov_\theta(T, U_\theta)}{\Var_\theta(U_\theta)}(U_\theta(s) - E_\theta(U_\theta(s)))
+\]</span>
+com probabilidade 1 para todo \(\theta \in \negrito{\Omega}\) (isto é, se e
+somente se \(T(s)\) e \(U_\theta(s)\) são linearmente relacionados).</p></div></div>
+<div class="dem fim"><span class="rot">Demonstração.</span> <p>Esse resultado decorre imediatamente da desigualdade de Cauchy–Schwartz<sup class="nota-ref nota-termo"><a href="#nota-30" id="ref-30">30</a></sup>
+(Teorema 3.6.3).</p></div>
+<p>Agora suponha que \(\negrito{\Omega}\) é um subintervalo aberto de \(R^1\) e tomamos
+<span class="eq">\begin{equation}
+U_\theta(s) = S(\theta \mid s) = \frac{\partial \ln f_\theta(s)}{\partial \theta},
+\tag{8.1.7}\end{equation}</span>
+isto é, \(U_\theta\) é a função escore<sup class="nota-ref nota-termo"><a href="#nota-31" id="ref-31">31</a></sup>. Suponha que valem as condições discutidas
+na Seção 6.5, de modo que \(E_\theta(S(\theta \mid s)) = 0\) para todo \(\theta\) e
+a informação de Fisher<sup class="nota-ref nota-termo"><a href="#nota-32" id="ref-32">32</a></sup> \(I(\theta) = \Var_\theta(S(\theta \mid s))\) é finita.
+Então, usando
+<span class="eq">\[
+\frac{\partial \ln f_\theta(s)}{\partial \theta} = \frac{\partial f_\theta(s)}{\partial \theta}\,\frac{1}{f_\theta(s)},
+\]</span>
+temos
+<span class="eq">\begin{align}
+&amp;\Cov_\theta(T, U_\theta) \notag\\
+&amp;\quad = E_\theta\left(T(s)\frac{\partial \ln f_\theta(s)}{\partial \theta}\right)
+ = E_\theta\left(T(s)\frac{\partial f_\theta(s)}{\partial \theta}\,\frac{1}{f_\theta(s)}\right) \notag\\
+&amp;\quad = \sum_s \left(T(s)\frac{\partial f_\theta(s)}{\partial \theta}\,\frac{1}{f_\theta(s)}\right) f_\theta(s)
+ = \frac{\partial}{\partial \theta} \sum_s T(s) f_\theta(s) = \frac{\partial E_\theta(T)}{\partial \theta},
+\tag{8.1.8}
+\end{align}</span>
+no caso discreto, em que supusemos condições como as discutidas na Seção 6.5,
+de modo que podemos passar a derivada parcial para dentro da soma. Um argumento
+semelhante dá a igualdade (8.1.8) também no caso contínuo.</p>
+<p>A desigualdade da covariância, aplicada com \(U_\theta\) especificada como em
+(8.1.7) e usando (8.1.8), dá o resultado a seguir.</p>
+<div class="teo corolario" id="corolario-8.1.1"><div class="cab"><span class="rot">Corolário 8.1.1</span> <span class="nome">(Desigualdade de Cramer–Rao ou da informação)</span></div><div class="txt"><p>Sob essas condições,
+<span class="eq">\[
+\Var_\theta(T) \ge \left(\frac{\partial E_\theta(T)}{\partial \theta}\right)^2 (I(\theta))^{-1}
+\]</span>
+para todo \(\theta \in \negrito{\Omega}\). Vale a igualdade se e somente se
+<span class="eq">\[
+T(s) = E_\theta(T) + \frac{\partial E_\theta(T)}{\partial \theta}(I(\theta))^{-1} S(\theta \mid s)
+\]</span>
+com probabilidade 1 para todo \(\theta \in \negrito{\Omega}\).</p></div></div>
+<p>A desigualdade de Cramer–Rao fornece uma cota inferior<sup class="nota-ref nota-termo"><a href="#nota-33" id="ref-33">33</a></sup> fundamental para a
+variância de um estimador \(T\). Por (8.1.4), sabemos que a variância é uma medida
+relevante da precisão de um estimador apenas quando o estimador é não viesado;
+por isso, reenunciamos o Corolário 8.1.1 para esse caso.</p>
+<div class="teo corolario" id="corolario-8.1.2"><div class="cab"><span class="rot">Corolário 8.1.2</span></div><div class="txt"><p>Sob as condições do Corolário 8.1.1, quando \(T\) é um estimador não viesado de
+\(\psi(\theta)\),
+<span class="eq">\[
+\Var_\theta(T) \ge (\psi'(\theta))^2 (I(\theta))^{-1}
+\]</span>
+para todo \(\theta \in \negrito{\Omega}\). Vale a igualdade se e somente se
+<span class="eq">\begin{equation}
+T(s) = \psi(\theta) + \psi'(\theta)(I(\theta))^{-1} S(\theta \mid s)
+\tag{8.1.9}\end{equation}</span>
+com probabilidade 1 para todo \(\theta \in \negrito{\Omega}\).</p></div></div>
+<p>Observe que, quando \(\psi(\theta) = \theta\), o Corolário 8.1.2 diz que a
+variância do estimador não viesado \(T\) é limitada inferiormente pelo inverso da
+informação de Fisher. De modo mais geral, quando \(\psi\) é uma transformação
+injetora e suave, temos (usando o Desafio 6.5.19) que a variância de um \(T\) não
+viesado é de novo limitada inferiormente pelo inverso da informação de Fisher,
+mas desta vez o modelo usa a parametrização em termos de \(\psi(\theta)\).</p>
+<p>O Corolário 8.1.2 tem várias consequências interessantes. Primeiro, se obtemos
+um estimador não viesado \(T\) cuja variância atinge a cota inferior, sabemos
+imediatamente que ele é UMVU. Segundo, sabemos que qualquer estimador não viesado
+que atinge a cota inferior tem a forma dada em (8.1.9). Observe que o lado
+direito de (8.1.9) precisa ser independente de \(\theta\) para que isso seja um
+estimador. Se não for, então não há estimadores UMVU cuja variância atinja a
+cota inferior. O exemplo a seguir mostra que há casos em que existem estimadores
+UMVU, mas sua variância não atinge a cota inferior.</p>
+<div class="ex" id="exemplo-8.1.6"><div class="cab"><span class="rot">Exemplo 8.1.6</span> <span class="nome">Modelo Poisson\((\lambda)\)</span></div><div class="txt fim"><p>Suponha que \((x_1, \ldots, x_n)\) é uma amostra da distribuição Poisson\((\lambda)\),
+em que \(\lambda &gt; 0\) é desconhecido. A log-verossimilhança<sup class="nota-ref nota-termo"><a href="#nota-34" id="ref-34">34</a></sup> é dada por
+<span class="mat-quebravel">\(l(\lambda \mid x_1, \ldots, x_n)\) \({}= n\bar{x} \ln \lambda - n\lambda\)</span>; assim, a
+função escore é dada por <span class="mat-quebravel">\(S(\lambda \mid x_1, \ldots, x_n)\) \({}= n\bar{x}/\lambda - n\)</span>.
+Agora
+<span class="eq">\[
+\frac{\partial S(\lambda \mid x_1, \ldots, x_n)}{\partial \lambda} = -\frac{n\bar{x}}{\lambda^2},
+\]</span>
+e, portanto,
+<span class="eq">\[
+I(\lambda) = E_\lambda\left(\frac{n\bar{x}}{\lambda^2}\right) = \frac{n}{\lambda}.
+\]</span></p>
+<p>Suponha que estamos estimando \(\lambda\). Então a cota inferior de Cramer–Rao é
+dada por \(I^{-1}(\lambda) = \lambda/n\). Notando que \(\bar{x}\) é não viesado para
+\(\lambda\) e que \(\Var_\lambda(\bar{X}) = \lambda/n\), vemos imediatamente que
+\(\bar{x}\) é UMVU e atinge a cota inferior.</p>
+<p>Agora suponha que estamos estimando <span class="mat-quebravel">\(\psi(\lambda)\) \({}= e^{-\lambda}\) \({}= P_\lambda(\{0\})\)</span>.
+A cota inferior de Cramer–Rao é igual a \(\lambda e^{-2\lambda}/n\) e
+<span class="eq">\begin{align*}
+\psi(\lambda) + \psi'(\lambda) I^{-1}(\lambda) S(\lambda \mid x_1, \ldots, x_n)
+&amp;= e^{-\lambda} - e^{-\lambda}\left(\frac{\lambda}{n}\right)\left(\frac{n\bar{x}}{\lambda} - n\right)\\
+&amp;= e^{-\lambda}(1 - \bar{x} + \lambda),
+\end{align*}</span>
+que claramente não é independente de \(\lambda\). Assim, não existe um estimador
+UMVU de \(\psi\) que atinja a cota inferior.</p>
+<p>Existe um estimador UMVU de \(\psi\)? Observe que, quando \(n = 1\),
+\(I_{\{0\}}(x_1)\) é um estimador não viesado de \(\psi\). Acontece que \(\bar{x}\) é
+(para todo \(n\)) uma estatística suficiente minimal completa para esse modelo;
+assim, pelo teorema de Lehmann–Scheffé, \(I_{\{0\}}(x_1)\) é UMVU para \(\psi\). Além
+disso, \(I_{\{0\}}(X_1)\) tem variância
+<span class="eq">\[
+P_\lambda(X_1 = 0)(1 - P_\lambda(X_1 = 0)) = e^{-\lambda}(1 - e^{-\lambda}),
+\]</span>
+pois \(I_{\{0\}}(X_1) \sim \text{Bernoulli}(e^{-\lambda})\). Isso implica que
+\(e^{-\lambda}(1 - e^{-\lambda}) &gt; \lambda e^{-2\lambda}\).</p>
+<p>Em geral, temos que
+<span class="eq">\[
+\frac{1}{n} \sum_{i=1}^{n} I_{\{0\}}(x_i)
+\]</span>
+é um estimador não viesado de \(\psi\), mas não é uma função de \(\bar{x}\). Assim,
+não podemos aplicar o teorema de Lehmann–Scheffé, mas podemos
+Rao–Blackwellizar esse estimador. Portanto,
+o estimador UMVU de \(\psi\) é dado por
+<span class="eq">\[
+\frac{1}{n} \sum_{i=1}^{n} E(I_{\{0\}}(X_i) \mid \bar{X} = \bar{x}).
+\]</span></p>
+<p>Para determinar esse estimador em forma fechada, raciocinamos da seguinte
+maneira. A função de probabilidade condicional<sup class="nota-ref nota-termo"><a href="#nota-35" id="ref-35">35</a></sup> de \((X_1, \ldots, X_n)\) dado
+\(\bar{X} = \bar{x}\), como \(n\bar{X}\) tem distribuição Poisson\((n\lambda)\), é
+<span class="eq">\[
+\left\{\frac{\lambda^{x_1}}{x_1!} \cdots \frac{\lambda^{x_n}}{x_n!} e^{-n\lambda}\right\}
+\left\{\frac{(n\lambda)^{n\bar{x}}}{(n\bar{x})!} e^{-n\lambda}\right\}^{-1}
+= \binom{n\bar{x}}{x_1 \; \ldots \; x_n} \left(\frac{1}{n}\right)^{x_1} \cdots \left(\frac{1}{n}\right)^{x_n},
+\]</span>
+isto é, \((X_1, \ldots, X_n)\) dado \(\bar{X} = \bar{x}\) tem distribuição
+Multinomial\((n\bar{x}, 1/n, \ldots, 1/n)\). Assim, o estimador UMVU é
+dado por
+<span class="eq">\[
+E(I_{\{0\}}(X_1) \mid \bar{X} = \bar{x}) = P(X_1 = 0 \mid \bar{X} = \bar{x}) = \left(1 - \frac{1}{n}\right)^{n\bar{x}}
+\]</span>
+pois <span class="mat-quebravel">\(X_i \mid \bar{X}\) \({}= \bar{x} \sim \text{Binomial}(n\bar{x}, 1/n)\)</span> para cada
+\(i = 1, \ldots, n\).</p>
+<p>Com certeza, não é nada óbvio, pela forma funcional, que esse estimador seja não
+viesado, muito menos UMVU. Assim, esse resultado pode ser visto como uma
+aplicação um tanto notável da teoria.</p></div></div>
+<p>Lembre agora os Teoremas 6.5.2 e 6.5.3. As consequências desses resultados, com
+algumas condições adicionais, são que o EMV de \(\theta\) é assintoticamente não
+viesado para \(\theta\) e que a variância assintótica do EMV está na cota inferior
+da informação. Isso muitas vezes é interpretado como querendo dizer que, com
+amostras grandes, o EMV faz uso completo da informação sobre \(\theta\) contida
+nos dados.</p>
+<section class="resumo"><h4>Resumo da Seção 8.1</h4><ul><li>Em média, é da sua própria média que um estimador fica mais perto (usando
+a distância quadrática) (veja o Teorema 8.1.1); por isso,
+podemos restringir a atenção a estimadores não viesados das quantidades de
+interesse.</li>
+<li>O teorema de Rao–Blackwell diz que podemos restringir a atenção a funções
+de uma estatística suficiente ao procurar um estimador que minimize o MSE.</li>
+<li>Quando uma estatística suficiente é completa, qualquer função dessa
+estatística suficiente é UMVU para sua média.</li>
+<li>A cota inferior de Cramer–Rao dá uma cota inferior para a variância de um
+estimador não viesado e um método para obter um estimador cuja variância está
+nessa cota inferior, quando tal estimador existe.</li></ul></section>
+<h4 class="bloco bloco-exercicios">Exercícios</h4>
+<p class="exerc" id="exerc-8.1.1"><span class="k">8.1.1</span> Suponha que um modelo estatístico é dado pelas duas distribuições
+da tabela a seguir.</p>
+<div class="centro"><div class="tbl"><table><tr><th></th><th>\(s = 1\)</th><th>\(s = 2\)</th><th>\(s = 3\)</th><th>\(s = 4\)</th></tr><tr><td>\(f_a(s)\)</td><td>\(1/3\)</td><td>\(1/6\)</td><td>\(1/12\)</td><td>\(5/12\)</td></tr><tr><td>\(f_b(s)\)</td><td>\(1/2\)</td><td>\(1/4\)</td><td>\(1/6\)</td><td>\(1/12\)</td></tr></table></div></div>
+<p>Se \(T : \{1, 2, 3, 4\} \to \{1, 2, 3, 4\}\) é definida por \(T(1) = T(2) = 1\) e
+\(T(s) = s\) nos demais casos, prove que \(T\) é uma estatística suficiente. Obtenha
+as distribuições condicionais de \(s\) dado \(T(s)\) e mostre que elas não dependem
+de \(\theta\).</p>
+<p class="exerc" id="exerc-8.1.2"><span class="k">8.1.2</span> Suponha que \((x_1, \ldots, x_n)\) é uma amostra de uma distribuição
+com média \(\mu\) e variância \(\sigma^2\). Prove que
+\(s^2 = (n - 1)^{-1} \sum_{i=1}^{n} (x_i - \bar{x})^2\) é não viesado para
+\(\sigma^2\).</p>
+<p class="exerc" id="exerc-8.1.3"><span class="k">8.1.3</span> Suponha que \((x_1, \ldots, x_n)\) é uma amostra de uma distribuição
+\(N(\mu, \sigma_0^2)\), em que \(\mu \in R^1\) é desconhecido e \(\sigma_0^2\) é
+conhecido. Determine um estimador UMVU do segundo momento \(\mu^2 + \sigma_0^2\).</p>
+<p class="exerc" id="exerc-8.1.4"><span class="k">8.1.4</span> Suponha que \((x_1, \ldots, x_n)\) é uma amostra de uma distribuição
+\(N(\mu, \sigma_0^2)\), em que \(\mu \in R^1\) é desconhecido e \(\sigma_0^2\) é
+conhecido. Determine um estimador UMVU do primeiro quartil
+\(\mu + \sigma_0 z_{0{,}25}\).</p>
+<p class="exerc" id="exerc-8.1.5"><span class="k">8.1.5</span> Suponha que \((x_1, \ldots, x_n)\) é uma amostra de uma distribuição
+\(N(\mu, \sigma_0^2)\), em que \(\mu \in R^1\) é desconhecido e \(\sigma_0^2\) é
+conhecido. \(2\bar{x} + 3\) é um estimador UMVU de alguma coisa? Se for, é UMVU
+para quê? Justifique sua resposta.</p>
+<p class="exerc" id="exerc-8.1.6"><span class="k">8.1.6</span> Suponha que \((x_1, \ldots, x_n)\) é uma amostra de uma distribuição
+Bernoulli\((\theta)\), em que \(\theta \in [0, 1]\) é desconhecido. Determine um
+estimador UMVU de \(\theta\) (use o fato de que uma estatística suficiente minimal
+para esse modelo é completa).</p>
+<p class="exerc" id="exerc-8.1.7"><span class="k">8.1.7</span> Suponha que \((x_1, \ldots, x_n)\) é uma amostra de uma distribuição
+Gama\((\alpha_0, \beta)\), em que \(\alpha_0\) é conhecido e \(\beta &gt; 0\) é
+desconhecido. Usando o fato de que \(\bar{x}\) é uma estatística suficiente
+completa (veja o Desafio 8.1.27), determine um estimador UMVU de \(\beta^{-1}\).</p>
+<p class="exerc" id="exerc-8.1.8"><span class="k">8.1.8</span> Suponha que \((x_1, \ldots, x_n)\) é uma amostra de uma distribuição
+\(N(\mu_0, \sigma^2)\), em que \(\mu_0\) é conhecido e \(\sigma^2 &gt; 0\) é desconhecido.
+Mostre que \(\sum_{i=1}^{n} (x_i - \mu_0)^2\) é uma estatística suficiente para
+esse problema. Usando o fato de que ela é completa, determine um estimador UMVU
+para \(\sigma^2\).</p>
+<p class="exerc" id="exerc-8.1.9"><span class="k">8.1.9</span> Suponha que um modelo estatístico é formado por todas as
+distribuições contínuas em \(R^1\). Com base numa amostra de tamanho \(n\), determine
+um estimador UMVU de \(P((-1, 1))\), em que \(P\) é a verdadeira medida de
+probabilidade. Justifique sua resposta.</p>
+<p class="exerc" id="exerc-8.1.10"><span class="k">8.1.10</span> Suponha que um modelo estatístico é formado por todas as
+distribuições contínuas em \(R^1\) que têm segundo momento finito. Com base numa
+amostra de tamanho \(n\), determine um estimador UMVU de \(\mu^2\), em que \(\mu\) é a
+verdadeira média. Justifique sua resposta. (Sugestão: encontre um estimador não
+viesado para \(n = 2\), Rao–Blackwellize esse estimador para uma amostra de tamanho
+\(n\) e, então, use o teorema de Lehmann–Scheffé.)</p>
+<p class="exerc" id="exerc-8.1.11"><span class="k">8.1.11</span> O estimador determinado no Exercício 8.1.10 também é não viesado
+para \(\mu^2\) quando o modelo estatístico é formado por todas as distribuições
+contínuas em \(R^1\) que têm primeiro momento finito. Esse estimador continua
+sendo UMVU para \(\mu^2\)?</p>
+<h4 class="bloco bloco-problemas">Problemas</h4>
+<p class="exerc" id="exerc-8.1.12"><span class="k">8.1.12</span> Suponha que \((x_1, \ldots, x_n)\) é uma amostra de uma distribuição
+Uniforme<sup class="nota-ref nota-termo"><a href="#nota-36" id="ref-36">36</a></sup>\([0, \theta]\), em que \(\theta &gt; 0\) é desconhecido. Mostre que \(x_{(n)}\) é
+uma estatística suficiente e determine sua distribuição. Usando o fato de que
+\(x_{(n)}\) é completa, determine um estimador UMVU de \(\theta\).</p>
+<p class="exerc" id="exerc-8.1.13"><span class="k">8.1.13</span> Suponha que \((x_1, \ldots, x_n)\) é uma amostra de uma distribuição
+Bernoulli\((\theta)\), em que \(\theta \in [0, 1]\) é desconhecido. Determine, então,
+a distribuição condicional de \((x_1, \ldots, x_n)\) dado o valor da estatística
+suficiente \(\bar{x}\).</p>
+<p class="exerc" id="exerc-8.1.14"><span class="k">8.1.14</span> Prove que \(L(\theta, a) = (\theta - a)^2\) satisfaz
+<span class="eq">\[
+L(\theta, \alpha a_1 + (1 - \alpha) a_2) \le \alpha L(\theta, a_1) + (1 - \alpha) L(\theta, a_2)
+\]</span>
+quando \(a\) varia num subintervalo de \(R^1\). Use esse resultado junto com a
+desigualdade de Jensen<sup class="nota-ref nota-termo"><a href="#nota-37" id="ref-37">37</a></sup> (Teorema 3.6.4) para provar o teorema de Rao–Blackwell.</p>
+<p class="exerc" id="exerc-8.1.15"><span class="k">8.1.15</span> Prove que \(L(\theta, a) = \lvert\theta - a\rvert\) satisfaz
+<span class="eq">\[
+L(\theta, \alpha a_1 + (1 - \alpha) a_2) \le \alpha L(\theta, a_1) + (1 - \alpha) L(\theta, a_2)
+\]</span>
+quando \(a\) varia num subintervalo de \(R^1\). Use esse resultado junto com a
+desigualdade de Jensen (Teorema 3.6.4) para provar o teorema de Rao–Blackwell
+para o erro absoluto. (Sugestão: primeiro mostre que
+<span class="mat-quebravel">\(\lvert x + y\rvert \le \lvert x\rvert\) \({}+ \lvert y\rvert\)</span> para quaisquer \(x\) e
+\(y\).)</p>
+<p class="exerc" id="exerc-8.1.16"><span class="k">8.1.16</span> Suponha que \((x_1, \ldots, x_n)\) é uma amostra de uma distribuição
+\(N(\mu, \sigma^2)\), em que \((\mu, \sigma^2) \in R^1 \times (0, \infty)\) é
+desconhecido. Mostre que o estimador ótimo (no sentido de minimizar o MSE) da
+forma \(cs^2\) para \(\sigma^2\) é dado por \(c = (n - 1)/(n + 1)\). Determine o viés
+desse estimador e mostre que ele vai para 0 quando \(n \to \infty\).</p>
+<p class="exerc" id="exerc-8.1.17"><span class="k">8.1.17</span> Prove que, se uma estatística \(T\) é completa para um modelo e
+\(U = h(T)\) para uma função injetora \(h\), então \(U\) também é completa.</p>
+<p class="exerc" id="exerc-8.1.18"><span class="k">8.1.18</span> Suponha que \((x_1, \ldots, x_n)\) é uma amostra de uma distribuição
+\(N(\mu, \sigma^2)\), em que \((\mu, \sigma^2) \in R^1 \times (0, \infty)\) é
+desconhecido. Obtenha um estimador UMVU do desvio padrão<sup class="nota-ref nota-termo"><a href="#nota-38" id="ref-38">38</a></sup> \(\sigma\). (Sugestão:
+calcule o valor esperado<sup class="nota-ref nota-termo"><a href="#nota-39" id="ref-39">39</a></sup> do desvio padrão<sup class="nota-ref nota-termo"><a href="#nota-40" id="ref-40">40</a></sup> amostral \(s\).)</p>
+<p class="exerc" id="exerc-8.1.19"><span class="k">8.1.19</span> Suponha que \((x_1, \ldots, x_n)\) é uma amostra de uma distribuição
+\(N(\mu, \sigma^2)\), em que \((\mu, \sigma^2) \in R^1 \times (0, \infty)\) é
+desconhecido. Obtenha um estimador UMVU do primeiro quartil
+\(\mu + \sigma z_{0{,}25}\). (Sugestão: Problema 8.1.17.)<sup class="nota-ref nota-tradutor"><a href="#nota-41" id="ref-41">41</a></sup></p>
+<p class="exerc" id="exerc-8.1.20"><span class="k">8.1.20</span> Suponha que \((x_1, \ldots, x_n)\) é uma amostra de uma distribuição
+\(N(\mu, \sigma_0^2)\), em que <span class="mat-quebravel">\(\theta \in \negrito{\Omega}\) \({}= \{\mu_1, \mu_2\}\)</span> é
+desconhecido e \(\sigma_0^2 &gt; 0\) é conhecido. Estabeleça que \(\bar{x}\) é uma
+estatística suficiente minimal para esse modelo, mas que não é completa.</p>
+<p class="exerc" id="exerc-8.1.21"><span class="k">8.1.21</span> Suponha que \((x_1, \ldots, x_n)\) é uma amostra de uma distribuição
+\(N(\mu, \sigma_0^2)\), em que \(\mu \in R^1\) é desconhecido e \(\sigma_0^2\) é
+conhecido. Determine a cota inferior da informação, para um estimador não
+viesado, quando consideramos a estimação do segundo momento
+\(\mu^2 + \sigma_0^2\). O estimador UMVU do Exercício 8.1.3 atinge a cota inferior
+da informação?</p>
+<p class="exerc" id="exerc-8.1.22"><span class="k">8.1.22</span> Suponha que \((x_1, \ldots, x_n)\) é uma amostra de uma distribuição
+Gama\((\alpha_0, \beta)\), em que \(\alpha_0\) é conhecido e \(\beta &gt; 0\) é
+desconhecido. Determine a cota inferior da informação para a estimação de
+\(\beta^{-1}\) por estimadores não viesados e determine se o estimador UMVU obtido
+no Exercício 8.1.7 a atinge.</p>
+<p class="exerc" id="exerc-8.1.23"><span class="k">8.1.23</span> Suponha que \((x_1, \ldots, x_n)\) é uma amostra da distribuição com
+densidade \(f_\theta(x) = \theta x^{\theta - 1}\) para \(x \in [0, 1]\), em que
+\(\theta &gt; 0\) é desconhecido. Determine a cota inferior da informação para a
+estimação de \(\theta\) por estimadores não viesados. Existe um estimador UMVU com
+variância na cota inferior para esse problema?</p>
+<p class="exerc" id="exerc-8.1.24"><span class="k">8.1.24</span> Suponha que uma estatística \(T\) é uma estatística completa<sup class="nota-ref nota-termo"><a href="#nota-42" id="ref-42">42</a></sup> baseada
+em algum modelo estatístico. Um submodelo é um modelo estatístico formado apenas
+por algumas das distribuições do modelo original. Por que \(T\) não é
+necessariamente completa para um submodelo?</p>
+<p class="exerc" id="exerc-8.1.25"><span class="k">8.1.25</span> Suponha que uma estatística \(T\) é uma estatística completa baseada
+em algum modelo estatístico. Se construímos um modelo maior que contém todas as
+distribuições do modelo original e é tal que qualquer conjunto com probabilidade
+0 para toda distribuição do modelo original também tem probabilidade 0 para toda
+distribuição do modelo maior, prove que \(T\) também é completa para o modelo
+maior.</p>
+<h4 class="bloco bloco-desafios">Desafios</h4>
+<p class="exerc" id="exerc-8.1.26"><span class="k">8.1.26</span> Se \(X\) é uma variável aleatória<sup class="nota-ref nota-termo"><a href="#nota-43" id="ref-43">43</a></sup> tal que \(E(X)\) não existe ou é
+infinito, mostre que \(E((X - c)^2) = \infty\) para qualquer constante \(c\).</p>
+<p class="exerc" id="exerc-8.1.27"><span class="k">8.1.27</span> Suponha que \((x_1, \ldots, x_n)\) é uma amostra de uma distribuição
+Gama\((\alpha_0, \beta)\), em que \(\alpha_0\) é conhecido e \(\beta &gt; 0\) é
+desconhecido. Mostre que \(\bar{x}\) é uma estatística suficiente minimal completa.</p>
+<h2 id="sec-8.2"><span class="n">8.2</span> <span class="t">Testes de Hipóteses Ótimos</span></h2>
+<p>Suponha que queiramos avaliar uma hipótese sobre a característica real
+\(\psi(\theta)\) do modelo \(\{f_\theta : \theta \in \negrito{\Omega}\}\).
+Tipicamente, ela terá a forma \(H_0 : \psi(\theta) = \psi_0\), em que
+especificamos um valor para \(\psi\). Depois de observar os dados \(s\), queremos
+avaliar se temos ou não evidência contra \(H_0\).</p>
+<p>Na Seção 6.3.3, discutimos métodos para avaliar uma hipótese desse tipo com base
+no EMV plug-in de \(\psi(\theta)\). Eles envolviam calcular um valor-p como medida
+de quão surpreendentes são os dados \(s\) quando se supõe que a hipótese nula<sup class="nota-ref nota-termo"><a href="#nota-44" id="ref-44">44</a></sup> é
+verdadeira. Se \(s\) é surpreendente para cada uma das distribuições \(f_\theta\)
+com \(\psi(\theta) = \psi_0\), então temos evidência contra \(H_0\). O
+desenvolvimento desses procedimentos se baseou em grande parte na justificativa
+intuitiva da função de verossimilhança.</p>
+<h3 id="subsec-8.2.1"><span class="n">8.2.1</span> <span class="t">A Função Poder de um Teste</span></h3>
+<p>Intimamente associado a um procedimento específico de cálculo de um valor-p está
+o conceito de <em>função poder<sup class="nota-ref nota-termo"><a href="#nota-45" id="ref-45">45</a></sup></em> \(\beta(\theta)\), definido na Seção 6.3.6. Para
+isso, especificamos um <em>valor crítico</em> \(\alpha\) tal que declaramos os
+resultados do teste estatisticamente significativos sempre que o valor-p for
+menor ou igual a \(\alpha\). O poder \(\beta(\theta)\) é então a probabilidade de o
+valor-p ser menor ou igual a \(\alpha\) quando amostramos de \(f_\theta\). Quanto
+maior o valor de \(\beta(\theta)\), quando \(\psi(\theta) \ne \psi_0\), melhor o
+procedimento detecta afastamentos de \(H_0\). A função poder é, portanto, uma
+medida da sensibilidade do procedimento de teste para detectar afastamentos de
+\(H_0\).</p>
+<p>Lembre-se do seguinte exemplo fundamental.</p>
+<div class="ex" id="exemplo-8.2.1"><div class="cab"><span class="rot">Exemplo 8.2.1</span> <span class="nome">Modelo Normal de Locação<sup class="nota-ref nota-termo"><a href="#nota-46" id="ref-46">46</a></sup></span></div><div class="txt fim"><p>Suponha que temos uma amostra \((x_1, \ldots, x_n)\) do modelo
+\(N(\mu, \sigma_0^2)\), em que \(\mu \in R^1\) é desconhecido e \(\sigma_0^2 &gt; 0\) é
+conhecido, e queremos avaliar a hipótese nula \(H_0 : \mu = \mu_0\). No Exemplo
+6.3.9, mostramos que um teste sensato para esse problema se baseia na
+estatística \(z\)
+<span class="eq">\[
+z = \frac{\bar{x} - \mu_0}{\sigma_0/\sqrt{n}},
+\]</span>
+com \(Z \sim N(0, 1)\) sob \(H_0\). O valor-p é então dado por
+<span class="eq">\[
+P_{\mu_0}\left(\lvert Z\rvert \ge \left\lvert\frac{\bar{x} - \mu_0}{\sigma_0/\sqrt{n}}\right\rvert\right)
+= 2\left[1 - \Phi\left(\left\lvert\frac{\bar{x} - \mu_0}{\sigma_0/\sqrt{n}}\right\rvert\right)\right],
+\]</span>
+em que \(\Phi\) denota a função de distribuição \(N(0, 1)\).</p>
+<p>No Exemplo 6.3.18, mostramos que, para o valor crítico \(\alpha\), a função poder
+do teste \(z\) é dada por
+<span class="eq">\begin{align*}
+\beta(\mu) &amp;= P_\mu\left(2\left[1 - \Phi\left(\left\lvert\frac{\bar X - \mu_0}{\sigma_0/\sqrt{n}}\right\rvert\right)\right] &lt; \alpha\right) \\
+&amp;= P_\mu\left(\Phi\left(\left\lvert\frac{\bar X - \mu_0}{\sigma_0/\sqrt{n}}\right\rvert\right) &gt; 1 - \frac{\alpha}{2}\right) \\
+&amp;= 1 - \Phi\left(\frac{\mu_0 - \mu}{\sigma_0/\sqrt{n}} + z_{1-(\alpha/2)}\right)
++ \Phi\left(\frac{\mu_0 - \mu}{\sigma_0/\sqrt{n}} - z_{1-(\alpha/2)}\right)
+\end{align*}</span>
+porque \(\bar X \sim N(\mu, \sigma_0^2/n)\).</p>
+<p>Vemos que especificar um valor para \(\alpha\) especifica um conjunto de valores
+dos dados
+<span class="eq">\[
+R = \left\{(x_1, \ldots, x_n) : \Phi\left(\left\lvert\frac{\bar{x} - \mu_0}{\sigma_0/\sqrt{n}}\right\rvert\right) &gt; 1 - \frac{\alpha}{2}\right\}
+\]</span>
+tal que os resultados do teste são declarados estatisticamente significativos
+sempre que \((x_1, \ldots, x_n) \in R\). Usando o fato de que \(\Phi\) é injetora e
+crescente, podemos também escrever \(R\) como
+<span class="eq">\begin{align*}
+R &amp;= \left\{(x_1, \ldots, x_n) : \left\lvert\frac{\bar{x} - \mu_0}{\sigma_0/\sqrt{n}}\right\rvert &gt; \Phi^{-1}\left(1 - \frac{\alpha}{2}\right)\right\} \\
+&amp;= \left\{(x_1, \ldots, x_n) : \left\lvert\frac{\bar{x} - \mu_0}{\sigma_0/\sqrt{n}}\right\rvert &gt; z_{1-(\alpha/2)}\right\}.
+\end{align*}</span>
+Além disso, a função poder é dada por \(\beta(\mu) = P_\mu(R)\) e
+\(\beta(\mu_0) = P_{\mu_0}(R) = \alpha\).</p></div></div>
+<h3 id="subsec-8.2.2"><span class="n">8.2.2</span> <span class="t">Erros Tipo I e Tipo II</span></h3>
+<p>Adotamos agora um ponto de vista diferente. Vamos procurar testes que sejam
+ótimos para testar a hipótese nula \(H_0 : \psi(\theta) = \psi_0\). Primeiro,
+vamos supor que, tendo observado os dados \(s\), decidiremos aceitar ou rejeitar
+\(H_0\). Se rejeitarmos \(H_0\), isso equivale a aceitar a alternativa
+\(H_a : \psi(\theta) \ne \psi_0\). Nossa medida de desempenho para avaliar
+procedimentos de teste será então a probabilidade de o procedimento de teste
+cometer um erro.</p>
+<p>Há dois tipos de erro. Podemos cometer um <em>erro tipo I<sup class="nota-ref nota-termo"><a href="#nota-47" id="ref-47">47</a></sup></em> — rejeitar
+\(H_0\) quando ela é verdadeira — ou cometer um <em>erro tipo II<sup class="nota-ref nota-termo"><a href="#nota-48" id="ref-48">48</a></sup></em> — aceitar
+\(H_0\) quando \(H_0\) é falsa. Note que, se rejeitarmos \(H_0\), isso implica que
+estamos aceitando a <em>hipótese alternativa</em> \(H_a : \psi(\theta) \ne \psi_0\).</p>
+<p>Acontece que, exceto em circunstâncias muito artificiais, não há procedimentos
+de teste que minimizem simultaneamente as probabilidades de cometer os dois
+tipos de erro. Por isso, vamos impor uma cota superior<sup class="nota-ref nota-termo"><a href="#nota-49" id="ref-49">49</a></sup> \(\alpha\), chamada de
+<em>valor crítico</em>, à probabilidade de cometer um erro tipo I. Procuramos
+então, entre os testes cuja probabilidade de cometer um erro tipo I é menor ou
+igual a \(\alpha\), um procedimento de teste que minimize a probabilidade de
+cometer um erro tipo II.</p>
+<p>Às vezes, os problemas de teste de hipóteses<sup class="nota-ref nota-termo"><a href="#nota-50" id="ref-50">50</a></sup> para parâmetros reais são
+classificados como unilaterais ou bilaterais. Por exemplo, se \(\theta\) é real,
+então \(H_0 : \theta = \theta_0\) versus \(H_a : \theta \ne \theta_0\) é um
+problema de teste bilateral<sup class="nota-ref nota-termo"><a href="#nota-51" id="ref-51">51</a></sup>, enquanto \(H_0 : \theta \le \theta_0\) versus
+\(H_a : \theta &gt; \theta_0\) ou \(H_0 : \theta \ge \theta_0\) versus
+\(H_a : \theta &lt; \theta_0\) são exemplos de problemas unilaterais. Note, porém,
+que, se definirmos
+<span class="eq">\[
+\psi(\theta) = I_{(\theta_0, \infty)}(\theta),
+\]</span>
+então \(H_0 : \theta \le \theta_0\) versus \(H_a : \theta &gt; \theta_0\) é
+equivalente ao problema \(H_0 : \psi(\theta) = 0\) versus
+\(H_a : \psi(\theta) \ne 0\). Da mesma forma, se definirmos
+<span class="eq">\[
+\psi(\theta) = I_{(-\infty, \theta_0)}(\theta),
+\]</span>
+então \(H_0 : \theta \ge \theta_0\) versus \(H_a : \theta &lt; \theta_0\) é
+equivalente ao problema \(H_0 : \psi(\theta) = 0\) versus
+\(H_a : \psi(\theta) \ne 0\). Assim, a formulação que adotamos para problemas de
+teste sobre um \(\psi\) geral inclui os problemas unilaterais como casos
+particulares.</p>
+<h3 id="subsec-8.2.3"><span class="n">8.2.3</span> <span class="t">Regiões de Rejeição e Funções de Teste</span></h3>
+<p>Uma maneira de especificar um procedimento de teste é escolher um subconjunto
+\(R \subset S\) antes de observarmos \(s\). Então <em>rejeitamos</em> \(H_0\) sempre
+que \(s \in R\) e aceitamos \(H_0\) sempre que \(s \notin R\). O conjunto \(R\) é
+chamado de <em>região de rejeição<sup class="nota-ref nota-termo"><a href="#nota-52" id="ref-52">52</a></sup></em>. Impor uma cota superior à probabilidade
+de rejeitar \(H_0\) quando ela é verdadeira leva ao seguinte.</p>
+<div class="def definicao" id="definicao-8.2.1"><div class="cab"><span class="rot">Definição 8.2.1</span></div><div class="txt"><p>Uma região de rejeição \(R\) que satisfaz
+<span class="eq">\begin{equation}
+P_\theta(R) \le \alpha \tag{8.2.1}
+\end{equation}</span>
+sempre que \(\psi(\theta) = \psi_0\) é chamada de <em>região de rejeição de
+tamanho \(\alpha\)</em> para \(H_0\).</p></div></div>
+<p>Assim, (8.2.1) expressa a cota para a probabilidade de cometer um
+erro tipo I.</p>
+<p>Entre todas as regiões de rejeição \(R\) de tamanho \(\alpha\), queremos encontrar
+aquela (se existir) que minimiza a probabilidade de cometer um erro tipo II.
+Isso equivale a encontrar a região de rejeição \(R\) de tamanho \(\alpha\) que
+maximiza a probabilidade de rejeitar a hipótese nula quando ela é falsa. Essa
+probabilidade pode ser expressa em termos da função poder de \(R\) e é dada por
+\(\beta(\theta) = P_\theta(R)\) sempre que \(\psi(\theta) \ne \psi_0\).</p>
+<p>Para especificar por completo a abordagem de otimalidade para testes de
+hipóteses, precisamos de mais um ingrediente. Observe que nossa busca por uma
+região de rejeição \(R\) ótima de tamanho \(\alpha\) equivale a encontrar a função
+indicadora<sup class="nota-ref nota-termo"><a href="#nota-53" id="ref-53">53</a></sup> \(I_R\) que satisfaz
+<span class="mat-quebravel">\(\beta(\theta)\) \({}= E_\theta(I_R)\) \({}= P_\theta(R) \le \alpha\)</span>, quando
+\(\psi(\theta) = \psi_0\), e maximiza
+\(\beta(\theta) = E_\theta(I_R) = P_\theta(R)\), quando
+\(\psi(\theta) \ne \psi_0\). Acontece que, em vários problemas, não existe tal
+região de rejeição.</p>
+<p>Por outro lado, muitas vezes há solução para o problema mais geral de encontrar
+uma função \(\varphi : S \to [0, 1]\) que satisfaça
+<span class="eq">\begin{equation}
+\beta(\theta) = E_\theta(\varphi) \le \alpha, \tag{8.2.2}
+\end{equation}</span>
+quando \(\psi(\theta) = \psi_0\), e maximize
+<span class="eq">\[
+\beta(\theta) = E_\theta(\varphi),
+\]</span>
+quando \(\psi(\theta) \ne \psi_0\). Temos a seguinte terminologia.</p>
+<div class="def definicao" id="definicao-8.2.2"><div class="cab"><span class="rot">Definição 8.2.2</span></div><div class="txt"><p>Chamamos \(\varphi : S \to [0, 1]\) de <em>função de teste<sup class="nota-ref nota-termo"><a href="#nota-54" id="ref-54">54</a></sup></em> e
+\(\beta(\theta) = E_\theta(\varphi)\) de função poder associada à função de teste
+\(\varphi\). Se \(\varphi\) satisfaz (8.2.2) quando \(\psi(\theta) = \psi_0\), ela é
+chamada de <em>função de teste de tamanho \(\alpha\)</em>. Se \(\varphi\) satisfaz
+\(E_\theta(\varphi) = \alpha\) quando \(\psi(\theta) = \psi_0\), ela é chamada de
+<em>função de teste de tamanho exato \(\alpha\)</em>. Uma função de teste \(\varphi\)
+de tamanho \(\alpha\) que maximiza \(\beta(\theta) = E_\theta(\varphi)\) quando
+\(\psi(\theta) \ne \psi_0\) é chamada de <em>função de teste uniformemente mais
+poderosa (UMP) de tamanho \(\alpha\)</em>.</p></div></div>
+<p>Note que \(\varphi = I_R\) é uma função de teste com função poder dada
+por \(\beta(\theta) = E_\theta(I_R) = P_\theta(R)\).</p>
+<p>Para dados observados \(s\), interpretamos \(\varphi(s) = 0\) como aceitar \(H_0\) e
+\(\varphi(s) = 1\) como rejeitar \(H_0\). Em geral, interpretamos \(\varphi(s)\) como
+a probabilidade condicional de rejeitarmos \(H_0\) dados os dados \(s\). Na
+prática, isso significa que, depois de observar \(s\), geramos uma variável
+aleatória Bernoulli\((\varphi(s))\). Se obtivermos 1, rejeitamos \(H_0\); se
+obtivermos 0, aceitamos \(H_0\). Portanto, pelo teorema da esperança total,
+\(E_\theta(\varphi)\) é a probabilidade incondicional<sup class="nota-ref nota-termo"><a href="#nota-55" id="ref-55">55</a></sup> de rejeitar \(H_0\). A
+aleatorização que ocorre quando \(0 &lt; \varphi(s) &lt; 1\) pode parecer um tanto
+contraintuitiva, mas ela nos é imposta pela busca por um teste UMP<sup class="nota-ref nota-termo"><a href="#nota-56" id="ref-56">56</a></sup> de tamanho
+\(\alpha\), já que, em certos problemas, podemos aumentar o poder fazendo isso.</p>
+<h3 id="subsec-8.2.4"><span class="n">8.2.4</span> <span class="t">O Teorema de Neyman–Pearson</span></h3>
+<p>Para um problema de teste especificado por uma hipótese nula
+\(H_0 : \psi(\theta) = \psi_0\) e um valor crítico \(\alpha\), queremos encontrar
+uma função de teste \(\varphi\) UMP de tamanho \(\alpha\). Note que uma função de
+teste \(\varphi_0\) UMP de tamanho \(\alpha\) para \(H_0 : \psi(\theta) = \psi_0\) é
+caracterizada (denotando por \(\beta_\varphi\) a função poder de \(\varphi\)) por
+<span class="eq">\[
+\beta_{\varphi_0}(\theta) \le \alpha,
+\]</span>
+quando \(\psi(\theta) = \psi_0\), e por
+<span class="eq">\[
+\beta_{\varphi_0}(\theta) \ge \beta_\varphi(\theta),
+\]</span>
+quando \(\psi(\theta) \ne \psi_0\), para qualquer outra função de teste \(\varphi\)
+de tamanho \(\alpha\).</p>
+<p>Ainda assim, esse problema de otimização não tem solução em geral. Em certos
+problemas, porém, é possível encontrar uma solução ótima. O resultado a seguir
+dá um exemplo disso. Ele é fundamental para toda a teoria de testes de
+hipóteses ótimos.</p>
+<div class="teo teorema" id="teorema-8.2.1"><div class="cab"><span class="rot">Teorema 8.2.1</span> <span class="nome">(Neyman–Pearson)</span></div><div class="txt"><p>Suponha que \(\negrito{\Omega} = \{\theta_0, \theta_1\}\) e que queremos testar
+\(H_0 : \theta = \theta_0\). Então existe uma função de teste \(\varphi_0\) de
+tamanho exato \(\alpha\) da forma
+<span class="eq">\begin{equation}
+\varphi_0(s) =
+\begin{cases}
+1 &amp; f_{\theta_1}(s)/f_{\theta_0}(s) &gt; c_0 \\[1ex]
+\gamma &amp; f_{\theta_1}(s)/f_{\theta_0}(s) = c_0 \\[1ex]
+0 &amp; f_{\theta_1}(s)/f_{\theta_0}(s) &lt; c_0
+\end{cases}
+\tag{8.2.3}
+\end{equation}</span>
+para algum \(\gamma \in [0, 1]\) e \(c_0 \ge 0\). Esse teste é UMP de tamanho
+\(\alpha\).</p></div></div>
+<div class="dem fim"><span class="rot">Demonstração.</span> <p>Veja a Seção 8.5 para a demonstração deste resultado.</p></div>
+<p>O resultado a seguir pode ser estabelecido por uma extensão simples da
+demonstração do teorema de Neyman–Pearson.</p>
+<div class="teo corolario" id="corolario-8.2.1"><div class="cab"><span class="rot">Corolário 8.2.1</span></div><div class="txt"><p>Se \(\varphi\) é um teste UMP de tamanho \(\alpha\), então
+\(\varphi(s) = \varphi_0(s)\) em toda parte, exceto possivelmente na
+<em>fronteira</em> <span class="mat-quebravel">\(B = \{s : f_{\theta_1}(s)/f_{\theta_0}(s)\) \({}= c_0\}\)</span>. Além
+disso, \(\varphi\) tem tamanho exato \(\alpha\), a menos que o poder de um teste
+UMP de tamanho \(\alpha\) seja igual a 1.</p></div></div>
+<div class="dem fim"><span class="rot">Demonstração.</span> <p>Veja o Desafio 8.2.22.<sup class="nota-ref nota-tradutor"><a href="#nota-57" id="ref-57">57</a></sup></p></div>
+<p>Note a natureza intuitiva do teste dado pelo teorema de Neyman–Pearson, pois
+(8.2.3) indica que rejeitamos categoricamente \(H_0\) como verdadeira quando a
+razão de verossimilhança<sup class="nota-ref nota-termo"><a href="#nota-58" id="ref-58">58</a></sup> de \(\theta_1\) contra \(\theta_0\) é maior que a
+constante \(c_0\), e aceitamos \(H_0\) quando ela é menor. Quando a razão de
+verossimilhança é igual a \(c_0\), decidimos ao acaso rejeitar \(H_0\) com
+probabilidade \(\gamma\). Além disso, o Corolário 8.2.1 diz que um teste UMP de
+tamanho \(\alpha\) é essencialmente único, embora possa haver diferentes
+estratégias de aleatorização na fronteira.</p>
+<p>A demonstração do teorema de Neyman–Pearson revela que \(c_0\) é o menor número
+real tal que
+<span class="eq">\begin{equation}
+P_{\theta_0}\left(\frac{f_{\theta_1}(s)}{f_{\theta_0}(s)} &gt; c_0\right) \le \alpha
+\tag{8.2.4}
+\end{equation}</span>
+e
+<span class="eq">\begin{equation}
+\gamma =
+\begin{cases}
+\dfrac{\alpha - P_{\theta_0}\left(\frac{f_{\theta_1}(s)}{f_{\theta_0}(s)} &gt; c_0\right)}{P_{\theta_0}\left(\frac{f_{\theta_1}(s)}{f_{\theta_0}(s)} = c_0\right)}
+&amp; P_{\theta_0}\left(\dfrac{f_{\theta_1}(s)}{f_{\theta_0}(s)} = c_0\right) \ne 0 \\[3ex]
+0 &amp; \text{caso contrário.}
+\end{cases}
+\tag{8.2.5}
+\end{equation}</span>
+Usamos (8.2.4) e (8.2.5) para calcular \(c_0\) e \(\gamma\) e, assim, determinar o
+teste UMP de tamanho \(\alpha\) num problema particular.</p>
+<p>Note que o teste é não aleatorizado sempre que
+<span class="mat-quebravel">\(P_{\theta_0}(f_{\theta_1}(s)/f_{\theta_0}(s) &gt; c_0)\) \({}= \alpha\)</span>, pois então
+\(\gamma = 0\), isto é, aceitamos ou rejeitamos \(H_0\) categoricamente depois de
+ver os dados. Isso sempre ocorre quando a distribuição de
+\(f_{\theta_1}(s)/f_{\theta_0}(s)\) é contínua quando \(s \sim P_{\theta_0}\).
+Curiosamente, pode acontecer de a distribuição da razão não ser contínua mesmo
+quando a distribuição de \(s\) é contínua (ver Problema 8.2.17).</p>
+<p>Antes de considerar algumas aplicações do teorema de Neyman–Pearson,
+estabelecemos o análogo do teorema de Rao–Blackwell para problemas de teste
+de hipóteses. Dado o valor da estatística suficiente \(U(s) = u\), denotamos por
+\(P(\cdot \mid U = u)\) a medida de probabilidade condicional da resposta \(s\)
+(pelo Teorema 8.1.2, essa medida de probabilidade não depende de \(\theta\)).
+Para a função de teste \(\varphi\), tomamos \(\varphi_U(s)\) igual à esperança
+condicional de \(\varphi\) dado o valor de \(U(s)\), isto é,
+<span class="eq">\[
+\varphi_U(s) = E_{P(\cdot \mid U = U(s))}(\varphi).
+\]</span></p>
+<div class="teo teorema" id="teorema-8.2.2"><div class="cab"><span class="rot">Teorema 8.2.2</span></div><div class="txt"><p>Suponha que \(U\) é uma estatística suficiente e que \(\varphi\) é uma função de
+teste de tamanho \(\alpha\) para \(H_0 : \psi(\theta) = \psi_0\). Então
+\(\varphi_U\) é uma função de teste de tamanho \(\alpha\) para
+\(H_0 : \psi(\theta) = \psi_0\) que depende dos dados apenas por meio do valor de
+\(U\). Além disso, \(\varphi\) e \(\varphi_U\) têm a mesma função poder.</p></div></div>
+<div class="dem fim"><span class="rot">Demonstração.</span> <p>É claro que \(\varphi_U(s_1) = \varphi_U(s_2)\) sempre que \(U(s_1) = U(s_2)\) e,
+assim, \(\varphi_U\) depende dos dados apenas por meio do valor de \(U\). Seja
+agora \(P_{\theta, U}\) a medida de probabilidade marginal de \(U\) induzida por
+\(P_\theta\). Então, pelo teorema da esperança total, temos
+<span class="mat-quebravel">\(E_\theta(\varphi)\) \({}= E_{P_{\theta, U}}(E_{P(\cdot \mid U = u)}(\varphi))\) \({}= E_{P_{\theta, U}}(\varphi_U)\) \({}= E_\theta(\varphi_U)\)</span>. Ora,
+\(E_\theta(\varphi) \le \alpha\) quando \(\psi(\theta) = \psi_0\), o que implica
+que \(E_\theta(\varphi_U) \le \alpha\) quando \(\psi(\theta) = \psi_0\), e
+<span class="mat-quebravel">\(\beta(\theta)\) \({}= E_\theta(\varphi)\) \({}= E_\theta(\varphi_U)\)</span> quando
+\(\psi(\theta) \ne \psi_0\).</p></div>
+<p>Esse resultado nos permite restringir a busca por um teste UMP de
+tamanho \(\alpha\) às funções de teste que dependem dos dados apenas por meio do
+valor de uma estatística suficiente.</p>
+<p>Consideramos agora algumas aplicações do teorema de Neyman–Pearson. O exemplo
+a seguir mostra que esse resultado pode levar a soluções de problemas muito
+mais gerais do que o caso simples tratado.</p>
+<div class="ex" id="exemplo-8.2.2"><div class="cab"><span class="rot">Exemplo 8.2.2</span> <span class="nome">Testes de Hipóteses Ótimos no Modelo Normal de Locação</span></div><div class="txt fim"><p>Suponha que \((x_1, \ldots, x_n)\) é uma amostra de uma distribuição
+\(N(\mu, \sigma_0^2)\), em que \(\mu \in \negrito{\Omega} = \{\mu_0, \mu_1\}\) e
+\(\sigma_0^2 &gt; 0\) é conhecido, e queremos testar \(H_0 : \mu = \mu_0\) versus
+\(H_a : \mu = \mu_1\). A função de verossimilhança é dada por
+<span class="eq">\[
+L(\mu \mid x_1, \ldots, x_n) = \exp\left(-\frac{n}{2\sigma_0^2}(\bar{x} - \mu)^2\right),
+\]</span>
+e \(\bar{x}\) é uma estatística suficiente para esse modelo restrito.</p>
+<p>Pelo Teorema 8.2.2, podemos restringir nossa atenção às funções de teste que
+dependem dos dados por meio de \(\bar{x}\). Ora, \(\bar X \sim N(\mu, \sigma_0^2/n)\),
+de modo que
+<span class="eq">\begin{align*}
+\frac{f_{\mu_1}(\bar{x})}{f_{\mu_0}(\bar{x})}
+&amp;= \frac{\exp\left(-\frac{n}{2\sigma_0^2}(\bar{x} - \mu_1)^2\right)}{\exp\left(-\frac{n}{2\sigma_0^2}(\bar{x} - \mu_0)^2\right)} \\
+&amp;= \exp\left(-\frac{n}{2\sigma_0^2}\left(\bar{x}^2 - 2\bar{x}\mu_1 + \mu_1^2 - \bar{x}^2 + 2\bar{x}\mu_0 - \mu_0^2\right)\right) \\
+&amp;= \exp\left(\frac{n}{\sigma_0^2}(\mu_1 - \mu_0)\bar{x}\right)\exp\left(-\frac{n}{2\sigma_0^2}\left(\mu_1^2 - \mu_0^2\right)\right).
+\end{align*}</span>
+Portanto,
+<span class="eq">\begin{align*}
+&amp;P_{\mu_0}\left(\frac{f_{\mu_1}(\bar X)}{f_{\mu_0}(\bar X)} &gt; c_0\right) \\
+&amp;= P_{\mu_0}\left(\exp\left(\frac{n}{\sigma_0^2}(\mu_1 - \mu_0)\bar X\right)\exp\left(-\frac{n}{2\sigma_0^2}\left(\mu_1^2 - \mu_0^2\right)\right) &gt; c_0\right) \\
+&amp;= P_{\mu_0}\left(\exp\left(\frac{n}{\sigma_0^2}(\mu_1 - \mu_0)\bar X\right) &gt; c_0\exp\left(\frac{n}{2\sigma_0^2}\left(\mu_1^2 - \mu_0^2\right)\right)\right) \\
+&amp;= P_{\mu_0}\left((\mu_1 - \mu_0)\bar X &gt; \frac{\sigma_0^2}{n}\ln\left\{c_0\exp\left(\frac{n}{2\sigma_0^2}\left(\mu_1^2 - \mu_0^2\right)\right)\right\}\right) \\
+&amp;= \begin{cases}
+P_{\mu_0}\left(\dfrac{\bar X - \mu_0}{\sigma_0/\sqrt{n}} &gt; c_0'\right) &amp; \mu_1 &gt; \mu_0 \\[3ex]
+P_{\mu_0}\left(\dfrac{\bar X - \mu_0}{\sigma_0/\sqrt{n}} &lt; c_0'\right) &amp; \mu_1 &lt; \mu_0,
+\end{cases}
+\end{align*}</span>
+em que
+<span class="eq">\[
+c_0' = \frac{\sqrt{n}}{\sigma_0}\left\{\frac{\sigma_0^2}{n(\mu_1 - \mu_0)}\ln\left\{c_0\exp\left(\frac{n}{2\sigma_0^2}\left(\mu_1^2 - \mu_0^2\right)\right)\right\} - \mu_0\right\}.
+\]</span></p>
+<p>Usando (8.2.4), quando \(\mu_1 &gt; \mu_0\), escolhemos \(c_0\) de modo que
+\(c_0' = z_{1-\alpha}\); quando \(\mu_1 &lt; \mu_0\), escolhemos \(c_0\) de modo que
+\(c_0' = z_\alpha\). Essas escolhas implicam que
+<span class="eq">\[
+P_{\mu_0}\left(\frac{f_{\mu_1}(\bar X)}{f_{\mu_0}(\bar X)} &gt; c_0\right) = \alpha
+\]</span>
+e, por (8.2.5), \(\gamma = 0\).</p>
+<p>Assim, o teste UMP de tamanho \(\alpha\) é não aleatorizado. Quando
+\(\mu_1 &gt; \mu_0\), o teste é dado por
+<span class="eq">\begin{equation}
+\varphi_0(\bar{x}) =
+\begin{cases}
+1 &amp; \bar{x} \ge \mu_0 + \frac{\sigma_0}{\sqrt{n}} z_{1-\alpha} \\[1ex]
+0 &amp; \bar{x} &lt; \mu_0 + \frac{\sigma_0}{\sqrt{n}} z_{1-\alpha}.
+\end{cases}
+\tag{8.2.6}
+\end{equation}</span>
+Quando \(\mu_1 &lt; \mu_0\), o teste é dado por
+<span class="eq">\begin{equation}
+\varphi_0^*(\bar{x}) =
+\begin{cases}
+1 &amp; \bar{x} \le \mu_0 + \frac{\sigma_0}{\sqrt{n}} z_\alpha \\[1ex]
+0 &amp; \bar{x} &gt; \mu_0 + \frac{\sigma_0}{\sqrt{n}} z_\alpha.
+\end{cases}
+\tag{8.2.7}
+\end{equation}</span></p>
+<p>Note que a função de teste em (8.2.6) não depende de \(\mu_1\) de modo algum. A
+consequência é que essa função de teste é UMP de tamanho \(\alpha\) para
+\(H_0 : \mu = \mu_0\) versus \(H_a : \mu = \mu_1\) para qualquer \(\mu_1 &gt; \mu_0\).
+Isso implica que \(\varphi_0\) é UMP de tamanho \(\alpha\) para \(H_0 : \mu = \mu_0\)
+versus a alternativa \(H_a : \mu &gt; \mu_0\).</p>
+<p>Além disso, temos
+<span class="eq">\begin{align*}
+\beta_{\varphi_0}(\mu)
+&amp;= P_\mu\left(\bar X \ge \mu_0 + \frac{\sigma_0}{\sqrt{n}} z_{1-\alpha}\right)
+= P_\mu\left(\frac{\bar X - \mu}{\sigma_0/\sqrt{n}} \ge \frac{\mu_0 - \mu}{\sigma_0/\sqrt{n}} + z_{1-\alpha}\right) \\
+&amp;= 1 - \Phi\left(\frac{\mu_0 - \mu}{\sigma_0/\sqrt{n}} + z_{1-\alpha}\right).
+\end{align*}</span>
+Note que essa função é crescente em \(\mu\), o que implica que \(\varphi_0\) é uma
+função de teste de tamanho \(\alpha\) para \(H_0 : \mu \le \mu_0\) versus
+\(H_a : \mu &gt; \mu_0\). Observe que, se \(\varphi\) é uma função de teste de tamanho
+\(\alpha\) para \(H_0 : \mu \le \mu_0\) versus \(H_a : \mu &gt; \mu_0\), então ela
+também é um teste de tamanho \(\alpha\) para \(H_0 : \mu = \mu_0\) versus
+\(H_a : \mu &gt; \mu_0\). Disso concluímos que \(\varphi_0\) é UMP de tamanho
+\(\alpha\) para \(H_0 : \mu \le \mu_0\) versus \(H_a : \mu &gt; \mu_0\). Da mesma forma
+(ver Problema 8.2.12), pode-se mostrar que \(\varphi_0^*\) em (8.2.7) é UMP de
+tamanho \(\alpha\) para \(H_0 : \mu \ge \mu_0\) versus \(H_a : \mu &lt; \mu_0\).</p>
+<p>Podemos nos perguntar se existe um teste UMP de tamanho \(\alpha\) para o
+problema bilateral \(H_0 : \mu = \mu_0\) versus \(H_a : \mu \ne \mu_0\). Suponha
+que \(\varphi\) é um teste UMP de tamanho \(\alpha\) para esse problema. Então
+\(\varphi\) também tem tamanho \(\alpha\) para \(H_0 : \mu = \mu_0\) versus
+\(H_a : \mu = \mu_1\) quando \(\mu_1 &gt; \mu_0\). Usando o Corolário 8.2.1 e os
+desenvolvimentos anteriores (que também mostram que não existe um teste da
+forma (8.2.3) com poder igual a 1 para esse problema), isso implica que
+\(\varphi = \varphi_0\) (a fronteira \(B\) tem probabilidade 0 aqui). Mas
+\(\varphi\) também é UMP de tamanho \(\alpha\) para \(H_0 : \mu = \mu_0\) versus
+\(H_a : \mu = \mu_1\) quando \(\mu_1 &lt; \mu_0\); assim, pelo mesmo raciocínio,
+\(\varphi = \varphi_0^*\). Mas claramente \(\varphi_0 \ne \varphi_0^*\), de modo
+que não existe teste UMP de tamanho \(\alpha\) para o problema bilateral.</p>
+<p>Intuitivamente, esperaríamos que o teste de tamanho \(\alpha\) dado por
+<span class="eq">\begin{equation}
+\varphi(\bar{x}) =
+\begin{cases}
+1 &amp; \left\lvert\dfrac{\bar{x} - \mu_0}{\sigma_0/\sqrt{n}}\right\rvert \ge z_{1-\alpha/2} \\[3ex]
+0 &amp; \left\lvert\dfrac{\bar{x} - \mu_0}{\sigma_0/\sqrt{n}}\right\rvert &lt; z_{1-\alpha/2}
+\end{cases}
+\tag{8.2.8}
+\end{equation}</span>
+fosse um bom teste a usar, mas ele não é UMP de tamanho \(\alpha\). Acontece,
+porém, que o teste em (8.2.8) é UMP de tamanho \(\alpha\) entre todos os testes
+que satisfazem \(\beta_\varphi(\mu_0) \le \alpha\) e \(\beta_\varphi(\mu) \ge
+\alpha\) quando \(\mu \ne \mu_0\).</p></div></div>
+<p>O Exemplo 8.2.2 ilustrou um problema de teste de hipóteses para o qual não
+existe teste UMP de tamanho \(\alpha\). Às vezes, porém, exigindo que o teste
+tenha outra propriedade muito natural, podemos obter um teste ótimo.</p>
+<div class="def definicao" id="definicao-8.2.3"><div class="cab"><span class="rot">Definição 8.2.3</span></div><div class="txt"><p>Um teste \(\varphi\) que satisfaz \(\beta_\varphi(\theta) \le \alpha\), quando
+\(\psi(\theta) = \psi_0\), e \(\beta_\varphi(\theta) \ge \alpha\), quando
+\(\psi(\theta) \ne \psi_0\), é chamado de <em>teste não viesado de tamanho
+\(\alpha\)</em> para o problema de teste de hipóteses \(H_0 : \psi(\theta) = \psi_0\).</p></div></div>
+<p>Assim, (8.2.8) é um teste UMP não viesado de tamanho \(\alpha\). Um teste não
+viesado tem a propriedade de que a probabilidade de rejeitar a hipótese nula,
+quando ela é falsa, é sempre maior que a probabilidade de rejeitá-la quando ela
+é verdadeira. Essa parece uma propriedade muito razoável. Em particular,
+pode-se provar que todo teste UMP de tamanho \(\alpha\) é sempre um teste não
+viesado de tamanho \(\alpha\) (Problema 8.2.14). Não aprofundamos a teoria dos
+testes não viesados neste texto.</p>
+<p>Consideramos agora um exemplo que mostra que não podemos dispensar o uso de
+testes aleatorizados.</p>
+<div class="ex" id="exemplo-8.2.3"><div class="cab"><span class="rot">Exemplo 8.2.3</span> <span class="nome">Testes de Hipóteses Ótimos no Modelo Bernoulli\((\theta)\)</span></div><div class="txt fim"><p>Suponha que \((x_1, \ldots, x_n)\) é uma amostra de uma distribuição
+Bernoulli\((\theta)\), em que <span class="mat-quebravel">\(\theta \in \negrito{\Omega}\) \({}= \{\theta_0, \theta_1\}\)</span>,
+e queremos testar \(H_0 : \theta = \theta_0\) versus \(H_a : \theta = \theta_1\),
+em que \(\theta_1 &gt; \theta_0\). Então \(n\bar{x}\) é uma estatística suficiente
+minimal e, pelo Teorema 8.2.2, podemos restringir nossa atenção às funções de
+teste que dependem dos dados apenas por meio de \(n\bar{x}\).</p>
+<p>Ora, \(n\bar X \sim \text{Binomial}(n, \theta)\), de modo que
+<span class="eq">\[
+\frac{f_{\theta_1}(n\bar{x})}{f_{\theta_0}(n\bar{x})}
+= \frac{\theta_1^{n\bar{x}}(1 - \theta_1)^{n - n\bar{x}}}{\theta_0^{n\bar{x}}(1 - \theta_0)^{n - n\bar{x}}}
+= \left(\frac{\theta_1}{\theta_0}\right)^{n\bar{x}}\left(\frac{1 - \theta_1}{1 - \theta_0}\right)^{n - n\bar{x}}.
+\]</span>
+Portanto,
+<span class="eq">\begin{align*}
+&amp;P_{\theta_0}\left(\frac{f_{\theta_1}(n\bar X)}{f_{\theta_0}(n\bar X)} &gt; c_0\right) \\
+&amp;= P_{\theta_0}\left(\left(\frac{\theta_1}{\theta_0}\right)^{n\bar X}\left(\frac{1 - \theta_1}{1 - \theta_0}\right)^{n - n\bar X} &gt; c_0\right) \\
+&amp;= P_{\theta_0}\left(\left(\frac{\theta_1}{1 - \theta_1}\,\frac{1 - \theta_0}{\theta_0}\right)^{n\bar X} &gt; c_0\left(\frac{1 - \theta_1}{1 - \theta_0}\right)^{-n}\right) \\
+&amp;= P_{\theta_0}\left(n\bar X\left[\ln\left(\frac{\theta_1}{1 - \theta_1}\,\frac{1 - \theta_0}{\theta_0}\right)\right] &gt; \ln c_0\left(\frac{1 - \theta_1}{1 - \theta_0}\right)^{-n}\right) \\
+&amp;= P_{\theta_0}\left(n\bar X &gt; \frac{\ln c_0\left(\frac{1 - \theta_1}{1 - \theta_0}\right)^{-n}}{\ln\left(\frac{\theta_1}{1 - \theta_1}\,\frac{1 - \theta_0}{\theta_0}\right)}\right)
+= P_{\theta_0}(n\bar X &gt; c_0')
+\end{align*}</span>
+porque
+<span class="eq">\[
+\ln\left(\frac{\theta_1}{1 - \theta_1}\,\frac{1 - \theta_0}{\theta_0}\right) &gt; 0,
+\]</span>
+já que \(\theta/(1 - \theta)\) é crescente em \(\theta\), o que implica
+\(\theta_1/(1 - \theta_1) &gt; \theta_0/(1 - \theta_0)\).</p>
+<p>Agora, usando (8.2.4), escolhemos \(c_0\) de modo que \(c_0'\) seja um inteiro que
+satisfaça
+<span class="eq">\[
+P_{\theta_0}(n\bar X &gt; c_0') \le \alpha \quad\text{e}\quad P_{\theta_0}(n\bar X &gt; c_0' - 1) &gt; \alpha.
+\]</span>
+Como \(n\bar X \sim \text{Binomial}(n, \theta_0)\) é uma distribuição discreta,
+vemos que, em geral, não conseguiremos obter \(P_{\theta_0}(n\bar X &gt; c_0') =
+\alpha\) exatamente. Assim, usando (8.2.5),
+<span class="eq">\[
+\gamma = \frac{\alpha - P_{\theta_0}(n\bar X &gt; c_0')}{P_{\theta_0}(n\bar X = c_0')}
+\]</span>
+não será igual a 0. Então
+<span class="eq">\[
+\varphi_0(n\bar{x}) =
+\begin{cases}
+1 &amp; n\bar{x} &gt; c_0' \\
+\gamma &amp; n\bar{x} = c_0' \\
+0 &amp; n\bar{x} &lt; c_0'
+\end{cases}
+\]</span>
+é UMP de tamanho \(\alpha\) para \(H_0 : \theta = \theta_0\) versus
+\(H_a : \theta = \theta_1\). Note que podemos usar um software estatístico (ou a
+Tabela D.6) da distribuição binomial para obter \(c_0'\).</p>
+<p>Por exemplo, suponha que \(n = 6\) e \(\theta_0 = 0{,}25\). A tabela a seguir dá os
+valores da função de distribuição Binomial\((6; 0{,}25)\) com três casas decimais.</p>
+<div class="centro"><div class="tbl"><table><tr><th>\(x\)</th><th>\(0\)</th><th>\(1\)</th><th>\(2\)</th><th>\(3\)</th><th>\(4\)</th><th>\(5\)</th><th>\(6\)</th></tr><tr><td>\(F(x)\)</td><td>\(0{,}178\)</td><td>\(0{,}534\)</td><td>\(0{,}831\)</td><td>\(0{,}962\)</td><td>\(0{,}995\)</td><td>\(1{,}000\)</td><td>\(1{,}000\)</td></tr></table></div></div>
+<p>Portanto, se \(\alpha = 0{,}05\), temos \(c_0' = 3\) porque
+<span class="mat-quebravel">\(P_{0{,}25}(n\bar X &gt; 3)\) \({}= 1 - 0{,}962\) \({}= 0{,}038\)</span> e
+<span class="mat-quebravel">\(P_{0{,}25}(n\bar X &gt; 2)\) \({}= 1 - 0{,}831\) \({}= 0{,}169\)</span>. Isso implica
+que<sup class="nota-ref nota-tradutor"><a href="#nota-59" id="ref-59">59</a></sup>
+<span class="eq">\[
+\gamma = \frac{0{,}05 - (1 - 0{,}962)}{0{,}962} = 0{,}012.
+\]</span>
+Assim, com esse teste, rejeitamos \(H_0 : \theta = \theta_0\) categoricamente se
+o número de sucessos for maior que 3, aceitamos \(H_0 : \theta = \theta_0\)
+categoricamente quando o número de sucessos for menor que 3 e, quando o número
+de 1s for igual a 3, rejeitamos \(H_0 : \theta = \theta_0\) ao acaso com
+probabilidade 0,012 (por exemplo, gere \(U \sim \text{Uniforme}[0, 1]\) e rejeite
+sempre que \(U \le 0{,}012\)).</p>
+<p>Note que o teste \(\varphi_0\) não envolve \(\theta_1\), de modo que, de fato, ele é
+UMP de tamanho \(\alpha\) para \(H_0 : \theta = \theta_0\) versus
+\(H_a : \theta &gt; \theta_0\). Além disso, usando o Problema 8.2.18, temos
+<span class="eq">\begin{align*}
+P_\theta(n\bar X &gt; c_0')
+&amp;= \sum_{k = c_0' + 1}^{n} \binom{n}{k}\theta^k(1 - \theta)^{n-k} \\
+&amp;= 1 - \frac{\Gamma(n + 1)}{\Gamma(c_0' + 1)\,\Gamma(n - c_0')}\int_\theta^1 u^{c_0'}(1 - u)^{n - c_0' - 1}\,du.
+\end{align*}</span>
+Como
+<span class="eq">\[
+\int_\theta^1 u^{c_0'}(1 - u)^{n - c_0' - 1}\,du
+\]</span>
+é decrescente em \(\theta\), devemos ter que \(P_\theta(n\bar X &gt; c_0')\) é
+crescente em \(\theta\). Argumentando como no Exemplo 8.2.2, concluímos que
+\(\varphi_0\) é UMP de tamanho \(\alpha\) para \(H_0 : \theta \le \theta_0\) versus
+\(H_a : \theta &gt; \theta_0\).</p>
+<p>Da mesma forma, obtemos um teste UMP de tamanho \(\alpha\) para
+\(H_0 : \theta \le \theta_0\) versus \(H_a : \theta &gt; \theta_0\).<sup class="nota-ref nota-tradutor"><a href="#nota-60" id="ref-60">60</a></sup> Como no Exemplo
+8.2.2, não existe teste UMP de tamanho \(\alpha\) para \(H_0 : \theta = \theta_0\)
+versus \(H_a : \theta \ne \theta_0\), mas existe um teste UMP não viesado de
+tamanho \(\alpha\) para esse problema.</p></div></div>
+<h3 id="subsec-8.2.5"><span class="n">8.2.5</span> <span class="t">Testes da Razão de Verossimilhança (Avançado)</span></h3>
+<p>Nos exemplos considerados até aqui, o teorema de Neyman–Pearson levou a
+soluções de problemas em que \(H_0\) ou \(H_a\) não são apenas valores únicos do
+parâmetro, embora o teorema tenha sido enunciado só para o caso de valor único.
+Observamos também, porém, que isso não vale em geral (por exemplo, os problemas
+bilaterais discutidos nos Exemplos 8.2.2 e 8.2.3).</p>
+<p>O método dos <em>testes da razão de verossimilhança generalizada</em> para
+\(H_0 : \psi(\theta) = \psi_0\) foi desenvolvido para tratar o caso geral. Ele é
+motivado pelo teorema de Neyman–Pearson, pois observe que, em (8.2.3),
+<span class="eq">\[
+\frac{f_{\theta_1}(s)}{f_{\theta_0}(s)} = \frac{L(\theta_1 \mid s)}{L(\theta_0 \mid s)}.
+\]</span>
+Portanto, (8.2.3) pode ser visto como baseado na razão entre a verossimilhança
+em \(\theta_1\) e a verossimilhança em \(\theta_0\), e rejeitamos
+\(H_0 : \theta = \theta_0\) quando a verossimilhança dá muito mais suporte a
+\(\theta_1\) do que a \(\theta_0\). A quantidade de suporte adicional exigida para
+a rejeição é determinada por \(c_0\). Quanto maior \(c_0\), maior a verossimilhança
+\(L(\theta_1 \mid s)\) precisa ser em relação a \(L(\theta_0 \mid s)\) para que
+rejeitemos \(H_0 : \theta = \theta_0\).</p>
+<p>Denote o EMV global de \(\theta\) por \(\hat\theta(s)\) e o EMV quando
+\(\theta \in H_0\) por \(\hat\theta_{H_0}(s)\). Assim, temos
+<span class="eq">\[
+L(\theta \mid s) \le L(\hat\theta_{H_0}(s) \mid s)
+\]</span>
+para todo \(\theta\) tal que \(\psi(\theta) = \psi_0\). O teste da razão de
+verossimilhança generalizada rejeita então \(H_0\) quando
+<span class="eq">\begin{equation}
+\frac{L(\hat\theta(s) \mid s)}{L(\hat\theta_{H_0}(s) \mid s)}
+\tag{8.2.9}
+\end{equation}</span>
+é grande, pois isso indica evidência contra a veracidade de \(H_0\).</p>
+<p>Como determinamos quando (8.2.9) é grande o bastante para rejeitar? Denotando
+por \(s_0\) os dados observados, fazemos isso calculando os valores-p
+<span class="eq">\begin{equation}
+P_\theta\left(\frac{L(\hat\theta(s) \mid s)}{L(\hat\theta_{H_0}(s) \mid s)} &gt; \frac{L(\hat\theta(s_0) \mid s_0)}{L(\hat\theta_{H_0}(s_0) \mid s_0)}\right)
+\tag{8.2.10}
+\end{equation}</span>
+quando \(\theta \in H_0\). Valores pequenos de (8.2.10) são evidência contra
+\(H_0\). É claro que, quando \(\psi(\theta) = \psi_0\) para mais de um valor de
+\(\theta\), não fica claro qual valor de (8.2.10) usar. Pode-se mostrar, porém,
+que, sob condições como as discutidas na Seção 6.5, se \(s\) corresponde a uma
+amostra de \(n\) valores de uma distribuição, então
+<span class="eq">\[
+2\ln\frac{L(\hat\theta(s) \mid s)}{L(\hat\theta_{H_0}(s) \mid s)}
+\xrightarrow{D} \chi^2(\dim\negrito{\Omega} - \dim H_0)
+\]</span>
+quando \(n \to \infty\), sempre que o verdadeiro valor de \(\theta\) está em \(H_0\).
+Aqui, \(\dim\negrito{\Omega}\) e \(\dim H_0\) são as dimensões desses conjuntos.
+Isso nos leva a um teste que rejeita \(H_0\) sempre que
+<span class="eq">\begin{equation}
+2\ln\frac{L(\hat\theta(s) \mid s)}{L(\hat\theta_{H_0}(s) \mid s)}
+\tag{8.2.11}
+\end{equation}</span>
+é maior que um determinado quantil da distribuição
+\(\chi^2(\dim\negrito{\Omega} - \dim H_0)\).</p>
+<p>Por exemplo, suponha que, num modelo normal de locação e escala<sup class="nota-ref nota-termo"><a href="#nota-61" id="ref-61">61</a></sup>, estamos
+testando \(H_0 : \mu = \mu_0\). Então
+\(\negrito{\Omega} = R^1 \times [0, \infty)\), \(H_0 = \{\mu_0\} \times [0, \infty)\),
+\(\dim\negrito{\Omega} = 2\), \(\dim H_0 = 1\) e, para um teste de tamanho 0,05,
+rejeitamos sempre que (8.2.11) for maior que \(\chi^2_{0{,}95}(1)\). Note que, a
+rigor, os testes da razão de verossimilhança não são derivados de considerações
+de otimalidade. Não discutiremos mais os testes da razão de verossimilhança
+neste texto.</p>
+<section class="resumo"><h4>Resumo da Seção 8.2</h4><ul><li>Ao procurar um procedimento ótimo de teste de hipóteses, impomos uma cota
+  superior à probabilidade de cometer um erro tipo I (rejeitar \(H_0\) quando ela
+  é verdadeira) e procuramos um teste que minimize a probabilidade de cometer
+  um erro tipo II (aceitar \(H_0\) quando ela é falsa).</li>
+<li>O teorema de Neyman–Pearson prescreve um teste ótimo de tamanho \(\alpha\)
+  quando \(H_0\) e \(H_a\) especificam, cada uma, um único valor para o parâmetro
+  completo \(\theta\).</li>
+<li>Às vezes, o teorema de Neyman–Pearson leva a soluções de problemas de
+  teste de hipóteses quando a hipótese nula ou a alternativa admitem mais de um
+  valor possível para \(\theta\), mas, em geral, precisamos recorrer aos testes
+  da razão de verossimilhança para esses problemas.</li></ul></section>
+<h4 class="bloco bloco-exercicios">Exercícios</h4>
+<p class="exerc" id="exerc-8.2.1"><span class="k">8.2.1</span> Suponha que um modelo estatístico seja dado pelas duas
+distribuições da tabela a seguir.</p>
+<div class="centro"><div class="tbl"><table><tr><th></th><th>\(s = 1\)</th><th>\(s = 2\)</th><th>\(s = 3\)</th><th>\(s = 4\)</th></tr><tr><td>\(f_a(s)\)</td><td>\(1/3\)</td><td>\(1/6\)</td><td>\(1/12\)</td><td>\(5/12\)</td></tr><tr><td>\(f_b(s)\)</td><td>\(1/2\)</td><td>\(1/4\)</td><td>\(1/6\)</td><td>\(1/12\)</td></tr></table></div></div>
+<p>Determine o teste UMP de tamanho 0,10 para testar \(H_0 : \theta = a\) versus
+\(H_a : \theta = b\). Qual é o poder desse teste? Repita com o tamanho igual a
+0,05.</p>
+<p class="exerc" id="exerc-8.2.2"><span class="k">8.2.2</span> Suponha que, para o problema de teste de hipóteses do Exercício
+8.2.1, um estatístico decida gerar \(U \sim \text{Uniforme}[0, 1]\) e rejeitar
+\(H_0\) sempre que \(U \le 0{,}05\). Mostre que esse teste tem tamanho 0,05. Explique
+por que essa não é uma boa escolha de teste e por que o teste obtido no
+Exercício 8.2.1 é melhor. Dê evidência numérica disso.</p>
+<p class="exerc" id="exerc-8.2.3"><span class="k">8.2.3</span> Suponha que um pesquisador sabe que um processo industrial
+produz uma variável resposta<sup class="nota-ref nota-termo"><a href="#nota-62" id="ref-62">62</a></sup> que segue uma distribuição \(N(1, 2)\). Foram feitas
+algumas mudanças no processo industrial, e o pesquisador acredita que elas
+possam ter mudado a média da resposta (não a variância), aumentando seu valor.
+O pesquisador quer que a probabilidade de ocorrer um erro tipo I seja menor
+que 1%. Determine um procedimento de teste adequado para esse problema com
+base numa amostra de tamanho 10.</p>
+<p class="exerc" id="exerc-8.2.4"><span class="k">8.2.4</span> Suponha que você tenha uma amostra de tamanho 20 de uma
+distribuição \(N(\mu, 1)\). Você constrói um intervalo de confiança 0,975 para
+\(\mu\) e o usa para testar \(H_0 : \mu = 0\), rejeitando \(H_0\) sempre que 0 não
+está no intervalo de confiança.
+<span class="parte"><span class="pl">(a)</span>  Qual é o tamanho desse teste?</span><span class="parte"><span class="pl">(b)</span>  Determine a função poder desse teste.</span></p>
+<p class="exerc" id="exerc-8.2.5"><span class="k">8.2.5</span> Suponha que você tenha uma amostra de tamanho \(n = 1\) de uma
+distribuição Uniforme\([0, \theta]\), em que \(\theta &gt; 0\) é desconhecido. Você
+testa \(H_0 : \theta \le 1\) rejeitando \(H_0\) sempre que o valor amostrado for
+maior que 1.
+<span class="parte"><span class="pl">(a)</span>  Qual é o tamanho desse teste?</span><span class="parte"><span class="pl">(b)</span>  Determine a função poder desse teste.</span></p>
+<p class="exerc" id="exerc-8.2.6"><span class="k">8.2.6</span> Suponha que você esteja testando uma hipótese nula
+\(H_0 : \theta = 0\), em que \(\theta \in R^1\). Você usa um procedimento de teste
+de tamanho 0,05 e aceita \(H_0\). Você acha que tem uma amostra razoavelmente
+grande, mas, ao calcular o poder em \(\pm 0{,}2\), obtém o valor 0,10, em que 0,2
+representa a menor diferença em relação a 0 que tem importância prática. Você
+acredita que faz sentido concluir que a hipótese nula é verdadeira? Justifique
+sua conclusão.</p>
+<p class="exerc" id="exerc-8.2.7"><span class="k">8.2.7</span> Suponha que você queira testar a hipótese nula
+\(H_0 : \mu = 0\) com base numa amostra de tamanho \(n\) de uma distribuição
+\(N(\mu, 1)\), em que \(\mu \in \{0, 2\}\). Quão grande \(n\) precisa ser para que o
+poder em \(\mu = 2\) do teste ótimo de tamanho 0,05 seja igual a 0,99?</p>
+<p class="exerc" id="exerc-8.2.8"><span class="k">8.2.8</span> Suponha que temos à disposição dois procedimentos de teste
+diferentes num problema e que eles têm a mesma função poder. Explique por que,
+do ponto de vista da teoria de testes de hipóteses ótimos, não deveria nos
+importar qual teste é usado.</p>
+<p class="exerc" id="exerc-8.2.9"><span class="k">8.2.9</span> Suponha que você tenha um teste \(\varphi\) UMP de tamanho
+\(\alpha\) para testar a hipótese \(H_0 : \psi(\theta) = \psi_0\), em que \(\psi\) é
+real. Explique como o gráfico da função poder de outro teste de tamanho
+\(\alpha\) que não seja UMP difere do gráfico da função poder de \(\varphi\).</p>
+<h4 class="bloco bloco-exercicios-computacionais">Exercícios computacionais</h4>
+<p class="exerc" id="exerc-8.2.10"><span class="k">8.2.10</span> Suponha que você tenha uma moeda e queira testar a hipótese de
+que ela é honesta, isto é, quer testar \(H_0 : \theta = 1/2\), em que \(\theta\) é
+a probabilidade de obter cara num único lançamento. Você decide rejeitar \(H_0\)
+usando a região de rejeição \(R = \{0, 1, 7, 8\}\) com base em \(n = 10\)
+lançamentos. Tabele a função poder desse procedimento para
+\(\theta \in \{0, 1/8, 2/8, \ldots, 7/8, 1\}\).</p>
+<p class="exerc" id="exerc-8.2.11"><span class="k">8.2.11</span> No mesmo gráfico, trace as funções poder do teste \(z\) bilateral
+de \(H_0 : \mu = 0\) para amostras de tamanhos \(n = 1\), 4, 10, 20 e 100, com
+base em \(\alpha = 0{,}05\).
+<span class="parte"><span class="pl">(a)</span>  O que você observa nesses gráficos?</span><span class="parte"><span class="pl">(b)</span>  Explique como esses gráficos mostram que esse teste é não viesado.</span></p>
+<h4 class="bloco bloco-problemas">Problemas</h4>
+<p class="exerc" id="exerc-8.2.12"><span class="k">8.2.12</span> Prove que \(\varphi_0^*\) em (8.2.7) é UMP de tamanho \(\alpha\)
+para \(H_0 : \mu \ge \mu_0\) versus \(H_a : \mu &lt; \mu_0\).</p>
+<p class="exerc" id="exerc-8.2.13"><span class="k">8.2.13</span> Prove que a função de teste \(\varphi(s) = \alpha\) para todo
+\(s \in S\) é uma função de teste de tamanho exato \(\alpha\). Qual é a
+interpretação dessa função de teste?</p>
+<p class="exerc" id="exerc-8.2.14"><span class="k">8.2.14</span> Usando a função de teste do Problema 8.2.13, mostre que um teste
+UMP de tamanho \(\alpha\) é também um teste UMP não viesado de tamanho \(\alpha\).</p>
+<p class="exerc" id="exerc-8.2.15"><span class="k">8.2.15</span> Suponha que \((x_1, \ldots, x_n)\) é uma amostra de uma
+distribuição Gama\((\alpha_0, \beta)\), em que \(\alpha_0\) é conhecido e
+\(\beta &gt; 0\) é desconhecido. Determine o teste UMP de tamanho \(\alpha\) para
+testar \(H_0 : \beta = \beta_0\) versus \(H_a : \beta = \beta_1\), em que
+\(\beta_1 &gt; \beta_0\). Esse teste é UMP de tamanho \(\alpha\) para
+\(H_0 : \beta \le \beta_0\) versus \(H_a : \beta &gt; \beta_0\)?</p>
+<p class="exerc" id="exerc-8.2.16"><span class="k">8.2.16</span> Suponha que \((x_1, \ldots, x_n)\) é uma amostra de uma
+distribuição \(N(\mu_0, \sigma^2)\), em que \(\mu_0\) é conhecido e
+\(\sigma^2 &gt; 0\) é desconhecido. Determine o teste UMP de tamanho \(\alpha\) para
+testar \(H_0 : \sigma^2 = \sigma_0^2\) versus \(H_a : \sigma^2 = \sigma_1^2\), em
+que \(\sigma_0^2 &lt; \sigma_1^2\). Esse teste é UMP de tamanho \(\alpha\) para
+\(H_0 : \sigma^2 \le \sigma_0^2\) versus \(H_a : \sigma^2 &gt; \sigma_0^2\)?</p>
+<p class="exerc" id="exerc-8.2.17"><span class="k">8.2.17</span> Suponha que \((x_1, \ldots, x_n)\) é uma amostra de uma
+distribuição Uniforme\([0, \theta]\), em que \(\theta &gt; 0\) é desconhecido.
+Determine o teste UMP de tamanho \(\alpha\) para testar \(H_0 : \theta = \theta_0\)
+versus \(H_a : \theta = \theta_1\), em que \(\theta_0 &lt; \theta_1\). Essa função de
+teste é UMP de tamanho \(\alpha\) para \(H_0 : \theta \le \theta_0\) versus
+\(H_a : \theta &gt; \theta_0\)?</p>
+<p class="exerc" id="exerc-8.2.18"><span class="k">8.2.18</span> Suponha que \(F\) é a função de distribuição da distribuição
+Binomial\((n, \theta)\). Prove então que
+<span class="eq">\[
+F(x) = \frac{\Gamma(n + 1)}{\Gamma(x + 1)\Gamma(n - x)}\int_\theta^1 y^x(1 - y)^{n - x - 1}\,dy
+\]</span>
+para \(x = 0, 1, \ldots, n - 1\). Isso estabelece uma relação entre a
+distribuição de probabilidade binomial e a função beta<sup class="nota-ref nota-termo"><a href="#nota-63" id="ref-63">63</a></sup>. (Sugestão: integração
+por partes<sup class="nota-ref nota-termo"><a href="#nota-64" id="ref-64">64</a></sup>.)</p>
+<p class="exerc" id="exerc-8.2.19"><span class="k">8.2.19</span> Suponha que \(F\) é a função de distribuição da distribuição
+Poisson\((\lambda)\). Prove então que
+<span class="eq">\[
+F(x) = \frac{1}{x!}\int_\lambda^\infty y^x e^{-y}\,dy
+\]</span>
+para \(x = 0, 1, \ldots\). Isso estabelece uma relação entre a distribuição de
+probabilidade de Poisson e a função gama<sup class="nota-ref nota-termo"><a href="#nota-65" id="ref-65">65</a></sup>. (Sugestão: integração por partes.)</p>
+<p class="exerc" id="exerc-8.2.20"><span class="k">8.2.20</span> Suponha que \((x_1, \ldots, x_n)\) é uma amostra de uma
+distribuição Poisson\((\lambda)\), em que \(\lambda &gt; 0\) é desconhecido. Determine
+o teste UMP de tamanho \(\alpha\) para \(H_0 : \lambda = \lambda_0\) versus
+\(H_a : \lambda = \lambda_1\), em que \(\lambda_0 &lt; \lambda_1\). Essa função de
+teste é UMP de tamanho \(\alpha\) para \(H_0 : \lambda \le \lambda_0\) versus
+\(H_a : \lambda &gt; \lambda_0\)? (Sugestão: você vai precisar do resultado do
+Problema 8.2.19.)</p>
+<p class="exerc" id="exerc-8.2.21"><span class="k">8.2.21</span> Suponha que \((x_1, \ldots, x_n)\) é uma amostra de uma
+distribuição \(N(\mu, \sigma^2)\), em que \((\mu, \sigma^2) \in R^1 \times
+(0, \infty)\) é desconhecido. Obtenha a forma do teste da razão de
+verossimilhança de tamanho exato \(\alpha\) para testar \(H_0 : \mu = \mu_0\)
+versus \(H_0 : \mu \ne \mu_0\).<sup class="nota-ref nota-tradutor"><a href="#nota-66" id="ref-66">66</a></sup></p>
+<p class="exerc" id="exerc-8.2.22"><span class="k">8.2.22</span> (<em>Intervalos de confiança ótimos</em>) Suponha que, para o
+modelo \(\{f_\theta : \theta \in \negrito{\Omega}\}\), temos uma função de teste
+\(\varphi_{\psi_0}\) UMP de tamanho \(\alpha\) para \(H_0 : \psi(\theta) = \psi_0\),
+para cada valor possível de \(\psi_0\). Suponha, além disso, que cada
+\(\varphi_{\psi_0}\) só assume valores em \(\{0, 1\}\), isto é, cada
+\(\varphi_{\psi_0}\) é uma função de teste não aleatorizada de tamanho \(\alpha\).
+<span class="parte"><span class="pl">(a)</span>  Prove que
+<span class="eq">\[
+C(s) = \{\psi_0 : \varphi_{\psi_0}(s) = 0\}
+\]</span>
+satisfaz
+<span class="eq">\[
+P_\theta(\psi(\theta) \in C(s)) \ge 1 - \alpha
+\]</span>
+para todo \(\theta \in \negrito{\Omega}\). Conclua que \(C(s)\) é um conjunto de
+confiança \(1 - \alpha\) para \(\psi(\theta)\).</span><span class="parte"><span class="pl">(b)</span>  Se \(C^*\) é um conjunto de confiança \(1 - \alpha\) para \(\psi(\theta)\),
+prove que a função de teste definida por
+<span class="eq">\[
+\varphi_{\psi_0}^*(s) =
+\begin{cases}
+1 &amp; \psi_0 \notin C(s) \\
+0 &amp; \psi_0 \in C(s)
+\end{cases}
+\]</span>
+tem tamanho \(\alpha\) para \(H_0 : \psi(\theta) = \psi_0\).<sup class="nota-ref nota-tradutor"><a href="#nota-67" id="ref-67">67</a></sup></span><span class="parte"><span class="pl">(c)</span>  Suponha que, para cada valor \(\psi_0\), a função de teste
+\(\varphi_{\psi_0}\) é UMP de tamanho \(\alpha\) para testar
+\(H_0 : \psi(\theta) = \psi_0\) versus
+\(H_0 : \psi(\theta) \ne \psi_0\).<sup class="nota-ref nota-tradutor"><a href="#nota-68" id="ref-68">68</a></sup> Prove então que
+<span class="eq">\begin{equation}
+P_\theta(\psi(\theta^*) \in C(s))
+\tag{8.2.12}
+\end{equation}</span>
+é minimizada, quando \(\psi(\theta) \ne \psi_0\), entre todos os conjuntos de
+confiança \(1 - \alpha\) para \(\psi(\theta)\). A probabilidade (8.2.12) é a
+probabilidade de \(C\) conter o valor falso \(\psi(\theta^*)\), e uma região de
+confiança<sup class="nota-ref nota-termo"><a href="#nota-69" id="ref-69">69</a></sup> \(1 - \alpha\) que minimiza essa probabilidade quando
+\(\psi(\theta) \ne \psi_0\) é chamada de <em>região de confiança \(1 - \alpha\)
+uniformemente mais acurada (UMA)</em> para \(\psi(\theta)\).</span></p>
+<h4 class="bloco bloco-desafios">Desafios</h4>
+<p class="exerc" id="exerc-8.2.23"><span class="k">8.2.23</span> Prove o Corolário 8.2.1 no caso discreto.</p>
+<h2 id="sec-8.3"><span class="n">8.3</span> <span class="t">Inferências Bayesianas Ótimas</span></h2>
+<p>Acrescentamos agora a medida de probabilidade a priori \(\Pi\) com densidade
+\(\pi\). Como veremos, isso completa a especificação de um problema de
+otimalidade, pois agora sempre há uma solução. As soluções de problemas de
+otimização bayesianos são conhecidas como <em>regras de Bayes</em>.</p>
+<p>Na Seção 8.1, o problema de otimização irrestrito era encontrar o estimador
+\(T\) de \(\psi(\theta)\) que minimiza
+<span class="mat-quebravel">\(\mathrm{MSE}_\theta(T)\) \({}= E_\theta((T - \psi(\theta))^2)\)</span>, para cada
+\(\theta \in \negrito{\Omega}\). A versão bayesiana desse problema é minimizar
+<span class="eq">\begin{equation}
+E_\Pi(\mathrm{MSE}_\theta(T)) = E_\Pi(E_\theta((T - \psi(\theta))^2)). \tag{8.3.1}
+\end{equation}</span></p>
+<p>Pelo teorema da esperança total (Teorema 3.5.2), (8.3.1) é o valor esperado do
+erro quadrático \((T(s) - \psi(\theta))^2\) sob a distribuição conjunta<sup class="nota-ref nota-termo"><a href="#nota-70" id="ref-70">70</a></sup> de
+\((\theta, s)\) induzida pela distribuição condicional de \(s\) dado \(\theta\) (o
+modelo amostral<sup class="nota-ref nota-termo"><a href="#nota-71" id="ref-71">71</a></sup>) e pela distribuição marginal<sup class="nota-ref nota-termo"><a href="#nota-72" id="ref-72">72</a></sup> de \(\theta\) (a distribuição a
+priori de \(\theta\)). De novo pelo teorema da esperança total, podemos
+escrever isso como
+<span class="eq">\begin{equation}
+E_\Pi(\mathrm{MSE}_\theta(T)) = E_M(E_{\Pi(\cdot \,|\, s)}((T - \psi(\theta))^2)), \tag{8.3.2}
+\end{equation}</span>
+em que \(\Pi(\cdot \,|\, s)\) denota a medida de probabilidade a posteriori de
+\(\theta\), dados os dados \(s\) (a distribuição condicional de \(\theta\) dado
+\(s\)), e \(M\) denota a medida de probabilidade preditiva a priori<sup class="nota-ref nota-termo"><a href="#nota-73" id="ref-73">73</a></sup> de \(s\) (a
+distribuição marginal de \(s\)).</p>
+<p>Temos o seguinte resultado.</p>
+<div class="teo teorema" id="teorema-8.3.1"><div class="cab"><span class="rot">Teorema 8.3.1</span></div><div class="txt"><p>Quando (8.3.1) é finito, uma regra de Bayes é dada por
+<span class="eq">\[
+T(s) = E_{\Pi(\cdot \,|\, s)}(\psi(\theta)),
+\]</span>
+isto é, a esperança a posteriori de \(\psi(\theta)\).</p></div></div>
+<div class="dem fim"><span class="rot">Demonstração.</span> <p>Primeiro, considere o erro quadrático esperado a posteriori
+<span class="eq">\[
+E_{\Pi(\cdot \,|\, s)}\Bigl((T'(s) - \psi(\theta))^2\Bigr)
+\]</span>
+de uma estimativa \(T'(s)\). Pelo Teorema 8.1.1, ele é minimizado tomando
+\(T'(s)\) igual a \(T(s) = E_{\Pi(\cdot \,|\, s)}(\psi(\theta))\) (note que a
+quantidade “aleatória” aqui é \(\theta\)).</p>
+<p>Agora suponha que \(T'\) é um estimador qualquer de \(\psi(\theta)\). Acabamos de
+mostrar que
+<span class="eq">\[
+0 \le E_{\Pi(\cdot \,|\, s)}\Bigl((T(s) - \psi(\theta))^2\Bigr)
+\le E_{\Pi(\cdot \,|\, s)}\Bigl((T'(s) - \psi(\theta))^2\Bigr)
+\]</span>
+e, portanto,
+<span class="eq">\begin{align*}
+E_\Pi(\mathrm{MSE}_\theta(T))
+&amp;= E_M\Bigl(E_{\Pi(\cdot \,|\, s)}((T(s) - \psi(\theta))^2)\Bigr) \\
+&amp;\le E_M\Bigl(E_{\Pi(\cdot \,|\, s)}((T'(s) - \psi(\theta))^2)\Bigr)
+= E_\Pi(\mathrm{MSE}_\theta(T')).
+\end{align*}</span>
+Portanto, \(T\) minimiza (8.3.1) e é uma regra de Bayes.</p></div>
+<p>Vemos, então, que, sob condições brandas, o problema de estimação bayesiano
+ótimo sempre tem solução, e não há necessidade de nos restringirmos a
+estimadores não viesados etc.</p>
+<p>Para o problema de teste de hipóteses \(H_0 : \psi(\theta) = \psi_0\), queremos
+encontrar a função de teste \(\varphi\) que minimiza a probabilidade a priori de
+cometer um erro (tipo I ou tipo II). Uma tal \(\varphi\) é uma regra de Bayes.
+Temos o seguinte resultado.</p>
+<div class="teo teorema" id="teorema-8.3.2"><div class="cab"><span class="rot">Teorema 8.3.2</span></div><div class="txt"><p>Uma regra de Bayes para o problema de teste de hipóteses
+\(H_0 : \psi(\theta) = \psi_0\) é dada por
+<span class="eq">\[
+\varphi_0(s) =
+\begin{cases}
+1 &amp; \Pi(\{\psi(\theta) = \psi_0\} \,|\, s) \le \Pi(\{\psi(\theta) \ne \psi_0\} \,|\, s) \\[4pt]
+0 &amp; \text{caso contrário.}
+\end{cases}
+\]</span></p></div></div>
+<div class="dem fim"><span class="rot">Demonstração.</span> <p>Considere a função de teste \(\varphi\) e seja \(I_{\{\psi(\theta) = \psi_0\}}(\theta)\)
+a função indicadora do conjunto \(\{\theta : \psi(\theta) = \psi_0\}\) (assim,
+\(I_{\{\psi(\theta) = \psi_0\}}(\theta) = 1\) quando \(\psi(\theta) = \psi_0\) e é
+igual a 0 caso contrário). Observe que \(\varphi(s)\) é a probabilidade de
+rejeitar \(H_0\), tendo observado \(s\), o que é um erro quando
+\(I_{\{\psi(\theta) = \psi_0\}}(\theta) = 1\); \(1 - \varphi(s)\) é a probabilidade
+de aceitar \(H_0\), tendo observado \(s\), o que é um erro quando
+\(I_{\{\psi(\theta) = \psi_0\}}(\theta) = 0\). Portanto, dados \(s\) e \(\theta\), a
+probabilidade de cometer um erro é
+<span class="eq">\[
+e(\theta, s) = \varphi(s) I_{\{\psi(\theta) = \psi_0\}}(\theta)
++ (1 - \varphi(s))\,(1 - I_{\{\psi(\theta) = \psi_0\}}(\theta)).
+\]</span></p>
+<p>Pelo teorema da esperança total, a probabilidade a priori de cometer um erro
+(tomando a esperança de \(e(\theta, s)\) sob a distribuição conjunta de
+\((\theta, s)\)) é
+<span class="eq">\begin{equation}
+E_M\bigl(E_{\Pi(\cdot \,|\, s)}(e(\theta, s))\bigr). \tag{8.3.3}
+\end{equation}</span>
+Como na demonstração do Teorema 8.3.1, se conseguirmos encontrar \(\varphi\) que
+minimiza \(E_{\Pi(\cdot \,|\, s)}(e(\theta, s))\) para cada \(s\), então \(\varphi\)
+também minimiza (8.3.3) e é uma regra de Bayes.</p>
+<p>Usando o Teorema 3.5.4 para tirar \(\varphi(s)\) da esperança condicional, e o
+fato de que <span class="mat-quebravel">\(E_{\Pi(\cdot \,|\, s)}(I_A(\theta))\) \({}= \Pi(A \,|\, s)\)</span> para
+qualquer evento \(A\), temos
+<span class="eq">\[
+E_{\Pi(\cdot \,|\, s)}(e(\theta, s))
+= \varphi(s)\Pi(\{\psi(\theta) = \psi_0\} \,|\, s)
++ (1 - \varphi(s))\,(1 - \Pi(\{\psi(\theta) = \psi_0\} \,|\, s)).
+\]</span>
+Como \(\varphi(s) \in [0, 1]\), temos
+<span class="eq">\begin{align*}
+&amp;\min\{\Pi(\{\psi(\theta) = \psi_0\} \,|\, s), 1 - \Pi(\{\psi(\theta) = \psi_0\} \,|\, s)\} \\
+&amp;\quad\le \varphi(s)\Pi(\{\psi(\theta) = \psi_0\} \,|\, s)
++ (1 - \varphi(s))\,(1 - \Pi(\{\psi(\theta) = \psi_0\} \,|\, s)).
+\end{align*}</span>
+Portanto, o valor mínimo de \(E_{\Pi(\cdot \,|\, s)}(e(\theta, s))\) é atingido
+por \(\varphi(s) = \varphi_0(s)\).</p></div>
+<p>Observe que o Teorema 8.3.2 diz que a regra de Bayes rejeita \(H_0\) sempre que
+a probabilidade a posteriori da hipótese nula é menor ou igual à
+probabilidade a posteriori da alternativa. Esse é um resultado
+intuitivamente satisfatório.</p>
+<p>Surge, porém, o seguinte problema com essa abordagem. Temos
+<span class="eq">\begin{align}
+\Pi(\{\psi(\theta) = \psi_0\} \,|\, s)
+&amp;= \frac{E_\Pi(I_{\{\theta : \psi(\theta) = \psi_0\}}(\theta) f_\theta(s))}{m(s)} \notag \\
+&amp;\le \frac{\max_{\{\theta : \psi(\theta) = \psi_0\}} f_\theta(s)\,\Pi(\{\psi(\theta) = \psi_0\})}{m(s)}. \tag{8.3.4}
+\end{align}</span>
+Quando \(\Pi(\{\psi(\theta) = \psi_0\}) = 0\), (8.3.4) implica que
+\(\Pi(\{\psi(\theta) = \psi_0\} \,|\, s = 0)\) para todo \(s\).<sup class="nota-ref nota-tradutor"><a href="#nota-74" id="ref-74">74</a></sup> Portanto, usando a regra de
+Bayes, sempre rejeitaríamos \(H_0\), quaisquer que fossem os dados \(s\) obtidos,
+o que não parece sensato. Como discutido na Seção 7.2.3, temos de tomar o
+cuidado de usar uma priori \(\Pi\) que atribua massa positiva a \(H_0\) se formos
+usar a abordagem bayesiana ótima num problema de teste de hipóteses.</p>
+<section class="resumo"><h4>Resumo da Seção 8.3</h4><ul><li>Os procedimentos bayesianos ótimos são obtidos minimizando a medida de
+desempenho esperada calculada com a distribuição a posteriori.</li>
+<li>Em problemas de estimação, quando se usa o erro quadrático como medida
+de desempenho, a média a posteriori é ótima.</li>
+<li>Em problemas de teste de hipóteses, quando a medida de desempenho a
+minimizar é a probabilidade de cometer um erro, é ótimo calcular a
+probabilidade a posteriori da hipótese nula e aceitar \(H_0\) quando ela for
+maior que 1/2.</li></ul></section>
+<h4 class="bloco bloco-exercicios">Exercícios</h4>
+<p class="exerc" id="exerc-8.3.1"><span class="k">8.3.1</span> Suponha que \(S = \{1, 2, 3\}\), \(\negrito{\Omega} = \{1, 2\}\),
+com as distribuições dos dados dadas pela tabela a seguir. Colocamos uma
+priori uniforme em \(\theta\) e queremos estimar \(\theta\).</p>
+<div class="centro"><div class="tbl"><table><tr><th></th><th>\(s = 1\)</th><th>\(s = 2\)</th><th>\(s = 3\)</th></tr><tr><td>\(f_1(s)\)</td><td>\(1/6\)</td><td>\(1/6\)</td><td>\(2/3\)</td></tr><tr><td>\(f_2(s)\)</td><td>\(1/4\)</td><td>\(1/4\)</td><td>\(1/2\)</td></tr></table></div></div>
+<p>Usando uma regra de Bayes, teste a hipótese \(H_0 : \theta = 2\) quando
+\(s = 2\) é observado.</p>
+<p class="exerc" id="exerc-8.3.2"><span class="k">8.3.2</span> Para a situação descrita no Exercício 8.3.1, determine o
+estimador regra de Bayes de \(\theta\) quando se usa o erro quadrático esperado
+como medida de desempenho dos estimadores.</p>
+<p class="exerc" id="exerc-8.3.3"><span class="k">8.3.3</span> Suponha que temos uma amostra \((x_1, \ldots, x_n)\) de uma
+distribuição \(N(\mu, \sigma_0^2)\), em que \(\mu\) é desconhecido e \(\sigma_0^2\) é
+conhecido, e que queremos estimar \(\mu\) usando o erro quadrático esperado como
+medida de desempenho dos estimadores. Se usarmos a distribuição a priori
+\(\mu \sim N(\mu, \tau_0^2)\), determine a regra de Bayes para esse
+problema.<sup class="nota-ref nota-tradutor"><a href="#nota-75" id="ref-75">75</a></sup> Determine a regra de
+Bayes limite quando \(\tau_0 \to \infty\).</p>
+<p class="exerc" id="exerc-8.3.4"><span class="k">8.3.4</span> Suponha que observamos uma amostra \((x_1, \ldots, x_n)\) de uma
+distribuição \(\text{Bernoulli}(\theta)\), em que \(\theta\) é completamente
+desconhecido, e que queremos estimar \(\theta\) usando o erro quadrático
+esperado como medida de desempenho dos estimadores. Se usarmos a distribuição
+a priori \(\theta \sim \text{Beta}(\alpha, \beta)\), determine uma regra de Bayes
+para esse problema.</p>
+<p class="exerc" id="exerc-8.3.5"><span class="k">8.3.5</span> Suponha que \((x_1, \ldots, x_n)\) é uma amostra de uma
+distribuição \(\text{Gama}(\alpha_0, \beta)\), em que \(\alpha_0\) é conhecido, e
+que \(\beta \sim \text{Gama}(\tau_0, \upsilon_0)\), em que \(\tau_0\) e
+\(\upsilon_0\) são conhecidos. Se queremos estimar \(\beta\) usando o erro
+quadrático esperado como medida de desempenho dos estimadores, determine a
+regra de Bayes. Use a lei fraca (ou forte) dos grandes números para determinar
+para onde esse estimador converge quando \(n \to \infty\).</p>
+<p class="exerc" id="exerc-8.3.6"><span class="k">8.3.6</span> Para a situação descrita no Exercício 8.3.5, determine a regra
+de Bayes para estimar \(\beta^{-1}\) quando se usa o erro quadrático esperado
+como medida de desempenho dos estimadores.</p>
+<p class="exerc" id="exerc-8.3.7"><span class="k">8.3.7</span> Suponha que temos uma amostra \((x_1, \ldots, x_n)\) de uma
+distribuição \(N(\mu, \sigma_0^2)\), em que \(\mu\) é desconhecido e \(\sigma_0^2\) é
+conhecido, e que queremos encontrar o teste de \(H_0 : \mu = \mu_0\) que minimiza
+a probabilidade a priori de cometer um erro (tipo I ou tipo II). Se usarmos a
+distribuição a priori
+<span class="mat-quebravel">\(\mu \sim p_0 I_{\{\mu_0\}}\) \({}+ (1 - p_0) N(\mu_0, \tau_0^2)\)</span>, em que
+\(p_0 \in (0, 1)\) é conhecido (isto é, a priori é uma mistura de uma
+distribuição degenerada<sup class="nota-ref nota-termo"><a href="#nota-76" id="ref-76">76</a></sup> em \(\mu_0\) e de uma distribuição
+\(N(\mu_0, \tau_0^2)\)), determine a regra de Bayes para esse problema.
+Determine a regra de Bayes limite quando \(\tau_0 \to \infty\). (Sugestão: use as
+contas do Exemplo 7.2.13.)</p>
+<p class="exerc" id="exerc-8.3.8"><span class="k">8.3.8</span> Suponha que temos uma amostra \((x_1, \ldots, x_n)\) de uma
+distribuição \(\text{Bernoulli}(\theta)\), em que \(\theta\) é desconhecido, e que
+queremos encontrar o teste de \(H_0 : \theta = \theta_0\) que minimiza a
+probabilidade a priori de cometer um erro (tipo I ou tipo II). Se usarmos a
+distribuição a priori
+<span class="mat-quebravel">\(\theta \sim p_0 I_{\{\theta_0\}}\) \({}+ (1 - p_0)\,\text{Uniforme}[0, 1]\)</span>, em que
+\(p_0 \in (0, 1)\) é conhecido (isto é, a priori é uma mistura de uma
+distribuição degenerada em \(\theta_0\) e de uma distribuição uniforme),
+determine a regra de Bayes para esse problema.</p>
+<h4 class="bloco bloco-problemas">Problemas</h4>
+<p class="exerc" id="exerc-8.3.9"><span class="k">8.3.9</span> Suponha que \(\negrito{\Omega} = \{\theta_1, \theta_2\}\), que
+colocamos uma priori \(\pi\) em \(\negrito{\Omega}\) e que queremos estimar
+\(\theta\). Suponha que nossa medida de desempenho dos estimadores é a
+probabilidade de fazer uma escolha incorreta de \(\theta\). Se o modelo é
+denotado por \(\{f_\theta : \theta \in \negrito{\Omega}\}\), obtenha a forma da
+regra de Bayes quando os dados \(s\) são observados.</p>
+<p class="exerc" id="exerc-8.3.10"><span class="k">8.3.10</span> Para a situação descrita no Exercício 8.3.1, use a regra de
+Bayes obtida pelo método do Problema 8.3.9 para estimar \(\theta\) quando
+\(s = 2\). Que vantagem essa estimativa tem sobre a obtida no Exercício 8.3.2?</p>
+<p class="exerc" id="exerc-8.3.11"><span class="k">8.3.11</span> Suponha que \((x_1, \ldots, x_n)\) é uma amostra de uma
+distribuição \(N(\mu, \sigma^2)\), em que
+\((\mu, \sigma^2) \in R^1 \times (0, \infty)\) é desconhecido, e que queremos
+estimar \(\mu\) usando o erro quadrático esperado como medida de desempenho dos
+estimadores. Usando a distribuição a priori dada por
+<span class="eq">\[
+\mu \,|\, \sigma^2 \sim N(\mu_0, \tau_0^2 \sigma^2),
+\]</span>
+e usando
+<span class="eq">\[
+\frac{1}{\sigma^2} \sim \text{Gama}(\alpha_0, \beta_0),
+\]</span>
+em que \(\mu_0\), \(\tau_0^2\), \(\alpha_0\) e \(\beta_0\) são fixos e conhecidos,
+determine a regra de Bayes para \(\mu\).</p>
+<p class="exerc" id="exerc-8.3.12"><span class="k">8.3.12</span> (<em>Seleção de modelos</em>) Generalize o Problema 8.3.9 para o
+caso <span class="mat-quebravel">\(\negrito{\Omega}\) \({}= \{\theta_1, \ldots, \theta_k\}\)</span>.</p>
+<h4 class="bloco bloco-desafios">Desafios</h4>
+<p class="exerc" id="exerc-8.3.13"><span class="k">8.3.13</span> Na Seção 7.2.4, descrevemos o problema de predição<sup class="nota-ref nota-termo"><a href="#nota-77" id="ref-77">77</a></sup> bayesiano.
+Usando a notação de lá, suponha que queremos predizer \(t \in R^1\) usando um
+preditor<sup class="nota-ref nota-termo"><a href="#nota-78" id="ref-78">78</a></sup> \(\tilde{T}(s)\). Se avaliamos a precisão de um preditor por
+<span class="eq">\[
+E((\tilde{T}(s) - t)^2)
+= E_\Pi(E_{P_\theta}(E_{Q_\theta(\cdot \,|\, s)}((\tilde{T}(s) - t)^2))),
+\]</span>
+determine o preditor a priori que minimiza essa quantidade (suponha que todas
+as esperanças relevantes são finitas). Se observarmos \(s_0\), determine o
+melhor preditor. (Sugestão: suponha que todas as medidas de probabilidade são
+discretas.)</p>
+<h2 id="sec-8.4"><span class="n">8.4</span> <span class="t">Teoria da Decisão (Avançado)</span></h2>
+<p>Para determinar uma inferência ótima, escolhemos uma medida de desempenho e
+depois tentamos encontrar uma inferência, de um dado tipo, que tenha
+desempenho ótimo com relação a essa medida. Por exemplo, ao considerar
+estimativas de uma característica de interesse \(\psi(\theta)\) a valores
+reais, tomamos o MSE como medida de desempenho e depois procuramos o
+estimador que o minimiza para cada valor de \(\theta\).</p>
+<p>A teoria da decisão está intimamente ligada à abordagem ótima para obter
+inferências, mas é um pouco mais especializada. No arcabouço da decisão,
+adotamos o ponto de vista de que, em qualquer problema estatístico, o
+estatístico se vê diante da tomada de uma decisão, por exemplo, decidir por um
+valor particular de \(\psi(\theta)\). Além disso, associada a uma decisão está a
+noção de uma perda sofrida sempre que a decisão é incorreta. Uma regra de
+decisão é um procedimento, baseado nos dados observados \(s\), que o estatístico
+usa para selecionar uma decisão. O problema de decisão consiste então em
+encontrar uma regra de decisão que minimize a perda média sofrida.</p>
+<p>Há vários contextos do mundo real em que as perdas são uma parte evidente do
+problema, por exemplo, as perdas monetárias associadas aos diversos planos de
+seguro que uma seguradora pode considerar oferecer. Assim, a abordagem da
+teoria da decisão tem muitas aplicações. Fica claro em muitos problemas
+práticos, porém, que as perdas (assim como as medidas de desempenho) são
+componentes um tanto arbitrários de um problema estatístico, muitas vezes
+escolhidos simplesmente por conveniência. Nessas circunstâncias, as
+abordagens para obter inferências descritas nos Capítulos 6 e 7 são as
+preferidas de muitos estatísticos.</p>
+<p>Assim, o <em>modelo da teoria da decisão</em> para a inferência acrescenta mais
+um ingrediente ao modelo amostral (ou ao modelo amostral e à priori) para
+obter inferências: a função de perda. Para formalizar isso, concebemos um
+conjunto de ações ou decisões possíveis que o estatístico poderia tomar
+depois de observar os dados \(s\). Esse conjunto de ações possíveis é denotado
+por \(\mathcal{A}\) e chamado de <em>espaço de ações</em>. Para ligar essas ações
+ao modelo estatístico, há uma <em>função de ação correta</em>
+\(A : \negrito{\Omega} \to \mathcal{A}\) tal que \(A(\theta)\) é a ação correta a
+tomar quando \(\theta\) é o verdadeiro valor do parâmetro. Naturalmente, como não
+conhecemos \(\theta\), não conhecemos a ação correta \(A(\theta)\), de modo que há
+incerteza envolvida em nossa decisão. Considere um exemplo simples.</p>
+<div class="ex" id="exemplo-8.4.1"><div class="cab"><span class="rot">Exemplo 8.4.1</span></div><div class="txt fim"><p>Suponha que lhe dizem que uma urna com 100 bolas tem ou 50 bolas brancas e 50
+pretas, ou 60 brancas e 40 pretas. Cinco bolas são retiradas da urna sem
+reposição, e suas cores são observadas. A tarefa do estatístico é tomar uma
+decisão sobre a verdadeira proporção de bolas brancas na urna com base nesses
+dados.</p>
+<p>O modelo estatístico consiste então em duas distribuições \(\{P_1, P_2\}\), em
+que, usando o espaço paramétrico<sup class="nota-ref nota-termo"><a href="#nota-79" id="ref-79">79</a></sup> \(\negrito{\Omega} = \{1, 2\}\), \(P_1\) é a
+distribuição \(\text{Hipergeométrica}(100, 50, 5)\) (veja o Exemplo 2.3.7) e
+\(P_2\) é a distribuição \(\text{Hipergeométrica}(100, 60, 5)\). O espaço de ações
+é \(\mathcal{A} = \{0{,}5; 0{,}6\}\), e \(A : \negrito{\Omega} \to \mathcal{A}\) é dada
+por \(A(1) = 0{,}5\) e \(A(2) = 0{,}6\). Os dados são as cores das cinco bolas
+retiradas.</p></div></div>
+<p>Suponhamos agora que haja também uma perda ou penalidade \(L(\theta, a)\) sofrida
+quando selecionamos a ação \(a \in \mathcal{A}\) e \(\theta\) é verdadeiro. Se
+selecionamos a ação correta, a perda é 0; caso contrário, ela é maior que 0.</p>
+<div class="def definicao" id="definicao-8.4.1"><div class="cab"><span class="rot">Definição 8.4.1</span></div><div class="txt"><p>Uma <em>função de perda</em> é uma função \(L\) definida em
+\(\negrito{\Omega} \times \mathcal{A}\) e que assume valores em \([0, \infty)\) tal
+que \(L(\theta, a) = 0\) se e somente se \(a = A(\theta)\).</p></div></div>
+<p>Às vezes, a perda pode ser uma perda monetária real. Na verdade, a teoria da
+decisão é um pouco mais geral do que o que acabamos de descrever, pois podemos
+permitir perdas negativas (ganhos ou lucros), mas a restrição a perdas não
+negativas é adequada para aplicações puramente estatísticas.</p>
+<p>Num problema específico, o estatístico escolhe uma função de perda que se
+acredita levar a procedimentos estatísticos razoáveis. Essa escolha depende da
+aplicação particular. Considere alguns exemplos.</p>
+<div class="ex" id="exemplo-8.4.2"><div class="cab"><span class="rot">Exemplo 8.4.2</span> <span class="nome">Continuação do Exemplo 8.4.1</span></div><div class="txt fim"><p>Talvez uma escolha sensata neste problema seja
+<span class="eq">\[
+L(\theta, a) =
+\begin{cases}
+1 &amp; \theta = 1, a = 0{,}6 \\
+2 &amp; \theta = 2, a = 0{,}5 \\
+0 &amp; \text{caso contrário.}
+\end{cases}
+\]</span>
+Aqui decidimos que selecionar \(a = 0{,}5\) quando isso não é correto é um erro
+mais grave do que selecionar \(a = 0{,}6\) quando isso não é correto. Se
+quisermos tratar os erros de forma simétrica, podemos tomar
+<span class="eq">\[
+L(\theta, a) = I_{\{(1;\, 0{,}6), (2;\, 0{,}5)\}}(\theta, a),
+\]</span>
+isto é, as perdas são 1 ou 0.</p></div></div>
+<div class="ex" id="exemplo-8.4.3"><div class="cab"><span class="rot">Exemplo 8.4.3</span> <span class="nome">Estimação como Problema de Decisão</span></div><div class="txt fim"><p>Suponha que temos um parâmetro marginal de interesse \(\psi(\theta)\) e que
+queremos especificar uma estimativa \(T(s)\) depois de observar \(s \in S\). Aqui,
+o espaço de ações é \(\mathcal{A} = \{\psi(\theta) : \theta \in \negrito{\Omega}\}\)
+e \(A(\theta) = \psi(\theta)\). Naturalmente, queremos \(T(s) \in \mathcal{A}\).</p>
+<p>Por exemplo, suponha que \((x_1, \ldots, x_n)\) é uma amostra de uma distribuição
+\(N(\mu, \sigma^2)\), em que <span class="mat-quebravel">\((\mu, \sigma^2) \in \negrito{\Omega}\) \({}= R^1 \times R^\) \({}+\)</span>
+é desconhecido, e que queremos estimar \(\psi(\mu, \sigma^2) = \mu\). Nesse
+caso, \(\mathcal{A} = R^1\), e um estimador possível é a média amostral
+\(T(x_1, \ldots, x_n) = \bar{x}\).</p>
+<p>Há muitas escolhas possíveis para a função de perda. Talvez uma escolha
+natural seja usar
+<span class="eq">\begin{equation}
+L(\theta, a) = \lvert \psi(\theta) - a \rvert, \tag{8.4.1}
+\end{equation}</span>
+o desvio absoluto entre \(\psi(\theta)\) e \(a\). Como alternativa, é comum usar
+<span class="eq">\begin{equation}
+L(\theta, a) = (\psi(\theta) - a)^2, \tag{8.4.2}
+\end{equation}</span>
+os desvios quadráticos entre \(\psi(\theta)\) e \(a\).</p>
+<p>Chamamos (8.4.2) de <em>perda quadrática</em>. Note que (8.4.2) é simplesmente o
+quadrado da distância euclidiana entre \(\psi(\theta)\) e \(a\). Pode parecer mais
+natural usar de fato a distância (8.4.1) como função de perda. Acontece,
+porém, que há várias conveniências matemáticas que surgem do uso da distância
+ao quadrado.</p></div></div>
+<div class="ex" id="exemplo-8.4.4"><div class="cab"><span class="rot">Exemplo 8.4.4</span> <span class="nome">Teste de Hipóteses como Problema de Decisão</span></div><div class="txt fim"><p>Neste problema, temos uma característica de interesse \(\psi(\theta)\) e
+queremos avaliar quão plausível é o valor \(\psi_0\) depois de ver os dados \(s\).
+Num problema de teste de hipóteses, isso se escreve como
+\(H_0 : \psi(\theta) = \psi_0\) versus \(H_a : \psi(\theta) \ne \psi_0\). Como na
+Seção 8.2, chamamos \(H_0\) de hipótese nula e \(H_a\) de hipótese alternativa.</p>
+<p>O objetivo de um procedimento de teste de hipóteses é decidir qual das duas,
+\(H_0\) ou \(H_a\), é verdadeira com base nos dados observados \(s\). Assim, neste
+problema, o espaço de ações é \(\mathcal{A} = \{H_0, H_a\}\) e a função de ação
+correta é
+<span class="eq">\[
+A(\theta) =
+\begin{cases}
+H_0 &amp; \psi(\theta) = \psi_0 \\
+H_a &amp; \psi(\theta) \ne \psi_0.
+\end{cases}
+\]</span></p>
+<p>Uma maneira alternativa, e útil, de pensar nas duas hipóteses é como
+subconjuntos de \(\negrito{\Omega}\). Escrevemos \(H_0 = \psi^{-1}\{\psi_0\}\) como
+o subconjunto de todos os valores de \(\theta\) que tornam a hipótese nula
+verdadeira, e \(H_a = H_0^c\) é o subconjunto de todos os valores de \(\theta\) que
+tornam a hipótese nula falsa. Então, com base nos dados \(s\), queremos decidir
+se o verdadeiro valor de \(\theta\) está em \(H_0\) ou se \(\theta\) está em \(H_a\). Se
+\(H_0\) (ou \(H_a\)) é formada por um único ponto, ela é chamada de <em>hipótese
+simples</em> ou <em>hipótese pontual</em>; caso contrário, é chamada de
+<em>hipótese composta</em>.</p>
+<p>Por exemplo, suponha que \((x_1, \ldots, x_n)\) é uma amostra de uma distribuição
+\(N(\mu, \sigma^2)\), em que
+<span class="mat-quebravel">\(\theta = (\mu, \sigma^2) \in \negrito{\Omega}\) \({}= R^1 \times R^\) \({}+\)</span>,
+\(\psi(\theta) = \mu\), e que queremos testar a hipótese nula \(H_0 : \mu = \mu_0\)
+versus a alternativa \(H_a : \mu \ne \mu_0\). Então
+\(H_0 = \{\mu_0\} \times R^+\) e \(H_a = \{\mu_0\}^c \times R^+\). Para o mesmo
+modelo, seja
+<span class="eq">\[
+\psi(\theta) = I_{(-\infty, \mu_0] \times R^+}(\mu, \sigma^2),
+\]</span>
+isto é, \(\psi\) é a função indicadora do subconjunto
+\((-\infty, \mu_0] \times R^+\). Então testar \(H_0 : \psi = 1\) versus a
+alternativa \(H_a : \psi = 0\) equivale a testar que a média é menor ou igual a
+\(\mu_0\) versus a alternativa de que ela é maior que \(\mu_0\). Esse problema de
+teste de hipóteses unilateral<sup class="nota-ref nota-termo"><a href="#nota-80" id="ref-80">80</a></sup> costuma ser denotado por \(H_0 : \mu \le \mu_0\)
+versus \(H_a : \mu &gt; \mu_0\).</p>
+<p>Há várias escolhas possíveis para a função de perda, mas a mais usada é da
+forma
+<span class="eq">\[
+L(\theta, a) =
+\begin{cases}
+0 &amp; \theta \in H_0, a = H_0 \text{ ou } \theta \in H_a, a = H_a \\
+b &amp; \theta \notin H_0, a = H_0 \\
+c &amp; \theta \notin H_a, a = H_a.
+\end{cases}
+\]</span>
+Se rejeitamos \(H_0\) quando \(H_0\) é verdadeira (um erro tipo I), sofremos uma
+perda de \(c\); se aceitamos \(H_0\) quando \(H_0\) é falsa (um erro tipo II),
+sofremos uma perda de \(b\). Quando \(b = c\), podemos tomar \(b = c = 1\) e obter a
+<em>função de perda 0–1</em>, de uso comum.</p></div></div>
+<p>Um estatístico diante de um problema de decisão — isto é, um modelo, um
+espaço de ações, uma função de ação correta e uma função de perda — precisa
+agora escolher uma regra para selecionar um elemento do espaço de ações
+\(\mathcal{A}\) quando os dados \(s\) são observados. Uma <em>função de decisão<sup class="nota-ref nota-termo"><a href="#nota-81" id="ref-81">81</a></sup></em>
+é um procedimento que especifica como uma ação deve ser selecionada no espaço
+de ações \(\mathcal{A}\).</p>
+<div class="def definicao" id="definicao-8.4.2"><div class="cab"><span class="rot">Definição 8.4.2</span></div><div class="txt"><p>Uma <em>função de decisão não aleatorizada</em> \(d\) é uma função
+\(d : S \to \mathcal{A}\).</p></div></div>
+<p>Assim, depois de observar \(s\), decidimos que a ação apropriada é \(d(s)\).</p>
+<p>Na verdade, vamos permitir que nossos procedimentos de decisão sejam um pouco
+mais gerais do que isso, pois admitimos uma escolha aleatória de uma ação
+depois de observar \(s\).</p>
+<div class="def definicao" id="definicao-8.4.3"><div class="cab"><span class="rot">Definição 8.4.3</span></div><div class="txt"><p>Uma <em>função de decisão</em> \(\delta\) é tal que \(\delta(s, \cdot)\) é uma medida
+de probabilidade no espaço de ações \(\mathcal{A}\) para cada \(s \in S\) (assim,
+\(\delta(s, A)\) é a probabilidade de que a ação tomada esteja em
+\(A \subset \mathcal{A}\)).</p></div></div>
+<p>Operacionalmente, depois de observar \(s\), um mecanismo aleatório com
+distribuição especificada por \(\delta(s, \cdot)\) é usado para selecionar a ação
+no conjunto das ações possíveis. Note que, se \(\delta(s, \cdot)\) é uma medida de
+probabilidade degenerada no ponto \(d(s)\) (assim,
+\(\delta(s, \{d(s)\}) = 1\)) para cada \(s\), então \(\delta\) é equivalente à função
+de decisão não aleatorizada \(d\), e reciprocamente (veja o Problema 8.4.8).</p>
+<p>O uso de procedimentos de decisão aleatorizados pode parecer bastante pouco
+natural, mas, como veremos, às vezes eles são um ingrediente essencial da
+teoria da decisão. Em muitos problemas de estimação, o uso de procedimentos
+aleatorizados não traz vantagem alguma, mas não é esse o caso em problemas de
+teste de hipóteses. Denotamos por \(D\) o conjunto de todas as funções de decisão
+\(\delta\) para o problema específico de interesse.</p>
+<p>O problema de decisão consiste em escolher uma função de decisão
+\(\delta \in D\). A \(\delta\) selecionada será então usada para gerar decisões nas
+aplicações. Baseamos essa escolha no desempenho das diversas funções de
+decisão \(\delta\) com relação à função de perda. Intuitivamente, queremos
+escolher \(\delta\) de modo a tornar a perda a menor possível. Para uma \(\delta\)
+particular, como \(s \sim f_\theta\) e \(a \sim \delta(s, \cdot)\), a perda
+\(L(\theta, a)\) é uma quantidade aleatória. Portanto, em vez de minimizar
+perdas específicas, falamos em minimizar algum aspecto da distribuição das
+perdas para cada \(\theta \in \negrito{\Omega}\). Talvez uma escolha razoável
+seja minimizar a perda média. Assim, definimos a função de risco<sup class="nota-ref nota-termo"><a href="#nota-82" id="ref-82">82</a></sup> associada a
+\(\delta \in D\) como a perda média sofrida por \(\delta\). A função de risco tem
+papel central na determinação de uma função de decisão apropriada para um
+problema.</p>
+<div class="def definicao" id="definicao-8.4.4"><div class="cab"><span class="rot">Definição 8.4.4</span></div><div class="txt"><p>A <em>função de risco</em> associada à função de decisão \(\delta\) é dada por
+<span class="eq">\begin{equation}
+R_\delta(\theta) = E_\theta(E_{\delta(s, \cdot)}(L(\theta, a))). \tag{8.4.3}
+\end{equation}</span></p></div></div>
+<p>Note que, para calcular a função de risco, primeiro calculamos a média de
+\(L(\theta, a)\), com \(s\) fixo e \(a \sim \delta(s, \cdot)\). Depois tomamos a
+média dessa média condicional com relação a \(s \sim f\). Pelo teorema da
+esperança total, essa é a perda média. Quando \(\delta(s, \cdot)\) é degenerada
+em \(d(s)\) para cada \(s\), (8.4.3) se simplifica (veja o Problema 8.4.8) para
+<span class="eq">\[
+R_\delta(\theta) = E_\theta(L(\theta, d(s))).
+\]</span></p>
+<p>Considere os exemplos a seguir.</p>
+<div class="ex" id="exemplo-8.4.5"><div class="cab"><span class="rot">Exemplo 8.4.5</span></div><div class="txt fim"><p>Suponha que \(S = \{1, 2, 3\}\), \(\negrito{\Omega} = \{1, 2\}\) e que as
+distribuições são dadas pela tabela a seguir.</p>
+<div class="centro"><div class="tbl"><table><tr><th></th><th>\(s = 1\)</th><th>\(s = 2\)</th><th>\(s = 3\)</th></tr><tr><td>\(f_1(s)\)</td><td>\(1/3\)</td><td>\(1/3\)</td><td>\(1/3\)</td></tr><tr><td>\(f_2(s)\)</td><td>\(1/2\)</td><td>\(1/2\)</td><td>\(0\)</td></tr></table></div></div>
+<p>Suponha ainda que \(\mathcal{A} = \negrito{\Omega}\), \(A(\theta) = \theta\), e que a
+função de perda é dada por \(L(\theta, a) = 1\) quando \(\theta \ne a\) e é 0 caso
+contrário.</p>
+<p>Agora considere a função de decisão \(\delta\) especificada pela tabela a
+seguir.</p>
+<div class="centro"><div class="tbl"><table><tr><th></th><th>\(a = 1\)</th><th>\(a = 2\)</th></tr><tr><td>\(\delta(1, \{a\})\)</td><td>\(1/4\)</td><td>\(3/4\)</td></tr><tr><td>\(\delta(2, \{a\})\)</td><td>\(1/4\)</td><td>\(3/4\)</td></tr><tr><td>\(\delta(3, \{a\})\)</td><td>\(1\)</td><td>\(0\)</td></tr></table></div></div>
+<p>Assim, quando observamos \(s = 1\), escolhemos aleatoriamente a ação \(a = 1\) com
+probabilidade 1/4 e a ação \(a = 2\) com probabilidade 3/4, e assim por diante.
+Note que essa função de decisão faz a coisa sensata e seleciona a decisão
+\(a = 1\) quando observamos \(s = 3\), já que nesse caso sabemos sem ambiguidade
+que \(\theta = 1\).</p>
+<p>Temos
+<span class="eq">\begin{align*}
+E_{\delta(1, \cdot)}(L(\theta, a)) &amp;= \frac{1}{4} L(\theta, 1) + \frac{3}{4} L(\theta, 2) \\
+E_{\delta(2, \cdot)}(L(\theta, a)) &amp;= \frac{1}{4} L(\theta, 1) + \frac{3}{4} L(\theta, 2) \\
+E_{\delta(3, \cdot)}(L(\theta, a)) &amp;= L(\theta, 1),
+\end{align*}</span>
+de modo que a função de risco de \(\delta\) é dada por
+<span class="eq">\begin{align*}
+R_\delta(1) &amp;= E_1(E_{\delta(s, \cdot)}(L(1, a))) \\
+&amp;= \frac{1}{3}\Bigl(\frac{1}{4} L(1, 1) + \frac{3}{4} L(1, 2)\Bigr)
+ + \frac{1}{3}\Bigl(\frac{1}{4} L(1, 1) + \frac{3}{4} L(1, 2)\Bigr)
+ + \frac{1}{3} L(1, 1) \\
+&amp;= \frac{3}{12} + \frac{3}{12} + 0 = \frac{1}{2}
+\end{align*}</span>
+e
+<span class="eq">\begin{align*}
+R_\delta(2) &amp;= E_2(E_{\delta(s, \cdot)}(L(2, a))) \\
+&amp;= \frac{1}{2}\Bigl(\frac{1}{4} L(2, 1) + \frac{3}{4} L(2, 2)\Bigr)
+ + \frac{1}{2}\Bigl(\frac{1}{4} L(2, 1) + \frac{3}{4} L(2, 2)\Bigr)
+ + 0 L(2, 1) \\
+&amp;= \frac{1}{8} + \frac{1}{8} + 0 = \frac{1}{4}.
+\end{align*}</span></p></div></div>
+<div class="ex" id="exemplo-8.4.6"><div class="cab"><span class="rot">Exemplo 8.4.6</span> <span class="nome">Estimação</span></div><div class="txt fim"><p>Vamos restringir nossa atenção às funções de decisão não aleatorizadas e
+observar que elas também são chamadas de estimadores. A função de risco
+associada ao estimador \(T\) e à função de perda (8.4.1) é dada por
+<span class="eq">\[
+R_T(\theta) = E_\theta(\lvert \psi(\theta) - T \rvert)
+\]</span>
+e é chamada de <em>desvio absoluto médio</em> (MAD). A função de risco associada
+ao estimador \(T\) e à função de perda (8.4.2) é dada por
+<span class="eq">\[
+R_T(\theta) = E_\theta((\psi(\theta) - T)^2)
+\]</span>
+e é chamada de MSE.</p>
+<p>Queremos escolher o estimador \(T\) que minimiza \(R_T(\theta)\) para todo
+\(\theta \in \negrito{\Omega}\). Note que, quando se usa (8.4.2), esse problema
+de decisão é exatamente o mesmo problema de estimação ótima discutido na
+Seção 8.1.</p></div></div>
+<div class="ex" id="exemplo-8.4.7"><div class="cab"><span class="rot">Exemplo 8.4.7</span> <span class="nome">Teste de Hipóteses</span></div><div class="txt fim"><p>Notamos que, para uma dada função de decisão \(\delta\) para este problema e um
+valor \(s\) dos dados, a distribuição \(\delta(s, \cdot)\) é caracterizada por
+\(\varphi(s) = \delta(s, H_a)\), que é a probabilidade de rejeitar \(H_0\) quando
+\(s\) foi observado. Isso porque a medida de probabilidade \(\delta(s, \cdot)\)
+está concentrada em dois pontos, de modo que basta dar seu valor em um deles
+para especificá-la completamente. Chamamos \(\varphi\) de <em>função de teste</em>
+associada a \(\delta\) e observamos que uma função de decisão para este problema
+também fica especificada por uma função de teste \(\varphi\).</p>
+<p>Temos imediatamente que
+<span class="eq">\begin{equation}
+E_{\delta(s, \cdot)}(L(\theta, a)) = (1 - \varphi(s))\, L(\theta, H_0) + \varphi(s) L(\theta, H_a). \tag{8.4.4}
+\end{equation}</span>
+Portanto, quando se usa a função de perda 0–1,
+<span class="eq">\begin{align*}
+R_\delta(\theta) &amp;= E_\theta((1 - \varphi(s))\, L(\theta, H_0) + \varphi(s) L(\theta, H_a)) \\
+&amp;= L(\theta, H_0) + E_\theta(\varphi(s))\,(L(\theta, H_a) - L(\theta, H_0)) \\
+&amp;= \begin{cases}
+E_\theta(\varphi(s)) &amp; \theta \in H_0 \\[2pt]
+1 - E_\theta(\varphi(s)) &amp; \theta \in H_a.
+\end{cases}
+\end{align*}</span></p>
+<p>Lembre que, na Seção 6.3.6, introduzimos a função poder associada a um
+procedimento de avaliação de hipóteses<sup class="nota-ref nota-termo"><a href="#nota-83" id="ref-83">83</a></sup> que rejeitava \(H_0\) sempre que o
+valor-p era menor que algum valor prescrito. A função poder, calculada em
+\(\theta\), é a probabilidade de que tal procedimento rejeite \(H_0\) quando
+\(\theta\) é o verdadeiro valor. Como \(\varphi(s)\) é a probabilidade
+condicional, dado \(s\), de que \(H_0\) seja rejeitada, o teorema da esperança
+total implica que \(E_\theta(\varphi(s))\) é igual à probabilidade incondicional
+de rejeitarmos \(H_0\) quando \(\theta\) é o verdadeiro valor. Assim, em geral,
+chamamos a função
+<span class="eq">\[
+\beta_\varphi(\theta) = E_\theta(\varphi(s))
+\]</span>
+de <em>função poder</em> do procedimento de decisão \(\delta\) ou, de modo
+equivalente, de função poder da função de teste \(\varphi\).</p>
+<p>Portanto, minimizar a função de risco neste caso equivale a escolher \(\varphi\)
+de modo a minimizar \(\beta_\varphi(\theta)\) para todo \(\theta \in H_0\) e
+maximizar \(\beta_\varphi(\theta)\) para todo \(\theta \in H_a\). Desse modo, este
+problema de decisão é exatamente o mesmo problema de inferência ótima
+discutido na Seção 8.2.</p></div></div>
+<p>Depois de escrevermos todos os ingredientes de um problema de decisão, fica
+claro que forma terá uma solução do problema. Em particular, qualquer função
+de decisão \(\delta_0\) que satisfaça
+<span class="eq">\[
+R_{\delta_0}(\theta) \le R_\delta(\theta)
+\]</span>
+para todo \(\theta \in \negrito{\Omega}\) e \(\delta \in D\) é uma <em>função de
+decisão ótima</em> e é uma solução. Se duas funções de decisão têm as mesmas
+funções de risco, então, do ponto de vista da teoria da decisão, elas são
+equivalentes. Assim, é concebível que haja mais de uma solução para um
+problema de decisão.</p>
+<p>Na verdade, acontece que uma função de decisão ótima só existe em casos
+extremamente irrealistas, a saber, quando os dados sempre nos dizem
+categoricamente qual é a decisão correta (veja o Problema 8.4.9). Não
+precisamos realmente de inferência estatística em tais situações. Por
+exemplo, suponha que temos duas moedas: a moeda A tem duas caras e a moeda B
+tem duas coroas. Assim que observamos o resultado de um lançamento, sabemos
+exatamente qual moeda foi lançada, e não há necessidade de inferência
+estatística.</p>
+<p>Ainda assim, podemos identificar algumas regras de decisão que não queremos
+usar. Por exemplo, se \(\delta \in D\) é tal que existe \(\delta_0 \in D\)
+satisfazendo \(R_{\delta_0}(\theta) \le R_\delta(\theta)\) para todo \(\theta\), e
+se há pelo menos um \(\theta\) para o qual \(R_{\delta_0}(\theta) &lt; R_\delta(\theta)\),
+então naturalmente preferimos estritamente \(\delta_0\) a \(\delta\).</p>
+<div class="def definicao" id="definicao-8.4.5"><div class="cab"><span class="rot">Definição 8.4.5</span></div><div class="txt"><p>Uma função de decisão \(\delta\) é dita <em>admissível<sup class="nota-ref nota-termo"><a href="#nota-84" id="ref-84">84</a></sup></em> se não há \(\delta_0\)
+estritamente preferida a ela.</p></div></div>
+<p>Uma consequência da teoria da decisão é que devemos usar somente funções de
+decisão admissíveis. Ainda assim, há muitas funções de decisão admissíveis e,
+tipicamente, nenhuma é ótima. Além disso, um procedimento que é apenas
+admissível pode ser uma escolha muito ruim (veja o Desafio 8.4.11).</p>
+<p>Há vários caminhos para sair desse impasse na teoria da decisão. Uma
+abordagem é usar <em>princípios de redução</em>. Com isso queremos dizer que
+procuramos uma função de decisão ótima em alguma subclasse \(D_0 \subset D\)
+considerada apropriada. Procuramos então uma \(\delta_0 \in D_0\) tal que
+\(R_{\delta_0}(\theta) \le R_\delta(\theta)\) para todo
+\(\theta \in \negrito{\Omega}\) e \(\delta \in D_0\), isto é, procuramos uma função
+de decisão ótima em \(D_0\). Considere o exemplo a seguir.</p>
+<div class="ex" id="exemplo-8.4.8"><div class="cab"><span class="rot">Exemplo 8.4.8</span> <span class="nome">Testes de Tamanho \(\alpha\) para Teste de Hipóteses</span></div><div class="txt fim"><p>Considere um problema de teste de hipóteses \(H_0\) versus \(H_a\). Lembre que,
+na Seção 8.2, restringimos a atenção às funções de teste \(\varphi\) que satisfazem
+\(E_\theta(\varphi) \le \alpha\) para todo \(\theta \in H_0\). Uma tal \(\varphi\) é
+chamada de função de teste de tamanho \(\alpha\) para este problema. Assim, neste
+caso, estamos nos restringindo à classe \(D_0\) de todas as funções de decisão
+\(\delta\) para este problema que correspondem a funções de teste de tamanho
+\(\alpha\).</p>
+<p>Na Seção 8.2, mostramos que às vezes há uma \(\delta \in D_0\) ótima. Por
+exemplo, quando \(H_0\) e \(H_a\) são simples, o teorema de Neyman–Pearson
+(Teorema 8.2.1) fornece uma \(\varphi\) ótima; assim, \(\delta\), definida por
+\(\delta(s, H_a) = \varphi(s)\), é ótima. Também mostramos na Seção 8.2, porém,
+que em geral não há função de teste \(\varphi\) de tamanho \(\alpha\) ótima e,
+portanto, não há \(\delta \in D_0\) ótima. Nesse caso, são necessários outros
+princípios de redução.</p></div></div>
+<p>Outra abordagem para selecionar uma \(\delta \in D\) se baseia em escolher uma
+característica particular, a valores reais, da função de risco de \(\delta\) e
+ordenar as funções de decisão com base nela. Há várias possibilidades.</p>
+<p>Uma delas é introduzir uma priori \(\pi\) no problema e então procurar o
+procedimento de decisão \(\delta \in D\) que tem o menor risco a priori
+<span class="eq">\[
+r_\delta = E_\pi(R_\delta(\theta)).
+\]</span>
+Procuramos então uma regra cujo risco a priori seja igual a
+\(\min_{\delta \in D} r_\delta\) (ou \(\inf_{\delta \in D} r_\delta\)). Essa
+abordagem é chamada de <em>teoria da decisão bayesiana</em>.</p>
+<div class="def definicao" id="definicao-8.4.6"><div class="cab"><span class="rot">Definição 8.4.6</span></div><div class="txt"><p>A quantidade \(r_\delta\) é chamada de <em>risco a priori</em> de \(\delta\),
+\(\min_{\delta \in D} r_\delta\) é chamado de <em>risco de Bayes</em>, e uma regra
+com risco a priori igual ao risco de Bayes é chamada de <em>regra de Bayes</em>.</p></div></div>
+<p>Obtivemos regras de Bayes para vários problemas na Seção 8.3. Curiosamente, a
+teoria da decisão bayesiana sempre produz, na prática, uma resposta para um
+problema de decisão. Essa é uma propriedade muito desejável para qualquer
+teoria estatística.</p>
+<p>Outra maneira de ordenar as funções de decisão usa o risco máximo (ou
+supremo). Assim, para uma função de decisão \(\delta\), calculamos
+<span class="eq">\[
+\max_{\theta \in \negrito{\Omega}} R_\delta(\theta)
+\]</span>
+(ou \(\sup_{\theta \in \negrito{\Omega}} R_\delta(\theta)\)) e então
+selecionamos uma \(\delta \in D\) que minimiza essa quantidade. Uma tal \(\delta\)
+tem o menor risco máximo, ou o menor pior comportamento.</p>
+<div class="def definicao" id="definicao-8.4.7"><div class="cab"><span class="rot">Definição 8.4.7</span></div><div class="txt"><p>Uma função de decisão \(\delta_0\) que satisfaz<sup class="nota-ref nota-tradutor"><a href="#nota-85" id="ref-85">85</a></sup>
+<span class="eq">\begin{equation}
+\max_{\theta \in \negrito{\Omega}} R_{\delta_0}(\theta)
+= \min_{\delta \in D} \max_{\theta \in \negrito{\Omega}} R_\delta(\theta) \tag{8.1}
+\end{equation}</span>
+é chamada de <em>função de decisão minimax</em>.</p></div></div>
+<p>De novo, essa abordagem sempre produz, na prática, uma resposta para um
+problema de decisão (veja o Problema 8.4.10).</p>
+<p>Há muito mais a dizer sobre a teoria da decisão do que esta breve introdução
+aos conceitos básicos. Muitos resultados gerais interessantes foram
+estabelecidos para a abordagem da teoria da decisão à inferência estatística.</p>
+<section class="resumo"><h4>Resumo da Seção 8.4</h4><ul><li>A abordagem da teoria da decisão à inferência estatística introduz um
+espaço de ações \(\mathcal{A}\) e uma função de perda \(L\).</li>
+<li>Uma função de decisão \(\delta\) prescreve uma distribuição de
+probabilidade \(\delta(s, \cdot)\) em \(\mathcal{A}\). O estatístico gera uma
+decisão em \(\mathcal{A}\) usando essa distribuição depois de observar \(s\).</li>
+<li>O problema da teoria da decisão é selecionar \(\delta\); para isso, usa-se
+a função de risco \(R_\delta(\theta)\). O valor \(R_\delta(\theta)\) é a perda
+média sofrida ao usar a função de decisão \(\delta\), e o objetivo é minimizar
+o risco.</li>
+<li>Tipicamente, não existe função de decisão \(\delta\) ótima. Assim, para
+selecionar uma \(\delta\), usam-se vários critérios de redução para reduzir a
+classe das funções de decisão possíveis, ou as funções de decisão são
+ordenadas por alguma característica a valores reais de suas funções de risco,
+por exemplo, o risco máximo ou o risco médio com relação a alguma priori.</li></ul></section>
+<h4 class="bloco bloco-exercicios">Exercícios</h4>
+<p class="exerc" id="exerc-8.4.1"><span class="k">8.4.1</span> Suponha que observamos uma amostra \((x_1, \ldots, x_n)\) de uma
+distribuição \(\text{Bernoulli}(\theta)\), em que \(\theta\) é completamente
+desconhecido, e que queremos estimar \(\theta\) usando perda quadrática.
+Escreva todos os ingredientes desse problema de decisão. Calcule a função de
+risco do estimador \(T(x_1, \ldots, x_n) = \bar{x}\). Faça o gráfico da função
+de risco quando \(n = 10\).</p>
+<p class="exerc" id="exerc-8.4.2"><span class="k">8.4.2</span> Suponha que temos uma amostra \((x_1, \ldots, x_n)\) de uma
+distribuição \(\text{Poisson}(\lambda)\), em que \(\lambda\) é completamente
+desconhecido, e que queremos estimar \(\lambda\) usando perda quadrática.
+Escreva todos os ingredientes desse problema de decisão. Considere o estimador
+\(T(x_1, \ldots, x_n) = \bar{x}\) e calcule sua função de risco. Faça o gráfico
+da função de risco quando \(n = 25\).</p>
+<p class="exerc" id="exerc-8.4.3"><span class="k">8.4.3</span> Suponha que temos uma amostra \((x_1, \ldots, x_n)\) de uma
+distribuição \(N(\mu, \sigma_0^2)\), em que \(\mu\) é desconhecido e \(\sigma_0^2\) é
+conhecido, e que queremos estimar \(\mu\) usando perda quadrática. Escreva todos
+os ingredientes desse problema de decisão. Considere o estimador
+\(T(x_1, \ldots, x_n) = \bar{x}\) e calcule sua função de risco. Faça o gráfico
+da função de risco quando \(n = 25\), \(\sigma_0^2 = 2\).</p>
+<p class="exerc" id="exerc-8.4.4"><span class="k">8.4.4</span> Suponha que observamos uma amostra \((x_1, \ldots, x_n)\) de uma
+distribuição \(\text{Bernoulli}(\theta)\), em que \(\theta\) é completamente
+desconhecido, e que queremos testar a hipótese nula de que \(\theta = 1/2\)
+versus a alternativa de que ele não é igual a essa quantidade, e usamos perda
+0–1. Escreva todos os ingredientes desse problema de decisão. Suponha que
+rejeitamos a hipótese nula sempre que observamos
+\(n\bar{x} \in \{0, 1, n - 1, n\}\). Determine a forma da função de teste e de sua
+função poder associada. Faça o gráfico da função poder quando \(n = 10\).</p>
+<p class="exerc" id="exerc-8.4.5"><span class="k">8.4.5</span> Considere o problema de decisão com espaço amostral<sup class="nota-ref nota-termo"><a href="#nota-86" id="ref-86">86</a></sup>
+\(S = \{1, 2, 3, 4\}\), espaço paramétrico \(\negrito{\Omega} = \{a, b\}\), com o
+parâmetro indexando as distribuições dadas na tabela a seguir.</p>
+<div class="centro"><div class="tbl"><table><tr><th></th><th>\(s = 1\)</th><th>\(s = 2\)</th><th>\(s = 3\)</th><th>\(s = 4\)</th></tr><tr><td>\(f_a(s)\)</td><td>\(1/4\)</td><td>\(1/4\)</td><td>\(0\)</td><td>\(1/2\)</td></tr><tr><td>\(f_b(s)\)</td><td>\(1/2\)</td><td>\(0\)</td><td>\(1/4\)</td><td>\(1/4\)</td></tr></table></div></div>
+<p>Suponha que o espaço de ações é \(\mathcal{A} = \negrito{\Omega}\), com
+\(A(\theta) = \theta\), e que a função de perda é dada por \(L(\theta, a) = 1\)
+quando \(a \ne A(\theta)\) e é igual a 0 caso contrário.
+<span class="parte"><span class="pl">(a)</span>  Calcule a função de risco da função de decisão determinística dada
+por \(d(1) = d(2) = d(3) = a\) e \(d(4) = b\).</span><span class="parte"><span class="pl">(b)</span>  A \(d\) do item (a) é ótima?</span></p>
+<h4 class="bloco bloco-exercicios-computacionais">Exercícios computacionais</h4>
+<p class="exerc" id="exerc-8.4.6"><span class="k">8.4.6</span> Suponha que temos uma amostra \((x_1, \ldots, x_n)\) de uma
+distribuição \(\text{Poisson}(\lambda)\), em que \(\lambda\) é completamente
+desconhecido, e que queremos testar a hipótese de que \(\lambda \le \lambda_0\)
+versus a alternativa de que \(\lambda &gt; \lambda_0\), usando a função de perda
+0–1. Escreva todos os ingredientes desse problema de decisão. Suponha que
+decidimos rejeitar a hipótese nula sempre que
+<span class="mat-quebravel">\(n\bar{x} &gt; \lfloor n\lambda_0\) \({}+ 2\sqrt{n\lambda_0} \rfloor\)</span> e rejeitar
+aleatoriamente a hipótese nula com probabilidade 1/2 quando
+<span class="mat-quebravel">\(n\bar{x} = \lfloor n\lambda_0\) \({}+ 2\sqrt{n\lambda_0} \rfloor\)</span>. Determine a forma
+da função de teste e de sua função poder associada. Faça o gráfico da função
+poder quando \(\lambda_0 = 1\) e \(n = 5\).</p>
+<p class="exerc" id="exerc-8.4.7"><span class="k">8.4.7</span> Suponha que temos uma amostra \((x_1, \ldots, x_n)\) de uma
+distribuição \(N(\mu, \sigma_0^2)\), em que \(\mu\) é desconhecido e \(\sigma_0^2\) é
+conhecido, e que queremos testar a hipótese nula de que a resposta média é
+\(\mu_0\) versus a alternativa de que a resposta média não é igual a \(\mu_0\),
+usando a função de perda 0–1. Escreva todos os ingredientes desse problema de
+decisão. Suponha que decidimos rejeitar sempre que
+<span class="mat-quebravel">\(\bar{x} \notin [\mu_0 - 2\sigma_0/\sqrt{n}, \mu_0\) \({}+ 2\sigma_0/\sqrt{n}]\)</span>.
+Determine a forma da função de teste e de sua função poder associada. Faça o
+gráfico da função poder quando \(\mu_0 = 0\), \(\sigma_0 = 3\) e \(n = 10\).</p>
+<h4 class="bloco bloco-problemas">Problemas</h4>
+<p class="exerc" id="exerc-8.4.8"><span class="k">8.4.8</span> Prove que uma função de decisão \(\delta\) que dá uma medida de
+probabilidade \(\delta(s, \cdot)\) degenerada em \(d(s)\) para cada \(s \in S\)
+equivale a especificar uma função \(d : S \to \mathcal{A}\), e reciprocamente.
+Para uma tal \(\delta\), prove que \(R_\delta(\theta) = E_\theta(L(\theta, d(s)))\).</p>
+<p class="exerc" id="exerc-8.4.9"><span class="k">8.4.9</span> Suponha que temos um problema de decisão e que cada distribuição
+de probabilidade do modelo é discreta.
+<span class="parte"><span class="pl">(a)</span>  Prove que \(\delta\) é ótima em \(D\) se e somente se \(\delta(s, \cdot)\) é
+degenerada em \(A(\theta)\) para cada \(s\) para o qual \(P_\theta(\{s\}) &gt; 0\).</span><span class="parte"><span class="pl">(b)</span>  Prove que, se existem \(\theta_1, \theta_2 \in \negrito{\Omega}\) tais
+que \(A(\theta_1) \ne A(\theta_2)\), e \(P_{\theta_1}\), \(P_{\theta_2}\) não estão
+concentradas em conjuntos disjuntos<sup class="nota-ref nota-termo"><a href="#nota-87" id="ref-87">87</a></sup>, então não há \(\delta \in D\) ótima.</span></p>
+<p class="exerc" id="exerc-8.4.10"><span class="k">8.4.10</span> Se a função de decisão \(\delta\) tem risco constante e é
+admissível, prove que \(\delta\) é minimax.</p>
+<h4 class="bloco bloco-desafios">Desafios</h4>
+<p class="exerc" id="exerc-8.4.11"><span class="k">8.4.11</span> Suponha que temos um problema de decisão em que
+\(\theta_0 \in \negrito{\Omega}\) é tal que \(P_{\theta_0}(C) = 0\) implica
+\(P_\theta(C) = 0\) para todo \(\theta \in \negrito{\Omega}\). Suponha ainda que não
+há função de decisão ótima (veja o Problema 8.4.9). Prove então que a função
+de decisão não aleatorizada \(d\) dada por \(d(s) \equiv A(\theta_0)\) é
+admissível. O que esse resultado lhe diz sobre o conceito de
+admissibilidade?</p>
+<h4 class="bloco bloco-discussao">Tópicos para discussão</h4>
+<p class="exerc" id="exerc-8.4.12"><span class="k">8.4.12</span> Comente a seguinte afirmação: uma exigência natural para
+qualquer teoria da inferência é que ela produza uma resposta para todo
+problema de inferência proposto. Discutimos até aqui alguma teoria que você
+acredite satisfazer isso?</p>
+<p class="exerc" id="exerc-8.4.13"><span class="k">8.4.13</span> A teoria da decisão produz uma decisão num problema dado. Ela
+nada diz sobre quão provável é que a decisão esteja errada. Alguns
+estatísticos argumentam que uma abordagem válida da inferência deve incluir
+alguma quantificação de nossa incerteza sobre qualquer afirmação que façamos
+sobre uma incógnita, pois só assim um destinatário pode julgar a
+confiabilidade da inferência. Comente isso.</p>
+<h2 id="sec-8.5"><span class="n">8.5</span> <span class="t">Demonstrações Adicionais (Avançado)</span></h2>
+<div class="dem fim demonstracaode"><div class="cab"><span class="rot">Demonstração do Teorema 8.1.2</span></div><p>Queremos mostrar que uma estatística \(U\) é suficiente para um modelo se e
+somente se a distribuição condicional dos dados \(s\) dado \(U = u\) é a mesma para
+todo \(\theta \in \negrito{\Omega}\).</p>
+<p>Provamos isso no caso discreto, de modo que \(f_\theta(s) = P_\theta(\{s\})\). O
+caso geral exige mais matemática, e o deixamos para um curso mais avançado.</p>
+<p>Seja \(u\) tal que \(P_\theta(U^{-1}\{u\}) &gt; 0\), em que
+\(U^{-1}\{u\} = \{s : U(s) = u\}\), de modo que \(U^{-1}\{u\}\) é o conjunto dos
+valores de \(s\) tais que \(U(s) = u\). Temos
+<span class="eq">\begin{equation}
+P_\theta(s = s_1 \mid U = u) = \frac{P_\theta(s = s_1, U = u)}{P_\theta(U = u)}.
+\tag{8.5.1}
+\end{equation}</span>
+Sempre que \(s_1 \notin U^{-1}\{u\}\),
+<span class="eq">\[
+P_\theta(s = s_1, U = u) = P_\theta(\{s_1\} \cap \{s : U(s) = u\})
+  = P_\theta(\emptyset) = 0,
+\]</span>
+independentemente de \(\theta\). Portanto, \(P_\theta(s = s_1 \mid U = u) = 0\)
+independentemente de \(\theta\).</p>
+<p>Suponhamos então que \(s_1 \in U^{-1}\{u\}\). Então
+<span class="eq">\[
+P_\theta(s = s_1, U = u) = P_\theta(\{s_1\} \cap \{s : U(s) = u\})
+  = P_\theta(\{s_1\}) = f_\theta(s_1).
+\]</span>
+Se \(U\) é uma estatística suficiente, o teorema da fatoração<sup class="nota-ref nota-termo"><a href="#nota-88" id="ref-88">88</a></sup> (Teorema 6.1.1)
+implica \(f_\theta(s) = h(s) g_\theta(U(s))\) para alguma \(h\) e alguma \(g\).
+Portanto, como
+<span class="eq">\[
+P_\theta(U = u) = \sum_{s \in U^{-1}\{u\}} f_\theta(s),
+\]</span>
+(8.5.1) é igual a
+<span class="eq">\[
+\frac{f_\theta(s_1)}{\sum_{s \in U^{-1}\{u\}} f_\theta(s)}
+  = \frac{f_\theta(s_1)}{\sum_{s \in U^{-1}\{u\}} c(s, s_1) f_\theta(s_1)}
+  = \frac{1}{\sum_{s \in U^{-1}\{u\}} c(s, s_1)},
+\]</span>
+em que
+<span class="eq">\[
+\frac{f_\theta(s)}{f_\theta(s_1)} = \frac{h(s)}{h(s_1)} = c(s, s_1).
+\]</span>
+Concluímos que (8.5.1) não depende de \(\theta\).</p>
+<p>Reciprocamente, se (8.5.1) não depende de \(\theta\), então, para
+\(s_1, s_2 \in U^{-1}\{u\}\), temos
+<span class="eq">\[
+P_\theta(U = u) = \frac{P_\theta(s = s_2)}{P_\theta(s = s_2 \mid U = u)}.
+\]</span>
+Assim,
+<span class="eq">\begin{align*}
+f_\theta(s_1) &amp;= P_\theta(s = s_1) = P_\theta(s = s_1 \mid U = u) P_\theta(U = u) \\
+&amp;= P_\theta(s = s_1 \mid U = u)
+   \frac{P_\theta(s = s_2)}{P_\theta(s = s_2 \mid U = u)} \\
+&amp;= \frac{P_\theta(s = s_1 \mid U = u)}{P_\theta(s = s_2 \mid U = u)} f_\theta(s_2)
+   = c(s_1, s_2) f_\theta(s_2),
+\end{align*}</span>
+em que
+<span class="eq">\[
+c(s_1, s_2) = \frac{P_\theta(s = s_1 \mid U = u)}{P_\theta(s = s_2 \mid U = u)}.
+\]</span>
+Pela definição de suficiência na Seção 6.1.1, isso estabelece a suficiência
+de \(U\).</p></div>
+<h4 class="intertitulo">Estabelecendo a Completude de \(\bar{x}\) no Exemplo 8.1.3</h4>
+<p>Suponha que \((x_1, \ldots, x_n)\) seja uma amostra de uma distribuição
+\(N(\mu, \sigma_0^2)\), em que \(\mu \in R^1\) é desconhecido e \(\sigma_0^2 &gt; 0\) é
+conhecido. No Exemplo 6.1.7, mostramos que \(\bar{x}\) é uma estatística
+suficiente minimal.</p>
+<p>Suponha que a função \(h\) seja tal que \(E_\mu(h(\bar{x})) = 0\) para todo
+\(\mu \in R^1\). Então, definindo
+<span class="eq">\[
+h^+(\bar{x}) = \max(0, h(\bar{x})) \quad \text{e} \quad
+h^-(\bar{x}) = \max(0, -h(\bar{x})),
+\]</span>
+temos \(h(\bar{x}) = h^+(\bar{x}) - h^-(\bar{x})\). Portanto, tomando
+<span class="eq">\[
+c^+(\mu) = E_\mu(h^+(\bar{X})) \quad \text{e} \quad c^-(\mu) = E_\mu(h^-(\bar{X})),
+\]</span>
+devemos ter
+<span class="eq">\[
+E_\mu(h(\bar{X})) = E_\mu(h^+(\bar{X})) - E_\mu(h^-(\bar{X}))
+  = c^+(\mu) - c^-(\mu) = 0,
+\]</span>
+e assim \(c^+(\mu) = c^-(\mu)\). Como \(h^+\) e \(h^-\) são funções não negativas,
+temos \(c^+(\mu) \ge 0\) e \(c^-(\mu) \ge 0\).</p>
+<p>Se \(c^+(\mu) = 0\), então \(h^+(\bar{x}) = 0\) com probabilidade 1, pois uma função
+não negativa tem média 0 se e somente se é 0 com probabilidade 1 (ver Desafio
+3.3.22). Então \(h^-(\bar{x}) = 0\) com probabilidade 1 também, e concluímos que
+\(h(\bar{x}) = 0\) com probabilidade 1.</p>
+<p>Se \(c^+(\mu_0) &gt; 0\), então \(h^+(\bar{x}) &gt; 0\) para todo \(\bar{x}\) num conjunto
+\(A\) com probabilidade positiva em relação à distribuição \(N(\mu_0, \sigma_0^2/n)\)
+(caso contrário, \(h^+(\bar{x}) = 0\) com probabilidade 1, o que implica, como
+acima, que \(c^+(\mu_0) = 0\)). Isso implica que \(c^+(\mu) &gt; 0\) para todo \(\mu\),
+porque toda distribuição \(N(\mu, \sigma_0^2/n)\) também atribui probabilidade
+positiva a \(A\) (você pode pensar em \(A\) como um subintervalo de \(R^1\)).</p>
+<p>Observe agora que
+<span class="eq">\[
+g^+(\bar{x}) = h^+(\bar{x}) \frac{1}{\sqrt{2\pi}\,\sigma_0}
+  \exp(-n\bar{x}^2/2\sigma_0^2)
+\]</span>
+é não negativa e estritamente positiva em \(A\).<sup class="nota-ref nota-tradutor"><a href="#nota-89" id="ref-89">89</a></sup> Podemos escrever
+<span class="eq">\begin{align}
+c^+(\mu) = E_\mu(h^+(\bar{X}))
+  &amp;= \int_{-\infty}^{\infty} h^+(\bar{x}) \frac{1}{\sqrt{2\pi}\,\sigma_0}
+     \exp\bigl(-n(\bar{x} - \mu)^2/2\sigma_0^2\bigr)\, d\bar{x} \notag \\
+  &amp;= \exp(-n\mu^2/2\sigma_0^2) \int_{-\infty}^{\infty}
+     \exp(n\mu\bar{x}/\sigma_0^2) g^+(\bar{x})\, d\bar{x}. \tag{8.5.2}
+\end{align}</span>
+Tomar \(\mu = 0\) estabelece que
+<span class="mat-quebravel">\(0 &lt; \int_{-\infty}^{\infty} g^\) \({}+(\bar{x})\, d\bar{x} &lt; \infty\)</span>, pois
+\(0 &lt; c^+(\mu) &lt; \infty\) para todo \(\mu\). Portanto,
+<span class="eq">\[
+\frac{g^+(\bar{x})}{\int_{-\infty}^{\infty} g^+(\bar{x})\, d\bar{x}}
+\]</span>
+é uma densidade de probabilidade de uma distribuição concentrada em
+\(A^+ = \{\bar{x} : h(\bar{x}) &gt; 0\}\). Além disso, usando (8.5.2) e a definição
+de função geradora de momentos<sup class="nota-ref nota-termo"><a href="#nota-90" id="ref-90">90</a></sup> da Seção 3.4,
+<span class="eq">\begin{equation}
+\frac{c^+(\mu) \exp(n\mu^2/2\sigma_0^2)}{\int_{-\infty}^{\infty} g^+(\bar{x})\, d\bar{x}}
+\tag{8.5.3}
+\end{equation}</span>
+é a função geradora de momentos dessa distribuição avaliada em
+\(n\mu/\sigma_0^2\).</p>
+<p>Analogamente, definimos
+<span class="eq">\[
+g^-(\bar{x}) = h^-(\bar{x}) \frac{1}{\sqrt{2\pi}\,\sigma_0}
+  \exp(-n\bar{x}^2/2\sigma_0^2),
+\]</span>
+de modo que
+<span class="eq">\[
+\frac{g^-(\bar{x})}{\int_{-\infty}^{\infty} g^-(\bar{x})\, d\bar{x}}
+\]</span>
+é uma densidade de probabilidade de uma distribuição concentrada em
+\(A^- = \{\bar{x} : h(\bar{x}) &lt; 0\}\). Além disso,
+<span class="eq">\begin{equation}
+\frac{c^-(\mu) \exp(n\mu^2/2\sigma_0^2)}{\int_{-\infty}^{\infty} g^-(\bar{x})\, d\bar{x}}
+\tag{8.5.4}
+\end{equation}</span>
+é a função geradora de momentos dessa distribuição avaliada em
+\(n\mu/\sigma_0^2\).</p>
+<p>Como \(c^+(\mu) = c^-(\mu)\), temos (tomando \(\mu = 0\))
+<span class="eq">\[
+\int_{-\infty}^{\infty} g^+(\bar{x})\, d\bar{x}
+  = \int_{-\infty}^{\infty} g^-(\bar{x})\, d\bar{x}.
+\]</span>
+Isso implica que (8.5.3) é igual a (8.5.4) para todo \(\mu\), e assim as funções
+geradoras de momentos dessas duas distribuições são iguais em toda parte. Pelo
+Teorema 3.4.6, essas distribuições têm de ser iguais. Mas isso é impossível, já
+que a distribuição dada por \(g^+\) está concentrada em \(A^+\), enquanto a
+distribuição dada por \(g^-\) está concentrada em \(A^-\), e
+\(A^+ \cap A^- = \emptyset\). Assim, concluímos que não podemos ter
+\(c^+(\mu) &gt; 0\), e terminamos.</p>
+<div class="dem fim demonstracaode"><div class="cab"><span class="rot">Demonstração do Teorema 8.2.1</span> <span class="nome">(Teorema de Neyman–Pearson)</span></div><p>Queremos provar que, quando \(\negrito{\Omega} = \{\theta_0, \theta_1\}\) e
+queremos testar \(H_0 : \theta = \theta_0\), existe uma função de teste
+\(\varphi_0\) de tamanho exato \(\alpha\) da forma
+<span class="eq">\begin{equation}
+\varphi_0(s) =
+\begin{cases}
+1 &amp; f_{\theta_1}(s)/f_{\theta_0}(s) &gt; c_0 \\[1ex]
+\gamma &amp; f_{\theta_1}(s)/f_{\theta_0}(s) = c_0 \\[1ex]
+0 &amp; f_{\theta_1}(s)/f_{\theta_0}(s) &lt; c_0
+\end{cases}
+\tag{8.5.5}
+\end{equation}</span>
+para algum \(\gamma \in [0, 1]\) e algum \(c_0 \ge 0\), e que esse teste é UMP de
+tamanho \(\alpha\).</p>
+<p>Desenvolvemos a demonstração deste resultado no caso discreto. A demonstração
+no contexto mais geral é semelhante.</p>
+<p>Primeiro, observamos que
+<span class="mat-quebravel">\(\{s : f_{\theta_0}(s)\) \({}= f_{\theta_1}(s)\) \({}= 0\}\)</span> tem medida \(P_\theta\) igual a 0
+tanto para \(\theta = \theta_0\) quanto para \(\theta = \theta_1\). Assim, sem perda
+de generalidade, podemos retirar esse conjunto do espaço amostral e supor daqui
+em diante que \(f_{\theta_0}(s)\) e \(f_{\theta_1}(s)\) não podem ser 0 ao mesmo
+tempo. Portanto, a razão \(f_{\theta_1}(s)/f_{\theta_0}(s)\) está sempre definida.</p>
+<p>Suponha que \(\alpha = 1\). Então, tomando \(c = 0\) e \(\gamma = 1\) em (8.5.5),
+vemos que \(\varphi_0(s) \equiv 1\), e assim \(E_{\theta_1}(\varphi_0) = 1\).
+Portanto, \(\varphi_0\) é UMP de tamanho \(\alpha\), pois nenhum teste pode ter
+poder maior que 1.</p>
+<p>Suponha que \(\alpha = 0\). Tomando \(c_0 = \infty\) e \(\gamma = 1\) em (8.5.5),
+vemos que \(\varphi_0(s) = 0\) se e somente se \(f_{\theta_0}(s) &gt; 0\) (se
+\(f_{\theta_0}(s) = 0\), então \(f_{\theta_1}(s)/f_{\theta_0}(s) = \infty\), e
+reciprocamente). Assim, \(\varphi_0\) é a função indicadora do conjunto
+\(A = \{s : f_{\theta_0}(s) = 0\}\) e, portanto, \(E_{\theta_0}(\varphi_0) = 0\).
+Além disso, qualquer função de teste \(\varphi\) de tamanho 0 tem de ser 0 em
+\(A^c\) para ter \(E_{\theta_0}(\varphi) = 0\). Em \(A\), temos
+\(0 \le \varphi(s) \le 1 = \varphi_0(s)\), e assim
+\(E_{\theta_1}(\varphi) \le E_{\theta_1}(\varphi_0)\). Portanto, \(\varphi_0\) é UMP
+de tamanho \(\alpha\).</p>
+<p>Suponha agora que \(0 &lt; \alpha &lt; 1\). Considere a função de distribuição da razão
+de verossimilhança quando \(\theta = \theta_0\), isto é,
+<span class="eq">\[
+1 - \alpha^*(c) = P_{\theta_0}(f_{\theta_1}(s)/f_{\theta_0}(s) \le c).
+\]</span>
+Assim, \(1 - \alpha^*(c)\) é uma função não decrescente de \(c\), com
+\(1 - \alpha^*(-\infty) = 0\) e \(1 - \alpha^*(\infty) = 1\).</p>
+<p>Seja \(c_0\) o menor valor de \(c\) tal que \(1 - \alpha \le 1 - \alpha^*(c)\)
+(lembre que \(1 - \alpha^*(c)\) é contínua à direita<sup class="nota-ref nota-termo"><a href="#nota-91" id="ref-91">91</a></sup>, por ser uma função de
+distribuição). Então temos
+<span class="mat-quebravel">\(1 - \alpha^*(c_0 - 0)\) \({}= 1 - \lim_{\varepsilon \searrow 0} \alpha^*(c_0 - \varepsilon)
+\le 1 - \alpha \le 1 - \alpha^*(c_0)\)</span> e (usando o fato de que o salto de uma
+função de distribuição num ponto é igual à probabilidade do ponto)
+<span class="eq">\begin{align*}
+P_{\theta_0}(f_{\theta_1}(s)/f_{\theta_0}(s) = c_0)
+  &amp;= (1 - \alpha^*(c_0)) - (1 - \alpha^*(c_0 - 0)) \\
+  &amp;= \alpha^*(c_0 - 0) - \alpha^*(c_0).
+\end{align*}</span>
+Usando esse valor de \(c_0\) em (8.5.5), tome
+<span class="eq">\[
+\gamma =
+\begin{cases}
+\dfrac{\alpha - \alpha^*(c_0)}{\alpha^*(c_0 - 0) - \alpha^*(c_0)}
+  &amp; \alpha^*(c_0 - 0) \ne \alpha^*(c_0) \\[2ex]
+0 &amp; \text{caso contrário},
+\end{cases}
+\]</span>
+e observe que \(\gamma \in [0, 1]\). Então temos
+<span class="eq">\begin{align*}
+E_{\theta_0}(\varphi_0)
+  &amp;= \gamma P_{\theta_0}(f_{\theta_1}(s)/f_{\theta_0}(s) = c_0)
+     + P_{\theta_0}(f_{\theta_1}(s)/f_{\theta_0}(s) &gt; c_0) \\
+  &amp;= \alpha - \alpha^*(c_0) + \alpha^*(c_0) = \alpha,
+\end{align*}</span>
+de modo que \(\varphi_0\) tem tamanho exato \(\alpha\).</p>
+<p>Suponha agora que \(\varphi\) seja outro teste de tamanho \(\alpha\) e que
+\(E_{\theta_1}(\varphi) \ge E_{\theta_1}(\varphi_0)\). Particionamos o espaço
+amostral como \(S = S_0 \cup S_1 \cup S_2\), em que
+<span class="eq">\begin{align*}
+S_0 &amp;= \{s : \varphi_0(s) - \varphi(s) = 0\}, \\
+S_1 &amp;= \{s : \varphi_0(s) - \varphi(s) &lt; 0\}, \\
+S_2 &amp;= \{s : \varphi_0(s) - \varphi(s) &gt; 0\}.
+\end{align*}</span>
+Observe que
+<span class="eq">\[
+S_1 = \{s : \varphi_0(s) - \varphi(s) &lt; 0,\ f_{\theta_1}(s)/f_{\theta_0}(s) \le c_0\}
+\]</span>
+porque \(f_{\theta_1}(s)/f_{\theta_0}(s) &gt; c_0\) implica \(\varphi_0(s) = 1\), o
+que implica <span class="mat-quebravel">\(\varphi_0(s) - \varphi(s)\) \({}= 1 - \varphi(s) \ge 0\)</span>, já que
+\(0 \le \varphi(s) \le 1\). Além disso,
+<span class="eq">\[
+S_2 = \{s : \varphi_0(s) - \varphi(s) &gt; 0,\ f_{\theta_1}(s)/f_{\theta_0}(s) \ge c_0\}
+\]</span>
+porque \(f_{\theta_1}(s)/f_{\theta_0}(s) &lt; c_0\) implica \(\varphi_0(s) = 0\), o
+que implica <span class="mat-quebravel">\(\varphi_0(s) - \varphi(s)\) \({}= -\varphi(s) \le 0\)</span>, já que
+\(0 \le \varphi(s) \le 1\).</p>
+<p>Portanto,
+<span class="eq">\begin{align*}
+0 &amp;\ge E_{\theta_1}(\varphi_0) - E_{\theta_1}(\varphi)
+   = E_{\theta_1}(\varphi_0 - \varphi) \\
+  &amp;= E_{\theta_1}\bigl(I_{S_1}(s)(\varphi_0(s) - \varphi(s))\bigr)
+   + E_{\theta_1}\bigl(I_{S_2}(s)(\varphi_0(s) - \varphi(s))\bigr).
+\end{align*}</span>
+Observe agora que
+<span class="eq">\begin{align*}
+E_{\theta_1}\bigl(I_{S_1}(s)(\varphi_0(s) - \varphi(s))\bigr)
+  &amp;= \sum_{s \in S_1} (\varphi_0(s) - \varphi(s)) f_{\theta_1}(s) \\
+  &amp;\ge c_0 \sum_{s \in S_1} (\varphi_0(s) - \varphi(s)) f_{\theta_0}(s)
+   = c_0 E_{\theta_0}\bigl(I_{S_1}(s)(\varphi_0(s) - \varphi(s))\bigr)
+\end{align*}</span>
+porque \(\varphi_0(s) - \varphi(s) &lt; 0\) e
+\(f_{\theta_1}(s)/f_{\theta_0}(s) \le c_0\) quando \(s \in S_1\). Analogamente,
+temos
+<span class="eq">\begin{align*}
+E_{\theta_1}\bigl(I_{S_2}(s)(\varphi_0(s) - \varphi(s))\bigr)
+  &amp;= \sum_{s \in S_2} (\varphi_0(s) - \varphi(s)) f_{\theta_1}(s) \\
+  &amp;\ge c_0 \sum_{s \in S_2} (\varphi_0(s) - \varphi(s)) f_{\theta_0}(s)
+   = c_0 E_{\theta_0}\bigl(I_{S_2}(s)(\varphi_0(s) - \varphi(s))\bigr)
+\end{align*}</span>
+porque \(\varphi_0(s) - \varphi(s) &gt; 0\) e
+\(f_{\theta_1}(s)/f_{\theta_0}(s) \ge c_0\) quando \(s \in S_2\).</p>
+<p>Combinando essas desigualdades, obtemos
+<span class="eq">\begin{align*}
+0 &amp;\ge E_{\theta_1}(\varphi_0) - E_{\theta_1}(\varphi)
+   \ge c_0 E_{\theta_0}(\varphi_0 - \varphi) \\
+  &amp;= c_0\bigl(E_{\theta_0}(\varphi_0) - E_{\theta_0}(\varphi)\bigr)
+   = c_0\bigl(\alpha - E_{\theta_0}(\varphi)\bigr) \ge 0
+\end{align*}</span>
+porque \(E_{\theta_0}(\varphi) \le 0\).<sup class="nota-ref nota-tradutor"><a href="#nota-92" id="ref-92">92</a></sup> Portanto,
+<span class="mat-quebravel">\(E_{\theta_1}(\varphi_0)\) \({}= E_{\theta_1}(\varphi)\)</span>, o que prova que \(\varphi_0\)
+é UMP entre todos os testes de tamanho \(\alpha\).</p></div>
+<section class="notas" aria-label="Notas do capítulo"><h4>Notas do capítulo</h4><ol><li id="nota-1" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">função de verossimilhança</span> — no original, <em lang="en">likelihood function</em></span> <a class="voltar" href="#ref-1" aria-label="Voltar ao texto">↩</a></li><li id="nota-2" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">a priori</span> — no original, <em lang="en">prior</em></span> <a class="voltar" href="#ref-2" aria-label="Voltar ao texto">↩</a></li><li id="nota-3" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">a posteriori</span> — no original, <em lang="en">posterior</em></span> <a class="voltar" href="#ref-3" aria-label="Voltar ao texto">↩</a></li><li id="nota-4" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">verossimilhança</span> — no original, <em lang="en">likelihood</em></span> <a class="voltar" href="#ref-4" aria-label="Voltar ao texto">↩</a></li><li id="nota-5" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">intervalo de confiança</span> — no original, <em lang="en">confidence interval</em></span> <a class="voltar" href="#ref-5" aria-label="Voltar ao texto">↩</a></li><li id="nota-6" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">erro quadrático médio</span> — no original, <em lang="en">mean-squared error</em></span> <a class="voltar" href="#ref-6" aria-label="Voltar ao texto">↩</a></li><li id="nota-7" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">função de perda</span> — no original, <em lang="en">loss function</em></span> <a class="voltar" href="#ref-7" aria-label="Voltar ao texto">↩</a></li><li id="nota-8" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">teoria da decisão</span> — no original, <em lang="en">decision theory</em></span> <a class="voltar" href="#ref-8" aria-label="Voltar ao texto">↩</a></li><li id="nota-9" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">estimativa</span> — no original, <em lang="en">estimate</em></span> <a class="voltar" href="#ref-9" aria-label="Voltar ao texto">↩</a></li><li id="nota-10" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">estatística suficiente</span> — no original, <em lang="en">sufficient statistic</em></span> <a class="voltar" href="#ref-10" aria-label="Voltar ao texto">↩</a></li><li id="nota-11" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">distribuição condicional</span> — no original, <em lang="en">conditional distribution</em></span> <a class="voltar" href="#ref-11" aria-label="Voltar ao texto">↩</a></li><li id="nota-12" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">probabilidade condicional</span> — no original, <em lang="en">conditional probability</em></span> <a class="voltar" href="#ref-12" aria-label="Voltar ao texto">↩</a></li><li id="nota-13" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">medida de probabilidade</span> — no original, <em lang="en">probability measure</em></span> <a class="voltar" href="#ref-13" aria-label="Voltar ao texto">↩</a></li><li id="nota-14" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">esperança condicional</span> — no original, <em lang="en">conditional expectation</em></span> <a class="voltar" href="#ref-14" aria-label="Voltar ao texto">↩</a></li><li id="nota-15" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">valor médio</span> — no original, <em lang="en">mean value</em></span> <a class="voltar" href="#ref-15" aria-label="Voltar ao texto">↩</a></li><li id="nota-16" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">esperança</span> — no original, <em lang="en">expectation</em></span> <a class="voltar" href="#ref-16" aria-label="Voltar ao texto">↩</a></li><li id="nota-17" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">variância</span> — no original, <em lang="en">variance</em></span> <a class="voltar" href="#ref-17" aria-label="Voltar ao texto">↩</a></li><li id="nota-18" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">não viesado</span> — no original, <em lang="en">unbiased</em></span> <a class="voltar" href="#ref-18" aria-label="Voltar ao texto">↩</a></li><li id="nota-19" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">não viesado de variância uniformemente mínima</span> — no original, <em lang="en">uniformly minimum variance unbiased</em></span> <a class="voltar" href="#ref-19" aria-label="Voltar ao texto">↩</a></li><li id="nota-20" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">estimação</span> — no original, <em lang="en">estimation</em></span> <a class="voltar" href="#ref-20" aria-label="Voltar ao texto">↩</a></li><li id="nota-21" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">teorema binomial</span> — no original, <em lang="en">binomial theorem</em></span> <a class="voltar" href="#ref-21" aria-label="Voltar ao texto">↩</a></li><li id="nota-22" class="nota-tradutor"><span class="tipo">Nota do tradutor</span> <span class="conteudo">O original omite o fator \(\binom{n-k}{m-k}\) na soma interna; pela
+conta, o coeficiente de \(\theta^m\) seria
+\(\sum_{k=0}^{m} T(k)\binom{n}{k}\binom{n-k}{m-k}(-1)^{m-k}\). O argumento não
+muda: o lado direito continua sendo um polinômio em \(\theta\).</span> <a class="voltar" href="#ref-22" aria-label="Voltar ao texto">↩</a></li><li id="nota-23" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">injetora</span> — no original, <em lang="en">one-to-one</em></span> <a class="voltar" href="#ref-23" aria-label="Voltar ao texto">↩</a></li><li id="nota-24" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">completude</span> — no original, <em lang="en">completeness</em></span> <a class="voltar" href="#ref-24" aria-label="Voltar ao texto">↩</a></li><li id="nota-25" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">estatística suficiente minimal</span> — no original, <em lang="en">minimal sufficient statistic</em></span> <a class="voltar" href="#ref-25" aria-label="Voltar ao texto">↩</a></li><li id="nota-26" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">estatísticas de ordem</span> — no original, <em lang="en">order statistics</em></span> <a class="voltar" href="#ref-26" aria-label="Voltar ao texto">↩</a></li><li id="nota-27" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">frequência relativa</span> — no original, <em lang="en">relative frequency</em></span> <a class="voltar" href="#ref-27" aria-label="Voltar ao texto">↩</a></li><li id="nota-28" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">desigualdade de Cramer–Rao</span> — no original, <em lang="en">Cramer–Rao inequality</em></span> <a class="voltar" href="#ref-28" aria-label="Voltar ao texto">↩</a></li><li id="nota-29" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">covariância</span> — no original, <em lang="en">covariance</em></span> <a class="voltar" href="#ref-29" aria-label="Voltar ao texto">↩</a></li><li id="nota-30" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">de Cauchy–Schwartz</span> — no original, <em lang="en">Cauchy–Schwartz inequality</em></span> <a class="voltar" href="#ref-30" aria-label="Voltar ao texto">↩</a></li><li id="nota-31" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">função escore</span> — no original, <em lang="en">score function</em></span> <a class="voltar" href="#ref-31" aria-label="Voltar ao texto">↩</a></li><li id="nota-32" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">informação de Fisher</span> — no original, <em lang="en">Fisher information</em></span> <a class="voltar" href="#ref-32" aria-label="Voltar ao texto">↩</a></li><li id="nota-33" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">cota inferior</span> — no original, <em lang="en">lower bound</em></span> <a class="voltar" href="#ref-33" aria-label="Voltar ao texto">↩</a></li><li id="nota-34" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">log-verossimilhança</span> — no original, <em lang="en">log-likelihood</em></span> <a class="voltar" href="#ref-34" aria-label="Voltar ao texto">↩</a></li><li id="nota-35" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">função de probabilidade condicional</span> — no original, <em lang="en">conditional probability function</em></span> <a class="voltar" href="#ref-35" aria-label="Voltar ao texto">↩</a></li><li id="nota-36" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">distribuição uniforme</span> — no original, <em lang="en">uniform distribution</em></span> <a class="voltar" href="#ref-36" aria-label="Voltar ao texto">↩</a></li><li id="nota-37" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">de Jensen</span> — no original, <em lang="en">Jensen&#x27;s</em></span> <a class="voltar" href="#ref-37" aria-label="Voltar ao texto">↩</a></li><li id="nota-38" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">desvio padrão</span> — no original, <em lang="en">standard deviation</em></span> <a class="voltar" href="#ref-38" aria-label="Voltar ao texto">↩</a></li><li id="nota-39" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">valor esperado</span> — no original, <em lang="en">expected value</em></span> <a class="voltar" href="#ref-39" aria-label="Voltar ao texto">↩</a></li><li id="nota-40" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">desvio padrão</span> — no original, <em lang="en">standard deviation</em></span> <a class="voltar" href="#ref-40" aria-label="Voltar ao texto">↩</a></li><li id="nota-41" class="nota-tradutor"><span class="tipo">Nota do tradutor</span> <span class="conteudo">Pelo conteúdo, a
+sugestão parece remeter ao Problema 8.1.18 (estimador UMVU de \(\sigma\)); o
+original traz 8.1.17.</span> <a class="voltar" href="#ref-41" aria-label="Voltar ao texto">↩</a></li><li id="nota-42" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">estatística completa</span> — no original, <em lang="en">complete statistic</em></span> <a class="voltar" href="#ref-42" aria-label="Voltar ao texto">↩</a></li><li id="nota-43" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">variável aleatória</span> — no original, <em lang="en">random variable</em></span> <a class="voltar" href="#ref-43" aria-label="Voltar ao texto">↩</a></li><li id="nota-44" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">hipótese nula</span> — no original, <em lang="en">null hypothesis</em></span> <a class="voltar" href="#ref-44" aria-label="Voltar ao texto">↩</a></li><li id="nota-45" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">função poder</span> — no original, <em lang="en">power function</em></span> <a class="voltar" href="#ref-45" aria-label="Voltar ao texto">↩</a></li><li id="nota-46" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">modelo normal de locação</span> — no original, <em lang="en">location normal model</em></span> <a class="voltar" href="#ref-46" aria-label="Voltar ao texto">↩</a></li><li id="nota-47" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">erro tipo I</span> — no original, <em lang="en">type I error</em></span> <a class="voltar" href="#ref-47" aria-label="Voltar ao texto">↩</a></li><li id="nota-48" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">erro tipo II</span> — no original, <em lang="en">type II error</em></span> <a class="voltar" href="#ref-48" aria-label="Voltar ao texto">↩</a></li><li id="nota-49" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">cota superior</span> — no original, <em lang="en">upper bound</em></span> <a class="voltar" href="#ref-49" aria-label="Voltar ao texto">↩</a></li><li id="nota-50" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">teste de hipóteses</span> — no original, <em lang="en">hypothesis testing</em></span> <a class="voltar" href="#ref-50" aria-label="Voltar ao texto">↩</a></li><li id="nota-51" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">bilateral</span> — no original, <em lang="en">two-sided</em></span> <a class="voltar" href="#ref-51" aria-label="Voltar ao texto">↩</a></li><li id="nota-52" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">região de rejeição</span> — no original, <em lang="en">rejection region</em></span> <a class="voltar" href="#ref-52" aria-label="Voltar ao texto">↩</a></li><li id="nota-53" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">função indicadora</span> — no original, <em lang="en">indicator function</em></span> <a class="voltar" href="#ref-53" aria-label="Voltar ao texto">↩</a></li><li id="nota-54" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">função de teste</span> — no original, <em lang="en">test function</em></span> <a class="voltar" href="#ref-54" aria-label="Voltar ao texto">↩</a></li><li id="nota-55" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">probabilidade incondicional</span> — no original, <em lang="en">unconditional probability</em></span> <a class="voltar" href="#ref-55" aria-label="Voltar ao texto">↩</a></li><li id="nota-56" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">teste UMP</span> — no original, <em lang="en">UMP test</em></span> <a class="voltar" href="#ref-56" aria-label="Voltar ao texto">↩</a></li><li id="nota-57" class="nota-tradutor"><span class="tipo">Nota do tradutor</span> <span class="conteudo">o original remete ao Desafio 8.2.22; o desafio
+que pede esta demonstração é o 8.2.23</span> <a class="voltar" href="#ref-57" aria-label="Voltar ao texto">↩</a></li><li id="nota-58" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">razão de verossimilhança</span> — no original, <em lang="en">likelihood ratio</em></span> <a class="voltar" href="#ref-58" aria-label="Voltar ao texto">↩</a></li><li id="nota-59" class="nota-tradutor"><span class="tipo">Nota do tradutor</span> <span class="conteudo">pela fórmula (8.2.5), o denominador seria
+<span class="mat-quebravel">\(P_{0{,}25}(n\bar X = 3)\) \({}= 0{,}962 - 0{,}831\) \({}= 0{,}131\)</span>, o que daria
+\(\gamma \approx 0{,}092\); o original divide por 0,962</span> <a class="voltar" href="#ref-59" aria-label="Voltar ao texto">↩</a></li><li id="nota-60" class="nota-tradutor"><span class="tipo">Nota do tradutor</span> <span class="conteudo">o original
+repete aqui as hipóteses da frase anterior; pelo contexto seria
+\(H_0 : \theta \ge \theta_0\) versus \(H_a : \theta &lt; \theta_0\)</span> <a class="voltar" href="#ref-60" aria-label="Voltar ao texto">↩</a></li><li id="nota-61" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">modelo normal de locação e escala</span> — no original, <em lang="en">location-scale normal model</em></span> <a class="voltar" href="#ref-61" aria-label="Voltar ao texto">↩</a></li><li id="nota-62" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">variável resposta</span> — no original, <em lang="en">response variable</em></span> <a class="voltar" href="#ref-62" aria-label="Voltar ao texto">↩</a></li><li id="nota-63" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">função beta</span> — no original, <em lang="en">beta function</em></span> <a class="voltar" href="#ref-63" aria-label="Voltar ao texto">↩</a></li><li id="nota-64" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">integração por partes</span> — no original, <em lang="en">integration by parts</em></span> <a class="voltar" href="#ref-64" aria-label="Voltar ao texto">↩</a></li><li id="nota-65" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">função gama</span> — no original, <em lang="en">gamma function</em></span> <a class="voltar" href="#ref-65" aria-label="Voltar ao texto">↩</a></li><li id="nota-66" class="nota-tradutor"><span class="tipo">Nota do tradutor</span> <span class="conteudo">o original traz \(H_0\) também na segunda
+hipótese; pelo contexto seria \(H_a : \mu \ne \mu_0\)</span> <a class="voltar" href="#ref-66" aria-label="Voltar ao texto">↩</a></li><li id="nota-67" class="nota-tradutor"><span class="tipo">Nota do tradutor</span> <span class="conteudo">o original
+define \(\varphi_{\psi_0}^*\) com \(C(s)\); pelo contexto seria \(C^*(s)\)</span> <a class="voltar" href="#ref-67" aria-label="Voltar ao texto">↩</a></li><li id="nota-68" class="nota-tradutor"><span class="tipo">Nota do tradutor</span> <span class="conteudo">o original traz \(H_0\) também na segunda
+hipótese; pelo contexto seria \(H_a : \psi(\theta) \ne \psi_0\)</span> <a class="voltar" href="#ref-68" aria-label="Voltar ao texto">↩</a></li><li id="nota-69" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">região de confiança</span> — no original, <em lang="en">confidence region</em></span> <a class="voltar" href="#ref-69" aria-label="Voltar ao texto">↩</a></li><li id="nota-70" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">distribuição conjunta</span> — no original, <em lang="en">joint distribution</em></span> <a class="voltar" href="#ref-70" aria-label="Voltar ao texto">↩</a></li><li id="nota-71" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">modelo amostral</span> — no original, <em lang="en">sampling model</em></span> <a class="voltar" href="#ref-71" aria-label="Voltar ao texto">↩</a></li><li id="nota-72" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">distribuição marginal</span> — no original, <em lang="en">marginal distribution</em></span> <a class="voltar" href="#ref-72" aria-label="Voltar ao texto">↩</a></li><li id="nota-73" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">preditiva a priori</span> — no original, <em lang="en">prior predictive</em></span> <a class="voltar" href="#ref-73" aria-label="Voltar ao texto">↩</a></li><li id="nota-74" class="nota-tradutor"><span class="tipo">Nota do tradutor</span> <span class="conteudo">O original
+traz “\(\Pi(\{\psi(\theta) = \psi_0\} \,|\, s = 0)\)”; pelo sentido, seria
+\(\Pi(\{\psi(\theta) = \psi_0\} \,|\, s) = 0\).</span> <a class="voltar" href="#ref-74" aria-label="Voltar ao texto">↩</a></li><li id="nota-75" class="nota-tradutor"><span class="tipo">Nota do tradutor</span> <span class="conteudo">O original traz a priori \(N(\mu, \tau_0^2)\); pela notação dos
+Exercícios 8.3.7 e 8.3.11, seria \(N(\mu_0, \tau_0^2)\).</span> <a class="voltar" href="#ref-75" aria-label="Voltar ao texto">↩</a></li><li id="nota-76" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">distribuição degenerada</span> — no original, <em lang="en">degenerate distribution</em></span> <a class="voltar" href="#ref-76" aria-label="Voltar ao texto">↩</a></li><li id="nota-77" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">predição</span> — no original, <em lang="en">prediction</em></span> <a class="voltar" href="#ref-77" aria-label="Voltar ao texto">↩</a></li><li id="nota-78" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">preditor</span> — no original, <em lang="en">predictor</em></span> <a class="voltar" href="#ref-78" aria-label="Voltar ao texto">↩</a></li><li id="nota-79" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">espaço paramétrico</span> — no original, <em lang="en">parameter space</em></span> <a class="voltar" href="#ref-79" aria-label="Voltar ao texto">↩</a></li><li id="nota-80" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">unilateral</span> — no original, <em lang="en">one-sided</em></span> <a class="voltar" href="#ref-80" aria-label="Voltar ao texto">↩</a></li><li id="nota-81" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">função de decisão</span> — no original, <em lang="en">decision function</em></span> <a class="voltar" href="#ref-81" aria-label="Voltar ao texto">↩</a></li><li id="nota-82" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">função de risco</span> — no original, <em lang="en">risk function</em></span> <a class="voltar" href="#ref-82" aria-label="Voltar ao texto">↩</a></li><li id="nota-83" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">avaliação de hipóteses</span> — no original, <em lang="en">hypothesis assessment</em></span> <a class="voltar" href="#ref-83" aria-label="Voltar ao texto">↩</a></li><li id="nota-84" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">admissível</span> — no original, <em lang="en">admissible</em></span> <a class="voltar" href="#ref-84" aria-label="Voltar ao texto">↩</a></li><li id="nota-85" class="nota-tradutor"><span class="tipo">Nota do tradutor</span> <span class="conteudo">A equação da Definição
+8.4.7 é numerada (8.1) no original; pela sequência da seção, seria (8.4.5).</span> <a class="voltar" href="#ref-85" aria-label="Voltar ao texto">↩</a></li><li id="nota-86" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">espaço amostral</span> — no original, <em lang="en">sample space</em></span> <a class="voltar" href="#ref-86" aria-label="Voltar ao texto">↩</a></li><li id="nota-87" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">disjuntos</span> — no original, <em lang="en">disjoint</em></span> <a class="voltar" href="#ref-87" aria-label="Voltar ao texto">↩</a></li><li id="nota-88" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">teorema da fatoração</span> — no original, <em lang="en">factorization theorem</em></span> <a class="voltar" href="#ref-88" aria-label="Voltar ao texto">↩</a></li><li id="nota-89" class="nota-tradutor"><span class="tipo">Nota do tradutor</span> <span class="conteudo">A densidade de \(\bar{X} \sim N(\mu, \sigma_0^2/n)\) tem a constante
+\(\sqrt{n}/(\sqrt{2\pi}\,\sigma_0)\); o original omite o fator \(\sqrt{n}\) aqui e
+em \(g^+\) e \(g^-\). Uma constante positiva não altera o argumento.</span> <a class="voltar" href="#ref-89" aria-label="Voltar ao texto">↩</a></li><li id="nota-90" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">função geradora de momentos</span> — no original, <em lang="en">moment-generating function</em></span> <a class="voltar" href="#ref-90" aria-label="Voltar ao texto">↩</a></li><li id="nota-91" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">contínua à direita</span> — no original, <em lang="en">right continuous</em></span> <a class="voltar" href="#ref-91" aria-label="Voltar ao texto">↩</a></li><li id="nota-92" class="nota-tradutor"><span class="tipo">Nota do tradutor</span> <span class="conteudo">O original traz
+\(E_{\theta_0}(\varphi) \le 0\); como \(\varphi\) é um teste de tamanho \(\alpha\),
+seria \(E_{\theta_0}(\varphi) \le \alpha\).</span> <a class="voltar" href="#ref-92" aria-label="Voltar ao texto">↩</a></li></ol></section>
+<nav class="paginacao"><a class="ant" href="cap07.html">← Capítulo 7</a><a class="prox" href="cap09.html">Capítulo 9 →</a></nav>
+</main>
+<script>
+window.MathJax = { tex: { inlineMath: [["\\(", "\\)"]], displayMath: [["\\[", "\\]"]], tags: "none",
+  macros: { allowbreak: "", nolinebreak: "", upshape: "", itshape: "", sloppy: "", negrito: ["\\boldsymbol{#1}", 1],
+    Var: "\\operatorname{Var}", Cov: "\\operatorname{Cov}", Corr: "\\operatorname{Corr}", Sd: "\\operatorname{Sd}" } },
+  output: { font: "mathjax-stix2" }, svg: { fontCache: "global" }, options: { enableMenu: false } };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@4.0.0/tex-svg.js"></script>
+<script src="leitor.js"></script>
+</body>
+</html>

@@ -1,0 +1,2369 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Distribuições Amostrais e Limites — Probabilidade e Estatística: A Ciência da Incerteza</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=IBM+Plex+Sans+Condensed:wght@500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Sans+3:wght@500;600;700&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<link rel="stylesheet" href="leitor.css">
+<script>try{var c=JSON.parse(localStorage.getItem('leitor-config')||'{}');for(var k in c)document.documentElement.setAttribute('data-'+k,c[k]);}catch(e){}</script>
+</head>
+<body data-pagina="cap04">
+<header class="barra">
+  <button class="botao" id="abrir-sumario" type="button" aria-label="Sumário" aria-expanded="false">☰</button>
+  <a class="livro" href="index.html">Probabilidade e Estatística: A Ciência da Incerteza</a>
+  <span class="onde">Capítulo 4 · Distribuições Amostrais e Limites</span>
+  <button class="botao" id="abrir-ajustes" type="button" aria-label="Ajustes de leitura" aria-expanded="false">Aa</button>
+  <div class="progresso" id="progresso"></div>
+</header>
+<nav class="sumario" id="sumario" aria-label="Sumário do capítulo"><ol><li class="nivel-2"><a href="#sec-4.1"><span class="n">4.1</span> Distribuições Amostrais</a></li><li class="nivel-2"><a href="#sec-4.2"><span class="n">4.2</span> Convergência em Probabilidade</a></li><li class="nivel-3"><a href="#subsec-4.2.1"><span class="n">4.2.1</span> A Lei Fraca dos Grandes Números</a></li><li class="nivel-2"><a href="#sec-4.3"><span class="n">4.3</span> Convergência com Probabilidade 1</a></li><li class="nivel-3"><a href="#subsec-4.3.1"><span class="n">4.3.1</span> A Lei Forte dos Grandes Números</a></li><li class="nivel-2"><a href="#sec-4.4"><span class="n">4.4</span> Convergência em Distribuição</a></li><li class="nivel-3"><a href="#subsec-4.4.1"><span class="n">4.4.1</span> O Teorema Central do Limite</a></li><li class="nivel-3"><a href="#subsec-4.4.2"><span class="n">4.4.2</span> O Teorema Central do Limite e a Avaliação do Erro</a></li><li class="nivel-2"><a href="#sec-4.5"><span class="n">4.5</span> Aproximações de Monte Carlo</a></li><li class="nivel-2"><a href="#sec-4.6"><span class="n">4.6</span> Teoria da Distribuição Normal</a></li><li class="nivel-3"><a href="#subsec-4.6.1"><span class="n">4.6.1</span> A Distribuição Qui-quadrado</a></li><li class="nivel-3"><a href="#subsec-4.6.2"><span class="n">4.6.2</span> A Distribuição \(t\)</a></li><li class="nivel-3"><a href="#subsec-4.6.3"><span class="n">4.6.3</span> A Distribuição \(F\)</a></li><li class="nivel-2"><a href="#sec-4.7"><span class="n">4.7</span> Demonstrações Adicionais (Avançado)</a></li></ol></nav>
+<div class="ajustes" id="ajustes" hidden></div>
+<main class="corpo">
+<h1 id="cap-4"><span class="n">Capítulo 4</span><span class="t">Distribuições Amostrais e Limites</span></h1>
+<section class="esboco"><h4>Esboço do capítulo</h4><ul><li><strong>Seção 1</strong> Distribuições Amostrais</li>
+<li><strong>Seção 2</strong> Convergência em Probabilidade</li>
+<li><strong>Seção 3</strong> Convergência com Probabilidade 1</li>
+<li><strong>Seção 4</strong> Convergência em Distribuição</li>
+<li><strong>Seção 5</strong> Aproximações de Monte Carlo</li>
+<li><strong>Seção 6</strong> Teoria da Distribuição Normal</li>
+<li><strong>Seção 7</strong> Demonstrações Adicionais (Avançado)</li></ul></section>
+<p>Em muitas aplicações da teoria da probabilidade, deparamo-nos com o
+seguinte problema. Suponha que \(X_1, X_2, \ldots, X_n\) seja uma sequência
+independente e identicamente distribuída (i.i.d.), isto é, que
+\(X_1, X_2, \ldots, X_n\) seja uma amostra de alguma distribuição, e que estejamos
+interessados na distribuição de uma nova variável aleatória<sup class="nota-ref nota-termo"><a href="#nota-1" id="ref-1">1</a></sup>
+\(Y = h(X_1, X_2, \ldots, X_n)\) para alguma função \(h\). Em particular, podemos
+querer calcular a função de distribuição de \(Y\), ou talvez sua média e sua
+variância<sup class="nota-ref nota-termo"><a href="#nota-2" id="ref-2">2</a></sup>. A distribuição de \(Y\) às vezes é chamada de sua
+<em>distribuição amostral<sup class="nota-ref nota-termo"><a href="#nota-3" id="ref-3">3</a></sup></em>, já que \(Y\) se baseia numa amostra de alguma
+distribuição subjacente.</p>
+<p>Veremos que alguns dos métodos desenvolvidos nos capítulos anteriores são úteis
+para resolver problemas desse tipo, sobretudo quando é possível calcular uma
+solução exata, por exemplo, obter uma expressão exata para a função de
+probabilidade<sup class="nota-ref nota-termo"><a href="#nota-4" id="ref-4">4</a></sup> ou para a função densidade<sup class="nota-ref nota-termo"><a href="#nota-5" id="ref-5">5</a></sup> de \(Y\). A Seção 4.6 contém vários
+resultados exatos sobre a distribuição de diversas funções de variáveis
+aleatórias normais. Eles têm aplicações importantes em estatística.</p>
+<p>Muitas vezes, porém, é impossível obter resultados exatos, porque o problema é
+simplesmente complexo demais. Nesses casos, precisamos desenvolver uma
+aproximação para a distribuição de \(Y\).</p>
+<p>Em muitos problemas importantes, define-se uma versão de \(Y\) para cada tamanho
+de amostra \(n\) (por exemplo, uma média amostral ou uma variância amostral), de
+modo que podemos considerar uma sequência de variáveis aleatórias
+\(Y_1, Y_2, \ldots\) etc. Isso nos leva a considerar a distribuição limite<sup class="nota-ref nota-termo"><a href="#nota-6" id="ref-6">6</a></sup> de uma
+sequência desse tipo para que, quando \(n\) for grande, possamos aproximar a
+distribuição de \(Y_n\) pelo limite, que muitas vezes é bem mais simples. Essa
+abordagem leva a um resultado famoso, conhecido como teorema central do limite<sup class="nota-ref nota-termo"><a href="#nota-7" id="ref-7">7</a></sup>,
+discutido na Seção 4.4.</p>
+<p>Às vezes não conseguimos desenvolver nem mesmo aproximações úteis para \(n\)
+grande, seja pela dificuldade do problema, seja porque \(n\) é simplesmente
+pequeno demais numa aplicação específica. Felizmente, porém, podemos então usar
+a abordagem de Monte Carlo, na qual o poder do computador entra em cena. Isso é
+discutido na Seção 4.5.</p>
+<p>No Capítulo 5, veremos que, em aplicações estatísticas, em geral não sabemos
+muito sobre a distribuição subjacente dos \(X_i\) dos quais estamos amostrando.
+Coletamos então uma amostra e um valor, como \(Y\), que servirá de estimativa<sup class="nota-ref nota-termo"><a href="#nota-8" id="ref-8">8</a></sup> de
+uma característica da distribuição subjacente; por exemplo, a média amostral
+\(\bar{X}\) servirá de estimativa da média da distribuição dos \(X_i\). Queremos
+então saber o que acontece com essas estimativas à medida que \(n\) cresce. Se
+tivermos escolhido bem as estimativas, elas convergirão para as quantidades que
+estamos estimando à medida que \(n\) aumenta. Uma estimativa assim é chamada de
+<em>consistente</em>. Nas Seções 4.2 e 4.3, discutiremos os teoremas de
+consistência mais importantes, a saber, as leis fraca e forte dos grandes
+números.</p>
+<h2 id="sec-4.1"><span class="n">4.1</span> <span class="t">Distribuições Amostrais</span></h2>
+<p>Consideremos um exemplo bem simples.</p>
+<div class="ex" id="exemplo-4.1.1"><div class="cab"><span class="rot">Exemplo 4.1.1</span></div><div class="txt fim"><p>Suponha que obtemos uma amostra \(X_1, X_2\) de tamanho \(n = 2\) da distribuição
+discreta com função de probabilidade dada por
+<span class="eq">\[
+p_X(x) = \begin{cases}
+1/2 &amp; x = 1\\
+1/4 &amp; x = 2\\
+1/4 &amp; x = 3\\
+0 &amp; \text{caso contrário.}
+\end{cases}
+\]</span>
+Tomemos \(Y_2 = (X_1 X_2)^{1/2}\). Essa é a <em>média geométrica<sup class="nota-ref nota-termo"><a href="#nota-9" id="ref-9">9</a></sup></em> dos valores
+da amostra (a média geométrica de \(n\) números positivos \(x_1, \ldots, x_n\) é
+definida como \((x_1 \cdots x_n)^{1/n}\)).</p>
+<p>Para determinar a distribuição de \(Y_2\), primeiro listamos os valores possíveis
+de \(Y_2\), as amostras que dão origem a esses valores e suas probabilidades de
+ocorrência. Os valores dessas probabilidades especificam a distribuição
+amostral de \(Y\). Temos a tabela a seguir.<sup class="nota-ref nota-tradutor"><a href="#nota-10" id="ref-10">10</a></sup></p>
+<div class="centro"><div class="tbl"><table><tr><th>\(y\)</th><th colspan="1">Amostra</th><th colspan="1">\(p_{Y_2}(y)\)</th></tr><tr><td>\(1\)</td><td>\(\{(1, 1)\}\)</td><td>\((1/2)(1/2) = 1/4\)</td></tr><tr><td>\(\sqrt{2}\)</td><td>\(\{(1, 2), (2, 1)\}\)</td><td>\((1/2)(1/4) + (1/4)(1/2) = 1/4\)</td></tr><tr><td>\(\sqrt{3}\)</td><td>\(\{(1, 3), (1, 3)\}\)</td><td>\((1/2)(1/4) + (1/4)(1/2) = 1/4\)</td></tr><tr><td>\(2\)</td><td>\(\{(2, 2)\}\)</td><td>\((1/4)(1/4) = 1/16\)</td></tr><tr><td>\(\sqrt{6}\)</td><td>\(\{(2, 3), (3, 2)\}\)</td><td>\((1/4)(1/4) + (1/4)(1/4) = 1/8\)</td></tr><tr><td>\(3\)</td><td>\(\{(3, 3)\}\)</td><td>\((1/4)(1/4) = 1/16\)</td></tr></table></div></div>
+<p>Suponha agora que temos, em vez disso, uma amostra \(X_1, \ldots, X_{20}\) de
+tamanho \(n = 20\) e queremos encontrar a distribuição de
+\(Y_{20} = (X_1 \cdots X_{20})^{1/20}\). É claro que podemos proceder como acima,
+mas desta vez as contas são muito mais complicadas, já que agora há
+\(3^{20} = 3.486.784.401\) amostras possíveis, contra as \(3^2 = 9\) amostras usadas
+para montar a tabela anterior. Calcular \(p_{Y_{20}}\) diretamente, como fizemos
+para \(p_{Y_2}\), seria custoso, mesmo para um computador! Então, o que podemos
+fazer aqui?</p>
+<p>Uma possibilidade é olhar para a distribuição de
+\(Y_n = (X_1 \cdots X_n)^{1/n}\) quando \(n\) é grande e ver se conseguimos
+aproximá-la de alguma forma. Os resultados da Seção 4.4.1 mostram que
+<span class="eq">\[
+\ln Y_n = \frac{1}{n} \sum_{i=1}^{n} \ln X_i
+\]</span>
+tem distribuição aproximadamente normal quando \(n\) é grande. De fato, a
+distribuição normal que aproxima quando \(n = 20\) acaba sendo uma distribuição
+\(N(0{,}447940; 0{,}105167)\).<sup class="nota-ref nota-tradutor"><a href="#nota-11" id="ref-11">11</a></sup> Traçamos
+o gráfico dessa densidade na Figura 4.1.1.</p>
+<p>Outra abordagem é usar os métodos da Seção 2.10 para gerar \(N\) amostras de
+tamanho \(n = 20\) a partir de \(p_X\), calcular \(\ln Y_{20}\) para cada uma (\(\ln\)
+é uma transformação injetora<sup class="nota-ref nota-termo"><a href="#nota-12" id="ref-12">12</a></sup>, e transformamos para evitar os valores
+potencialmente grandes assumidos por \(Y_{20}\)) e então usar esses \(N\) valores
+para aproximar a distribuição de \(\ln Y_{20}\). Por exemplo, na Figura 4.1.2
+apresentamos o gráfico de um histograma de densidade (veja a Seção 5.4.3 para
+mais discussão sobre histogramas) de \(N = 10^4\) valores de \(\ln Y_{20}\)
+calculados a partir de \(N = 10^4\) amostras de tamanho \(n = 20\) geradas (com o
+computador) a partir de \(p_X\). A área de cada retângulo corresponde à proporção
+de valores de \(\ln Y_{20}\) que caíram no intervalo dado pela base do retângulo.
+Como veremos nas Seções 4.2, 4.3 e 4.4, essas áreas aproximam as probabilidades
+reais de \(\ln Y_{20}\) cair nesses intervalos. Essas aproximações melhoram à
+medida que aumentamos \(N\).</p>
+<p>Repare na semelhança entre as formas das Figuras 4.1.1 e 4.1.2. A Figura 4.1.2,
+porém, não é simétrica em relação ao seu centro, pois é um pouco assimétrica.
+Isso é um indício de que a aproximação normal não é inteiramente adequada
+quando \(n = 20\).</p></div></div>
+<figure class="figura">
+  <img class="figura" src="figuras/tikz-cb33f71f2ffc.svg" alt="" style="width: min(100%, 27.9em)">
+  <figcaption id="figura-4.1.1"><span class="rot">Figura 4.1.1:</span> Gráfico da densidade \(N(0{,}447940; 0{,}105167)\) que aproxima a
+  distribuição de \(\ln Y_{20}\) no Exemplo 4.1.1.</figcaption>
+</figure>
+<figure class="figura">
+<img class="figura" src="figuras/fig-4.1.2.png" alt="">
+<figcaption id="figura-4.1.2"><span class="rot">Figura 4.1.2:</span> Gráfico de \(N = 10^4\) valores de \(\ln Y_{20}\) obtidos gerando
+\(N = 10^4\) amostras a partir de \(p_X\) no Exemplo 4.1.1.</figcaption>
+</figure>
+<p>Às vezes temos sorte e conseguimos obter a distribuição amostral de
+<span class="eq">\[
+Y = h(X_1, X_2, \ldots, X_n)
+\]</span>
+exatamente, numa forma útil para calcular probabilidades e esperanças de \(Y\).
+Em geral, porém, quando queremos calcular \(P(Y \in B) = P_Y(B)\), temos de
+determinar o conjunto de amostras \((X_1, X_2, \ldots, X_n)\) tais que \(Y \in B\),
+dado por
+<span class="eq">\[
+h^{-1}B = \{(x_1, x_2, \ldots, x_n) : h(x_1, x_2, \ldots, x_n) \in B\},
+\]</span>
+e então calcular \(P((X_1, X_2, \ldots, X_n) \in h^{-1}B)\). Em geral, esse é um
+problema intratável, e aproximações ou métodos de simulação (Monte Carlo) serão
+essenciais. Técnicas para obter essas aproximações serão discutidas nas seções
+seguintes deste capítulo. Em particular, desenvolveremos uma aproximação
+importante para a distribuição amostral da média amostral
+<span class="eq">\[
+\bar{X} = h(X_1, X_2, \ldots, X_n) = \frac{1}{n} \sum_{i=1}^{n} X_i.
+\]</span></p>
+<section class="resumo"><h4>Resumo da Seção 4.1</h4><ul><li>Uma distribuição amostral é a distribuição de uma variável aleatória
+  correspondente a uma função de alguma sequência i.i.d.</li>
+<li>As distribuições amostrais às vezes podem ser obtidas por cálculo direto
+  ou por aproximações, como o teorema central do limite.</li></ul></section>
+<h4 class="bloco bloco-exercicios">Exercícios</h4>
+<p class="exerc" id="exerc-4.1.1"><span class="k">4.1.1</span> Suponha que \(X_1, X_2, X_3\) sejam i.i.d. com função de
+probabilidade \(p_X\) do Exemplo 4.1.1. Determine a distribuição exata de
+\(Y_3 = (X_1 X_2 X_3)^{1/3}\).</p>
+<p class="exerc" id="exerc-4.1.2"><span class="k">4.1.2</span> Suponha que um dado honesto de seis faces seja lançado \(n = 2\)
+vezes, de forma independente. Calcule a distribuição exata da média amostral.</p>
+<p class="exerc" id="exerc-4.1.3"><span class="k">4.1.3</span> Suponha que uma urna contenha uma proporção \(p\) de fichas marcadas
+com 0 e uma proporção \(1 - p\) de fichas marcadas com 1. Para uma amostra de
+\(n = 2\), retirada com reposição, determine a distribuição da média amostral.</p>
+<p class="exerc" id="exerc-4.1.4"><span class="k">4.1.4</span> Suponha que uma urna contenha \(N\) fichas marcadas com 0 e \(M\)
+fichas marcadas com 1. Para uma amostra de \(n = 2\), retirada sem reposição,
+determine a distribuição da média amostral.</p>
+<p class="exerc" id="exerc-4.1.5"><span class="k">4.1.5</span> Suponha que um dado simétrico seja lançado \(n = 20\) vezes, de
+forma independente. Obtenha a distribuição amostral exata do máximo dessa
+amostra.</p>
+<p class="exerc" id="exerc-4.1.6"><span class="k">4.1.6</span> Suponha que três dados honestos sejam lançados, e seja \(Y\) o
+número de faces 6 obtidas. Calcule a distribuição exata de \(Y\).</p>
+<p class="exerc" id="exerc-4.1.7"><span class="k">4.1.7</span> Suponha que dois dados honestos sejam lançados, e seja \(W\) o
+<em>produto</em> dos dois números obtidos. Calcule a distribuição exata de \(W\).</p>
+<p class="exerc" id="exerc-4.1.8"><span class="k">4.1.8</span> Suponha que dois dados honestos sejam lançados, e seja \(Z\) a
+<em>diferença</em> entre os dois números obtidos (isto é, o primeiro número
+<em>menos</em> o segundo). Calcule a distribuição exata de \(Z\).</p>
+<p class="exerc" id="exerc-4.1.9"><span class="k">4.1.9</span> Suponha que quatro moedas honestas sejam lançadas, e seja \(Y\) o
+número de pares de moedas que caem do mesmo jeito (isto é, o número de pares
+em que as duas dão cara ou as duas dão coroa). Calcule a distribuição exata de
+\(Y\).</p>
+<h4 class="bloco bloco-exercicios-computacionais">Exercícios computacionais</h4>
+<p class="exerc" id="exerc-4.1.10"><span class="k">4.1.10</span> Gere uma amostra de \(N = 10^3\) valores de \(Y_{50}\) do Exemplo
+4.1.1. Calcule a média e o desvio padrão<sup class="nota-ref nota-termo"><a href="#nota-13" id="ref-13">13</a></sup> dessa amostra.</p>
+<p class="exerc" id="exerc-4.1.11"><span class="k">4.1.11</span> Suponha que \(X_1, X_2, \ldots, X_{10}\) seja uma sequência i.i.d.
+de uma distribuição \(N(0, 1)\). Gere uma amostra de \(N = 10^3\) valores da
+distribuição de \(\max(X_1, X_2, \ldots, X_{10})\). Calcule a média e o desvio
+padrão dessa amostra.</p>
+<h4 class="bloco bloco-problemas">Problemas</h4>
+<p class="exerc" id="exerc-4.1.12"><span class="k">4.1.12</span> Suponha que \(X_1, X_2, \ldots, X_n\) seja uma amostra da
+distribuição Poisson\((\lambda)\). Determine a distribuição amostral exata de
+\(Y = X_1 + X_2 + \cdots + X_n\). (Sugestão: determine a função geradora de
+momentos<sup class="nota-ref nota-termo"><a href="#nota-14" id="ref-14">14</a></sup> de \(Y\) e use o teorema da unicidade<sup class="nota-ref nota-termo"><a href="#nota-15" id="ref-15">15</a></sup>.)</p>
+<p class="exerc" id="exerc-4.1.13"><span class="k">4.1.13</span> Suponha que \(X_1, X_2\) seja uma amostra da distribuição
+Uniforme<sup class="nota-ref nota-termo"><a href="#nota-16" id="ref-16">16</a></sup>\([0, 1]\). Determine a distribuição amostral exata de \(Y = X_1 + X_2\).
+(Sugestão: determine a densidade de \(Y\).)</p>
+<p class="exerc" id="exerc-4.1.14"><span class="k">4.1.14</span> Suponha que \(X_1, X_2\) seja uma amostra da distribuição
+Uniforme\([0, 1]\). Determine a distribuição amostral exata de
+\(Y = (X_1 X_2)^{1/2}\). (Sugestão: determine a densidade de \(\ln Y\) e depois
+transforme.)</p>
+<h2 id="sec-4.2"><span class="n">4.2</span> <span class="t">Convergência em Probabilidade</span></h2>
+<p>Noções de <em>convergência</em> são fundamentais em boa parte da matemática. Por
+exemplo, se \(a_n = 1 - 1/n\), então \(a_1 = 0\), \(a_2 = 1/2\), \(a_3 = 2/3\),
+\(a_4 = 3/4\) etc. Vemos que os valores de \(a_n\) estão ficando “cada vez mais
+próximos” de 1 e, de fato, sabemos do cálculo que
+\(\lim_{n \to \infty} a_n = 1\) neste caso.</p>
+<p>Para variáveis aleatórias, as noções de convergência são mais complicadas. Se
+os próprios valores são aleatórios, como podem “convergir” para alguma coisa?
+Por outro lado, podemos considerar várias <em>probabilidades</em> associadas às
+variáveis aleatórias e ver se <em>elas</em> convergem em algum sentido.</p>
+<p>A noção mais simples de convergência de variáveis aleatórias é a convergência
+em probabilidade<sup class="nota-ref nota-termo"><a href="#nota-17" id="ref-17">17</a></sup>, definida a seguir. (Outras noções de convergência serão
+desenvolvidas nas seções seguintes.)</p>
+<div class="def definicao" id="definicao-4.2.1"><div class="cab"><span class="rot">Definição 4.2.1</span></div><div class="txt"><p>Sejam \(X_1, X_2, \ldots\) uma sequência infinita de variáveis aleatórias e \(Y\)
+outra variável aleatória. A sequência \(\{X_n\}\) <em>converge em probabilidade</em>
+para \(Y\) se, para todo \(\epsilon &gt; 0\),
+<span class="mat-quebravel">\(\lim_{n \to \infty} P(|X_n - Y| \ge \epsilon)\) \({}= 0\)</span>, e escrevemos
+\(X_n \xrightarrow{P} Y\).</p></div></div>
+<p>Na Figura 4.2.1, representamos as diferenças \(X_n - Y\), para valores
+selecionados de \(n\), em 10 sequências geradas \(\{X_n - Y\}\), numa situação
+típica em que as variáveis aleatórias \(X_n\) convergem em probabilidade para uma
+variável aleatória \(Y\). Também traçamos as retas horizontais em \(\pm\epsilon\)
+para \(\epsilon = 0{,}25\). Com isso, vemos a concentração crescente da distribuição
+de \(X_n - Y\) em torno de 0 à medida que \(n\) cresce, como exige a
+Definição 4.2.1. De fato, os 10 valores observados de \(X_{100} - Y\) satisfazem
+todos a desigualdade \(|X_{100} - Y| &lt; 0{,}25\).</p>
+<figure class="figura">
+<img class="figura" src="figuras/fig-4.2.1.png" alt="">
+<figcaption id="figura-4.2.1"><span class="rot">Figura 4.2.1:</span> Gráfico de 10 replicações de \(\{X_n - Y\}\) ilustrando a
+convergência em probabilidade de \(X_n\) para \(Y\).</figcaption>
+</figure>
+<p>Vejamos algumas aplicações dessa definição.</p>
+<div class="ex" id="exemplo-4.2.1"><div class="cab"><span class="rot">Exemplo 4.2.1</span></div><div class="txt fim"><p>Seja \(Y\) uma variável aleatória qualquer e sejam
+\(X_1 = X_2 = X_3 = \cdots = Y\). (Isto é, as variáveis aleatórias são todas
+<em>idênticas</em> entre si.) Nesse caso, \(|X_n - Y| = 0\) e, portanto,
+evidentemente,
+<span class="eq">\[
+\lim_{n \to \infty} P(|X_n - Y| \ge \epsilon) = 0
+\]</span>
+para todo \(\epsilon &gt; 0\). Logo, \(X_n \xrightarrow{P} Y\).</p></div></div>
+<div class="ex" id="exemplo-4.2.2"><div class="cab"><span class="rot">Exemplo 4.2.2</span></div><div class="txt fim"><p>Suponha que \(P(X_n = 1 - 1/n) = 1\) e \(P(Y = 1) = 1\). Então
+\(P(|X_n - Y| \ge \epsilon) = 0\) sempre que \(n &gt; 1/\epsilon\). Logo,
+\(P(|X_n - Y| \ge \epsilon) \to 0\) quando \(n \to \infty\), para todo
+\(\epsilon &gt; 0\). Portanto, a sequência \(\{X_n\}\) converge em probabilidade para
+\(Y\). (Aqui, as distribuições de \(X_n\) e de \(Y\) são todas
+<em>degeneradas</em>.)</p></div></div>
+<div class="ex" id="exemplo-4.2.3"><div class="cab"><span class="rot">Exemplo 4.2.3</span></div><div class="txt fim"><p>Seja \(U \sim \text{Uniforme}[0, 1]\). Defina \(X_n\) por
+<span class="eq">\[
+X_n = \begin{cases}
+  3 &amp; U \le \frac{2}{3} - \frac{1}{n}\\
+  8 &amp; \text{caso contrário,}
+\end{cases}
+\]</span>
+e defina \(Y\) por
+<span class="eq">\[
+Y = \begin{cases}
+  3 &amp; U \le \frac{2}{3}\\
+  8 &amp; \text{caso contrário.}
+\end{cases}
+\]</span>
+Então
+<span class="eq">\[
+P(|X_n - Y| \ge \epsilon) \le P(X_n \ne Y)
+  = P\left(\frac{2}{3} - \frac{1}{n} &lt; U \le \frac{2}{3}\right) = \frac{1}{n}.
+\]</span>
+Logo, \(P(|X_n - Y| \ge \epsilon) \to 0\) quando \(n \to \infty\), para todo
+\(\epsilon &gt; 0\), e a sequência \(\{X_n\}\) converge em probabilidade para \(Y\).
+(Desta vez, as distribuições de \(X_n\) e de \(Y\) <em>não</em> são degeneradas.)</p></div></div>
+<p>Um caso comum é aquele em que as distribuições dos \(X_n\) não são degeneradas,
+mas \(Y\) é apenas uma constante, como no exemplo a seguir.</p>
+<div class="ex" id="exemplo-4.2.4"><div class="cab"><span class="rot">Exemplo 4.2.4</span></div><div class="txt fim"><p>Suponha que \(Z_n \sim \text{Exponencial}(n)\) e seja \(Y = 0\). Então
+<span class="eq">\[
+P(|Z_n - Y| \ge \epsilon) = P(Z_n \ge \epsilon)
+  = \int_{\epsilon}^{\infty} n e^{-nx}\, dx = e^{-n\epsilon}.
+\]</span>
+Logo, novamente, \(P(|Z_n - Y| \ge \epsilon) \to 0\) quando \(n \to \infty\), para
+todo \(\epsilon &gt; 0\), de modo que a sequência \(\{Z_n\}\) converge em
+probabilidade para \(Y\).</p></div></div>
+<h3 id="subsec-4.2.1"><span class="n">4.2.1</span> <span class="t">A Lei Fraca dos Grandes Números</span></h3>
+<p>Uma das aplicações mais importantes da convergência em probabilidade é a lei
+fraca dos grandes números<sup class="nota-ref nota-termo"><a href="#nota-18" id="ref-18">18</a></sup>. Suponha que \(X_1, X_2, \ldots\) seja uma sequência de
+variáveis aleatórias independentes, todas com a mesma média \(\mu\). Para \(n\)
+grande, o que podemos dizer sobre a média delas,
+<span class="eq">\[
+M_n = \frac{1}{n}(X_1 + \cdots + X_n)?
+\]</span>
+Chamamos \(M_n\) de <em>média da amostra</em>, ou <em>média amostral</em>, de \(X_1, \ldots, X_n\). Quando o
+tamanho da amostra<sup class="nota-ref nota-termo"><a href="#nota-19" id="ref-19">19</a></sup> \(n\) está fixo, usaremos muitas vezes \(\bar{X}\) como notação da
+média amostral em vez de \(M_n\).</p>
+<p>Por exemplo, se lançamos uma sequência de moedas honestas e tomamos \(X_i = 1\)
+ou \(X_i = 0\) conforme a \(i\)-ésima moeda dê cara ou coroa, então \(M_n\)
+representa a <em>fração</em> das \(n\) primeiras moedas que deram cara. Seria de
+esperar que, para \(n\) grande, essa fração fique próxima de \(1/2\), isto é, do
+valor esperado<sup class="nota-ref nota-termo"><a href="#nota-20" id="ref-20">20</a></sup> dos \(X_i\).</p>
+<p>A lei fraca dos grandes números dá um sentido preciso em que as médias \(M_n\)
+tendem a se aproximar de \(E(X_i)\), para \(n\) grande.</p>
+<div class="teo teorema" id="teorema-4.2.1"><div class="cab"><span class="rot">Teorema 4.2.1</span> <span class="nome">(Lei fraca dos grandes números)</span></div><div class="txt"><p>Seja \(X_1, X_2, \ldots\) uma sequência de variáveis aleatórias independentes,
+todas com a mesma média \(\mu\) e com variância menor ou igual a
+\(\upsilon &lt; \infty\). Então, para todo \(\epsilon &gt; 0\),
+<span class="mat-quebravel">\(\lim_{n \to \infty} P(|M_n - \mu| \ge \epsilon)\) \({}= 0\)</span>. Isto é, as médias
+convergem em probabilidade para a média comum \(\mu\), ou
+\(M_n \xrightarrow{P} \mu\).</p></div></div>
+<div class="dem fim"><span class="rot">Demonstração.</span> <p>Pela linearidade<sup class="nota-ref nota-termo"><a href="#nota-21" id="ref-21">21</a></sup> dos valores esperados, vemos que \(E(M_n) = \mu\). Além disso, pela
+independência, temos
+<span class="eq">\begin{align*}
+\Var(M_n) &amp;= \frac{1}{n^2}\bigl(\Var(X_1) + \Var(X_2) + \cdots + \Var(X_n)\bigr)\\
+  &amp;\le \frac{1}{n^2}(\upsilon + \upsilon + \cdots + \upsilon)
+   = \frac{1}{n^2}(n\upsilon) = \upsilon/n.
+\end{align*}</span>
+Logo, pela desigualdade de Chebychev<sup class="nota-ref nota-termo"><a href="#nota-22" id="ref-22">22</a></sup> (Teorema 3.6.2), temos
+<span class="eq">\[
+P(|M_n - \mu| \ge \epsilon) \le \Var(M_n)/\epsilon^2 \le \upsilon/\epsilon^2 n.
+\]</span>
+Isso converge para 0 quando \(n \to \infty\), o que prova o teorema.</p></div>
+<p>É fato que, no Teorema 4.2.1, se exigirmos que as variáveis \(X_i\) sejam i.i.d.
+em vez de apenas independentes, nem sequer precisamos que os \(X_i\) tenham
+variância finita. Mas não discutiremos esse resultado aqui. Vejamos algumas
+aplicações da lei fraca dos grandes números.</p>
+<div class="ex" id="exemplo-4.2.5"><div class="cab"><span class="rot">Exemplo 4.2.5</span></div><div class="txt fim"><p>Considere o lançamento de uma sequência de moedas honestas idênticas. Seja
+\(M_n\) a fração das \(n\) primeiras moedas que dão cara. Então
+\(M_n = (X_1 + \cdots + X_n)/n\), em que \(X_i = 1\) se a \(i\)-ésima moeda dá cara
+e, caso contrário, \(X_i = 0\). Logo, pela lei fraca dos grandes números, temos
+<span class="eq">\begin{align*}
+\lim_{n \to \infty} P(M_n &lt; 0{,}49)
+  &amp;= \lim_{n \to \infty} P(M_n - 0{,}5 &lt; -0{,}01)\\
+  &amp;\le \lim_{n \to \infty} P(M_n - 0{,}5 &lt; -0{,}01 \text{ ou } M_n - 0{,}5 &gt; 0{,}01)\\
+  &amp;= \lim_{n \to \infty} P(|M_n - 0{,}5| &gt; 0{,}01) = 0
+\end{align*}</span>
+e, analogamente, \(\lim_{n \to \infty} P(M_n &gt; 0{,}51) = 0\). Isso ilustra que,
+para \(n\) grande, é muito provável que \(M_n\) esteja muito próximo de 0,5.</p></div></div>
+<div class="ex" id="exemplo-4.2.6"><div class="cab"><span class="rot">Exemplo 4.2.6</span></div><div class="txt fim"><p>Considere o lançamento de uma sequência de moedas idênticas, cada uma com
+probabilidade \(p\) de dar cara. Seja \(M_n\), novamente, a fração das \(n\)
+primeiras moedas que dão cara. Então, pela lei fraca dos grandes números, para
+todo \(\epsilon &gt; 0\),
+<span class="mat-quebravel">\(\lim_{n \to \infty} P(p - \epsilon &lt; M_n &lt; p + \epsilon)\) \({}= 1\)</span>.
+Vemos, assim, que, para \(n\) grande, é muito provável que \(M_n\) esteja muito
+próximo de \(p\). (O exemplo anterior corresponde ao caso particular
+\(p = 1/2\).)</p></div></div>
+<div class="ex" id="exemplo-4.2.7"><div class="cab"><span class="rot">Exemplo 4.2.7</span></div><div class="txt fim"><p>Sejam \(X_1, X_2, \ldots\) i.i.d. com distribuição \(N(3, 5)\). Então
+\(E(M_n) = 3\) e, pela lei fraca dos grandes números,
+\(P(3 - \epsilon &lt; M_n &lt; 3 + \epsilon) \to 1\) quando \(n \to \infty\). Logo, para
+\(n\) grande, a média \(M_n\) está muito próxima de 3.</p></div></div>
+<div class="ex" id="exemplo-4.2.8"><div class="cab"><span class="rot">Exemplo 4.2.8</span></div><div class="txt fim"><p>Sejam \(W_1, W_2, \ldots\) i.i.d. com distribuição \(\text{Exponencial}(6)\).
+Então \(E(M_n) = 1/6\) e, pela lei fraca dos grandes números,
+\(P(1/6 - \epsilon &lt; M_n &lt; 1/6 + \epsilon) \to 1\) quando \(n \to \infty\). Logo,
+para \(n\) grande, a média \(M_n\) está muito próxima de \(1/6\).</p></div></div>
+<section class="resumo"><h4>Resumo da Seção 4.2</h4><ul><li>Uma sequência \(\{X_n\}\) de variáveis aleatórias converge em
+  probabilidade para \(Y\) se
+  <span class="eq">\[
+  \lim_{n \to \infty} P(|X_n - Y| \ge \epsilon) = 0.
+  \]</span></li>
+<li>A lei fraca dos grandes números diz que, se \(\{X_n\}\) é i.i.d. (ou é
+  independente, com média constante e variância limitada), então as médias
+  \(M_n = (X_1 + \cdots + X_n)/n\) convergem em probabilidade para \(E(X_i)\).</li></ul></section>
+<h4 class="bloco bloco-exercicios">Exercícios</h4>
+<p class="exerc" id="exerc-4.2.1"><span class="k">4.2.1</span> Sejam \(U \sim \text{Uniforme}[5, 10]\), \(Z = I_{U \in [5, 7)}\) e
+\(Z_n = I_{U \in [5,\, 7 + 1/n^2)}\). Prove que \(Z_n \to Z\) em probabilidade.</p>
+<p class="exerc" id="exerc-4.2.2"><span class="k">4.2.2</span> Sejam \(Y \sim \text{Uniforme}[0, 1]\) e \(X_n = Y^n\). Prove que
+\(X_n \to 0\) em probabilidade.</p>
+<p class="exerc" id="exerc-4.2.3"><span class="k">4.2.3</span> Sejam \(W_1, W_2, \ldots\) i.i.d. com distribuição
+\(\text{Exponencial}(3)\). Prove que, para algum \(n\), temos
+\(P(W_1 + W_2 + \cdots + W_n &lt; n/2) &gt; 0{,}999\).</p>
+<p class="exerc" id="exerc-4.2.4"><span class="k">4.2.4</span> Sejam \(Y_1, Y_2, \ldots\) i.i.d. com distribuição \(N(2, 5)\).
+Prove que, para algum \(n\), temos \(P(Y_1 + Y_2 + \cdots + Y_n &gt; n) &gt; 0{,}999\).</p>
+<p class="exerc" id="exerc-4.2.5"><span class="k">4.2.5</span> Sejam \(X_1, X_2, \ldots\) i.i.d. com distribuição
+\(\text{Poisson}(8)\). Prove que, para algum \(n\), temos
+\(P(X_1 + X_2 + \cdots + X_n &gt; 9n) &lt; 0{,}001\).</p>
+<p class="exerc" id="exerc-4.2.6"><span class="k">4.2.6</span> Suponha que \(X \sim \text{Uniforme}[0, 1]\) e seja
+\(Y_n = \frac{n-1}{n} X\). Prove que \(Y_n \xrightarrow{P} X\).</p>
+<p class="exerc" id="exerc-4.2.7"><span class="k">4.2.7</span> Sejam \(H_n\) o número de caras no lançamento de \(n\) moedas
+honestas, \(X_n = e^{-H_n}\) e \(Y = 0\). Prove que \(X_n \xrightarrow{P} Y\).</p>
+<p class="exerc" id="exerc-4.2.8"><span class="k">4.2.8</span> Sejam \(Z_n \sim \text{Uniforme}[0, n]\), \(W_n = 5Z_n/(Z_n + 1)\) e
+\(W = 5\). Prove que \(W_n \xrightarrow{P} W\).</p>
+<p class="exerc" id="exerc-4.2.9"><span class="k">4.2.9</span> Considere o lançamento de \(n\) moedas honestas. Sejam \(H_n\) o
+número total de caras e \(F_n\) o número de caras nas moedas de 1 a \(n - 1\)
+(isto é, omitindo a \(n\)-ésima moeda). Sejam \(X_n = H_n/(H_n + 1)\),
+\(Y_n = F_n/(H_n + 1)\) e \(Z = 0\). Prove que \(X_n - Y_n \xrightarrow{P} Z\).</p>
+<p class="exerc" id="exerc-4.2.10"><span class="k">4.2.10</span> Seja \(Z_n\) a soma dos <em>quadrados</em> dos números obtidos ao
+lançarmos \(n\) dados honestos. Encontre (com demonstração) um número \(m\) tal que
+\(\frac{1}{n} Z_n \xrightarrow{P} m\). (Sugestão: use a lei fraca dos grandes
+números.)</p>
+<p class="exerc" id="exerc-4.2.11"><span class="k">4.2.11</span> Considere o lançamento de \(n\) moedas honestas de 5 centavos e
+\(n\) moedas honestas de 10 centavos. Seja \(X_n\) igual a 4 vezes o número de
+moedas de 5 centavos que dão cara mais 5 vezes o número de moedas de 10
+centavos que dão cara. Encontre (com demonstração) um número \(r\) tal que
+\(\frac{1}{n} X_n \xrightarrow{P} r\).</p>
+<h4 class="bloco bloco-exercicios-computacionais">Exercícios computacionais</h4>
+<p class="exerc" id="exerc-4.2.12"><span class="k">4.2.12</span> Gere \(X_1, \ldots, X_n\) i.i.d. com distribuição
+\(\text{Exponencial}(5)\) e calcule \(M_n\) para \(n = 20\). Repita isso \(N\) vezes,
+com \(N\) grande (se possível, tome \(N = 10^5\); caso contrário, tão grande quanto
+for viável), e calcule a proporção dos valores de \(M_n\) que ficam entre 0,19 e
+0,21. Repita com \(n = 50\). Que propriedade da convergência em probabilidade
+seus resultados ilustram?</p>
+<p class="exerc" id="exerc-4.2.13"><span class="k">4.2.13</span> Gere \(X_1, \ldots, X_n\) i.i.d. com distribuição
+\(\text{Poisson}(7)\) e calcule \(M_n\) para \(n = 20\). Repita isso \(N\) vezes, com
+\(N\) grande (se possível, tome \(N = 10^5\); caso contrário, tão grande quanto for
+viável), e calcule a proporção dos valores de \(M_n\) que ficam entre 6,99 e
+7,01. Repita com \(n = 100\). Que propriedade da convergência em probabilidade
+seus resultados ilustram?</p>
+<h4 class="bloco bloco-problemas">Problemas</h4>
+<p class="exerc" id="exerc-4.2.14"><span class="k">4.2.14</span> Dê um exemplo de variáveis aleatórias \(X_1, X_2, \ldots\) tais
+que \(\{X_n\}\) converge para 0 em probabilidade, mas \(E(X_n) = 1\) para todo
+\(n\). (Sugestão: suponha que \(P(X_n = n) = 1/n\) e \(P(X_n = 0) = 1 - 1/n\).)</p>
+<p class="exerc" id="exerc-4.2.15"><span class="k">4.2.15</span> Prove que \(X_n \xrightarrow{P} 0\) se e somente se
+\(|X_n| \xrightarrow{P} 0\).</p>
+<p class="exerc" id="exerc-4.2.16"><span class="k">4.2.16</span> Prove ou refute: \(X_n \xrightarrow{P} 5\) se e somente se
+\(|X_n| \xrightarrow{P} 5\).</p>
+<p class="exerc" id="exerc-4.2.17"><span class="k">4.2.17</span> Suponha que \(X_n \xrightarrow{P} X\) e \(Y_n \xrightarrow{P} Y\).
+Sejam \(Z_n = X_n + Y_n\) e \(Z = X + Y\). Prove que \(Z_n \xrightarrow{P} Z\).</p>
+<h4 class="bloco bloco-desafios">Desafios</h4>
+<p class="exerc" id="exerc-4.2.18"><span class="k">4.2.18</span> Suponha que \(X_n \xrightarrow{P} X\) e que \(f\) seja uma função
+contínua. Prove que \(f(X_n) \xrightarrow{P} f(X)\).</p>
+<h2 id="sec-4.3"><span class="n">4.3</span> <span class="t">Convergência com Probabilidade 1</span></h2>
+<p>Uma noção de convergência para variáveis aleatórias que está intimamente
+associada à convergência de uma sequência de números reais é dada pelo conceito
+de convergência com probabilidade 1<sup class="nota-ref nota-termo"><a href="#nota-23" id="ref-23">23</a></sup>. Essa propriedade é apresentada na
+definição a seguir.</p>
+<div class="def definicao" id="definicao-4.3.1"><div class="cab"><span class="rot">Definição 4.3.1</span></div><div class="txt"><p>Seja \(X_1, X_2, \ldots\) uma sequência infinita de variáveis aleatórias. Diremos
+que a sequência \(\{X_i\}\) <em>converge com probabilidade 1</em> (ou
+<em>converge quase certamente<sup class="nota-ref nota-termo"><a href="#nota-24" id="ref-24">24</a></sup> (q.c.)</em>) para uma variável aleatória \(Y\) se
+<span class="mat-quebravel">\(P\left(\lim_{n \to \infty} X_n = Y\right)\) \({}= 1\)</span>, e escrevemos
+\(X_n \xrightarrow{\text{q.c.}} Y\).</p></div></div>
+<p>Na Figura 4.3.1, ilustramos essa convergência com o gráfico da sequência de
+diferenças \(\{X_n - Y\}\) numa situação típica em que as variáveis aleatórias
+\(X_n\) convergem com probabilidade 1 para uma variável aleatória \(Y\). Também
+traçamos as retas horizontais em \(\pm\epsilon\) para \(\epsilon = 0{,}1\). Note que,
+inevitavelmente, todos os valores \(X_n - Y\) ficam no intervalo \((-0{,}1; 0{,}1)\)
+ou, em outras palavras, os valores de \(X_n\) ficam a menos de \(0{,}1\) dos valores
+de \(Y\).</p>
+<p>A Definição 4.3.1 indica que, para qualquer \(\epsilon &gt; 0\) dado, existirá um
+valor \(N_\epsilon\) tal que \(\lvert X_n - Y\rvert &lt; \epsilon\) para todo
+\(n \ge N_\epsilon\). O valor de \(N_\epsilon\) varia conforme o valor observado da
+sequência \(\{X_n - Y\}\), mas ele sempre existe. Compare isso com a situação
+mostrada na Figura 4.2.1, que diz apenas que a distribuição de probabilidade de
+\(X_n - Y\) se concentra em torno de 0 à medida que \(n\) cresce, e não que os
+valores individuais de \(X_n - Y\) estarão necessariamente todos perto de 0
+(veja também o Exemplo 4.3.2).</p>
+<figure class="figura">
+  <img class="figura" src="figuras/fig-4.3.1.png" alt="">
+  <figcaption id="figura-4.3.1"><span class="rot">Figura 4.3.1:</span> Gráfico de uma única replicação \(\{X_n - Y\}\) ilustrando a
+  convergência com probabilidade 1 de \(X_n\) para \(Y\).</figcaption>
+</figure>
+<p>Vejamos um exemplo disso.</p>
+<div class="ex" id="exemplo-4.3.1"><div class="cab"><span class="rot">Exemplo 4.3.1</span></div><div class="txt fim"><p>Considere novamente a situação do Exemplo 4.2.3, em que
+\(U \sim \text{Uniforme}[0, 1]\),
+<span class="eq">\[
+X_n = \begin{cases}
+  3 &amp; U \le \frac{2}{3} - \frac{1}{n}\\
+  8 &amp; \text{caso contrário}
+\end{cases}
+\]</span>
+e
+<span class="eq">\[
+Y = \begin{cases}
+  3 &amp; U \le \frac{2}{3}\\
+  8 &amp; \text{caso contrário.}
+\end{cases}
+\]</span>
+Se \(U &gt; 2/3\), então \(Y = 8\) e também \(X_n = 8\) para todo \(n\), de modo que,
+claramente, \(X_n \to Y\). Se \(U &lt; 2/3\), então, para \(n\) grande o suficiente,
+teremos também
+<span class="eq">\[
+U \le \frac{2}{3} - \frac{1}{n},
+\]</span>
+e então, de novo, \(X_n \to Y\). Por outro lado, se \(U = 2/3\), teremos sempre
+\(X_n = 8\), embora \(Y = 3\). Portanto, \(X_n \to Y\) exceto quando \(U = 2/3\). Como
+\(P(U = 2/3) = 0\), temos de fato \(X_n \to Y\) com probabilidade 1.</p></div></div>
+<p>Pode-se perguntar qual é a relação entre a convergência em probabilidade e a
+convergência com probabilidade 1. O teorema a seguir dá uma resposta.</p>
+<div class="teo teorema" id="teorema-4.3.1"><div class="cab"><span class="rot">Teorema 4.3.1</span></div><div class="txt"><p>Sejam \(Z, Z_1, Z_2, \ldots\) variáveis aleatórias. Suponha que \(Z_n \to Z\) com
+probabilidade 1. Então \(Z_n \to Z\) em probabilidade. Isto é, se uma sequência
+de variáveis aleatórias converge quase certamente, então ela converge em
+probabilidade para o mesmo limite.</p></div></div>
+<div class="dem fim"><span class="rot">Demonstração.</span> <p>Veja a Seção 4.7 para a demonstração deste resultado.</p></div>
+<p>Por outro lado, a recíproca<sup class="nota-ref nota-termo"><a href="#nota-25" id="ref-25">25</a></sup> do Teorema 4.3.1 é falsa, como mostra o exemplo a
+seguir.</p>
+<div class="ex" id="exemplo-4.3.2"><div class="cab"><span class="rot">Exemplo 4.3.2</span></div><div class="txt fim"><p>Seja \(U\) com distribuição uniforme em \([0, 1]\). Construímos uma sequência
+infinita de variáveis aleatórias \(\{X_n\}\) fazendo
+<span class="eq">\begin{align*}
+X_1 &amp;= I_{[0, 1/2)}(U),\ X_2 = I_{[1/2, 1]}(U),\\
+X_3 &amp;= I_{[0, 1/4)}(U),\ X_4 = I_{[1/4, 1/2)}(U),\ X_5 = I_{[1/2, 3/4)}(U),\ X_6 = I_{[3/4, 1]}(U),\\
+X_7 &amp;= I_{[0, 1/8)}(U),\ X_8 = I_{[1/8, 1/4)}(U), \ldots\\
+&amp;\ \,\vdots
+\end{align*}</span>
+em que \(I_A\) é a <em>função indicadora<sup class="nota-ref nota-termo"><a href="#nota-26" id="ref-26">26</a></sup></em> do evento \(A\), isto é, \(I_A(s) = 1\)
+se \(s \in A\) e \(I_A(s) = 0\) se \(s \notin A\).</p>
+<p>Note que primeiro subdividimos \([0, 1]\) em dois subintervalos de mesmo
+comprimento e definimos \(X_1\) e \(X_2\) como as funções indicadoras desses dois
+subintervalos. Em seguida, subdividimos \([0, 1]\) em quatro subintervalos de
+mesmo comprimento e definimos \(X_3\), \(X_4\), \(X_5\) e \(X_6\) como as funções
+indicadoras dos quatro subintervalos. Continuamos esse processo dividindo
+\([0, 1]\) em oito subintervalos de mesmo comprimento, depois em 16 subintervalos
+de mesmo comprimento etc., para obter uma sequência infinita de variáveis
+aleatórias.</p>
+<p>Cada uma dessas variáveis aleatórias \(X_n\) assume apenas os valores 0 e 1 e,
+portanto, tem de seguir uma distribuição de Bernoulli. Em particular,
+\(X_1 \sim \text{Bernoulli}(1/2)\), \(X_2 \sim \text{Bernoulli}(1/2)\),
+\(X_3 \sim \text{Bernoulli}(1/4)\) etc.</p>
+<p>Então, para \(0 &lt; \epsilon &lt; 1\), temos
+<span class="mat-quebravel">\(P(\lvert X_n - 0\rvert \ge \epsilon)\) \({}= P(X_n = 1)\)</span>. Como os intervalos de \(U\)
+que tornam \(X_n \ne 0\) ficam cada vez menores, vemos que \(P(X_n = 1)\) converge
+para 0. Portanto, \(X_n\) converge para 0 em probabilidade.</p>
+<p>Por outro lado, \(X_n\) <em>não</em> converge para 0 quase certamente. De fato, seja
+qual for o valor que \(U\) assuma, sempre haverá infinitos valores diferentes de
+\(n\) para os quais \(X_n = 1\). Portanto, teremos \(X_n = 1\) infinitas vezes<sup class="nota-ref nota-termo"><a href="#nota-27" id="ref-27">27</a></sup>, de
+modo que <em>não</em> teremos \(X_n\) convergindo para 0 para nenhum valor
+particular de \(U\). Assim, \(P(\lim_{n \to \infty} X_n \to 0) = 0\), e \(X_n\)
+<em>não</em> converge para 0 com probabilidade 1.</p></div></div>
+<p>O Teorema 4.3.1 e o Exemplo 4.3.2 mostram, juntos, que a convergência com
+probabilidade 1 é uma noção <em>mais forte</em> que a convergência em
+probabilidade.</p>
+<p>Ora, a lei fraca dos grandes números (Seção 4.2.1) conclui apenas que as médias
+\(M_n\) convergem em probabilidade para \(E(X_i)\). Uma versão mais forte desse
+resultado concluiria, em vez disso, a convergência com probabilidade 1. É o que
+consideramos agora.</p>
+<h3 id="subsec-4.3.1"><span class="n">4.3.1</span> <span class="t">A Lei Forte dos Grandes Números</span></h3>
+<p>O resultado a seguir é um fortalecimento da lei fraca dos grandes números,
+porque conclui a convergência com probabilidade 1, e não apenas a convergência
+em probabilidade.</p>
+<div class="teo teorema" id="teorema-4.3.2"><div class="cab"><span class="rot">Teorema 4.3.2</span> <span class="nome">(Lei forte dos grandes números<sup class="nota-ref nota-termo"><a href="#nota-28" id="ref-28">28</a></sup>)</span></div><div class="txt"><p>Seja \(X_1, X_2, \ldots\) uma sequência de variáveis aleatórias i.i.d., cada uma
+com média finita \(\mu\). Então
+<span class="eq">\[
+P\left(\lim_{n \to \infty} M_n = \mu\right) = 1.
+\]</span>
+Isto é, as médias convergem com probabilidade 1 para a média comum \(\mu\), ou
+\(M_n \xrightarrow{\text{q.c.}} \mu\).</p></div></div>
+<div class="dem fim"><span class="rot">Demonstração.</span> <p>Veja <em>A First Look at Rigorous Probability Theory, Second Edition</em>, de
+J. S. Rosenthal (World Scientific Publishing Co., 2006), para uma demonstração
+deste resultado.</p></div>
+<p>Esse resultado diz que as médias amostrais convergem com probabilidade 1 para
+\(\mu\).</p>
+<p>Assim como o Teorema 4.2.1, ele diz que, para \(n\) grande, as médias \(M_n\)
+costumam ficar perto de \(\mu = E(X_i)\). Mas diz, além disso, que, se esperarmos
+o bastante (isto é, se \(n\) for grande o suficiente), então, a partir de algum
+momento, as médias ficarão <em>todas</em> perto de \(\mu\), para <em>todo</em> \(n\)
+suficientemente grande. Em outras palavras, a média amostral é consistente para
+\(\mu\).</p>
+<section class="resumo"><h4>Resumo da Seção 4.3</h4><ul><li>Uma sequência \(\{X_n\}\) de variáveis aleatórias converge com
+  probabilidade 1 (ou converge quase certamente) para \(Y\) se
+  \(P(\lim_{n \to \infty} X_n = Y) = 1\).</li>
+<li>A convergência com probabilidade 1 implica a convergência em
+  probabilidade.</li>
+<li>A lei forte dos grandes números diz que, se \(\{X_n\}\) é i.i.d., então as
+  médias \(M_n = (X_1 + \cdots + X_n)/n\) convergem com probabilidade 1 para
+  \(E(X_i)\).</li></ul></section>
+<h4 class="bloco bloco-exercicios">Exercícios</h4>
+<p class="exerc" id="exerc-4.3.1"><span class="k">4.3.1</span> Seja \(U \sim \text{Uniforme}[5, 10]\), e sejam
+\(Z = I_{[5, 7)}(U)\) (isto é, \(Z\) é a função indicadora de \([5, 7)\)) e
+\(Z_n = I_{[5, 7 + 1/n^2)}(U)\). Prove que \(Z_n \to Z\) com probabilidade 1.</p>
+<p class="exerc" id="exerc-4.3.2"><span class="k">4.3.2</span> Seja \(Y \sim \text{Uniforme}[0, 1]\), e seja \(X_n = Y^n\). Prove
+que \(X_n \to 0\) com probabilidade 1.</p>
+<p class="exerc" id="exerc-4.3.3"><span class="k">4.3.3</span> Sejam \(W_1, W_2, \ldots\) i.i.d. com distribuição
+\(\text{Exponencial}(3)\). Prove que, com probabilidade 1, para algum \(n\), temos
+\(W_1 + W_2 + \cdots + W_n &lt; n/2\).</p>
+<p class="exerc" id="exerc-4.3.4"><span class="k">4.3.4</span> Sejam \(Y_1, Y_2, \ldots\) i.i.d. com distribuição \(N(2, 5)\).
+Prove que, com probabilidade 1, para algum \(n\), temos
+\(Y_1 + Y_2 + \cdots + Y_n &gt; n\).</p>
+<p class="exerc" id="exerc-4.3.5"><span class="k">4.3.5</span> Suponha que \(X_n \to X\) com probabilidade 1 e também que
+\(Y_n \to Y\) com probabilidade 1. Prove que
+\(P(X_n \to X \text{ e } Y_n \to Y) = 1\).</p>
+<p class="exerc" id="exerc-4.3.6"><span class="k">4.3.6</span> Suponha que \(Z_1, Z_2, \ldots\) sejam i.i.d. com média finita
+\(\mu\). Seja \(M_n = (Z_1 + \cdots + Z_n)/n\). Determine (com justificativa) se as
+afirmações a seguir são verdadeiras ou falsas.
+<span class="parte"><span class="pl">(a)</span>  Com probabilidade 1, \(M_n = \mu\) para algum \(n\).</span><span class="parte"><span class="pl">(b)</span>  Com probabilidade 1, \(\mu - 0{,}01 &lt; M_n &lt; \mu + 0{,}01\) para algum \(n\).</span><span class="parte"><span class="pl">(c)</span>  Com probabilidade 1, \(\mu - 0{,}01 &lt; M_n &lt; \mu + 0{,}01\) para todo \(n\),
+exceto um número finito deles.</span><span class="parte"><span class="pl">(d)</span>  Para qualquer \(x \in R^1\), com probabilidade 1,
+\(x - 0{,}01 &lt; M_n &lt; x + 0{,}01\) para algum \(n\).</span></p>
+<p class="exerc" id="exerc-4.3.7"><span class="k">4.3.7</span> Seja \(\{X_n\}\) i.i.d., com \(X_n \sim \text{Uniforme}[3, 7]\).
+Seja \(Y_n = (X_1 + X_2 + \cdots + X_n)/n\). Encontre (com demonstração) um
+número \(m\) tal que \(Y_n \xrightarrow{\text{q.c.}} m\). (Sugestão: use a lei forte dos
+grandes números.)</p>
+<p class="exerc" id="exerc-4.3.8"><span class="k">4.3.8</span> Seja \(Z_n\) a soma dos quadrados dos números obtidos quando
+lançamos \(n\) dados honestos. Encontre (com demonstração) um número \(m\) tal que
+\(\frac{1}{n} Z_n \xrightarrow{\text{q.c.}} m\).</p>
+<p class="exerc" id="exerc-4.3.9"><span class="k">4.3.9</span> Considere o lançamento de \(n\) moedas honestas de 5 centavos e de
+\(n\) moedas honestas de 10 centavos. Seja \(X_n\) igual a 4 vezes o número de
+moedas de 5 centavos que dão cara mais 5 vezes o número de moedas de
+10 centavos que dão cara. Encontre (com demonstração) um número \(r\) tal que
+\(\frac{1}{n} X_n \xrightarrow{\text{q.c.}} r\).</p>
+<p class="exerc" id="exerc-4.3.10"><span class="k">4.3.10</span> Suponha que \(Y_n \xrightarrow{\text{q.c.}} Y\). Isso implica que
+<span class="mat-quebravel">\(P(\lvert Y_5 - Y\rvert &gt; \lvert Y_4 - Y\rvert)\) \({}= 0\)</span>? Explique.</p>
+<p class="exerc" id="exerc-4.3.11"><span class="k">4.3.11</span> Considere lançar repetidamente uma moeda honesta. Seja \(H_n\) o
+número de caras nos \(n\) primeiros lançamentos, e seja \(Z_n = H_n/n\).
+<span class="parte"><span class="pl">(a)</span>  Prove que, com probabilidade 1, existe algum \(m\) tal que
+\(\lvert Z_n - 1/2\rvert &lt; 0{,}001\) para todo \(n \ge m\).</span><span class="parte"><span class="pl">(b)</span>  Seja \(r\) o menor inteiro positivo que satisfaz
+\(\lvert Z_r - 1/2\rvert &lt; 0{,}001\). É necessariamente verdade que
+\(\lvert Z_n - 1/2\rvert &lt; 0{,}001\) para todo \(n \ge r\)? Por quê?</span></p>
+<p class="exerc" id="exerc-4.3.12"><span class="k">4.3.12</span> Suponha que \(P(X = 0) = P(X = 1) = 1/2\), e seja \(X_n = X\) para
+\(n = 1, 2, 3, \ldots\). (Isto é, as variáveis aleatórias \(X_n\) são todas
+<em>idênticas</em>.) Seja \(Y_n = (X_1 + X_2 + \cdots + X_n)/n\).
+<span class="parte"><span class="pl">(a)</span>  Prove que
+<span class="mat-quebravel">\(P(\lim_{n \to \infty} Y_n = 0)\) \({}= P(\lim_{n \to \infty} Y_n = 1)\) \({}= 1/2\)</span>.</span><span class="parte"><span class="pl">(b)</span>  Prove que não existe um número \(m\) tal que
+\(P(\lim_{n \to \infty} Y_n = m) = 1\).</span><span class="parte"><span class="pl">(c)</span>  Por que a parte (b) não contradiz a lei dos grandes números<sup class="nota-ref nota-termo"><a href="#nota-29" id="ref-29">29</a></sup>?</span></p>
+<h4 class="bloco bloco-exercicios-computacionais">Exercícios computacionais</h4>
+<p class="exerc" id="exerc-4.3.13"><span class="k">4.3.13</span> Gere \(X_1, \ldots, X_n\) i.i.d. com distribuição
+\(\text{Exponencial}(5)\), com \(n\) grande (tome \(n = 10^5\), se possível). Faça o
+gráfico dos valores \(M_1, M_2, \ldots, M_n\). Para que valor eles estão
+convergindo? Com que rapidez?</p>
+<p class="exerc" id="exerc-4.3.14"><span class="k">4.3.14</span> Gere \(X_1, \ldots, X_n\) i.i.d. com distribuição
+\(\text{Poisson}(7)\), com \(n\) grande (tome \(n = 10^5\), se possível). Faça o
+gráfico dos valores \(M_1, M_2, \ldots, M_n\). Para que valor eles estão
+convergindo? Com que rapidez?</p>
+<p class="exerc" id="exerc-4.3.15"><span class="k">4.3.15</span> Gere \(X_1, X_2, \ldots, X_n\) i.i.d. com distribuição
+\(N(-4, 3)\), com \(n\) grande (tome \(n = 10^5\), se possível). Faça o gráfico dos
+valores \(M_1, M_2, \ldots, M_n\). Para que valor eles estão convergindo? Com que
+rapidez?</p>
+<h4 class="bloco bloco-problemas">Problemas</h4>
+<p class="exerc" id="exerc-4.3.16"><span class="k">4.3.16</span> Suponha que, para cada inteiro positivo \(k\), existam variáveis
+aleatórias \(W_k, X_{k,1}, X_{k,2}, \ldots\) tais que
+\(P(\lim_{n \to \infty} X_{k,n} = W_k) = 1\). Prove que
+<span class="mat-quebravel">\(P(\lim_{n \to \infty} X_{k,n} = W_k \text{ para todo } k)\) \({}= 1\)</span>.</p>
+<p class="exerc" id="exerc-4.3.17"><span class="k">4.3.17</span> Prove que \(X_n \xrightarrow{\text{q.c.}} 0\) se e somente se
+\(\lvert X_n\rvert \xrightarrow{\text{q.c.}} 0\).</p>
+<p class="exerc" id="exerc-4.3.18"><span class="k">4.3.18</span> Prove ou refute: \(X_n \xrightarrow{\text{q.c.}} 5\) se e somente se
+\(\lvert X_n\rvert \xrightarrow{\text{q.c.}} 5\).</p>
+<p class="exerc" id="exerc-4.3.19"><span class="k">4.3.19</span> Suponha que \(X_n \xrightarrow{\text{q.c.}} X\) e
+\(Y_n \xrightarrow{\text{q.c.}} Y\). Sejam \(Z_n = X_n + Y_n\) e \(Z = X + Y\). Prove
+que \(Z_n \xrightarrow{\text{q.c.}} Z\).</p>
+<h4 class="bloco bloco-desafios">Desafios</h4>
+<p class="exerc" id="exerc-4.3.20"><span class="k">4.3.20</span> Suponha que, para cada número real \(r \in [0, 1]\), existam
+variáveis aleatórias \(W_r, X_{r,1}, X_{r,2}, \ldots\) tais que
+\(P(\lim_{n \to \infty} X_{r,n} = W_r) = 1\). Prove ou refute que devemos ter
+<span class="mat-quebravel">\(P(\lim_{n \to \infty} X_{n,r} = W_r \text{ para todo } r \in [0, 1])\) \({}= 1\)</span>.
+<sup class="nota-ref nota-tradutor"><a href="#nota-30" id="ref-30">30</a></sup></p>
+<p class="exerc" id="exerc-4.3.21"><span class="k">4.3.21</span> Dê um exemplo de variáveis aleatórias \(X_1, X_2, \ldots\) tais
+que \(\{X_n\}\) converge para 0 com probabilidade 1, mas \(E(X_n) = 1\) para todo
+\(n\).</p>
+<p class="exerc" id="exerc-4.3.22"><span class="k">4.3.22</span> Suponha que \(X_n \xrightarrow{\text{q.c.}} X\) e que \(f\) seja uma
+função contínua. Prove que \(f(X_n) \xrightarrow{\text{q.c.}} f(X)\).</p>
+<h2 id="sec-4.4"><span class="n">4.4</span> <span class="t">Convergência em Distribuição</span></h2>
+<p>Há ainda outra noção de convergência de uma sequência de variáveis aleatórias
+que é importante nas aplicações da probabilidade e da estatística.</p>
+<div class="def definicao" id="definicao-4.4.1"><div class="cab"><span class="rot">Definição 4.4.1</span></div><div class="txt"><p>Sejam \(X, X_1, X_2, \ldots\) variáveis aleatórias. Dizemos que a sequência
+\(\{X_n\}\) <em>converge em distribuição</em> para \(X\) se, para todo \(x \in R^1\) tal
+que \(P(X = x) = 0\), tivermos <span class="mat-quebravel">\(\lim_{n \to \infty} P(X_n \le x)\) \({}= P(X \le x)\)</span>, e
+escrevemos \(X_n \xrightarrow{D} X\).</p></div></div>
+<p>Intuitivamente, \(\{X_n\}\) converge em distribuição para \(X\) se, para \(n\) grande,
+a distribuição de \(X_n\) está próxima da de \(X\). A importância disso, como
+veremos, é que muitas vezes é difícil trabalhar com a distribuição de \(X_n\),
+enquanto a de \(X\) é muito mais simples. Com \(X_n\) convergindo em distribuição
+para \(X\), porém, podemos aproximar a distribuição de \(X_n\) pela de \(X\).</p>
+<div class="ex" id="exemplo-4.4.1"><div class="cab"><span class="rot">Exemplo 4.4.1</span></div><div class="txt fim"><p>Suponha que \(P(X_n = 1) = 1/n\) e \(P(X_n = 0) = 1 - 1/n\). Seja \(X = 0\), de modo
+que \(P(X = 0) = 1\). Então
+<span class="eq">\[
+P(X_n \le x) = \begin{cases}
+  0 &amp; x &lt; 0\\
+  1 - 1/n &amp; 0 \le x &lt; 1\\
+  1 &amp; 1 \le x
+\end{cases}
+\;\to\;
+P(X \le x) = \begin{cases}
+  0 &amp; x &lt; 0\\
+  1 &amp; 0 \le x
+\end{cases}
+\]</span>
+quando \(n \to \infty\). Como \(P(X_n \le x) \to P(X \le x)\) para todo \(x\), e em
+particular em todo \(x\) em que \(P(X = x) = 0\), temos que \(\{X_n\}\) converge em
+distribuição para \(X\). Intuitivamente, quando \(n \to \infty\), fica cada vez mais
+provável que \(X_n\) seja igual a 0.</p></div></div>
+<div class="ex" id="exemplo-4.4.2"><div class="cab"><span class="rot">Exemplo 4.4.2</span></div><div class="txt fim"><p>Suponha que \(P(X_n = 1) = 1/2 + 1/n\) e \(P(X_n = 0) = 1/2 - 1/n\). Suponha, além
+disso, que \(P(X = 0) = P(X = 1) = 1/2\). Então \(\{X_n\}\) converge em distribuição
+para \(X\), porque \(P(X_n = 1) \to 1/2\) e \(P(X_n = 0) \to 1/2\) quando
+\(n \to \infty\).</p></div></div>
+<div class="ex" id="exemplo-4.4.3"><div class="cab"><span class="rot">Exemplo 4.4.3</span></div><div class="txt fim"><p>Seja \(X \sim \text{Uniforme}[0, 1]\) e seja \(P(X_n = i/n) = 1/n\) para
+\(i = 1, 2, \ldots, n\). Então \(X\) é absolutamente contínua<sup class="nota-ref nota-termo"><a href="#nota-31" id="ref-31">31</a></sup>, enquanto \(X_n\) é
+discreta. Por outro lado, para qualquer \(0 \le x \le 1\), temos
+\(P(X \le x) = x\) e, denotando por \(\lfloor x \rfloor\) o maior inteiro menor ou
+igual a \(x\), temos
+<span class="eq">\[
+P(X_n \le x) = \frac{\lfloor nx \rfloor}{n}.
+\]</span>
+Logo, \(\lvert P(X_n \le x) - P(X \le x)\rvert \le 1/n\) para todo \(n\). Como
+\(\lim_{n \to \infty} 1/n = 0\), temos de fato \(X_n \to X\) em distribuição.</p></div></div>
+<div class="ex" id="exemplo-4.4.4"><div class="cab"><span class="rot">Exemplo 4.4.4</span></div><div class="txt fim"><p>Suponha que \(X_1, X_2, \ldots\) sejam i.i.d. com média finita \(\mu\) e que
+\(M_n = (X_1 + \cdots + X_n)/n\). Então a lei fraca dos grandes números diz que,
+para qualquer \(\epsilon &gt; 0\), temos
+<span class="eq">\[
+P(M_n \le \mu - \epsilon) \to 0 \quad \text{e} \quad
+P(M_n \le \mu + \epsilon) \to 1
+\]</span>
+quando \(n \to \infty\). Segue que <span class="mat-quebravel">\(\lim_{n \to \infty} P(M_n \le x)\) \({}= P(M \le x)\)</span>
+para qualquer \(x \ne \mu\), em que \(M\) é a variável aleatória constante
+\(M = \mu\). Logo, \(M_n \to M\) em distribuição. Observe que <em>não</em> é
+necessariamente verdade que \(P(M_n \le \mu) \to P(M \le \mu) = 1\). Isso, porém,
+não contradiz a definição de convergência em distribuição<sup class="nota-ref nota-termo"><a href="#nota-32" id="ref-32">32</a></sup>, porque
+\(P(M = \mu) \ne 0\), de modo que não precisamos nos preocupar com o caso
+\(x = \mu\).</p></div></div>
+<div class="ex" id="exemplo-4.4.5"><div class="cab"><span class="rot">Exemplo 4.4.5</span> <span class="nome">Aproximação de Poisson para a Binomial</span></div><div class="txt fim"><p>Suponha que \(X_n \sim \text{Binomial}(n, \lambda/n)\) e
+\(X \sim \text{Poisson}(\lambda)\). Vimos no Exemplo 2.3.6 que
+<span class="eq">\[
+P(X_n = j) = \binom{n}{j} \left(\frac{\lambda}{n}\right)^{j}
+\left(1 - \frac{\lambda}{n}\right)^{n - j} \to e^{-\lambda} \frac{\lambda^j}{j!}
+\]</span>
+quando \(n \to \infty\). Isso implica que \(F_{X_n}(x) \to F_X(x)\) em todo ponto
+\(x \notin \{0, 1, 2, \ldots\}\), e esses são exatamente os pontos em que
+\(P(X = x) = 0\). Portanto, \(\{X_n\}\) converge em distribuição para \(X\). (Na
+verdade, foi essa a nossa motivação original para a distribuição de Poisson.)</p></div></div>
+<p>Muitos outros exemplos de convergência em distribuição são dados pelo teorema
+central do limite, discutido na próxima seção. Antes, paramos para considerar a
+relação entre a convergência em distribuição e as noções de convergência
+anteriores.</p>
+<div class="teo teorema" id="teorema-4.4.1"><div class="cab"><span class="rot">Teorema 4.4.1</span></div><div class="txt"><p>Se \(X_n \xrightarrow{P} X\), então \(X_n \xrightarrow{D} X\).</p></div></div>
+<div class="dem fim"><span class="rot">Demonstração.</span> <p>Veja a Seção 4.7 para a demonstração deste resultado.</p></div>
+<p>A recíproca do Teorema 4.4.1 é falsa. De fato, o fato de \(X_n\) convergir em
+distribuição para \(X\) não diz nada sobre a <em>relação</em> subjacente entre \(X_n\)
+e \(X\); diz apenas algo sobre as distribuições delas. O exemplo a seguir ilustra
+isso.</p>
+<div class="ex" id="exemplo-4.4.6"><div class="cab"><span class="rot">Exemplo 4.4.6</span></div><div class="txt fim"><p>Suponha que \(X, X_1, X_2, \ldots\) sejam i.i.d., cada uma igual a \(\pm 1\) com
+probabilidade \(1/2\) cada. Neste caso, \(P(X_n \le x) = P(X \le x)\) para todo \(n\)
+e todo \(x \in R^1\), de modo que, é claro, \(X_n\) converge em distribuição para
+\(X\). Por outro lado, como \(X\) e \(X_n\) são independentes,
+<span class="eq">\[
+P(\lvert X - X_n\rvert \ge 2) = \frac{1}{2}
+\]</span>
+para todo \(n\), o que <em>não</em> tende a 0 quando \(n \to \infty\). Logo, \(X_n\)
+<em>não</em> converge para \(X\) em probabilidade (nem com probabilidade 1). Assim,
+podemos ter convergência em distribuição sem convergência em probabilidade nem
+convergência com probabilidade 1.</p></div></div>
+<p>O resultado a seguir, enunciado sem demonstração, indica como as funções
+geradoras de momentos podem ser usadas para verificar a convergência em
+distribuição. (Ele generaliza o Teorema 3.4.6.)</p>
+<div class="teo teorema" id="teorema-4.4.2"><div class="cab"><span class="rot">Teorema 4.4.2</span></div><div class="txt"><p>Seja \(X\) uma variável aleatória tal que, para algum \(s_0 &gt; 0\), temos
+\(m_X(s) &lt; \infty\) sempre que \(s \in (-s_0, s_0)\). Se \(Z_1, Z_2, \ldots\) é uma
+sequência de variáveis aleatórias com \(m_{Z_n}(s) &lt; \infty\) e
+\(\lim_{n \to \infty} m_{Z_n}(s) = m_X(s)\) para todo \(s \in (-s_0, s_0)\), então
+\(\{Z_n\}\) converge para \(X\) em distribuição.</p></div></div>
+<p>Usaremos esse resultado para provar um dos teoremas mais famosos da
+probabilidade: o teorema central do limite.</p>
+<p>Por fim, observamos que combinar o Teorema 4.4.1 com o Teorema 4.3.1 revela o
+seguinte.</p>
+<div class="teo corolario" id="corolario-4.4.1"><div class="cab"><span class="rot">Corolário 4.4.1</span></div><div class="txt"><p>Se \(X_n \to X\) com probabilidade 1, então \(X_n \xrightarrow{D} X\).</p></div></div>
+<h3 id="subsec-4.4.1"><span class="n">4.4.1</span> <span class="t">O Teorema Central do Limite</span></h3>
+<p>Apresentamos agora o teorema central do limite, um dos resultados mais
+importantes de toda a teoria da probabilidade. Intuitivamente, ele diz que uma
+soma grande de variáveis aleatórias i.i.d., normalizada de forma adequada, terá
+sempre distribuição aproximadamente <em>normal</em>. Isso mostra que a
+distribuição normal é extremamente fundamental em probabilidade e estatística,
+embora sua função densidade seja complicada e sua função de distribuição
+acumulada<sup class="nota-ref nota-termo"><a href="#nota-33" id="ref-33">33</a></sup> seja intratável.</p>
+<p>Suponha que \(X_1, X_2, \ldots\) seja uma sequência i.i.d. de variáveis
+aleatórias, cada uma com média finita \(\mu\) e variância finita \(\sigma^2\). Seja
+\(S_n = X_1 + \cdots + X_n\) a soma amostral<sup class="nota-ref nota-termo"><a href="#nota-34" id="ref-34">34</a></sup> e \(M_n = S_n/n\) a média amostral. O
+teorema central do limite trata da distribuição da variável aleatória
+<span class="eq">\[
+Z_n = \frac{S_n - n\mu}{\sqrt{n}\,\sigma} = \frac{M_n - \mu}{\sigma/\sqrt{n}}
+= \sqrt{n} \left(\frac{M_n - \mu}{\sigma}\right),
+\]</span>
+em que \(\sigma = \sqrt{\sigma^2}\). Sabemos que \(E(M_n) = \mu\) e
+\(\Var(M_n) = \sigma^2/n\), o que implica \(E(Z_n) = 0\) e \(\Var(Z_n) = 1\). A
+variável \(Z_n\) é obtida, portanto, da média amostral (ou da soma amostral)
+subtraindo sua média e dividindo pelo seu desvio padrão. Essa transformação é
+chamada de <em>padronização</em> de uma variável aleatória, para que ela tenha
+média 0 e variância 1. Portanto, \(Z_n\) é a versão padronizada<sup class="nota-ref nota-termo"><a href="#nota-35" id="ref-35">35</a></sup> da média amostral
+(da soma amostral).</p>
+<p>Observe que a distribuição de \(Z_n\) tem duas características em comum com a
+distribuição \(N(0, 1)\): média 0 e variância 1. O teorema central do limite
+mostra que há uma relação ainda mais forte.</p>
+<div class="teo teorema" id="teorema-4.4.3"><div class="cab"><span class="rot">Teorema 4.4.3</span> <span class="nome">(O teorema central do limite)</span></div><div class="txt"><p>Sejam \(X_1, X_2, \ldots\) i.i.d. com média finita \(\mu\) e variância finita
+\(\sigma^2\). Seja \(Z \sim N(0, 1)\). Então, quando \(n \to \infty\), a sequência
+\(\{Z_n\}\) converge em distribuição para \(Z\), isto é, \(Z_n \xrightarrow{D} Z\).</p></div></div>
+<div class="dem fim"><span class="rot">Demonstração.</span> <p>Veja a Seção 4.7 para a demonstração deste resultado.</p></div>
+<p>O teorema central do limite é tão importante que vamos reenunciar suas
+conclusões de várias maneiras diferentes.</p>
+<div class="teo corolario" id="corolario-4.4.2"><div class="cab"><span class="rot">Corolário 4.4.2</span></div><div class="txt"><p>Para cada \(x \in R^1\) fixo, \(\lim_{n \to \infty} P(Z_n \le x) = \Phi(x)\), em que
+\(\Phi\) é a função de distribuição acumulada da distribuição normal padrão<sup class="nota-ref nota-termo"><a href="#nota-36" id="ref-36">36</a></sup>.</p></div></div>
+<p>Podemos escrever isso da seguinte forma.</p>
+<div class="teo corolario" id="corolario-4.4.3"><div class="cab"><span class="rot">Corolário 4.4.3</span></div><div class="txt"><p>Para cada \(x \in R^1\) fixo,
+<span class="eq">\begin{gather*}
+\lim_{n \to \infty} P(S_n \le n\mu + x\sqrt{n}\,\sigma) = \Phi(x)
+\quad \text{e} \\
+\lim_{n \to \infty} P(M_n \le \mu + x\sigma/\sqrt{n}) = \Phi(x).
+\end{gather*}</span>
+Em particular, \(S_n\) é aproximadamente igual a \(n\mu\), com desvios desse valor
+da ordem de \(\sqrt{n}\), e \(M_n\) é aproximadamente igual a \(\mu\), com desvios
+desse valor da ordem de \(1/\sqrt{n}\).</p></div></div>
+<p>Observamos que não é essencial, no teorema central do limite, dividir por
+\(\sigma\); nesse caso, o teorema afirma, em vez disso, que
+\((S_n - n\mu)/\sqrt{n}\) (ou \(\sqrt{n}\,(M_n - \mu)\)) converge em distribuição
+para a distribuição \(N(0, \sigma^2)\). Isto é, a distribuição limite ainda será
+normal, mas terá variância \(\sigma^2\) em vez de variância 1.</p>
+<p>Da mesma forma, em vez de dividir exatamente por \(\sigma\), basta dividir por
+qualquer quantidade \(\sigma_n\), desde que \(\sigma_n \xrightarrow{\text{q.c.}} \sigma\).
+Uma modificação simples da demonstração do Teorema 4.4.2 leva ao resultado a
+seguir.</p>
+<div class="teo corolario" id="corolario-4.4.4"><div class="cab"><span class="rot">Corolário 4.4.4</span></div><div class="txt"><p>Se
+<span class="eq">\[
+Z_n^{*} = \frac{S_n - n\mu}{\sqrt{n}\,\sigma_n} = \frac{M_n - \mu}{\sigma_n/\sqrt{n}}
+= \sqrt{n} \left(\frac{M_n - \mu}{\sigma_n}\right)
+\]</span>
+e \(\lim_{n \to \infty} \sigma_n \xrightarrow{\text{q.c.}} \sigma\), então
+\(Z_n^{*} \xrightarrow{D} Z\) quando \(n \to \infty\).</p></div></div>
+<p>Para ilustrar o teorema central do limite, consideramos um experimento de
+simulação.</p>
+<div class="ex" id="exemplo-4.4.7"><div class="cab"><span class="rot">Exemplo 4.4.7</span> <span class="nome">O Teorema Central do Limite Ilustrado numa Simulação</span></div><div class="txt fim"><p>Suponha que geramos uma amostra \(X_1, \ldots, X_n\) da densidade
+\(\text{Uniforme}[0, 1]\). Observe que a densidade \(\text{Uniforme}[0, 1]\) é
+completamente diferente de uma densidade normal. Uma conta fácil mostra que,
+quando \(X \sim \text{Uniforme}[0, 1]\), então \(E(X) = 1/2\) e \(\Var(X) = 1/12\).</p>
+<p>Suponha agora que estamos interessados na distribuição da média amostral
+\(M_n = S_n/n = (X_1 + \cdots + X_n)/n\) para várias escolhas de \(n\). O teorema
+central do limite nos diz que
+<span class="eq">\[
+Z_n = \frac{S_n - n/2}{\sqrt{n/12}} = \sqrt{n} \left(\frac{M_n - 1/2}{\sqrt{1/12}}\right)
+\]</span>
+converge em distribuição para uma distribuição \(N(0, 1)\). Mas quão grande \(n\)
+precisa ser para que essa aproximação seja precisa?</p>
+<p>Para avaliar isso, fizemos um experimento de simulação de Monte Carlo<sup class="nota-ref nota-termo"><a href="#nota-37" id="ref-37">37</a></sup>. Na
+Figura 4.4.1, traçamos um histograma de densidade de \(N = 10^5\) valores da
+distribuição \(N(0, 1)\), com base em 800 subintervalos de \((-4, 4)\), cada um de
+comprimento \(l = 0{,}01\). Os histogramas de densidade são discutidos mais a fundo
+na Seção 5.4.3, mas, por ora, observamos que, acima de cada intervalo, traçamos
+a proporção dos valores amostrados que caíram no intervalo, dividida pelo
+comprimento do intervalo. À medida que aumentamos \(N\) e diminuímos \(l\), esses
+histogramas se parecem cada vez mais com a densidade da distribuição da qual
+estamos amostrando. De fato, a Figura 4.4.1 se parece muito com uma densidade
+\(N(0, 1)\), como deveria.</p>
+<p>Na Figura 4.4.2, traçamos um histograma de densidade (usando os mesmos valores
+de \(N\) e \(l\)) de \(Z_1\). Observe que
+\(Z_1 \sim \text{Uniforme}[-\sqrt{12}/2, \sqrt{12}/2]\) e, de fato, o histograma
+se parece com uma densidade uniforme. A Figura 4.4.3 apresenta um histograma de
+densidade de \(Z_2\), que ainda parece muito pouco normal; mas observe que o
+histograma de \(Z_3\), na Figura 4.4.4, já começa a se parecer mais com uma
+distribuição normal. O histograma de \(Z_{10}\), na Figura 4.4.5, parece muito
+normal. Na verdade, a proporção de valores de \(Z_{10}\) em \((-\infty; 1{,}96]\),
+nesse histograma, é igual a 0,9759, enquanto a proporção exata para uma
+distribuição \(N(0, 1)\) é 0,9750.</p>
+<p>Assim, neste exemplo, o teorema central do limite fez efeito muito rapidamente,
+mesmo estando nós amostrando de uma distribuição muito diferente da normal.
+Acontece que são principalmente as caudas de uma distribuição que determinam
+quão grande \(n\) precisa ser para que a aproximação do teorema central do limite
+seja precisa. Quando uma distribuição tem caudas que não são mais pesadas que
+as de uma distribuição normal, podemos esperar que a aproximação seja bastante
+precisa para tamanhos amostrais relativamente pequenos.</p></div></div>
+<figure class="figura">
+  <img class="figura" src="figuras/fig-4.4.1.png" alt="">
+  <figcaption id="figura-4.4.1"><span class="rot">Figura 4.4.1:</span> Histograma de densidade de \(10^5\) valores normais padrão.</figcaption>
+</figure>
+<figure class="figura">
+  <img class="figura" src="figuras/fig-4.4.2.png" alt="">
+  <figcaption id="figura-4.4.2"><span class="rot">Figura 4.4.2:</span> Histograma de densidade de \(10^5\) valores de \(Z_1\) no Exemplo 4.4.7.</figcaption>
+</figure>
+<figure class="figura">
+  <img class="figura" src="figuras/fig-4.4.3.png" alt="">
+  <figcaption id="figura-4.4.3"><span class="rot">Figura 4.4.3:</span> Histograma de densidade de \(10^5\) valores de \(Z_2\) no Exemplo 4.4.7.</figcaption>
+</figure>
+<figure class="figura">
+  <img class="figura" src="figuras/fig-4.4.4.png" alt="">
+  <figcaption id="figura-4.4.4"><span class="rot">Figura 4.4.4:</span> Histograma de densidade de \(10^5\) valores de \(Z_3\) no Exemplo 4.4.7.</figcaption>
+</figure>
+<figure class="figura">
+  <img class="figura" src="figuras/fig-4.4.5.png" alt="">
+  <figcaption id="figura-4.4.5"><span class="rot">Figura 4.4.5:</span> Histograma de densidade de \(10^5\) valores de \(Z_{10}\) no Exemplo 4.4.7.</figcaption>
+</figure>
+<p>Consideramos algumas outras aplicações do teorema central do limite.</p>
+<div class="ex" id="exemplo-4.4.8"><div class="cab"><span class="rot">Exemplo 4.4.8</span></div><div class="txt fim"><p>Por exemplo, suponha que \(X_1, X_2, \ldots\) sejam variáveis aleatórias i.i.d.,
+cada uma com distribuição \(\text{Poisson}(5)\). Lembre que isso implica
+\(\mu = E(X_i) = 5\) e \(\sigma^2 = \Var(X_i) = 5\). Logo, para cada \(x \in R^1\)
+fixo, temos
+<span class="eq">\[
+P\left(S_n \le 5n + x\sqrt{5n}\right) \to \Phi(x)
+\]</span>
+quando \(n \to \infty\).</p></div></div>
+<div class="ex" id="exemplo-4.4.9"><div class="cab"><span class="rot">Exemplo 4.4.9</span> <span class="nome">Aproximação Normal para a Distribuição Binomial</span></div><div class="txt fim"><p>Suponha que \(X_1, X_2, \ldots\) sejam variáveis aleatórias i.i.d., cada uma com
+distribuição \(\text{Bernoulli}(\theta)\). Lembre que isso implica
+\(E(X_i) = \theta\) e \(v = \Var(X_i) = \theta(1 - \theta)\). Logo, para cada
+\(x \in R^1\) fixo, temos
+<span class="eq">\begin{equation}
+P\left(S_n \le n\theta + x\sqrt{n\theta(1 - \theta)}\right) \to \Phi(x),
+\tag{4.4.1}
+\end{equation}</span>
+quando \(n \to \infty\).</p>
+<p>Mas observe agora que já mostramos que
+\(Y_n = S_n \sim \text{Binomial}(n, \theta)\). Então (4.4.1) implica que, sempre
+que tivermos uma variável aleatória \(Y_n \sim \text{Binomial}(n, \theta)\),
+<span class="eq">\begin{equation}
+\begin{split}
+P(Y_n \le y) &amp;= P\left(\frac{Y_n - n\theta}{\sqrt{n\theta(1 - \theta)}}
+\le \frac{y - n\theta}{\sqrt{n\theta(1 - \theta)}}\right)\\
+&amp;\approx \Phi\left(\frac{y - n\theta}{\sqrt{n\theta(1 - \theta)}}\right)
+\end{split}
+\tag{4.4.2}
+\end{equation}</span>
+para \(n\) grande.</p>
+<p>Observe que aqui estamos aproximando uma distribuição discreta por uma
+distribuição contínua. Por causa disso, muitas vezes se faz uma pequena melhoria
+em (4.4.2) quando \(y\) é um inteiro não negativo<sup class="nota-ref nota-termo"><a href="#nota-38" id="ref-38">38</a></sup>. Em vez dela, usamos
+<span class="eq">\[
+P(Y_n \le y) \approx \Phi\left(\frac{y + 0{,}5 - n\theta}{\sqrt{n\theta(1 - \theta)}}\right).
+\]</span>
+Somar 0,5 a \(y\) é chamado de <em>correção de continuidade<sup class="nota-ref nota-termo"><a href="#nota-39" id="ref-39">39</a></sup></em>. Na prática, isso
+atribui toda a probabilidade normal relevante do intervalo \((y - 0{,}5; y + 0{,}5)\)
+ao inteiro não negativo \(y\). Já se mostrou que isso melhora a aproximação
+(4.4.2).</p></div></div>
+<div class="ex" id="exemplo-4.4.10"><div class="cab"><span class="rot">Exemplo 4.4.10</span> <span class="nome">Aproximação de Probabilidades Usando o Teorema Central do Limite</span></div><div class="txt fim"><p>Embora existam tabelas para a distribuição binomial (Tabela D.6), muitas vezes
+precisamos calcular probabilidades binomiais em situações que as tabelas não
+cobrem. Sempre podemos usar um software estatístico para isso; na verdade, esses
+softwares usam a aproximação normal que deduzimos do teorema central do limite.</p>
+<p>Por exemplo, suponha que temos uma moeda viciada, em que a probabilidade de
+obter cara num único lançamento é \(\theta = 0{,}6\). Vamos lançar a moeda
+\(n = 1000\) vezes e então calcular a probabilidade de obter pelo menos 550 caras
+e no máximo 625 caras. Se \(Y\) denota o número de caras obtidas nos 1000
+lançamentos, temos \(Y \sim \text{Binomial}(1000; 0{,}6)\), de modo que
+<span class="eq">\begin{align*}
+E(Y) &amp;= 1000\,(0{,}6) = 600,\\
+\Var(Y) &amp;= 1000\,(0{,}6)\,(0{,}4) = 240.
+\end{align*}</span>
+Portanto, usando a correção de continuidade e a Tabela D.2,
+<span class="eq">\begin{align*}
+P(550 \le Y \le 625) &amp;= P(550 - 0{,}5 \le Y \le 625 + 0{,}5)\\
+&amp;= P\left(\frac{549{,}5 - 600}{\sqrt{240}} \le \frac{Y - 600}{\sqrt{240}}
+\le \frac{625{,}5 - 600}{\sqrt{240}}\right)\\
+&amp;= P\left(-3{,}2598 \le \frac{Y - 600}{\sqrt{240}} \le 1{,}646\right)\\
+&amp;\approx \Phi(1{,}65) - \Phi(-3{,}26) = 0{,}9505 - 0{,}0006 = 0{,}9499.
+\end{align*}</span>
+Observe que seria impossível calcular essa probabilidade usando as fórmulas da
+distribuição binomial.</p></div></div>
+<p>Um dos usos mais importantes do teorema central do limite é que ele leva a um
+método para avaliar o erro de uma média quando ela está estimando ou aproximando
+alguma quantidade de interesse.</p>
+<h3 id="subsec-4.4.2"><span class="n">4.4.2</span> <span class="t">O Teorema Central do Limite e a Avaliação do Erro</span></h3>
+<p>Suponha que \(X_1, X_2, \ldots\) seja uma sequência i.i.d. de variáveis
+aleatórias, cada uma com média finita \(\mu\) e variância finita \(\sigma^2\), e
+que estejamos usando a média amostral \(M_n\) para aproximar a média \(\mu\). Essa
+situação surge com frequência em muitos problemas computacionais (ver a
+Seção 4.5) e estatísticos (ver o Capítulo 6). Nesse contexto, podemos gerar os
+\(X_i\), mas não conhecemos o valor de \(\mu\).</p>
+<p>Se aproximamos \(\mu\) por \(M_n\), uma pergunta natural é: quanto erro há na
+aproximação? O teorema central do limite nos diz que
+<span class="eq">\begin{align*}
+\Phi(3) - \Phi(-3)
+&amp;= \lim_{n \to \infty} P\left(-3 &lt; \frac{M_n - \mu}{\sigma/\sqrt{n}} &lt; 3\right)\\
+&amp;= \lim_{n \to \infty} P\left(M_n - 3\frac{\sigma}{\sqrt{n}} &lt; \mu
+&lt; M_n + 3\frac{\sigma}{\sqrt{n}}\right).
+\end{align*}</span>
+Usando a Tabela D.2 (ou um software estatístico), temos
+<span class="mat-quebravel">\(\Phi(3) - \Phi(-3)\) \({}= 0{,}9987 - (1 - 0{,}9987)\) \({}= 0{,}9974\)</span>. Assim, para \(n\) grande,
+temos que o intervalo
+<span class="eq">\[
+\left(M_n - 3\sigma/\sqrt{n}, M_n + 3\sigma/\sqrt{n}\right)
+\]</span>
+contém o valor desconhecido de \(\mu\) praticamente com certeza<sup class="nota-ref nota-termo"><a href="#nota-40" id="ref-40">40</a></sup> (na verdade, com
+probabilidade de cerca de 0,9974). Portanto, o semicomprimento<sup class="nota-ref nota-termo"><a href="#nota-41" id="ref-41">41</a></sup>
+\(3\sigma/\sqrt{n}\) desse intervalo nos dá uma avaliação do erro da aproximação
+\(M_n\). Observe que \(\Var(M_n) = \sigma^2/n\), de modo que o semicomprimento do
+intervalo é igual a 3 desvios padrão da estimativa \(M_n\).</p>
+<p>Como não conhecemos \(\mu\), é extremamente improvável que conheçamos \(\sigma\)
+(já que sua definição usa \(\mu\)). Mas, se conseguirmos encontrar uma estimativa
+consistente<sup class="nota-ref nota-termo"><a href="#nota-42" id="ref-42">42</a></sup> \(\sigma_n\) de \(\sigma\), então podemos usar o Corolário 4.4.4 para
+construir esse intervalo.</p>
+<p>Acontece que a escolha correta de \(\sigma_n\) depende do que sabemos sobre a
+distribuição da qual estamos amostrando (ver o Capítulo 6 para mais discussão
+sobre isso). Por exemplo, se \(X_1 \sim \text{Bernoulli}(\theta)\), então
+\(\mu = \theta\) e \(\sigma^2 = \Var(X_1) = \theta(1 - \theta)\). Pela lei forte dos
+grandes números (Teorema 4.3.2), \(M_n \xrightarrow{\text{q.c.}} \mu = \theta\) e,
+assim,
+<span class="eq">\[
+\sigma_n = \sqrt{M_n(1 - M_n)} \xrightarrow{\text{q.c.}} \sqrt{\theta(1 - \theta)} = \sigma.
+\]</span>
+Então, usando o mesmo argumento de antes, temos que, para \(n\) grande, o
+intervalo
+<span class="eq">\begin{equation}
+\left(M_n - 3\sqrt{M_n(1 - M_n)/n}, M_n + 3\sqrt{M_n(1 - M_n)/n}\right)
+\tag{4.4.3}
+\end{equation}</span>
+contém o verdadeiro valor de \(\theta\) praticamente com certeza (de novo, com
+probabilidade de cerca de 0,9974). O semicomprimento de (4.4.3) é uma medida da
+precisão da estimativa \(M_n\); observe que ele pode ser calculado a partir dos
+valores \(X_1, \ldots, X_n\). Chamamos a quantidade \((M_n(1 - M_n)/n)^{1/2}\) de
+<em>erro padrão<sup class="nota-ref nota-termo"><a href="#nota-43" id="ref-43">43</a></sup></em> da estimativa \(M_n\).</p>
+<p>Para uma variável aleatória \(X_1\) geral, seja
+<span class="eq">\begin{align*}
+\sigma_n^2 &amp;= \frac{1}{n - 1} \sum_{i=1}^{n} (X_i - M_n)^2
+= \frac{1}{n - 1} \left(\sum_{i=1}^{n} X_i^2 - 2M_n \sum_{i=1}^{n} X_i + nM_n^2\right)\\
+&amp;= \frac{n}{n - 1} \left(\frac{1}{n} \sum_{i=1}^{n} X_i^2 - 2M_n^2 + M_n^2\right)
+= \frac{n}{n - 1} \left(\frac{1}{n} \sum_{i=1}^{n} X_i^2 - M_n^2\right).
+\end{align*}</span>
+Pela lei forte dos grandes números, temos \(M_n \xrightarrow{\text{q.c.}} \mu\) e
+<span class="eq">\[
+\frac{1}{n} \sum_{i=1}^{n} X_i^2 \xrightarrow{\text{q.c.}} E\left(X_1^2\right)
+= \sigma^2 + \mu^2.
+\]</span>
+Como \(n/(n - 1) \to 1\) e também \(M_n^2 \xrightarrow{\text{q.c.}} \mu^2\), concluímos que
+\(\sigma_n^2 \xrightarrow{\text{q.c.}} \sigma^2\). Isso implica que
+\(\sigma_n \xrightarrow{\text{q.c.}} \sigma\); logo, \(\sigma_n\) é consistente para
+\(\sigma\). É comum chamar \(\sigma_n^2\) de <em>variância amostral</em> da amostra
+\(X_1, \ldots, X_n\). Quando o tamanho da amostra \(n\) está fixo, muitas vezes
+denotaremos essa estimativa da variância por \(S^2\).</p>
+<p>De novo, usando o argumento acima, temos que, para \(n\) grande, o intervalo
+<span class="eq">\begin{equation}
+\left(M_n - 3\sigma_n/\sqrt{n}, M_n + 3\sigma_n/\sqrt{n}\right)
+= \left(M_n - 3S/\sqrt{n}, M_n + 3S/\sqrt{n}\right)
+\tag{4.4.4}
+\end{equation}</span>
+contém o verdadeiro valor de \(\mu\) praticamente com certeza (também com
+probabilidade de cerca de 0,9974). Portanto, o semicomprimento é uma medida da
+precisão da estimativa \(M_n\); observe que ele pode ser calculado a partir dos
+valores \(X_1, \ldots, X_n\). A quantidade \(S/\sqrt{n}\) é chamada de
+<em>erro padrão</em> da estimativa \(M_n\).</p>
+<p>Usaremos essas estimativas do erro das aproximações na próxima seção.</p>
+<section class="resumo"><h4>Resumo da Seção 4.4</h4><ul><li>Uma sequência \(\{X_n\}\) de variáveis aleatórias converge em distribuição
+  para \(Y\) se, para todo \(y \in R^1\) com \(P(Y = y) = 0\), temos
+  \(\lim_{n \to \infty} F_{X_n}(y) = F_Y(y)\), isto é,
+  <span class="mat-quebravel">\(\lim_{n \to \infty} P(X_n \le y)\) \({}= P(Y \le y)\)</span>.</li>
+<li>Se \(\{X_n\}\) converge para \(Y\) em probabilidade (ou com probabilidade 1),
+  então \(\{X_n\}\) converge para \(Y\) em distribuição.</li>
+<li>O importantíssimo teorema central do limite diz que, se as \(\{X_n\}\) são
+  i.i.d. com média \(\mu\) e variância \(\sigma^2\) finitas, então as variáveis
+  aleatórias \(Z_n = (S_n - n\mu)/\sqrt{n}\,\sigma\) convergem em distribuição
+  para uma distribuição normal padrão.</li>
+<li>O teorema central do limite nos permite aproximar diversas distribuições
+  por distribuições normais, o que é útil em experimentos de simulação e em
+  muitos outros contextos. A Tabela D.2 (ou qualquer pacote de software
+  estatístico) fornece valores da função de distribuição acumulada de uma
+  normal padrão.</li></ul></section>
+<h4 class="bloco bloco-exercicios">Exercícios</h4>
+<p class="exerc" id="exerc-4.4.1"><span class="k">4.4.1</span> Suponha que \(P(X_n = i) = (n + i)/(3n + 6)\) para \(i = 1, 2, 3\).
+Suponha também que \(P(X = i) = 1/3\) para \(i = 1, 2, 3\). Prove que \(\{X_n\}\)
+converge em distribuição para \(X\).</p>
+<p class="exerc" id="exerc-4.4.2"><span class="k">4.4.2</span> Suponha que \(P(Y_n = k) = (1 - 2^{-n-1})^{-1}/2^{k+1}\) para
+\(k = 0, 1, \ldots, n\). Seja \(Y \sim \text{Geométrica}(1/2)\). Prove que \(\{Y_n\}\)
+converge em distribuição para \(Y\).</p>
+<p class="exerc" id="exerc-4.4.3"><span class="k">4.4.3</span> Seja \(Z_n\) com densidade \((n + 1)x^n\) para \(0 &lt; x &lt; 1\), e 0 caso
+contrário. Seja \(Z = 1\). Prove que \(\{Z_n\}\) converge em distribuição para \(Z\).</p>
+<p class="exerc" id="exerc-4.4.4"><span class="k">4.4.4</span> Seja \(W_n\) com densidade
+<span class="eq">\[
+\frac{1 + x/n}{1 + 1/2n}
+\]</span>
+para \(0 &lt; x &lt; 1\), e 0 caso contrário. Seja \(W \sim \text{Uniforme}[0, 1]\).
+Prove que \(\{W_n\}\) converge em distribuição para \(W\).</p>
+<p class="exerc" id="exerc-4.4.5"><span class="k">4.4.5</span> Sejam \(Y_1, Y_2, \ldots\) i.i.d. com distribuição
+\(\text{Exponencial}(3)\). Use o teorema central do limite e a Tabela D.2 (ou um
+software) para estimar a probabilidade \(P(\sum_{i=1}^{1600} Y_i \le 540)\).</p>
+<p class="exerc" id="exerc-4.4.6"><span class="k">4.4.6</span> Sejam \(Z_1, Z_2, \ldots\) i.i.d. com distribuição
+\(\text{Uniforme}[-20, 10]\). Use o teorema central do limite e a Tabela D.2 (ou
+um software) para estimar a probabilidade \(P(\sum_{i=1}^{900} Z_i \ge -4470)\).</p>
+<p class="exerc" id="exerc-4.4.7"><span class="k">4.4.7</span> Sejam \(X_1, X_2, \ldots\) i.i.d. com distribuição
+\(\text{Geométrica}(1/4)\). Use o teorema central do limite e a Tabela D.2 (ou um
+software) para estimar a probabilidade \(P(\sum_{i=1}^{800} X_i \ge 2450)\).</p>
+<p class="exerc" id="exerc-4.4.8"><span class="k">4.4.8</span> Suponha que \(X_n \sim N(0, 1/n)\), isto é, \(X_n\) tem distribuição
+normal com média 0 e variância \(1/n\). A sequência \(\{X_n\}\) converge em
+distribuição para alguma variável aleatória? Se sim, qual é a distribuição dessa
+variável aleatória?</p>
+<p class="exerc" id="exerc-4.4.9"><span class="k">4.4.9</span> Suponha que \(P(X_n = i/n) = 2i/n(n + 1)\) para
+\(i = 1, 2, 3, \ldots, n\). Seja \(Z\) com função densidade dada por \(f(z) = 2z\) para
+\(0 &lt; z &lt; 1\) e, caso contrário, \(f(z) = 0\).
+<span class="parte"><span class="pl">(a)</span>  Calcule \(P(Z \le y)\) para \(0 &lt; y &lt; 1\).</span><span class="parte"><span class="pl">(b)</span>  Calcule \(P(X_n \le m/n)\) para algum inteiro \(1 \le m \le n\).
+(Sugestão: lembre que \(\sum_{i=1}^{m} i = m(m + 1)/2\).)</span><span class="parte"><span class="pl">(c)</span>  Calcule \(P(X_n \le y)\) para \(0 &lt; y &lt; 1\).</span><span class="parte"><span class="pl">(d)</span>  Prove que \(X_n \xrightarrow{D} Z\).</span></p>
+<p class="exerc" id="exerc-4.4.10"><span class="k">4.4.10</span> Suponha que \(P(Y_n \le y) = 1 - e^{-2ny/(n+1)}\) para todo
+\(y &gt; 0\). Prove que \(Y_n \xrightarrow{D} Y\), em que
+\(Y \sim \text{Exponencial}(\lambda)\) para algum \(\lambda &gt; 0\), e calcule
+\(\lambda\).</p>
+<p class="exerc" id="exerc-4.4.11"><span class="k">4.4.11</span> Suponha que \(P(Z_n \le z) = 1 - (1 - \frac{3z}{n})^n\) para todo
+\(0 &lt; z &lt; n/3\). Prove que \(Z_n \xrightarrow{D} Z\), em que
+\(Z \sim \text{Exponencial}(\lambda)\) para algum \(\lambda &gt; 0\), e calcule
+\(\lambda\). (Sugestão: lembre, do cálculo, que
+<span class="mat-quebravel">\(\lim_{n \to \infty} (1 + \frac{c}{n})^n\) \({}= e^c\)</span> para qualquer número real \(c\).)</p>
+<p class="exerc" id="exerc-4.4.12"><span class="k">4.4.12</span> Suponha que o tempo de atendimento, em minutos, num banco tenha
+distribuição Exponencial com \(\lambda = 1/2\). Use o teorema central do limite
+para estimar a probabilidade de que o tempo médio de atendimento dos primeiros
+\(n\) clientes seja menor que 2,5 minutos, quando:
+<span class="parte"><span class="pl">(a)</span>  \(n = 16\).</span><span class="parte"><span class="pl">(b)</span>  \(n = 36\).</span><span class="parte"><span class="pl">(c)</span>  \(n = 100\).</span></p>
+<p class="exerc" id="exerc-4.4.13"><span class="k">4.4.13</span> Suponha que o número de quilogramas de uma liga metálica
+produzidos por uma fábrica a cada semana seja uniformemente distribuído entre 20
+e 30. Use o teorema central do limite para estimar a probabilidade de que a
+produção do próximo ano seja menor que 1280 quilogramas. (Suponha que um ano
+tenha exatamente 52 semanas.)</p>
+<p class="exerc" id="exerc-4.4.14"><span class="k">4.4.14</span> Suponha que o tempo, em dias, até a falha de um componente tenha
+distribuição Gama com \(\alpha = 5\) e \(\lambda = 1/10\). Quando um componente
+falha, ele é imediatamente substituído por um componente novo. Use o teorema
+central do limite para estimar a probabilidade de que 40 componentes, juntos,
+sejam suficientes para durar pelo menos 6 anos. (Suponha que um ano tenha
+exatamente 365,25 dias.)</p>
+<h4 class="bloco bloco-exercicios-computacionais">Exercícios computacionais</h4>
+<p class="exerc" id="exerc-4.4.15"><span class="k">4.4.15</span> Gere \(N\) amostras
+\(X_1, X_2, \ldots, X_{20} \sim \text{Exponencial}(3)\) para \(N\) grande
+(\(N = 10^4\), se possível). Use essas amostras para estimar a probabilidade
+\(P(1/6 \le M_{20} \le 1/2)\). Como sua resposta se compara com a aproximação
+dada pelo teorema central do limite?</p>
+<p class="exerc" id="exerc-4.4.16"><span class="k">4.4.16</span> Gere \(N\) amostras
+\(X_1, X_2, \ldots, X_{30} \sim \text{Uniforme}[-20, 10]\) para \(N\) grande
+(\(N = 10^4\), se possível). Use essas amostras para estimar a probabilidade
+\(P(M_{30} \le -5)\). Como sua resposta se compara com a aproximação dada pelo
+teorema central do limite?</p>
+<p class="exerc" id="exerc-4.4.17"><span class="k">4.4.17</span> Gere \(N\) amostras
+\(X_1, X_2, \ldots, X_{20} \sim \text{Geométrica}(1/4)\) para \(N\) grande
+(\(N = 10^4\), se possível). Use essas amostras para estimar a probabilidade
+\(P(2{,}5 \le M_{20} \le 3{,}3)\). Como sua resposta se compara com a aproximação
+dada pelo teorema central do limite?</p>
+<p class="exerc" id="exerc-4.4.18"><span class="k">4.4.18</span> Gere \(N\) amostras \(X_1, X_2, \ldots, X_{20}\) da distribuição de
+\(\log Z\), em que \(Z \sim \text{Gama}(4, 1)\), para \(N\) grande (\(N = 10^4\), se
+possível). Use essas amostras para construir um histograma de densidade dos
+valores de \(M_{20}\). Comente a forma desse gráfico.</p>
+<p class="exerc" id="exerc-4.4.19"><span class="k">4.4.19</span> Gere \(N\) amostras \(X_1, X_2, \ldots, X_{20}\) da distribuição
+\(\text{Binomial}(10; 0{,}01)\) para \(N\) grande (\(N = 10^4\), se possível). Use essas
+amostras para construir um histograma de densidade dos valores de \(M_{20}\).
+Comente a forma desse gráfico.</p>
+<h4 class="bloco bloco-problemas">Problemas</h4>
+<p class="exerc" id="exerc-4.4.20"><span class="k">4.4.20</span> Seja \(a_1, a_2, \ldots\) uma sequência qualquer de números reais
+não negativos com \(\sum_i a_i = 1\). Suponha que \(P(X = i) = a_i\) para todo
+inteiro positivo \(i\). Construa uma sequência \(\{X_n\}\) de variáveis aleatórias
+<em>absolutamente contínuas</em> tal que \(X_n \to X\) em distribuição.</p>
+<p class="exerc" id="exerc-4.4.21"><span class="k">4.4.21</span> Seja \(f : [0, 1] \to (0, \infty)\) uma função contínua positiva
+tal que \(\int_0^1 f(x)\, dx = 1\). Considere variáveis aleatórias \(X\) e \(\{X_n\}\)
+tais que \(P(a \le X \le b) = \int_a^b f(x)\, dx\) para \(a \le b\) e
+<span class="eq">\[
+P\left(X_n = \frac{i}{n}\right) = \frac{f(i/n)}{\sum_{j=1}^{n} f(j/n)}
+\]</span>
+para \(i = 1, 2, 3, \ldots, n\). Prove que \(X_n \to X\) em distribuição.</p>
+<p class="exerc" id="exerc-4.4.22"><span class="k">4.4.22</span> Suponha que \(Y_i = X_i^3\) e que \(X_1, \ldots, X_n\) seja uma
+amostra de uma distribuição \(N(0, 1)\). Indique como você aproximaria a
+probabilidade \(P(M_n \le m)\), em que \(M_n = (Y_1 + \cdots + Y_n)/n\).</p>
+<p class="exerc" id="exerc-4.4.23"><span class="k">4.4.23</span> Suponha que \(Y_i = \cos(2\pi U_i)\) e que \(U_1, \ldots, U_n\) seja
+uma amostra da distribuição \(\text{Uniforme}[0, 1]\). Indique como você
+aproximaria a probabilidade \(P(M_n \le m)\), em que
+\(M_n = (Y_1 + \cdots + Y_n)/n\).</p>
+<h4 class="bloco bloco-problemas-computacionais">Problemas computacionais</h4>
+<p class="exerc" id="exerc-4.4.24"><span class="k">4.4.24</span> Suponha que \(Y = X^3\) e \(X \sim N(0, 1)\). Gerando uma amostra
+grande (\(n = 10^4\), se possível) da distribuição de \(Y\), aproxime a
+probabilidade \(P(Y \le 1)\) e avalie o erro da sua aproximação. Calcule essa
+probabilidade exatamente e compare-a com a sua aproximação.</p>
+<p class="exerc" id="exerc-4.4.25"><span class="k">4.4.25</span> Suponha que \(Y = X^3\) e \(X \sim N(0, 1)\). Gerando uma amostra
+grande (\(n = 10^4\), se possível) da distribuição de \(Y\), aproxime a esperança<sup class="nota-ref nota-termo"><a href="#nota-44" id="ref-44">44</a></sup>
+\(E(\cos(X^3))\) e avalie o erro da sua aproximação.</p>
+<h4 class="bloco bloco-desafios">Desafios</h4>
+<p class="exerc" id="exerc-4.4.26"><span class="k">4.4.26</span> Suponha que \(X_n \to C\) em distribuição, em que \(C\) é uma
+constante. Prove que \(X_n \to C\) em probabilidade. (Isso prova que, se \(X\) é
+<em>constante</em>, então a recíproca do Teorema 4.4.1 <em>vale</em>, embora não
+valha para \(X\) geral.)</p>
+<h2 id="sec-4.5"><span class="n">4.5</span> <span class="t">Aproximações de Monte Carlo</span></h2>
+<p>As leis dos grandes números dizem que, se \(X_1, X_2, \ldots\) é uma sequência
+i.i.d. de variáveis aleatórias com média \(\mu\) e
+<span class="eq">\[
+M_n = \frac{X_1 + \cdots + X_n}{n},
+\]</span>
+então, para \(n\) grande, teremos \(M_n \approx \mu\).</p>
+<p>Suponha agora que \(\mu\) seja <em>desconhecida</em>. Então, como discutido na
+Seção 4.4.2, é possível mudar de perspectiva e usar \(M_n\) (para \(n\) grande) como
+um <em>estimador</em>, ou aproximação, de \(\mu\). Sempre que aproximamos ou
+estimamos uma quantidade, também precisamos dizer algo sobre o tamanho do erro
+da estimativa. É claro que não podemos dizer exatamente qual é esse erro, pois
+isso exigiria conhecer o valor exato de \(\mu\). Na Seção 4.4.2, porém, mostramos
+como o teorema central do limite leva a uma abordagem muito natural para avaliar
+esse erro, usando três vezes o erro padrão da estimativa. Vejamos alguns
+exemplos.</p>
+<div class="ex" id="exemplo-4.5.1"><div class="cab"><span class="rot">Exemplo 4.5.1</span></div><div class="txt fim"><p>Considere lançar uma sequência de moedas idênticas, cada uma com probabilidade
+\(\theta\) de dar cara, mas com \(\theta\) desconhecido. Seja \(M_n\), novamente, a
+fração das \(n\) primeiras moedas que dão cara. Sabemos então que, para \(n\)
+grande, é muito provável que \(M_n\) esteja muito próximo de \(\theta\). Portanto,
+podemos usar \(M_n\) para <em>estimar</em> \(\theta\). Além disso, a discussão da
+Seção 4.4.2 indica que (4.4.3) é o intervalo relevante a apresentar quando se
+avalia a precisão da estimativa \(M_n\).</p></div></div>
+<div class="ex" id="exemplo-4.5.2"><div class="cab"><span class="rot">Exemplo 4.5.2</span></div><div class="txt fim"><p>Suponha que acreditamos que certo remédio baixa a pressão arterial, mas não
+sabemos quanto. Gostaríamos de conhecer a quantidade média \(\mu\) pela qual esse
+remédio baixa a pressão arterial.</p>
+<p>Suponha que observamos \(n\) pacientes (escolhidos ao acaso, de modo que sejam
+i.i.d.), em que o paciente \(i\) tem pressão arterial \(B_i\) antes de tomar o
+remédio e pressão arterial \(A_i\) depois. Seja \(X_i = B_i - A_i\). Então
+<span class="eq">\[
+M_n = \frac{1}{n} \sum_{i=1}^{n} (B_i - A_i)
+\]</span>
+é a redução média da pressão arterial. (Note que \(B_i - A_i\) pode ser negativo
+para alguns pacientes, e é importante incluir também esses termos negativos na
+soma.) Então, para \(n\) grande, o valor de \(M_n\) é uma boa <em>estimativa</em> de
+\(E(X_i) = \mu\). Além disso, a discussão da Seção 4.4.2 indica que (4.4.4) é o
+intervalo relevante a apresentar quando se avalia a precisão da estimativa
+\(M_n\).</p></div></div>
+<p>Estimadores como esses também podem ser usados para estimar quantidades
+puramente matemáticas, que não envolvem nenhum dado experimental (como moedas ou
+pacientes), mas que são difíceis demais de calcular diretamente. Nesse caso,
+esses estimadores são chamados de <em>aproximações de Monte Carlo</em> (nome
+tirado do cassino do principado de Mônaco, porque elas introduzem aleatoriedade
+para resolver problemas que não são aleatórios).</p>
+<div class="ex" id="exemplo-4.5.3"><div class="cab"><span class="rot">Exemplo 4.5.3</span></div><div class="txt fim"><p>Suponha que queremos calcular
+<span class="eq">\[
+I = \int_0^1 \cos(x^2) \sin(x^4)\, dx.
+\]</span>
+Essa integral não é fácil de resolver exatamente. Mas ela pode ser calculada
+aproximadamente por uma aproximação de Monte Carlo<sup class="nota-ref nota-termo"><a href="#nota-45" id="ref-45">45</a></sup>, como segue. Note que
+<span class="eq">\[
+I = E(\cos(U^2)\, \sin(U^4)),
+\]</span>
+em que \(U \sim \text{Uniforme}[0, 1]\). Portanto, para \(n\) grande, a integral \(I\)
+é aproximadamente igual a \(M_n = (T_1 + \cdots + T_n)/n\), em que
+\(T_i = \cos(U_i^2) \sin(U_i^4)\) e em que \(U_1, U_2, \ldots\) são i.i.d.
+Uniforme\([0, 1]\).</p>
+<p>Juntando tudo isso, obtemos o seguinte algoritmo para aproximar a integral \(I\):</p>
+<ol><li>Escolha um inteiro positivo grande \(n\).</li>
+<li>Obtenha \(U_i \sim \text{Uniforme}[0, 1]\), independentemente para
+    \(i = 1, 2, \ldots, n\).</li>
+<li>Faça \(T_i = \cos(U_i^2)\, \sin(U_i^4)\), para \(i = 1, 2, \ldots, n\).</li>
+<li>Estime \(I\) por \(M_n = (T_1 + \cdots + T_n)/n\).</li></ol>
+<p>Para \(n\) suficientemente grande, esse algoritmo dará uma boa estimativa da
+integral \(I\).</p>
+<p>Por exemplo, a tabela a seguir registra as estimativas \(M_n\) e os intervalos
+(4.4.4) baseados em amostras de variáveis Uniforme\([0, 1]\) para várias escolhas
+de \(n\).</p>
+<div class="centro"><div class="tbl"><table><tr><th>\(n\)</th><th>\(M_n\)</th><th>\(M_n - 3S/\sqrt{n}\)</th><th>\(M_n + 3S/\sqrt{n}\)</th></tr><tr><td>\(10^3\)</td><td>0,145294</td><td>0,130071</td><td>0,160518</td></tr><tr><td>\(10^4\)</td><td>0,138850</td><td>0,134105</td><td>0,143595</td></tr><tr><td>\(10^5\)</td><td>0,139484</td><td>0,137974</td><td>0,140993</td></tr></table></div></div>
+<p>Daí vemos que o valor de \(I\) é aproximadamente \(0{,}139484\) e que o valor
+verdadeiro está quase certamente no intervalo \((0{,}137974; 0{,}140993)\). Note como
+os comprimentos dos intervalos diminuem à medida que aumentamos \(n\). Na verdade,
+é possível mostrar que o valor exato é \(I = 0{,}139567\), de modo que nossa
+aproximação é excelente.</p></div></div>
+<div class="ex" id="exemplo-4.5.4"><div class="cab"><span class="rot">Exemplo 4.5.4</span></div><div class="txt fim"><p>Suponha que queremos calcular a integral
+<span class="eq">\[
+I = \int_0^{\infty} 25x^2 \cos(x^2) e^{-25x}\, dx.
+\]</span>
+Essa integral não é fácil de resolver exatamente, mas também pode ser calculada
+aproximadamente por uma aproximação de Monte Carlo, como segue.</p>
+<p>Note, primeiro, que \(I = E(X^2 \cos(X^2))\), em que
+\(X \sim \text{Exponencial}(25)\). Portanto, para \(n\) grande, a integral \(I\) é
+aproximadamente igual a \(M_n = (T_1 + \cdots + T_n)/n\), em que
+\(T_i = X_i^2 \cos(X_i^2)\), com \(X_1, X_2, \ldots\) i.i.d. Exponencial\((25)\).</p>
+<p>Ora, sabemos da Seção 2.10 que podemos simular \(X \sim \text{Exponencial}(25)\)
+fazendo \(X = -\ln(U)/25\), em que \(U \sim \text{Uniforme}[0, 1]\). Portanto,
+juntando tudo isso, obtemos o seguinte algoritmo para aproximar a integral \(I\):</p>
+<ol><li>Escolha um inteiro positivo grande \(n\).</li>
+<li>Obtenha \(U_i \sim \text{Uniforme}[0, 1]\), independentemente para
+    \(i = 1, 2, \ldots, n\).</li>
+<li>Faça \(X_i = -\ln(U_i)/25\), para \(i = 1, 2, \ldots, n\).</li>
+<li>Faça \(T_i = X_i^2 \cos(X_i^2)\), para \(i = 1, 2, \ldots, n\).</li>
+<li>Estime \(I\) por \(M_n = (T_1 + \cdots + T_n)/n\).</li></ol>
+<p>Para \(n\) suficientemente grande, esse algoritmo dará uma boa estimativa da
+integral \(I\).</p>
+<p>Por exemplo, a tabela a seguir registra as estimativas \(M_n\) e os intervalos
+(4.4.4) baseados em amostras de variáveis Exponencial\((25)\) para várias
+escolhas de \(n\).</p>
+<div class="centro"><div class="tbl"><table><tr><th>\(n\)</th><th>\(M_n\)</th><th>\(M_n - 3S/\sqrt{n}\)</th><th>\(M_n + 3S/\sqrt{n}\)</th></tr><tr><td>\(10^3\)</td><td>\(3{,}33846 \times 10^{-3}\)</td><td>\(2{,}63370 \times 10^{-3}\)</td><td>\(4{,}04321 \times 10^{-3}\)</td></tr><tr><td>\(10^4\)</td><td>\(3{,}29933 \times 10^{-3}\)</td><td>\(3{,}06646 \times 10^{-3}\)</td><td>\(3{,}53220 \times 10^{-3}\)</td></tr><tr><td>\(10^5\)</td><td>\(3{,}20629 \times 10^{-3}\)</td><td>\(3{,}13759 \times 10^{-3}\)</td><td>\(3{,}27499 \times 10^{-3}\)</td></tr></table></div></div>
+<p>Daí vemos que o valor de \(I\) é aproximadamente \(3{,}20629 \times 10^{-3}\) e que o
+valor verdadeiro está quase certamente no intervalo
+\(\bigl(3{,}13759 \times 10^{-3}; 3{,}27499 \times 10^{-3}\bigr)\).</p></div></div>
+<div class="ex" id="exemplo-4.5.5"><div class="cab"><span class="rot">Exemplo 4.5.5</span></div><div class="txt fim"><p>Suponha que queremos calcular a soma
+<span class="eq">\[
+S = \sum_{j=0}^{\infty} (j^2 + 3)^{-7} 5^{-j}.
+\]</span>
+Embora seja muito difícil calculá-la diretamente, ela pode ser calculada
+aproximadamente por uma aproximação de Monte Carlo.</p>
+<p>Vamos reescrever<sup class="nota-ref nota-termo"><a href="#nota-46" id="ref-46">46</a></sup> a soma como
+<span class="eq">\[
+S = \left(\frac{5}{4}\right) \sum_{j=0}^{\infty} (j^2 + 3)^{-7}
+\left(\frac{4}{5}\right) \left(1 - \frac{4}{5}\right)^{j}.
+\]</span>
+Vemos então que \(S = (5/4)\, E((X^2 + 3)^{-7})\), em que
+\(X \sim \text{Geométrica}(4/5)\).</p>
+<p>Ora, sabemos da Seção 2.10 que podemos simular \(X \sim \text{Geométrica}(4/5)\)
+fazendo \(X = \lfloor \ln(1 - U)/\ln(1 - 4/5) \rfloor\) ou, de forma
+equivalente, \(X = \lfloor \ln(U)/\ln(1 - 4/5) \rfloor\), em que
+\(U \sim \text{Uniforme}[0, 1]\) e em que \(\lfloor \cdot \rfloor\) significa
+arredondar para baixo, até o inteiro seguinte. Portanto, obtemos o seguinte
+algoritmo para aproximar a soma \(S\):</p>
+<ol><li>Escolha um inteiro positivo grande \(n\).</li>
+<li>Obtenha \(U_i \sim \text{Uniforme}[0, 1]\), independentemente para
+    \(i = 1, 2, \ldots, n\).</li>
+<li>Faça \(X_i = \lfloor \ln(U_i)/\ln(1 - 4/5) \rfloor\), para
+    \(i = 1, 2, \ldots, n\).</li>
+<li>Faça \(T_i = (X_i^2 + 3)^{-7}\), para \(i = 1, 2, \ldots, n\).</li>
+<li>Estime \(S\) por \(M_n = (5/4)(T_1 + \cdots + T_n)/n\).</li></ol>
+<p>Para \(n\) suficientemente grande, esse algoritmo dará uma boa estimativa da
+soma \(S\).</p>
+<p>Por exemplo, a tabela a seguir registra as estimativas \(M_n\) e os intervalos
+(4.4.4) baseados em amostras de variáveis Geométrica\((4/5)\) para várias
+escolhas de \(n\).</p>
+<div class="centro"><div class="tbl"><table><tr><th>\(n\)</th><th>\(M_n\)</th><th>\(M_n - 3S/\sqrt{n}\)</th><th>\(M_n + 3S/\sqrt{n}\)</th></tr><tr><td>\(10^3\)</td><td>\(4{,}66773 \times 10^{-4}\)</td><td>\(4{,}47078 \times 10^{-4}\)</td><td>\(4{,}86468 \times 10^{-4}\)</td></tr><tr><td>\(10^4\)</td><td>\(4{,}73538 \times 10^{-4}\)</td><td>\(4{,}67490 \times 10^{-4}\)</td><td>\(4{,}79586 \times 10^{-4}\)</td></tr><tr><td>\(10^5\)</td><td>\(4{,}69377 \times 10^{-4}\)</td><td>\(4{,}67436 \times 10^{-4}\)</td><td>\(4{,}71318 \times 10^{-4}\)</td></tr></table></div></div>
+<p>Daí vemos que o valor de \(S\) é aproximadamente \(4{,}69377 \times 10^{-4}\) e que o
+valor verdadeiro está quase certamente no intervalo
+\(\bigl(4{,}67436 \times 10^{-4}; 4{,}71318 \times 10^{-4}\bigr)\).</p></div></div>
+<p>Note que, ao usar uma aproximação de Monte Carlo, não é necessário que o
+domínio de uma integral ou de uma soma seja todo o conjunto de valores da
+variável aleatória correspondente, como mostra o exemplo a seguir.</p>
+<div class="ex" id="exemplo-4.5.6"><div class="cab"><span class="rot">Exemplo 4.5.6</span></div><div class="txt fim"><p>Suponha que queremos calcular a integral
+<span class="eq">\[
+J = \int_0^{\infty} \sin(x) e^{-x^2/2}\, dx.
+\]</span>
+Novamente, é extremamente difícil calculá-la exatamente.</p>
+<p>Aqui,
+<span class="eq">\[
+J = \sqrt{2\pi}\; E(\sin(X) I_{\{X &gt; 0\}}),
+\]</span>
+em que \(X \sim N(0, 1)\) e \(I_{\{X &gt; 0\}}\) é a função indicadora do evento
+\(\{X &gt; 0\}\). Sabemos da Seção 2.10 que podemos simular \(X \sim N(0, 1)\) fazendo
+<span class="eq">\[
+X = \sqrt{2 \log(1/U)}\, \cos(2\pi V),
+\]</span>
+em que \(U\) e \(V\) são i.i.d. Uniforme\([0, 1]\). Portanto, obtemos o seguinte
+algoritmo para aproximar a integral \(J\):</p>
+<ol><li>Escolha um inteiro positivo grande \(n\).</li>
+<li>Obtenha \(U_i, V_i \sim \text{Uniforme}[0, 1]\), independentemente para
+    \(i = 1, 2, \ldots, n\).</li>
+<li>Faça \(X_i = \sqrt{2 \log(1/U_i)}\, \cos(2\pi V_i)\), para
+    \(i = 1, 2, \ldots, n\).</li>
+<li>Faça \(T_i = \sin(X_i) I_{\{X_i &gt; 0\}}\), para \(i = 1, 2, \ldots, n\).
+    (Isto é, faça \(T_i = \sin(X_i)\) se \(X_i &gt; 0\); caso contrário, faça
+    \(T_i = 0\).)</li>
+<li>Estime \(J\) por \(M_n = \sqrt{2\pi}\, (T_1 + \cdots + T_n)/n\).</li></ol>
+<p>Para \(n\) suficientemente grande, esse algoritmo dará novamente uma boa
+estimativa da integral \(I\).<sup class="nota-ref nota-tradutor"><a href="#nota-47" id="ref-47">47</a></sup></p>
+<p>Por exemplo, a tabela a seguir registra as estimativas \(M_n\) e os intervalos
+(4.4.4) baseados em amostras de variáveis \(N(0, 1)\) para várias escolhas
+de \(n\).</p>
+<div class="centro"><div class="tbl"><table><tr><th>\(n\)</th><th>\(M_n\)</th><th>\(M_n - 3S/\sqrt{n}\)</th><th>\(M_n + 3S/\sqrt{n}\)</th></tr><tr><td>\(10^3\)</td><td>0,744037</td><td>0,657294</td><td>0,830779</td></tr><tr><td>\(10^4\)</td><td>0,733945</td><td>0,706658</td><td>0,761233</td></tr><tr><td>\(10^5\)</td><td>0,722753</td><td>0,714108</td><td>0,731398</td></tr></table></div></div>
+<p>Daí vemos que o valor de \(J\) é aproximadamente \(0{,}722753\) e que o valor
+verdadeiro está quase certamente no intervalo \((0{,}714108; 0{,}731398)\).</p></div></div>
+<p>Consideramos agora um problema importante para as aplicações estatísticas da
+teoria da probabilidade.</p>
+<div class="ex" id="exemplo-4.5.7"><div class="cab"><span class="rot">Exemplo 4.5.7</span> <span class="nome">Aproximação de Distribuições Amostrais por Monte Carlo</span></div><div class="txt fim"><p>Suponha que \(X_1, X_2, \ldots, X_n\) é uma sequência i.i.d. da medida de
+probabilidade<sup class="nota-ref nota-termo"><a href="#nota-48" id="ref-48">48</a></sup> \(P\). Queremos encontrar a distribuição de uma nova variável
+aleatória \(Y = h(X_1, X_2, \ldots, X_n)\), para alguma função \(h\). Desde que
+consigamos gerar valores de \(P\), os métodos de Monte Carlo nos dão uma maneira
+de aproximar essa distribuição.</p>
+<p>Denotando por \(F_Y\) a função de distribuição acumulada de \(Y\), temos
+<span class="eq">\[
+F_Y(y) = P((-\infty, y]) = E_{P_Y}(I_{(-\infty, y]}(Y))
+= E(I_{(-\infty, y]}(h(X_1, X_2, \ldots, X_n))).
+\]</span>
+Assim, \(F_Y(y)\) pode ser expressa como a esperança da variável aleatória
+<span class="eq">\[
+I_{(-\infty, y]}(h(X_1, X_2, \ldots, X_n))
+\]</span>
+com base em amostragem de \(P\).</p>
+<p>Para estimar isso, geramos \(N\) amostras de tamanho \(n\)
+<span class="eq">\[
+(X_{i1}, X_{i2}, \ldots, X_{in}),
+\]</span>
+para \(i = 1, \ldots, N\), de \(P\) (note que \(N\) é o tamanho da amostra de Monte
+Carlo e pode variar, enquanto o tamanho da amostra \(n\) é fixo aqui) e então
+calculamos a proporção de valores \(h(X_{i1}, X_{i2}, \ldots, X_{in}) \in
+(-\infty, y]\). A estimativa \(M_N\) é então dada por
+<span class="eq">\[
+\hat{F}_Y(y) = \frac{1}{N} \sum_{i=1}^{N}
+I_{(-\infty, y]}(h(X_{i1}, X_{i2}, \ldots, X_{in})).
+\]</span>
+Pelas leis dos grandes números, isso converge para \(F_Y(y)\) quando
+\(N \to \infty\). Para avaliar o erro dessa aproximação, usamos (4.4.3), que agora
+toma a forma<sup class="nota-ref nota-tradutor"><a href="#nota-49" id="ref-49">49</a></sup>
+<span class="eq">\[
+\left(\hat{F}_Y(y) - 3\sqrt{\hat{F}_Y(y)\bigl(1 - \hat{F}_Y(y)\bigr)/n},\;
+\hat{F}_Y(y) + 3\sqrt{\hat{F}_Y(y)\bigl(1 - \hat{F}_Y(y)\bigr)/n}\right).
+\]</span></p>
+<p>Apresentamos uma aplicação disso no Exemplo 4.4.7. Note que, se a base de um
+retângulo do histograma da Figura 4.4.2 é dada por \((a, b]\), então a altura
+desse retângulo é igual à proporção de valores que caíram em \((a, b]\) vezes
+\(1/(b - a)\). Isso pode ser expresso como
+\((\hat{F}_Y(b) - \hat{F}_Y(a))/(b - a)\), que converge para
+\((F_Y(b) - F_Y(a))/(b - a)\) quando \(N \to \infty\). Isso prova que as áreas dos
+retângulos do histograma convergem para \(F_Y(b) - F_Y(a)\) quando \(N \to \infty\).</p>
+<p>De modo mais geral, podemos aproximar uma esperança \(E(g(Y))\) pela média
+<span class="eq">\[
+\frac{1}{N} \sum_{i=1}^{N} g(h(X_{i1}, X_{i2}, \ldots, X_{in})).
+\]</span>
+Pelas leis dos grandes números, essa média converge para \(E(g(Y))\) quando
+\(N \to \infty\).</p></div></div>
+<p>Em geral, há mais de um algoritmo de Monte Carlo possível para estimar uma
+quantidade de interesse. Por exemplo, suponha que queremos aproximar a integral
+\(\int_a^b g(x)\, dx\), em que supomos que essa integral é finita. Seja \(f\) uma
+densidade no intervalo \((a, b)\) tal que \(f(x) &gt; 0\) para todo \(x \in (a, b)\), e
+suponha que temos um algoritmo conveniente para gerar \(X_1, X_2, \ldots\) i.i.d.
+com distribuição dada por \(f\). Temos que
+<span class="eq">\[
+\int_a^b g(x)\, dx = \int_a^b \frac{g(x)}{f(x)} f(x)\, dx
+= E\left(\frac{g(X)}{f(X)}\right)
+\]</span>
+quando \(X\) tem distribuição com densidade \(f\). Então podemos estimar
+\(\int_a^b g(x)\, dx\) por
+<span class="eq">\[
+M_n = \frac{1}{n} \sum_{i=1}^{n} \frac{g(X_i)}{f(X_i)}
+= \frac{1}{n} \sum_{i=1}^{n} T_i,
+\]</span>
+em que \(T_i = g(X_i)/f(X_i)\). Na prática, foi isso que fizemos no
+Exemplo 4.5.3 (\(f\) é a densidade Uniforme\([0, 1]\)), no Exemplo 4.5.4 (\(f\) é a
+densidade Exponencial\((25)\)) e no Exemplo 4.5.6 (\(f\) é a densidade \(N(0, 1)\)).
+Mas note que há muitas outras escolhas possíveis. No Exemplo 4.5.3, poderíamos
+ter tomado como \(f\) qualquer densidade beta. No Exemplo 4.5.4, poderíamos ter
+tomado como \(f\) qualquer densidade gama, e o mesmo vale para o Exemplo 4.5.6.
+A maioria dos pacotes estatísticos de computador tem comandos para gerar valores
+dessas distribuições. Num problema dado, qual é o melhor algoritmo a usar?</p>
+<p>Nesse caso, naturalmente usaríamos o algoritmo mais <em>eficiente</em>. Para os
+algoritmos que discutimos aqui, isso significa que, se, com base numa amostra de
+tamanho \(n\), o algoritmo 1 leva a uma estimativa com erro padrão
+\(\sigma_1/\sqrt{n}\) e o algoritmo 2 leva a uma estimativa com erro padrão
+\(\sigma_2/\sqrt{n}\), então o algoritmo 1 é mais eficiente que o algoritmo 2
+sempre que \(\sigma_1 &lt; \sigma_2\). Naturalmente, preferiríamos o algoritmo 1,
+porque os intervalos (4.4.3) ou (4.4.4) tenderão a ser mais curtos para o
+algoritmo 1 com o mesmo tamanho de amostra. Na verdade, uma comparação mais
+refinada da eficiência levaria em conta também o tempo total de computador
+usado por cada algoritmo, mas vamos ignorar esse aspecto do problema aqui. Veja
+o Problema 4.5.21 para mais discussão sobre a eficiência e a escolha do
+algoritmo no contexto do problema de integração.</p>
+<section class="resumo"><h4>Resumo da Seção 4.5</h4><ul><li>Uma quantidade desconhecida pode ser calculada aproximadamente por uma
+  aproximação de Monte Carlo, em que se toma a média de repetições
+  independentes de um experimento aleatório (em geral, num computador) para
+  estimar a quantidade.</li>
+<li>Aproximações de Monte Carlo podem ser usadas para aproximar somas,
+  integrais e distribuições amostrais complicadas, bastando escolher o
+  experimento aleatório de modo apropriado.</li></ul></section>
+<h4 class="bloco bloco-exercicios">Exercícios</h4>
+<p class="exerc" id="exerc-4.5.1"><span class="k">4.5.1</span> Descreva uma aproximação de Monte Carlo de
+\(\int_{-\infty}^{\infty} \cos^2(x) e^{-x^2/2}\, dx\).</p>
+<p class="exerc" id="exerc-4.5.2"><span class="k">4.5.2</span> Descreva uma aproximação de Monte Carlo de
+\(\sum_{j=0}^{m} j^6 \binom{m}{j} 2^j 3^{-m}\). (Sugestão: lembre a distribuição
+Binomial\((m, 2/3)\).)</p>
+<p class="exerc" id="exerc-4.5.3"><span class="k">4.5.3</span> Descreva uma aproximação de Monte Carlo de
+\(\int_0^{\infty} e^{-5x - 14x^2}\, dx\). (Sugestão: lembre a distribuição
+Exponencial\((5)\).)</p>
+<p class="exerc" id="exerc-4.5.4"><span class="k">4.5.4</span> Suponha que \(X_1, X_2, \ldots\) são i.i.d. com distribuição
+Poisson\((\lambda)\), em que \(\lambda\) é desconhecido. Considere
+\(M_n = (X_1 + X_2 + \cdots + X_n)/n\) como uma estimativa de \(\lambda\). Suponha
+que sabemos que \(\lambda \le 10\). Quão grande \(n\) precisa ser para garantir que
+\(M_n\) esteja a menos de \(0{,}1\) do valor verdadeiro de \(\lambda\) praticamente
+com certeza, isto é, quando 3 desvios padrão são menores que \(0{,}1\)?</p>
+<p class="exerc" id="exerc-4.5.5"><span class="k">4.5.5</span> Descreva uma aproximação de Monte Carlo de
+\(\sum_{j=0}^{\infty} \sin(j^2) 5^j / j!\). Suponha que você dispõe de um
+algoritmo para gerar valores da distribuição Poisson\((5)\).</p>
+<p class="exerc" id="exerc-4.5.6"><span class="k">4.5.6</span> Descreva uma aproximação de Monte Carlo de
+\(\int_0^{10} e^{-x^4}\, dx\). (Sugestão: lembre a distribuição
+Uniforme\([0, 10]\).)</p>
+<p class="exerc" id="exerc-4.5.7"><span class="k">4.5.7</span> Suponha que repetimos certo experimento 2000 vezes e obtemos uma
+média amostral de \(-5\) e um erro padrão de 17. Em termos disso, especifique um
+intervalo que contenha praticamente com certeza a média verdadeira
+(desconhecida) \(\mu\) do experimento.</p>
+<p class="exerc" id="exerc-4.5.8"><span class="k">4.5.8</span> Suponha que repetimos certo experimento 400 vezes e obtemos
+valores de resposta i.i.d. \(X_1, X_2, \ldots, X_{400}\). Suponha que
+calculamos que a média amostral é \(M_{400} = 6\) e, além disso, que
+\(\sum_{i=1}^{400} (X_i)^2 = 15.400\). Em termos disso:
+<span class="parte"><span class="pl">(a)</span>  Calcule o erro padrão \(\sigma_n\).</span><span class="parte"><span class="pl">(b)</span>  Especifique um intervalo que contenha praticamente com certeza a média
+verdadeira (desconhecida) \(\mu\) dos \(X_i\).</span></p>
+<p class="exerc" id="exerc-4.5.9"><span class="k">4.5.9</span> Suponha que certo experimento tem probabilidade \(\theta\) de
+sucesso, em que \(0 &lt; \theta &lt; 1\), mas \(\theta\) é desconhecido. Suponha que
+repetimos o experimento 1000 vezes, com 400 sucessos e 600 fracassos. Calcule
+um intervalo de valores que contenha \(\theta\) praticamente com certeza.</p>
+<p class="exerc" id="exerc-4.5.10"><span class="k">4.5.10</span> Suponha que certo experimento tem probabilidade \(\theta\) de
+sucesso, em que \(0 &lt; \theta &lt; 1\), mas \(\theta\) é desconhecido. Suponha que
+repetimos o experimento \(n\) vezes, e seja \(Y\) a fração de sucessos.
+<span class="parte"><span class="pl">(a)</span>  Em termos de \(\theta\), quanto vale \(\Var(Y)\)?</span><span class="parte"><span class="pl">(b)</span>  Para que valor de \(\theta\) a \(\Var(Y)\) é máxima?</span><span class="parte"><span class="pl">(c)</span>  Qual é esse maior valor possível de \(\Var(Y)\)?</span><span class="parte"><span class="pl">(d)</span>  Calcule o menor inteiro \(n\) tal que possamos ter certeza de que
+\(\Var(Y) &lt; 0{,}01\), seja qual for o valor de \(\theta\).</span></p>
+<p class="exerc" id="exerc-4.5.11"><span class="k">4.5.11</span> Suponha que \(X\) e \(Y\) são variáveis aleatórias com densidade
+conjunta<sup class="nota-ref nota-termo"><a href="#nota-50" id="ref-50">50</a></sup> dada por \(f_{X,Y}(x, y) = C\, g(x, y)\) para \(0 \le x, y \le 1\) (com
+\(f_{X,Y}(x, y) = 0\) para os demais \(x, y\)), para uma constante \(C\) apropriada,
+em que
+<span class="eq">\[
+g(x, y) = x^2 y^3 \sin(xy) \cos(\sqrt{xy}\,) \exp(x^2 + y).
+\]</span>
+<span class="parte"><span class="pl">(a)</span>  Explique por que
+<span class="eq">\[
+E(X) = \int_0^1 \!\! \int_0^1 x\, f_{X,Y}(x, y)\, dx\, dy
+= \frac{\int_0^1 \int_0^1 x\, g(x, y)\, dx\, dy}
+{\int_0^1 \int_0^1 g(x, y)\, dx\, dy}.
+\]</span></span><span class="parte"><span class="pl">(b)</span>  Descreva um algoritmo de Monte Carlo para calcular aproximadamente
+\(E(X)\).</span></p>
+<p class="exerc" id="exerc-4.5.12"><span class="k">4.5.12</span> Seja \(g(x, y) = \cos(\sqrt{xy}\,)\), e considere a integral
+\(I = \int_0^5 \int_0^4 g(x, y)\, dy\, dx\).
+<span class="parte"><span class="pl">(a)</span>  Prove que \(I = 20\, E[g(X, Y)]\), em que
+\(X \sim \text{Uniforme}[0, 5]\) e \(Y \sim \text{Uniforme}[0, 4]\).</span><span class="parte"><span class="pl">(b)</span>  Use o item (a) para descrever um algoritmo de Monte Carlo para
+calcular aproximadamente \(I\).</span></p>
+<p class="exerc" id="exerc-4.5.13"><span class="k">4.5.13</span> Considere a integral
+\(J = \int_0^1 \int_0^{\infty} h(x, y)\, dy\, dx\), em que
+<span class="eq">\[
+h(x, y) = e^{-y^2} \cos(\sqrt{xy}\,).
+\]</span>
+<span class="parte"><span class="pl">(a)</span>  Prove que \(J = E[e^Y h(X, Y)]\), em que
+\(X \sim \text{Uniforme}[0, 1]\) e \(Y \sim \text{Exponencial}(1)\).</span><span class="parte"><span class="pl">(b)</span>  Use o item (a) para descrever um algoritmo de Monte Carlo para
+calcular aproximadamente \(J\).</span><span class="parte"><span class="pl">(c)</span>  Se \(X \sim \text{Uniforme}[0, 1]\) e \(Y \sim \text{Exponencial}(5)\),
+prove que
+<span class="eq">\[
+J = (1/5)\, E[e^{5Y} h(X, Y)].
+\]</span></span><span class="parte"><span class="pl">(d)</span>  Use o item (c) para descrever um algoritmo de Monte Carlo para
+calcular aproximadamente \(J\).</span><span class="parte"><span class="pl">(e)</span>  Explique como você poderia usar um computador para determinar qual é
+melhor: o algoritmo do item (b) ou o algoritmo do item (d).</span></p>
+<h4 class="bloco bloco-exercicios-computacionais">Exercícios computacionais</h4>
+<p class="exerc" id="exerc-4.5.14"><span class="k">4.5.14</span> Use um algoritmo de Monte Carlo para aproximar
+\(\int_0^1 \cos(x^3) \sin(x^4)\, dx\) com base numa amostra grande (tome
+\(n = 10^5\), se possível). Avalie o erro da aproximação.</p>
+<p class="exerc" id="exerc-4.5.15"><span class="k">4.5.15</span> Use um algoritmo de Monte Carlo para aproximar
+\(\int_0^{\infty} 25 \cos(x^4) e^{-25x}\, dx\) com base numa amostra grande (tome
+\(n = 10^5\), se possível). Avalie o erro da aproximação.</p>
+<p class="exerc" id="exerc-4.5.16"><span class="k">4.5.16</span> Use um algoritmo de Monte Carlo para aproximar
+\(\sum_{j=0}^{\infty} (j^2 + 3)^{-5} 5^{-j}\) com base numa amostra grande (tome
+\(n = 10^5\), se possível). Avalie o erro da aproximação.</p>
+<p class="exerc" id="exerc-4.5.17"><span class="k">4.5.17</span> Suponha que \(X \sim N(0, 1)\). Use um algoritmo de Monte Carlo
+para aproximar \(P(X^2 - 3X + 2 \ge 0)\) com base numa amostra grande (tome
+\(n = 10^5\), se possível). Avalie o erro da aproximação.</p>
+<h4 class="bloco bloco-problemas">Problemas</h4>
+<p class="exerc" id="exerc-4.5.18"><span class="k">4.5.18</span> Suponha que \(X_1, X_2, \ldots\) são i.i.d.
+Bernoulli\((\theta)\), em que \(\theta\) é desconhecido. Determine uma cota
+inferior<sup class="nota-ref nota-termo"><a href="#nota-51" id="ref-51">51</a></sup> para \(n\) tal que a probabilidade de a estimativa \(M_n\) estar a menos de
+\(\delta\) do valor desconhecido de \(\theta\) seja de cerca de \(0{,}9974\). Isso nos
+permite fazer simulações com alta confiança de que o erro da aproximação
+apresentada é menor que algum valor \(\delta\) prescrito. (Sugestão: use o fato
+de que \(x(1 - x) \le 1/4\) para todo \(x \in [0, 1]\).)</p>
+<p class="exerc" id="exerc-4.5.19"><span class="k">4.5.19</span> Suponha que \(X_1, X_2, \ldots\) são i.i.d. com média \(\mu\)
+desconhecida e variância \(\sigma^2\) desconhecida. Suponha, porém, que sabemos
+que \(\sigma^2 \le \sigma_0^2\), em que \(\sigma_0^2\) é um valor conhecido.
+Determine uma cota inferior para \(n\) tal que a probabilidade de a estimativa
+\(M_n\) estar a menos de \(\delta\) do valor desconhecido de \(\mu\) seja de cerca de
+\(0{,}9974\). Isso nos permite fazer simulações com alta confiança de que o erro da
+aproximação apresentada é menor que algum valor \(\delta\) prescrito.</p>
+<p class="exerc" id="exerc-4.5.20"><span class="k">4.5.20</span> Suponha que \(X_1, X_2, \ldots\) são i.i.d. com distribuição
+Uniforme\([0, \theta]\), em que \(\theta\) é desconhecido, e considere
+\(Z_n = n^{-1}(n + 1) X_{(n)}\) como uma estimativa de \(\theta\) (veja a
+Seção 2.8.4 sobre estatísticas de ordem<sup class="nota-ref nota-termo"><a href="#nota-52" id="ref-52">52</a></sup>).
+<span class="parte"><span class="pl">(a)</span>  Prove que \(E(Z_n) = \theta\) e calcule \(\Var(Z_n)\).</span><span class="parte"><span class="pl">(b)</span>  Use a desigualdade de Chebyshev para mostrar que \(Z_n\) converge em
+probabilidade para \(\theta\).</span><span class="parte"><span class="pl">(c)</span>  Mostre que \(E(2M_n) = \theta\) e compare \(M_n\) e \(Z_n\) quanto à sua
+eficiência como estimadores de \(\theta\). Qual deles você usaria para estimar
+\(\theta\), e por quê?</span></p>
+<p class="exerc" id="exerc-4.5.21"><span class="k">4.5.21</span> (<em>Amostragem por importância<sup class="nota-ref nota-termo"><a href="#nota-53" id="ref-53">53</a></sup></em>) Suponha que queremos
+aproximar a integral \(\int_a^b g(x)\, dx\), em que supomos que essa integral é
+finita. Seja \(f\) uma densidade no intervalo \((a, b)\) tal que \(f(x) &gt; 0\) para
+todo \(x \in (a, b)\) e tal que temos um algoritmo conveniente para gerar
+\(X_1, X_2, \ldots\) i.i.d. com distribuição dada por \(f\).
+<span class="parte"><span class="pl">(a)</span>  Prove que
+<span class="eq">\[
+M_n(f) = \frac{1}{n} \sum_{i=1}^{n} \frac{g(X_i)}{f(X_i)}
+\xrightarrow{\text{q.c.}} \int_a^b g(x)\, dx.
+\]</span>
+(Chamamos \(f\) de <em>amostrador por importância<sup class="nota-ref nota-termo"><a href="#nota-54" id="ref-54">54</a></sup></em> e notamos que isso mostra
+que toda \(f\) que satisfaz as condições acima fornece um estimador consistente<sup class="nota-ref nota-termo"><a href="#nota-55" id="ref-55">55</a></sup>
+\(M_n(f)\) de \(\int_a^b g(x)\, dx\).)</span><span class="parte"><span class="pl">(b)</span>  Prove que
+<span class="eq">\[
+\Var(M_n(f)) = \frac{1}{n} \left\{ \int_a^b \frac{g^2(x)}{f(x)}\, dx
+- \left( \int_a^b g(x)\, dx \right)^{2} \right\}.
+\]</span></span><span class="parte"><span class="pl">(c)</span>  Suponha que \(g(x) = h(x) f(x)\), em que \(f\) é como descrita acima.
+Mostre que a amostragem por importância com relação a \(f\) leva ao estimador
+<span class="eq">\[
+M_n(f) = \frac{1}{n} \sum_{i=1}^{n} h(X_i).
+\]</span></span><span class="parte"><span class="pl">(d)</span>  Mostre que, se existe \(c\) tal que \(\lvert g(x) \rvert \le c f(x)\) para
+todo \(x \in (a, b)\), então \(\Var(M_n(f)) &lt; \infty\).</span><span class="parte"><span class="pl">(e)</span>  Determine o erro padrão de \(M_n(f)\) e indique como você o usaria para
+avaliar o erro da aproximação \(M_n(f)\) quando \(\Var(M_n(f)) &lt; \infty\).</span></p>
+<h4 class="bloco bloco-problemas-computacionais">Problemas computacionais</h4>
+<p class="exerc" id="exerc-4.5.22"><span class="k">4.5.22</span> Use um algoritmo de Monte Carlo para aproximar
+\(P(X^3 + Y^3 \le 3)\), em que \(X \sim N(1, 2)\) é independente de
+\(Y \sim \text{Gama}(1, 1)\), com base numa amostra grande (tome \(n = 10^5\), se
+possível). Avalie o erro da aproximação. Quão grande \(n\) precisa ser para
+garantir que a estimativa esteja a menos de \(0{,}01\) do valor verdadeiro
+praticamente com certeza? (Sugestão: Problema 4.5.18.)</p>
+<p class="exerc" id="exerc-4.5.23"><span class="k">4.5.23</span> Use um algoritmo de Monte Carlo para aproximar
+\(E(X^3 + Y^3)\), em que \(X \sim N(1, 2)\) é independente de
+\(Y \sim \text{Gama}(1, 1)\), com base numa amostra grande (tome \(n = 10^5\), se
+possível). Avalie o erro da aproximação.</p>
+<p class="exerc" id="exerc-4.5.24"><span class="k">4.5.24</span> Para a integral do Exercício 4.5.3, compare a eficiência do
+algoritmo baseado na geração de valores de uma distribuição Exponencial\((5)\)
+com a do algoritmo baseado na geração de valores de uma distribuição
+\(N(0, 1/7)\).</p>
+<h4 class="bloco bloco-desafios">Desafios</h4>
+<p class="exerc" id="exerc-4.5.25"><span class="k">4.5.25</span> (<em>Agulha de Buffon</em>) Suponha que você deixa cair uma agulha
+ao acaso sobre uma grande folha de papel pautado. Suponha que a distância entre
+as linhas é exatamente igual ao comprimento da agulha.
+<span class="parte"><span class="pl">(a)</span>  Prove que a probabilidade de a agulha cair tocando uma linha é igual
+a \(2/\pi\). (Sugestão: seja \(D\) a distância da extremidade mais alta da agulha
+até a linha logo abaixo dela, e seja \(A\) o ângulo que a agulha forma com essa
+linha. Quais são, então, as distribuições de \(D\) e de \(A\)? Sob que condições
+sobre \(D\) e \(A\) a agulha estará tocando uma linha?)</span><span class="parte"><span class="pl">(b)</span>  Explique como esse experimento poderia ser usado para obter uma
+aproximação de Monte Carlo do valor de \(\pi\).</span></p>
+<p class="exerc" id="exerc-4.5.26"><span class="k">4.5.26</span> (<em>Amostragem por importância ótima</em>) Considere a amostragem
+por importância como descrita no Problema 4.5.21.
+<span class="parte"><span class="pl">(a)</span>  Prove que \(\Var(M_n(f))\) é minimizada tomando
+<span class="eq">\[
+f(x) = \lvert g(x) \rvert \Big/ \int_a^b \lvert g(x) \rvert\, dx.
+\]</span>
+Calcule a variância mínima e mostre que ela é 0 quando \(g(x) \ge 0\) para todo
+\(x \in (a, b)\).</span><span class="parte"><span class="pl">(b)</span>  Por que esse amostrador por importância ótimo em geral não é viável?
+(O amostrador por importância ótimo indica, porém, que, na busca por um
+amostrador por importância eficiente, procuramos uma \(f\) que seja grande quando
+\(\lvert g \rvert\) é grande e pequena quando \(\lvert g \rvert\) é pequeno.)</span></p>
+<h4 class="bloco bloco-discussao">Tópicos para discussão</h4>
+<p class="exerc" id="exerc-4.5.27"><span class="k">4.5.27</span> Uma integral como \(\int_0^{\infty} x^2 \cos(x^2) e^{-x}\, dx\)
+pode ser calculada aproximadamente com um pacote de computador de integração
+numérica (por exemplo, usando a regra de Simpson). Quais são algumas vantagens
+e desvantagens de usar uma aproximação de Monte Carlo em vez de um pacote de
+integração numérica?</p>
+<p class="exerc" id="exerc-4.5.28"><span class="k">4.5.28</span> Realize o experimento de Monte Carlo da agulha de Buffon,
+descrito no Desafio 4.5.25, repetindo o experimento pelo menos 20 vezes.
+Apresente a estimativa de \(\pi\) assim obtida. Quão próxima ela está do valor
+verdadeiro de \(\pi\)? O que poderia ser feito para tornar a estimativa mais
+precisa?</p>
+<h2 id="sec-4.6"><span class="n">4.6</span> <span class="t">Teoria da Distribuição Normal</span></h2>
+<p>Por causa do teorema central do limite (Teorema 4.4.3), a distribuição normal
+tem um papel extremamente importante na teoria estatística. Por isso, vamos
+considerar várias propriedades e distribuições importantes relacionadas à
+distribuição normal. Essas propriedades e distribuições serão muito importantes
+para a teoria estatística dos capítulos seguintes deste livro.</p>
+<p>Já sabemos que, se \(X_1 \sim N(\mu_1, \sigma_1^2)\) é independente de
+\(X_2 \sim N(\mu_2, \sigma_2^2)\), então \(cX_1 + d \sim N(c\mu_1 + d, c^2\sigma^2)\)
+(veja o Exercício 2.6.3)<sup class="nota-ref nota-tradutor"><a href="#nota-56" id="ref-56">56</a></sup> e \(X_1 + X_2 \sim N(\mu_1 + \mu_2,\ \sigma_1^2 +
+\sigma_2^2)\) (veja o Problema 2.9.14). Combinando esses fatos e usando indução,
+obtemos o resultado a seguir.</p>
+<div class="teo teorema" id="teorema-4.6.1"><div class="cab"><span class="rot">Teorema 4.6.1</span></div><div class="txt"><p>Suponha que \(X_i \sim N(\mu_i, \sigma_i^2)\) para \(i = 1, 2, \ldots, n\) e que
+essas variáveis aleatórias sejam independentes. Seja
+\(Y = (\sum_i a_i X_i) + b\) para certas constantes \(\{a_i\}\) e \(b\). Então
+<span class="eq">\[
+Y \sim N\Bigl(\bigl(\sum_i a_i \mu_i\bigr) + b,\ \sum_i a_i^2 \sigma_i^2\Bigr).
+\]</span></p></div></div>
+<p>Isso implica imediatamente o seguinte.</p>
+<div class="teo corolario" id="corolario-4.6.1"><div class="cab"><span class="rot">Corolário 4.6.1</span></div><div class="txt"><p>Suponha que \(X_i \sim N(\mu, \sigma^2)\) para \(i = 1, 2, \ldots, n\) e que essas
+variáveis aleatórias sejam independentes. Se \(\bar X = (X_1 + \cdots + X_n)/n\),
+então \(\bar X \sim N(\mu, \sigma^2/n)\).</p></div></div>
+<p>Uma propriedade mais sutil das distribuições normais é a seguinte.</p>
+<div class="teo teorema" id="teorema-4.6.2"><div class="cab"><span class="rot">Teorema 4.6.2</span></div><div class="txt"><p>Suponha que \(X_i \sim N(\mu_i, \sigma_i^2)\) para \(i = 1, 2, \ldots, n\) e também
+que as \(\{X_i\}\) sejam <em>independentes</em>. Sejam
+\(U = \sum_{i=1}^n a_i X_i\) e \(V = \sum_{i=1}^n b_i X_i\) para certas constantes
+\(\{a_i\}\) e \(\{b_i\}\). Então \(\Cov(U, V) = \sum_i a_i b_i \sigma_i^2\). Além
+disso, \(\Cov(U, V) = 0\) se e somente se \(U\) e \(V\) são independentes.</p></div></div>
+<div class="dem fim"><span class="rot">Demonstração.</span> <p>A fórmula de \(\Cov(U, V)\) decorre imediatamente da linearidade da covariância<sup class="nota-ref nota-termo"><a href="#nota-57" id="ref-57">57</a></sup>
+(Teorema 3.3.2), pois temos
+<span class="eq">\begin{align*}
+\Cov(U, V)
+&amp;= \Cov\Bigl(\sum_{i=1}^n a_i X_i,\ \sum_{j=1}^n b_j X_j\Bigr)
+ = \sum_{i=1}^n \sum_{j=1}^n a_i b_j \Cov(X_i, X_j)\\
+&amp;= \sum_{i=1}^n a_i b_i \Cov(X_i, X_i)
+ = \sum_{i=1}^n a_i b_i \Var(X_i)
+ = \sum_{i=1}^n a_i b_i \sigma_i^2
+\end{align*}</span>
+(observe que \(\Cov(X_i, X_j) = 0\) para \(i \ne j\), pela independência). Além
+disso, se \(U\) e \(V\) são independentes, então necessariamente
+\(\Cov(U, V) = 0\), pelo Corolário 3.3.2.</p>
+<p>Resta provar que, se \(\Cov(U, V) = 0\), então \(U\) e \(V\) são independentes. Isso
+envolve uma mudança de variável<sup class="nota-ref nota-termo"><a href="#nota-58" id="ref-58">58</a></sup> bidimensional, como discutido na Seção 2.9.2
+(avançada); por isso, remetemos o leitor à Seção 4.7 para esta parte da
+demonstração.</p></div>
+<p>O Teorema 4.6.2 diz que, no caso particular de combinações lineares de
+distribuições normais independentes, se \(\Cov(U, V) = 0\), então \(U\) e \(V\) são
+independentes. No entanto, é importante lembrar que essa propriedade
+<em>não</em> vale em geral: existem variáveis aleatórias \(X\) e \(Y\) tais que
+\(\Cov(X, Y) = 0\) mesmo que \(X\) e \(Y\) não sejam independentes (veja o Exemplo
+3.3.10). Além disso, essa propriedade não vale nem mesmo para distribuições
+<em>normais</em> em geral (veja o Problema 4.6.13).</p>
+<p>Observe que, usando álgebra linear, podemos escrever as equações
+\(U = \sum_{i=1}^n a_i X_i\) e \(V = \sum_{i=1}^n b_i X_i\) do Teorema 4.6.2 na
+forma matricial
+<span class="eq">\begin{equation}
+\begin{pmatrix} U \\ V \end{pmatrix}
+= A \begin{pmatrix} X_1 \\ X_2 \\ \vdots \\ X_n \end{pmatrix},
+\tag{4.6.1}
+\end{equation}</span>
+em que
+<span class="eq">\[
+A = \begin{pmatrix} a_1 &amp; a_2 &amp; \ldots &amp; a_n \\ b_1 &amp; b_2 &amp; \ldots &amp; b_n \end{pmatrix}.
+\]</span>
+Além disso, as linhas de \(A\) são <em>ortogonais</em> se e somente se
+\(\sum_i a_i b_i = 0\). Ora, no caso em que \(\sigma_i = 1\) para todo \(i\), temos
+\(\Cov(U, V) = \sum_i a_i b_i\). Portanto, se \(\sigma_i = 1\) para todo \(i\), o
+Teorema 4.6.2 pode ser interpretado assim: se \(U\) e \(V\) são dados por (4.6.1),
+então \(U\) e \(V\) são independentes se e somente se as linhas de \(A\) são
+ortogonais. A álgebra linear é muito usada em tratamentos mais avançados dessas
+ideias.</p>
+<h3 id="subsec-4.6.1"><span class="n">4.6.1</span> <span class="t">A Distribuição Qui-quadrado</span></h3>
+<p>Apresentamos agora outra distribuição, relacionada à distribuição normal.</p>
+<div class="def definicao" id="definicao-4.6.1"><div class="cab"><span class="rot">Definição 4.6.1</span></div><div class="txt"><p>A <em>distribuição qui-quadrado<sup class="nota-ref nota-termo"><a href="#nota-59" id="ref-59">59</a></sup></em> com \(n\) graus de liberdade<sup class="nota-ref nota-termo"><a href="#nota-60" id="ref-60">60</a></sup> (ou
+qui-quadrado\((n)\), ou \(\chi^2(n)\)) é a distribuição da variável aleatória
+<span class="eq">\[
+Z = X_1^2 + X_2^2 + \cdots + X_n^2,
+\]</span>
+em que \(X_1, \ldots, X_n\) são i.i.d., cada uma com a distribuição normal padrão
+\(N(0, 1)\).</p></div></div>
+<p>A maioria dos pacotes estatísticos tem rotinas prontas para calcular
+probabilidades da qui-quadrado (veja também a Tabela D.3 do Apêndice D).</p>
+<p>Uma propriedade da distribuição qui-quadrado é fácil.</p>
+<div class="teo teorema" id="teorema-4.6.3"><div class="cab"><span class="rot">Teorema 4.6.3</span></div><div class="txt"><p>Se \(Z \sim \chi^2(n)\), então \(E(Z) = n\).</p></div></div>
+<div class="dem fim"><span class="rot">Demonstração.</span> <p>Escreva \(Z = X_1^2 + X_2^2 + \cdots + X_n^2\), em que as \(\{X_i\}\) são
+i.i.d. \(\sim N(0, 1)\). Então \(E((X_i)^2) = 1\). Segue, pela linearidade, que
+\(E(Z) = 1 + \cdots + 1 = n\).</p></div>
+<p>A função densidade da distribuição qui-quadrado é um pouco mais difícil de
+obter. Começamos pelo caso \(n = 1\).</p>
+<div class="teo teorema" id="teorema-4.6.4"><div class="cab"><span class="rot">Teorema 4.6.4</span></div><div class="txt"><p>Seja \(Z \sim \chi^2(1)\). Então
+<span class="eq">\[
+f_Z(z) = \frac{1}{\sqrt{2\pi z}}\, e^{-z/2}
+= \frac{(1/2)^{1/2}}{\Gamma(1/2)}\, z^{-1/2} e^{-z/2}
+\]</span>
+para \(z &gt; 0\), com \(f_Z(z) = 0\) para \(z &lt; 0\). Isto é,
+\(Z \sim \text{Gama}(1/2, 1/2)\) (usando \(\Gamma(1/2) = \sqrt{\pi}\)).</p></div></div>
+<div class="dem fim"><span class="rot">Demonstração.</span> <p>Como \(Z \sim \chi^2(1)\), podemos escrever \(Z = X^2\), em que \(X \sim N(0, 1)\).
+Calculamos então que, para \(z &gt; 0\),
+<span class="eq">\[
+\int_{-\infty}^{z} f_Z(s)\, ds = P(Z \le z) = P(X^2 \le z)
+= P(-\sqrt{z} \le X \le \sqrt{z}).
+\]</span>
+Mas, como \(X \sim N(0, 1)\) com função densidade
+\(\phi(s) = (2\pi)^{-1/2} e^{-s^2/2}\), podemos reescrever isso como
+<span class="eq">\[
+\int_{-\infty}^{z} f_Z(s)\, ds = \int_{-\sqrt{z}}^{\sqrt{z}} \phi(s)\, ds
+= \int_{-\infty}^{\sqrt{z}} \phi(s)\, ds - \int_{-\infty}^{-\sqrt{z}} \phi(s)\, ds.
+\]</span>
+Como isso vale para todo \(z &gt; 0\), podemos derivar em relação a \(z\) (usando o
+teorema fundamental do cálculo e a regra da cadeia) e obter
+<span class="eq">\[
+f_Z(z) = \frac{1}{2\sqrt{z}}\, \phi(\sqrt{z}) - \frac{-1}{2\sqrt{z}}\, \phi(-\sqrt{z})
+= \frac{1}{\sqrt{z}}\, \phi(\sqrt{z}) = \frac{1}{\sqrt{2\pi z}}\, e^{-z/2},
+\]</span>
+como afirmado.</p></div>
+<p>Na Figura 4.6.1, traçamos o gráfico da densidade \(\chi^2(1)\). Observe que a
+densidade se torna infinita em 0.</p>
+<figure class="figura">
+  <img class="figura" src="figuras/tikz-7f7156cc4b6e.svg" alt="" style="width: min(100%, 28.2em)">
+  <figcaption id="figura-4.6.1"><span class="rot">Figura 4.6.1:</span> Gráfico da densidade \(\chi^2(1)\).</figcaption>
+</figure>
+<div class="teo teorema" id="teorema-4.6.5"><div class="cab"><span class="rot">Teorema 4.6.5</span></div><div class="txt"><p>Seja \(Z \sim \chi^2(n)\). Então \(Z \sim \text{Gama}(n/2, 1/2)\). Isto é,
+<span class="eq">\[
+f_Z(z) = \frac{1}{2^{n/2}\Gamma(n/2)}\, z^{(n/2)-1} e^{-z/2}
+\]</span>
+para \(z &gt; 0\), com \(f_Z(z) = 0\) para \(z &lt; 0\).</p></div></div>
+<div class="dem fim"><span class="rot">Demonstração.</span> <p>Como \(Z \sim \chi^2(n)\), podemos escrever \(Z = X_1^2 + X_2^2 + \cdots + X_n^2\),
+em que as \(X_i\) são i.i.d. \(N(0, 1)\). Mas isso significa que as \(X_i^2\) são
+i.i.d. \(\chi^2(1)\). Logo, pelo Teorema 4.6.4, as \(X_i^2\) são i.i.d.
+\(\text{Gama}(1/2, 1/2)\) para \(i = 1, 2, \ldots, n\). Portanto, \(Z\) é a soma de
+\(n\) variáveis aleatórias independentes, cada uma com distribuição
+\(\text{Gama}(1/2, 1/2)\).</p>
+<p>Ora, pelo Apêndice C (veja o Problema 3.4.20), a função geradora de momentos de
+uma variável aleatória \(\text{Gama}(\alpha, \beta)\) é dada por
+\(m(s) = \beta^\alpha (\beta - s)^{-\alpha}\) para \(s &lt; \beta\). Tomando
+\(\alpha = 1/2\) e \(\beta = 1/2\) e aplicando o Teorema 3.4.5, a variável
+\(Y = X_1^2 + X_2^2 + \cdots + X_n^2\) tem função geradora de momentos dada por
+<span class="eq">\[
+m_Y(s) = \prod_{i=1}^n m_{X_i^2}(s)
+= \prod_{i=1}^n \Bigl(\frac{1}{2}\Bigr)^{1/2} \Bigl(\frac{1}{2} - s\Bigr)^{-1/2}
+= \Bigl(\frac{1}{2}\Bigr)^{n/2} \Bigl(\frac{1}{2} - s\Bigr)^{-n/2}
+\]</span>
+para \(s &lt; 1/2\). Reconhecemos aí a função geradora de momentos da distribuição
+\(\text{Gama}(n/2, 1/2)\). Portanto, pelo Teorema 3.4.6, temos
+<span class="mat-quebravel">\(X_1^2 + X_2^2\) \({}+ \cdots + X_n^2 \sim \text{Gama}(n/2, 1/2)\)</span>, como afirmado.</p>
+<p>Esse resultado também pode ser obtido usando o Problema 2.9.15 e indução.</p></div>
+<p>Observe que a densidade \(\chi^2(2)\) é igual à densidade
+Exponencial\((2)\).<sup class="nota-ref nota-tradutor"><a href="#nota-61" id="ref-61">61</a></sup> Na Figura 4.6.2, traçamos
+os gráficos de várias densidades \(\chi^2\). Observe que as \(\chi^2\) são
+assimétricas, com cauda longa à direita. À medida que os graus de liberdade
+aumentam, a massa central de probabilidade se desloca para a direita.</p>
+<figure class="figura">
+  <img class="figura" src="figuras/tikz-74483d4dc4c0.svg" alt="" style="width: min(100%, 29.5em)">
+  <figcaption id="figura-4.6.2"><span class="rot">Figura 4.6.2:</span> Gráfico das funções densidade \(\chi^2(3)\) (linha cheia) e
+  \(\chi^2(7)\) (linha tracejada).</figcaption>
+</figure>
+<p>Uma aplicação da distribuição qui-quadrado é a seguinte.</p>
+<div class="teo teorema" id="teorema-4.6.6"><div class="cab"><span class="rot">Teorema 4.6.6</span></div><div class="txt"><p>Sejam \(X_1, \ldots, X_n\) i.i.d. \(N(\mu, \sigma^2)\). Tome
+<span class="eq">\[
+\bar X = \frac{1}{n}(X_1 + \cdots + X_n) \quad\text{e}\quad
+S^2 = \frac{1}{n-1} \sum_{i=1}^n (X_i - \bar X)^2.
+\]</span>
+Então \((n - 1)S^2/\sigma^2 \sim \chi^2(n - 1)\) e, além disso, \(S^2\) e \(\bar X\)
+são independentes.</p></div></div>
+<div class="dem fim"><span class="rot">Demonstração.</span> <p>Veja a demonstração deste resultado na Seção 4.7.</p></div>
+<p>Como a distribuição \(\chi^2(n - 1)\) tem média \(n - 1\), obtemos o seguinte.</p>
+<div class="teo corolario" id="corolario-4.6.2"><div class="cab"><span class="rot">Corolário 4.6.2</span></div><div class="txt"><p>\(E(S^2) = \sigma^2\).</p></div></div>
+<div class="dem fim"><span class="rot">Demonstração.</span> <p>Os Teoremas 4.6.6 e 4.6.3 implicam que \(E((n - 1)S^2/\sigma^2) = n - 1\) e que
+\(E(S^2) = \sigma^2\).</p></div>
+<p>O Teorema 4.6.6 será muito usado no Capítulo 6. Por exemplo, esse resultado,
+junto com o Corolário 4.6.1, nos dá a distribuição amostral conjunta da média
+amostral \(\bar X\) e da variância amostral \(S^2\) quando amostramos de uma
+distribuição \(N(\mu, \sigma^2)\). Se não conhecemos \(\mu\), então \(\bar X\) é um
+estimador natural dessa quantidade e, do mesmo modo, \(S^2\) é um estimador
+natural de \(\sigma^2\) quando ela é desconhecida. Curiosamente, dividimos por
+\(n - 1\) em \(S^2\), e não por \(n\), justamente porque queremos que
+\(E(S^2) = \sigma^2\), como no Corolário 4.6.2. Na verdade, essa propriedade não
+depende de amostrarmos de uma distribuição normal. Pode-se mostrar que, sempre
+que \(X_1, \ldots, X_n\) é uma amostra de uma distribuição com variância
+\(\sigma^2\), temos \(E(S^2) = \sigma^2\).</p>
+<h3 id="subsec-4.6.2"><span class="n">4.6.2</span> <span class="t">A Distribuição \(t\)</span></h3>
+<p>A distribuição \(t\) também tem muitas aplicações estatísticas.</p>
+<div class="def definicao" id="definicao-4.6.2"><div class="cab"><span class="rot">Definição 4.6.2</span></div><div class="txt"><p>A <em>distribuição \(t\)</em> com \(n\) graus de liberdade (ou Student\((n)\), ou
+\(t(n)\)) é a distribuição da variável aleatória
+<span class="eq">\[
+Z = \frac{X}{\sqrt{(X_1^2 + X_2^2 + \cdots + X_n^2)/n}},
+\]</span>
+em que \(X, X_1, \ldots, X_n\) são i.i.d., cada uma com a distribuição normal
+padrão \(N(0, 1)\). (De modo equivalente, \(Z = X/\sqrt{Y/n}\), em que
+\(Y \sim \chi^2(n)\).)</p></div></div>
+<p>A maioria dos pacotes estatísticos tem rotinas prontas para calcular
+probabilidades da \(t(n)\) (veja também a Tabela D.4 do Apêndice D).</p>
+<p>A densidade da distribuição \(t(n)\) é dada pelo resultado a seguir.</p>
+<div class="teo teorema" id="teorema-4.6.7"><div class="cab"><span class="rot">Teorema 4.6.7</span></div><div class="txt"><p>Seja \(U \sim t(n)\). Então
+<span class="eq">\[
+f_U(u) = \frac{\Gamma\bigl(\frac{n+1}{2}\bigr)}{\sqrt{\pi}\, \Gamma\bigl(\frac{n}{2}\bigr)}
+\Bigl(1 + \frac{u^2}{n}\Bigr)^{-(n+1)/2} \frac{1}{\sqrt{n}}
+\]</span>
+para todo \(u \in R^1\).</p></div></div>
+<div class="dem fim"><span class="rot">Demonstração.</span> <p>Para a demonstração deste resultado, veja a Seção 4.7.</p></div>
+<p>O resultado a seguir mostra que, quando \(n\) é grande, a distribuição \(t(n)\) é
+muito parecida com a distribuição \(N(0, 1)\).</p>
+<div class="teo teorema" id="teorema-4.6.8"><div class="cab"><span class="rot">Teorema 4.6.8</span></div><div class="txt"><p>Quando \(n \to \infty\), a distribuição \(t(n)\) converge em distribuição para uma
+distribuição normal padrão.</p></div></div>
+<div class="dem fim"><span class="rot">Demonstração.</span> <p>Sejam \(Z_1, \ldots, Z_n, Z\) i.i.d. \(N(0, 1)\). Quando \(n \to \infty\), pela lei
+forte dos grandes números, \((Z_1^2 + \cdots + Z_n^2)/n\) converge com
+probabilidade 1 para a constante 1. Portanto, a distribuição de
+<span class="eq">\begin{equation}
+\frac{Z}{\sqrt{\bigl(Z_1^2 + \cdots + Z_n^2\bigr)/n}}
+\tag{4.6.2}
+\end{equation}</span>
+converge para a distribuição de \(Z\), que é a distribuição normal padrão. Pela
+Definição 4.6.2, (4.6.2) tem distribuição \(t(n)\).</p></div>
+<p>Na Figura 4.6.3, traçamos os gráficos de várias densidades \(t\). Observe que as
+densidades das distribuições \(t\) são simétricas em torno de 0 e parecidas com a
+densidade normal padrão.</p>
+<figure class="figura">
+  <img class="figura" src="figuras/tikz-3f977baf935f.svg" alt="" style="width: min(100%, 29.0em)">
+  <figcaption id="figura-4.6.3"><span class="rot">Figura 4.6.3:</span> Gráfico das funções densidade \(t(1)\) (linha cheia) e \(t(30)\)
+  (linha tracejada).</figcaption>
+</figure>
+<p>A distribuição \(t(n)\) tem caudas mais longas que a distribuição \(N(0, 1)\). Por
+exemplo, a distribuição \(t(1)\) (também conhecida como <em>distribuição de
+Cauchy<sup class="nota-ref nota-termo"><a href="#nota-62" id="ref-62">62</a></sup></em>) tem \(0{,}9366\) de sua probabilidade no intervalo \((-10, 10)\), ao passo
+que a distribuição \(N(0, 1)\) tem ali toda a sua probabilidade (pelo menos até a
+quarta casa decimal). As densidades \(t(30)\) e \(N(0, 1)\) são muito parecidas.</p>
+<h3 id="subsec-4.6.3"><span class="n">4.6.3</span> <span class="t">A Distribuição \(F\)</span></h3>
+<p>Por fim, consideramos a distribuição \(F\).</p>
+<div class="def definicao" id="definicao-4.6.3"><div class="cab"><span class="rot">Definição 4.6.3</span></div><div class="txt"><p>A <em>distribuição \(F\)</em> com \(m\) e \(n\) graus de liberdade (ou \(F(m, n)\)) é a
+distribuição da variável aleatória
+<span class="eq">\[
+Z = \frac{(X_1^2 + X_2^2 + \cdots + X_m^2)/m}{(Y_1^2 + Y_2^2 + \cdots + Y_n^2)/n},
+\]</span>
+em que \(X_1, \ldots, X_m, Y_1, \ldots, Y_n\) são i.i.d., cada uma com a
+distribuição normal padrão. (De modo equivalente, \(Z = (X/m)/(Y/n)\), em que
+\(X \sim \chi^2(m)\) e \(Y \sim \chi^2(n)\).)</p></div></div>
+<p>A maioria dos pacotes estatísticos tem rotinas prontas para calcular
+probabilidades da \(F(m, n)\) (veja também a Tabela D.5 do Apêndice D).</p>
+<p>A densidade da distribuição \(F(m, n)\) é dada pelo resultado a seguir.</p>
+<div class="teo teorema" id="teorema-4.6.9"><div class="cab"><span class="rot">Teorema 4.6.9</span></div><div class="txt"><p>Seja \(U \sim F(m, n)\). Então
+<span class="eq">\[
+f_U(u) = \frac{\Gamma\bigl(\frac{m+n}{2}\bigr)}{\Gamma\bigl(\frac{m}{2}\bigr) \Gamma\bigl(\frac{n}{2}\bigr)}
+\Bigl(\frac{m}{n} u\Bigr)^{(m/2)-1} \Bigl(1 + \frac{m}{n} u\Bigr)^{-(m+n)/2} \frac{m}{n}
+\]</span>
+para \(u &gt; 0\), com \(f_U(u) = 0\) para \(u &lt; 0\).</p></div></div>
+<div class="dem fim"><span class="rot">Demonstração.</span> <p>Para a demonstração deste resultado, veja a Seção 4.7.</p></div>
+<p>Na Figura 4.6.4, traçamos os gráficos de várias densidades \(F(m, n)\). Observe
+que essas densidades são assimétricas, com cauda longa à direita.</p>
+<figure class="figura">
+  <img class="figura" src="figuras/tikz-5c842e438c9e.svg" alt="" style="width: min(100%, 29.0em)">
+  <figcaption id="figura-4.6.4"><span class="rot">Figura 4.6.4:</span> Gráfico das funções densidade \(F(2, 1)\) (linha cheia) e
+  \(F(3, 10)\) (linha tracejada).<sup class="nota-ref nota-tradutor"><a href="#nota-63" id="ref-63">63</a></sup></figcaption>
+</figure>
+<p>Os resultados a seguir são úteis quando é preciso fazer contas com a
+distribuição \(F(m, n)\).</p>
+<div class="teo teorema" id="teorema-4.6.10"><div class="cab"><span class="rot">Teorema 4.6.10</span></div><div class="txt"><p>Se \(Z \sim F(m, n)\), então \(1/Z \sim F(n, m)\).</p></div></div>
+<div class="dem fim"><span class="rot">Demonstração.</span> <p>Usando a Definição 4.6.3, temos
+<span class="eq">\[
+\frac{1}{Z} = \frac{(Y_1^2 + Y_2^2 + \cdots + Y_n^2)/n}{(X_1^2 + X_2^2 + \cdots + X_m^2)/m},
+\]</span>
+e o resultado é imediato pela definição.</p></div>
+<p>Portanto, se \(Z \sim F(m, n)\), então
+<span class="mat-quebravel">\(P(Z \le z) = P(1/Z \ge 1/z)\) \({}= 1 - P(1/Z \le 1/z)\)</span>, e \(P(1/Z \le 1/z)\) é a fda
+da distribuição \(F(n, m)\) calculada em \(1/z\).</p>
+<p>Em muitas aplicações estatísticas, \(n\) pode ser muito grande. O resultado a
+seguir dá, então, uma aproximação útil para esse caso.</p>
+<div class="teo teorema" id="teorema-4.6.11"><div class="cab"><span class="rot">Teorema 4.6.11</span></div><div class="txt"><p>Se \(Z_n \sim F(m, n)\), então \(mZ_n\) converge em distribuição para uma
+distribuição \(\chi^2(m)\) quando \(n \to \infty\).</p></div></div>
+<div class="dem fim"><span class="rot">Demonstração.</span> <p>Usando a Definição 4.6.3, temos
+<span class="eq">\[
+mZ = \frac{X_1^2 + X_2^2 + \cdots + X_m^2}{(Y_1^2 + Y_2^2 + \cdots + Y_n^2)/n}.
+\]</span>
+Pela Definição 4.6.1, \(X_1^2 + \cdots + X_m^2 \sim \chi^2(m)\). Pelo Teorema
+4.6.3, \(E(Y_i^2) = 1\), de modo que a lei forte dos grandes números implica que
+\((Y_1^2 + Y_2^2 + \cdots + Y_n^2)/n\) converge quase certamente para 1. Isso
+estabelece o resultado.</p></div>
+<p>Por fim, as Definições 4.6.2 e 4.6.3 dão imediatamente o resultado a seguir.</p>
+<div class="teo teorema" id="teorema-4.6.12"><div class="cab"><span class="rot">Teorema 4.6.12</span></div><div class="txt"><p>Se \(Z \sim t(n)\), então \(Z^2 \sim F(1, n)\).</p></div></div>
+<section class="resumo"><h4>Resumo da Seção 4.6</h4><ul><li>Combinações lineares de variáveis aleatórias normais independentes também
+são normais, com média e variância apropriadas.</li>
+<li>Duas combinações lineares da <em>mesma</em> coleção de variáveis aleatórias
+normais independentes são independentes se e somente se sua covariância é
+igual a 0.</li>
+<li>A distribuição qui-quadrado com \(n\) graus de liberdade é a distribuição
+correspondente a uma soma de quadrados de \(n\) variáveis aleatórias normais
+padrão i.i.d. Ela tem média \(n\) e é igual à distribuição
+\(\text{Gama}(n/2, 1/2)\).</li>
+<li>A distribuição \(t\) com \(n\) graus de liberdade é a distribuição
+correspondente a uma variável aleatória normal padrão dividida pela raiz
+quadrada de \(1/n\) vezes uma variável aleatória qui-quadrado independente com
+\(n\) graus de liberdade. Sua função densidade foi apresentada. Quando
+\(n \to \infty\), ela converge em distribuição para uma distribuição normal
+padrão.</li>
+<li>A distribuição \(F\) com \(m\) e \(n\) graus de liberdade é a distribuição
+correspondente a \(m/n\) vezes uma distribuição qui-quadrado com \(m\) graus de
+liberdade, dividida por uma distribuição qui-quadrado independente com \(n\)
+graus de liberdade. Sua função densidade foi apresentada. Se \(t\) tem
+distribuição \(t(n)\), então \(t^2\) tem distribuição \(F(1, n)\).</li></ul></section>
+<h4 class="bloco bloco-exercicios">Exercícios</h4>
+<p class="exerc" id="exerc-4.6.1"><span class="k">4.6.1</span> Sejam \(X_1 \sim N(3, 2^2)\) e \(X_2 \sim N(-8, 5^2)\)
+independentes. Sejam \(U = X_1 - 5X_2\) e \(V = -6X_1 + CX_2\), em que \(C\) é uma
+constante.
+<span class="parte"><span class="pl">(a)</span>  Quais são as distribuições de \(U\) e \(V\)?</span><span class="parte"><span class="pl">(b)</span>  Que valor de \(C\) torna \(U\) e \(V\) independentes?</span></p>
+<p class="exerc" id="exerc-4.6.2"><span class="k">4.6.2</span> Sejam \(X \sim N(3, 5)\) e \(Y \sim N(-7, 2)\) independentes.
+<span class="parte"><span class="pl">(a)</span>  Qual é a distribuição de \(Z = 4X - Y/3\)?</span><span class="parte"><span class="pl">(b)</span>  Qual é a covariância de \(X\) e \(Z\)?</span></p>
+<p class="exerc" id="exerc-4.6.3"><span class="k">4.6.3</span> Sejam \(X \sim N(3, 5)\) e \(Y \sim N(-7, 2)\) independentes.
+Encontre valores de \(C_1 \ne 0\), \(C_2\), \(C_3 \ne 0\), \(C_4\), \(C_5\) tais que
+<span class="mat-quebravel">\(C_1(X + C_2)^2\) \({}+ C_3(Y + C_4)^2 \sim \chi^2(C_5)\)</span>.</p>
+<p class="exerc" id="exerc-4.6.4"><span class="k">4.6.4</span> Sejam \(X \sim \chi^2(n)\) e \(Y \sim N(0, 1)\) independentes. Prove
+que \(X + Y^2 \sim \chi^2(n + 1)\).</p>
+<p class="exerc" id="exerc-4.6.5"><span class="k">4.6.5</span> Sejam \(X \sim \chi^2(n)\) e \(Y \sim \chi^2(m)\) independentes.
+Prove que \(X + Y \sim \chi^2(n + m)\).</p>
+<p class="exerc" id="exerc-4.6.6"><span class="k">4.6.6</span> Sejam \(X_1, X_2, \ldots, X_{4n}\) i.i.d. com distribuição
+\(N(0, 1)\). Encontre um valor de \(C\) tal que
+<span class="eq">\[
+C\, \frac{X_1^2 + X_2^2 + \cdots + X_n^2}{X_{n+1}^2 + X_{n+2}^2 + \cdots + X_{4n}^2}
+\sim F(n, 3n).
+\]</span></p>
+<p class="exerc" id="exerc-4.6.7"><span class="k">4.6.7</span> Sejam \(X_1, X_2, \ldots, X_{n+1}\) i.i.d. com distribuição
+\(N(0, 1)\). Encontre um valor de \(C\) tal que
+<span class="eq">\[
+C\, \frac{X_1}{\sqrt{X_2^2 + \cdots + X_n^2 + X_{n+1}^2}} \sim t(n).
+\]</span></p>
+<p class="exerc" id="exerc-4.6.8"><span class="k">4.6.8</span> Sejam \(X \sim N(3, 5)\) e \(Y \sim N(-7, 2)\) independentes.
+Encontre valores de \(C_1\), \(C_2\), \(C_3\), \(C_4\), \(C_5\), \(C_6\) tais que
+<span class="eq">\[
+\frac{C_1(X + C_2)^{C_3}}{((Y + C_4)^2)^{C_5}} \sim t(C_6).
+\]</span></p>
+<p class="exerc" id="exerc-4.6.9"><span class="k">4.6.9</span> Sejam \(X \sim N(3, 5)\) e \(Y \sim N(-7, 2)\) independentes.
+Encontre valores de \(C_1\), \(C_2\), \(C_3\), \(C_4\), \(C_5\), \(C_6\), \(C_7\) tais que
+<span class="eq">\[
+\frac{C_1(X + C_2)^{C_3}}{(Y + C_4)^{C_5}} \sim F(C_6, C_7).
+\]</span></p>
+<p class="exerc" id="exerc-4.6.10"><span class="k">4.6.10</span> Sejam \(X_1, X_2, \ldots, X_{100}\) independentes, cada uma com a
+distribuição normal padrão.
+<span class="parte"><span class="pl">(a)</span>  Calcule a distribuição de \(X_1^2\).</span><span class="parte"><span class="pl">(b)</span>  Calcule a distribuição de \(X_3^2 + X_5^2\).</span><span class="parte"><span class="pl">(c)</span>  Calcule a distribuição de
+\(X_{10}\big/\sqrt{[X_{20}^2 + X_{30}^2 + X_{40}^2]/3}\).</span><span class="parte"><span class="pl">(d)</span>  Calcule a distribuição de
+<span class="mat-quebravel">\(3X_{10}^2 \big/ [X_{20}^2\) \({}+ X_{30}^2 + X_{40}^2]\)</span>.</span><span class="parte"><span class="pl">(e)</span>  Calcule a distribuição de
+<span class="eq">\[
+\frac{30}{70}\, \frac{X_1^2 + X_2^2 + \cdots + X_{70}^2}{X_{71}^2 + X_{72}^2 + \cdots + X_{100}^2}.
+\]</span></span></p>
+<p class="exerc" id="exerc-4.6.11"><span class="k">4.6.11</span> Sejam \(X_1, X_2, \ldots, X_{61}\) independentes, cada uma com
+distribuição \(N(\mu, \sigma^2)\). Tome
+\(\bar X = (1/61)(X_1 + X_2 + \cdots + X_{61})\) e
+<span class="eq">\[
+S^2 = \frac{1}{60}\Bigl[(X_1 - \bar X)^2 + (X_2 - \bar X)^2 + \cdots + (X_{61} - \bar X)^2\Bigr]
+\]</span>
+como de costume.
+<span class="parte"><span class="pl">(a)</span>  Para que valores de \(K\) e \(m\) a quantidade
+\(Y \equiv K(\bar X - \mu)/\sqrt{S^2}\) tem distribuição \(t\) com \(m\) graus de
+liberdade?</span><span class="parte"><span class="pl">(b)</span>  Com \(K\) como no item (a), encontre \(y\) tal que
+\(P(Y \ge y) = 0{,}05\).</span><span class="parte"><span class="pl">(c)</span>  Para que valores de \(a\), \(b\) e \(c\) a quantidade
+\(W \equiv a(\bar X - \mu)^2/S^2\) tem distribuição \(F\) com \(b\) e \(c\) graus de
+liberdade?</span><span class="parte"><span class="pl">(d)</span>  Para esses valores de \(a\), \(b\) e \(c\), encontre uma quantidade \(w\)
+tal que \(P(W \ge w) = 0{,}05\).</span></p>
+<p class="exerc" id="exerc-4.6.12"><span class="k">4.6.12</span> Suponha que a temperatura interna (em graus Celsius, sob uso
+intenso) do mais recente computador de mesa da Dell tenha distribuição normal
+com média 40 e desvio padrão 5, enquanto a do mais recente Compaq tem
+distribuição normal com média 45 e desvio padrão 8. Suponha que medimos a
+temperatura do Dell 20 vezes (em dias diferentes) e obtemos as medidas
+\(D_1, D_2, \ldots, D_{20}\), e que medimos também a temperatura do Compaq 30
+vezes e obtemos as medidas \(C_1, C_2, \ldots, C_{30}\).
+<span class="parte"><span class="pl">(a)</span>  Calcule a distribuição de \(\bar D \equiv (D_1 + \cdots + D_{20})/20\).</span><span class="parte"><span class="pl">(b)</span>  Calcule a distribuição de \(\bar C \equiv (C_1 + \cdots + C_{30})/30\).</span><span class="parte"><span class="pl">(c)</span>  Calcule a distribuição de \(Z \equiv \bar C - \bar D\).</span><span class="parte"><span class="pl">(d)</span>  Calcule \(P(\bar C &lt; \bar D)\).</span><span class="parte"><span class="pl">(e)</span>  Seja
+<span class="mat-quebravel">\(U = (D_1 - \bar D)^2\) \({}+ (D_2 - \bar D)^2\) \({}+ \cdots + (D_{20} - \bar D)^2\)</span>.
+Quanto vale \(P(U &gt; 633{,}25)\)?</span></p>
+<h4 class="bloco bloco-problemas">Problemas</h4>
+<p class="exerc" id="exerc-4.6.13"><span class="k">4.6.13</span> Seja \(X \sim N(0, 1)\) e seja \(P(Y = 1) = P(Y = -1) = 1/2\).
+Suponha que \(X\) e \(Y\) sejam independentes. Seja \(Z = XY\).
+<span class="parte"><span class="pl">(a)</span>  Prove que \(Z \sim N(0, 1)\).</span><span class="parte"><span class="pl">(b)</span>  Prove que \(\Cov(X, Z) = 0\).</span><span class="parte"><span class="pl">(c)</span>  Prove diretamente que \(X\) e \(Z\) <em>não</em> são independentes.</span><span class="parte"><span class="pl">(d)</span>  Por que isso não contradiz o Teorema 4.6.2?</span></p>
+<p class="exerc" id="exerc-4.6.14"><span class="k">4.6.14</span> Seja \(Z \sim t(n)\). Prove que \(P(Z &lt; -x) = P(Z &gt; x)\) para
+\(x \in R^1\), isto é, prove que a distribuição \(t(n)\) é simétrica em torno de 0.</p>
+<p class="exerc" id="exerc-4.6.15"><span class="k">4.6.15</span> Seja \(X_n \sim F(n, 2n)\) para \(n = 1, 2, 3, \ldots\). Prove que
+\(X_n \to 1\) em probabilidade e com probabilidade 1.</p>
+<p class="exerc" id="exerc-4.6.16"><span class="k">4.6.16</span> (<em>A distribuição qui-quadrado geral</em>) Prove que, para
+\(\alpha &gt; 0\), a função
+<span class="eq">\[
+f(z) = \frac{1}{2^{\alpha/2}\Gamma(\alpha/2)}\, z^{(\alpha/2)-1} e^{-z/2}
+\]</span>
+define uma distribuição de probabilidade em \((0, \infty)\). Essa distribuição é
+conhecida como distribuição \(\chi^2(\alpha)\), isto é, ela generaliza a
+distribuição da Seção 4.6.2<sup class="nota-ref nota-tradutor"><a href="#nota-64" id="ref-64">64</a></sup> ao permitir que o número de graus de
+liberdade seja um número real positivo qualquer. (Sugestão: a distribuição
+\(\chi^2(\alpha)\) é igual a uma distribuição \(\text{Gama}(\alpha/2, 1/2)\).)</p>
+<p class="exerc" id="exerc-4.6.17"><span class="k">4.6.17</span> (MV) (<em>A distribuição \(t\) geral</em>) Prove que, para
+\(\alpha &gt; 0\), a função
+<span class="eq">\[
+f(u) = \frac{\Gamma\bigl(\frac{\alpha+1}{2}\bigr)}{\sqrt{\pi}\, \Gamma\bigl(\frac{\alpha}{2}\bigr)}
+\Bigl(1 + \frac{u^2}{\alpha}\Bigr)^{-(\alpha+1)/2} \frac{1}{\sqrt{\alpha}}
+\]</span>
+define uma distribuição de probabilidade em \((-\infty, \infty)\), mostrando que a
+variável aleatória
+<span class="eq">\[
+U = \frac{X}{\sqrt{Y/\alpha}}
+\]</span>
+tem essa densidade quando \(X \sim N(0, 1)\) é independente de
+\(Y \sim \chi^2(\alpha)\), como no Problema 4.6.16. Essa distribuição é conhecida
+como distribuição \(t(\alpha)\), isto é, ela generaliza a distribuição da Seção
+4.6.3<sup class="nota-ref nota-tradutor"><a href="#nota-65" id="ref-65">65</a></sup> ao permitir que o número de graus de liberdade seja um número real
+positivo qualquer. (Sugestão: a demonstração é praticamente idêntica à do
+Teorema 4.6.7.)</p>
+<p class="exerc" id="exerc-4.6.18"><span class="k">4.6.18</span> (MV) (<em>A distribuição \(F\) geral</em>) Prove que, para
+\(\alpha &gt; 0\), \(\beta &gt; 0\), a função
+<span class="eq">\[
+f(u) = \frac{\Gamma\bigl(\frac{\alpha+\beta}{2}\bigr)}{\Gamma\bigl(\frac{\alpha}{2}\bigr) \Gamma\bigl(\frac{\beta}{2}\bigr)}
+\Bigl(\frac{\alpha}{\beta} u\Bigr)^{(\alpha/2)-1}
+\Bigl(1 + \frac{\alpha}{\beta} u\Bigr)^{-(\alpha+\beta)/2} \frac{\alpha}{\beta}
+\]</span>
+define uma distribuição de probabilidade em \((0, \infty)\), mostrando que a
+variável aleatória
+<span class="eq">\[
+U = \frac{X/\alpha}{Y/\beta}
+\]</span>
+tem essa densidade sempre que \(X \sim \chi^2(\alpha)\) é independente de
+\(Y \sim \chi^2(\beta)\), como no Problema 4.6.16. Essa distribuição é conhecida
+como distribuição \(F(\alpha, \beta)\), isto é, ela generaliza a distribuição da
+Seção 4.6.4<sup class="nota-ref nota-tradutor"><a href="#nota-66" id="ref-66">66</a></sup>
+ao permitir que os graus de liberdade do numerador e do denominador sejam
+números reais positivos quaisquer. (Sugestão: a demonstração é praticamente
+idêntica à do Teorema 4.6.9.)</p>
+<p class="exerc" id="exerc-4.6.19"><span class="k">4.6.19</span> Prove que, quando \(X \sim t(\alpha)\), como definida no Problema
+4.6.17, e \(\alpha &gt; 1\), então \(E(X) = 0\). Prove ainda que, quando
+\(\alpha &gt; 2\), \(\Var(X) = \alpha/(\alpha - 2)\). Você pode supor que essas
+integrais existem — veja o Desafio 4.6.21. (Sugestão: para calcular o segundo
+momento, use \(Y = X^2 \sim F(1, \alpha)\), como definida no Problema 4.6.18.)</p>
+<p class="exerc" id="exerc-4.6.20"><span class="k">4.6.20</span> Prove que, quando \(X \sim F(\alpha, \beta)\), então
+\(E(X) = \beta/(\beta - 2)\) quando \(\beta &gt; 2\) e
+\(\Var(X) = 2\beta^2(\alpha + \beta - 2)/\alpha(\beta - 2)^2(\beta - 4)\) quando
+\(\beta &gt; 4\).</p>
+<h4 class="bloco bloco-desafios">Desafios</h4>
+<p class="exerc" id="exerc-4.6.21"><span class="k">4.6.21</span> Seguindo o Problema 4.6.19, prove que a média de \(X\) não existe
+sempre que \(0 &lt; \alpha \le 1\). Prove ainda que a variância de \(X\) não existe
+sempre que \(0 &lt; \alpha \le 1\) e é infinita quando \(1 &lt; \alpha \le 2\).</p>
+<p class="exerc" id="exerc-4.6.22"><span class="k">4.6.22</span> Prove a identidade (4.7.1) da Seção 4.7, que aparece como parte
+da demonstração do Teorema 4.6.6.</p>
+<h2 id="sec-4.7"><span class="n">4.7</span> <span class="t">Demonstrações Adicionais (Avançado)</span></h2>
+<div class="dem fim demonstracaode"><div class="cab"><span class="rot">Demonstração do Teorema 4.3.1</span></div><p>Queremos provar o seguinte resultado. Sejam \(Z, Z_1, Z_2, \ldots\) variáveis
+aleatórias. Suponha que \(Z_n \to Z\) com probabilidade 1. Então \(Z_n \to Z\) em
+probabilidade. Isto é, se uma sequência de variáveis aleatórias converge quase
+certamente, então ela converge em probabilidade para o mesmo limite.</p>
+<p>Suponha que \(P(Z_n \to Z) = 1\). Fixe \(\epsilon &gt; 0\) e seja
+\(A_n = \{s : \lvert Z_m - Z\rvert \ge \epsilon \text{ para algum } m \ge n\}\).
+Então \(\{A_n\}\) é uma sequência decrescente<sup class="nota-ref nota-termo"><a href="#nota-67" id="ref-67">67</a></sup> de eventos. Além disso, se
+\(s \in \bigcap_{n=1}^{\infty} A_n\), então \(Z_n(s) \nrightarrow Z(s)\) quando
+\(n \to \infty\). Logo,
+<span class="eq">\[
+P\left(\bigcap_{n=1}^{\infty} A_n\right) \le P(Z_n \nrightarrow Z) = 0.
+\]</span>
+Pela continuidade das probabilidades, temos
+<span class="mat-quebravel">\(\lim_{n \to \infty} P(A_n)\) \({}= P\bigl(\bigcap_{n=1}^{\infty} A_n\bigr)\) \({}= 0\)</span>.
+Logo, \(P(\lvert Z_n - Z\rvert \ge \epsilon) \le P(A_n) \to 0\) quando
+\(n \to \infty\). Como isso vale para qualquer \(\epsilon &gt; 0\), vemos que
+\(Z_n \to Z\) em probabilidade.</p></div>
+<div class="dem fim demonstracaode"><div class="cab"><span class="rot">Demonstração do Teorema 4.4.1</span></div><p>Mostramos que, se \(X_n \xrightarrow{P} X\), então \(X_n \xrightarrow{D} X\).</p>
+<p>Suponha que \(X_n \to X\) em probabilidade e que \(P(X = x) = 0\). Queremos
+mostrar que <span class="mat-quebravel">\(\lim_{n \to \infty} P(X_n \le x)\) \({}= P(X \le x)\)</span>.</p>
+<p>Escolha qualquer \(\epsilon &gt; 0\). Ora, se \(X_n \le x\), então devemos ter
+\(X \le x + \epsilon\) ou \(\lvert X - X_n\rvert \ge \epsilon\). Logo, pela
+subaditividade<sup class="nota-ref nota-termo"><a href="#nota-68" id="ref-68">68</a></sup>,
+<span class="eq">\[
+P(X_n \le x) \le P(X \le x + \epsilon) + P(\lvert X - X_n\rvert \ge \epsilon).
+\]</span>
+Substituindo \(x\) por \(x - \epsilon\) nessa equação, vemos também que
+<span class="eq">\[
+P(X \le x - \epsilon) \le P(X_n \le x) + P(\lvert X - X_n\rvert \ge \epsilon).
+\]</span>
+Reorganizando e combinando essas duas desigualdades, temos
+<span class="eq">\[
+P(X \le x - \epsilon) - P(\lvert X - X_n\rvert \ge \epsilon)
+\le P(X_n \le x)
+\le P(X \le x + \epsilon) + P(\lvert X - X_n\rvert \ge \epsilon).
+\]</span>
+Essa é a chave.</p>
+<p>Em seguida, fazemos \(n \to \infty\). Como \(X_n \to X\) em probabilidade,
+sabemos que
+<span class="eq">\[
+\lim_{n \to \infty} P(\lvert X - X_n\rvert \ge \epsilon) = 0.
+\]</span>
+Isso significa que \(\lim_{n \to \infty} P(X_n \le x)\) fica “espremido” entre
+\(P(X \le x - \epsilon)\) e \(P(X \le x + \epsilon)\).</p>
+<p>Fazemos então \(\epsilon \searrow 0\). Pela continuidade das probabilidades,
+<span class="eq">\[
+\lim_{\epsilon \searrow 0} P(X \le x + \epsilon) = P(X \le x)
+\quad\text{e}\quad
+\lim_{\epsilon \searrow 0} P(X \le x - \epsilon) = P(X &lt; x).
+\]</span>
+Isso significa que \(\lim_{n \to \infty} P(X_n \le x)\) fica “espremido” entre
+\(P(X &lt; x)\) e \(P(X \le x)\).</p>
+<p>Mas, como \(P(X = x) = 0\), devemos ter \(P(X &lt; x) = P(X \le x)\). Logo,
+<span class="mat-quebravel">\(\lim_{n \to \infty} P(X_n \le x)\) \({}= P(X \le x)\)</span>, como queríamos.</p></div>
+<div class="dem fim demonstracaode"><div class="cab"><span class="rot">Demonstração do Teorema 4.4.3</span> <span class="nome">(O teorema central do limite)</span></div><p>Precisamos provar o seguinte. Sejam \(X_1, X_2, \ldots\) i.i.d. com média finita
+\(\mu\) e variância finita \(\sigma^2\). Seja \(Z \sim N(0, 1)\). Defina
+\(S_n = X_1 + \cdots + X_n\) e
+<span class="eq">\[
+Z_n = \frac{S_n - n\mu}{\sqrt{n\sigma^2}}.
+\]</span>
+Então, quando \(n \to \infty\), a sequência \(\{Z_n\}\) converge em distribuição
+para a \(Z\), isto é, \(Z_n \xrightarrow{D} Z\).</p>
+<p>Lembre que a distribuição normal padrão tem função geradora de momentos dada
+por \(m_Z(s) = \exp\bigl(s^2/2\bigr)\).</p>
+<p>Vamos agora <em>supor</em> que \(m_{Z_n}(s)\) é finita para \(\lvert s\rvert &lt; s_0\),
+para algum \(s_0 &gt; 0\). (Essa suposição pode ser eliminada usando
+<em>funções características</em> em vez de funções geradoras de momentos.)
+Supondo isso, vamos provar que, para cada número real \(s\), temos
+\(\lim_{n \to \infty} m_{Z_n}(s) = m_Z(s)\), em que \(m_{Z_n}(s)\) é a função
+geradora de momentos de \(Z_n\). Segue então do Teorema 4.4.2 que \(Z_n\)
+converge para \(Z\) em distribuição.</p>
+<p>Para prosseguir, seja \(Y_i = (X_i - \mu)/\sigma\). Então \(E(Y_i) = 0\) e
+\(E(Y_i^2) = \Var(Y_i) = 1\). Além disso, temos
+<span class="eq">\[
+Z_n = \frac{1}{\sqrt{n}}(Y_1 + \cdots + Y_n).
+\]</span>
+Seja \(m_Y(s) = E(e^{sY_i})\) a função geradora de momentos de \(Y_i\) (que é a
+mesma para todo \(i\), já que elas são i.i.d.). Então, usando a independência,
+calculamos que
+<span class="eq">\begin{align*}
+\lim_{n \to \infty} m_{Z_n}(s)
+&amp;= \lim_{n \to \infty} E\left(e^{sZ_n}\right)
+ = \lim_{n \to \infty} E\left(e^{s(Y_1 + \cdots + Y_n)/\sqrt{n}}\right)\\
+&amp;= \lim_{n \to \infty} E\left(e^{sY_1/\sqrt{n}}\, e^{sY_2/\sqrt{n}} \cdots e^{sY_n/\sqrt{n}}\right)\\
+&amp;= \lim_{n \to \infty} E\left(e^{sY_1/\sqrt{n}}\right) E\left(e^{sY_2/\sqrt{n}}\right) \cdots E\left(e^{sY_n/\sqrt{n}}\right)\\
+&amp;= \lim_{n \to \infty} m_Y(s/\sqrt{n})\, m_Y(s/\sqrt{n}) \cdots m_Y(s/\sqrt{n})\\
+&amp;= \lim_{n \to \infty} m_Y(s/\sqrt{n})^n.
+\end{align*}</span></p>
+<p>Ora, sabemos do Teorema 3.5.3 que \(m_Y(0) = E(e^0) = 1\).<sup class="nota-ref nota-tradutor"><a href="#nota-69" id="ref-69">69</a></sup>
+Além disso, \(m_Y'(0) = E(Y_i) = 0\) e \(m_Y''(0) = E(Y_i^2) = 1\). Mas então,
+expandindo \(m_Y(s)\) em série de Taylor<sup class="nota-ref nota-termo"><a href="#nota-70" id="ref-70">70</a></sup> em torno de \(s = 0\), vemos que
+<span class="eq">\[
+m_Y(s) = 1 + 0s + \frac{1}{2!}s^2 + o(s^2) = 1 + s^2/2 + o(s^2),
+\]</span>
+em que \(o(s^2)\) representa uma quantidade que, quando \(s \to 0\), vai a 0 mais
+depressa do que \(s^2\) — isto é, \(o(s^2)/s \to 0\) quando
+\(s \to 0\).<sup class="nota-ref nota-tradutor"><a href="#nota-71" id="ref-71">71</a></sup> Isso significa que
+<span class="eq">\[
+m_Y(s/\sqrt{n}) = 1 + (s/\sqrt{n})^2/2 + o\bigl((s/\sqrt{n})^2\bigr)
+= 1 + s^2/2n + o(1/n),
+\]</span>
+em que agora \(o(1/n)\) representa uma quantidade que, quando \(n \to \infty\),
+vai a 0 mais depressa do que \(1/n\).</p>
+<p>Por fim, lembramos do cálculo que, para qualquer número real \(c\),
+\(\lim_{n \to \infty} (1 + c/n)^n = e^c\). Segue disso e do que foi visto acima
+que<sup class="nota-ref nota-tradutor"><a href="#nota-72" id="ref-72">72</a></sup>
+<span class="eq">\[
+\lim_{n \to \infty} \bigl(m_Y(s/2\sqrt{n})\bigr)^n
+= \lim_{n \to \infty} (1 + s^2/2n)^n = e^{s^2/2}.
+\]</span>
+Isto é, \(\lim_{n \to \infty} m_{Z_n}(s) = e^{s^2/2}\), como
+afirmado.</p></div>
+<div class="dem fim demonstracaode"><div class="cab"><span class="rot">Demonstração do Teorema 4.6.2</span></div><p>Provamos o seguinte. Suponha que \(X_i \sim N(\mu_i, \sigma_i^2)\) para
+\(i = 1, 2, \ldots, n\) e também que as \(\{X_i\}\) são independentes. Sejam
+\(U = \sum_{i=1}^{n} a_i X_i\) e \(V = \sum_{i=1}^{n} b_i X_i\), para constantes
+\(\{a_i\}\) e \(\{b_i\}\) quaisquer. Então
+\(\Cov(U, V) = \sum_i a_i b_i \sigma_i^2\). Além disso, \(\Cov(U, V) = 0\) se e
+somente se \(U\) e \(V\) são independentes.</p>
+<p>Foi provado na Seção 4.6 que \(\Cov(U, V) = \sum_i a_i b_i \sigma_i^2\) e que
+\(\Cov(U, V) = 0\) se \(U\) e \(V\) são independentes. Resta provar que, se
+\(\Cov(U, V) = 0\), então \(U\) e \(V\) são independentes. Por simplicidade,
+tomamos \(n = 2\), \(\mu_1 = \mu_2 = 0\) e \(\sigma_1^2 = \sigma_2^2 = 1\); o caso
+geral é parecido, mas mais trabalhoso. Temos, portanto,
+<span class="eq">\[
+U = a_1 X_1 + a_2 X_2 \quad\text{e}\quad V = b_1 X_1 + b_2 X_2.
+\]</span>
+O jacobiano<sup class="nota-ref nota-termo"><a href="#nota-73" id="ref-73">73</a></sup> dessa transformação é
+<span class="eq">\[
+J(x_1, x_2) = \frac{\partial U}{\partial X_1}\frac{\partial V}{\partial X_2}
+- \frac{\partial V}{\partial X_1}\frac{\partial U}{\partial X_2}
+= a_1 b_2 - b_1 a_2.
+\]</span>
+Invertendo a transformação, obtemos
+<span class="eq">\[
+X_1 = \frac{b_2 U - a_2 V}{a_1 b_2 - b_1 a_2}
+\quad\text{e}\quad
+X_2 = \frac{a_1 V - b_1 U}{a_1 b_2 - b_1 a_2}.
+\]</span>
+Além disso,
+<span class="eq">\[
+f_{X_1, X_2}(x_1, x_2) = \frac{1}{2\pi} e^{-\left(x_1^2 + x_2^2\right)/2}.
+\]</span>
+Logo, pelo teorema da mudança de variável multidimensional (Teorema 2.9.2),
+temos
+<span class="eq">\begin{align*}
+f_{U, V}(u, v)
+&amp;= f_{X_1, X_2}(x_1, x_2)
+   \left(\frac{b_2 u - a_2 v}{a_1 b_2 - b_1 a_2},\
+         \frac{a_1 v - b_1 u}{a_1 b_2 - b_1 a_2}\right)
+   \lvert J(x_1, x_2)\rvert^{-1}\\
+&amp;= \frac{1}{2\pi}\,
+   \frac{\exp\{-((b_2 u - a_2 v)^2 + (a_1 v - b_1 u)^2)\,/\,2(a_1 b_2 - b_1 a_2)^2\}}
+        {\lvert a_1 b_2 - b_1 a_2\rvert}.
+\end{align*}</span>
+Mas
+<span class="eq">\[
+(b_2 u - a_2 v)^2 + (a_1 v - b_1 u)^2
+= (b_1^2 + b_2^2)u^2 + (a_1^2 + a_2^2)v^2 - 2(a_1 b_1 + a_2 b_2)uv
+\]</span>
+e \(\Cov(U, V) = a_1 b_1 + a_2 b_2\). Logo, se \(\Cov(U, V) = 0\), então
+<span class="eq">\[
+(b_2 u - a_2 v)^2 + (a_1 v - b_1 u)^2 = (b_1^2 + b_2^2)u^2 + (a_1^2 + a_2^2)v^2
+\]</span>
+e
+<span class="eq">\begin{align*}
+f_{U, V}(u, v)
+&amp;= \frac{\exp\{-((b_1^2 + b_2^2)u^2 + (a_1^2 + a_2^2)v^2)/2(a_1 b_2 - b_1 a_2)^2\}}
+        {2\pi\,\lvert a_1 b_2 - b_1 a_2\rvert}\\
+&amp;= \frac{\exp\{-(b_1^2 + b_2^2)u^2/2(a_1 b_2 - b_1 a_2)^2\}
+         \exp\{-(a_1^2 + a_2^2)v^2/2(a_1 b_2 - b_1 a_2)^2\}}
+        {2\pi\,\lvert a_1 b_2 - b_1 a_2\rvert}.
+\end{align*}</span>
+Segue que podemos <em>fatorar</em> \(f_{U, V}(u, v)\) como uma função de \(u\) vezes
+uma função de \(v\). Mas isso implica (ver Problema 2.8.19) que \(U\) e \(V\) são
+independentes.</p></div>
+<div class="dem fim demonstracaode"><div class="cab"><span class="rot">Demonstração do Teorema 4.6.6</span></div><p>Queremos provar que, quando \(X_1, \ldots, X_n\) são i.i.d. \(N(\mu, \sigma^2)\) e
+<span class="eq">\[
+\bar{X} = \frac{1}{n}(X_1 + \cdots + X_n)
+\quad\text{e}\quad
+S^2 = \frac{1}{n - 1}\sum_{i=1}^{n} (X_i - \bar{X})^2,
+\]</span>
+então \((n - 1)\,S^2/\sigma^2 \sim \chi^2(n - 1)\) e, além disso, \(S^2\) e
+\(\bar{X}\) são independentes.</p>
+<p>Temos
+<span class="eq">\[
+\frac{n - 1}{\sigma^2} S^2
+= \sum_{i=1}^{n} \left(\frac{X_i - \bar{X}}{\sigma}\right)^2.
+\]</span>
+Reescrevemos essa expressão como (ver Desafio 4.6.22)
+<span class="eq">\begin{multline}
+\frac{n - 1}{\sigma^2} S^2
+= \left(\frac{X_1 - X_2}{\sigma\sqrt{2}}\right)^2
++ \left(\frac{X_1 + X_2 - 2X_3}{\sigma\sqrt{2 \cdot 3}}\right)^2
++ \left(\frac{X_1 + X_2 + X_3 - 3X_4}{\sigma\sqrt{3 \cdot 4}}\right)^2\\
++ \cdots
++ \left(\frac{X_1 + X_2 + \cdots + X_{n-1} - (n - 1)X_n}{\sigma\sqrt{(n - 1)n}}\right)^2.
+\tag{4.7.1}
+\end{multline}</span></p>
+<p>Ora, pelo Teorema 4.6.1, cada uma das \(n - 1\) expressões entre parênteses em
+(4.7.1) tem distribuição normal padrão. Além disso, pelo Teorema 4.6.2, as
+expressões entre parênteses em (4.7.1) são todas <em>independentes</em> umas
+das outras e também são todas independentes de \(\bar{X}\).</p>
+<p>Segue que \((n - 1)\,S^2/\sigma^2\) é independente de \(\bar{X}\). Segue também,
+pela definição da distribuição qui-quadrado, que
+\((n - 1)\,S^2/\sigma^2 \sim \chi^2(n - 1)\).</p></div>
+<div class="dem fim demonstracaode"><div class="cab"><span class="rot">Demonstração do Teorema 4.6.7</span></div><p>Queremos mostrar que, quando \(U \sim t(n)\), então
+<span class="eq">\[
+f_U(u) = \frac{\Gamma\left(\frac{n+1}{2}\right)}{\sqrt{\pi}\,\Gamma\left(\frac{n}{2}\right)}
+\left(1 + \frac{u^2}{n}\right)^{-(n+1)/2} \frac{1}{\sqrt{n}}
+\]</span>
+para todo \(u \in R^1\).</p>
+<p>Como \(U \sim t(n)\), podemos escrever \(U = X/\sqrt{Y/n}\), em que \(X\) e \(Y\) são
+independentes, com \(X \sim N(0, 1)\) e \(Y \sim \chi^2(n)\). Segue que \(X\) e \(Y\)
+têm densidade conjunta dada por
+<span class="eq">\[
+f_{X, Y}(x, y) = \frac{e^{-x^2/2}\, y^{(n/2)-1} e^{-y/2}}
+{\sqrt{2\pi}\, 2^{n/2}\, \Gamma\left(\frac{n}{2}\right)}
+\]</span>
+quando \(y &gt; 0\) (com \(f_{X, Y}(x, y) = 0\) para \(y &lt; 0\)).</p>
+<p>Seja \(V = Y\). Vamos usar a fórmula de mudança de variável multivariada
+(Teorema 2.9.2) para calcular a densidade conjunta \(f_{U, V}(u, v)\) de \(U\) e
+\(V\). Como \(U = X/\sqrt{Y/n}\) e \(V = Y\), segue que \(X = U\sqrt{V/n}\) e \(Y = V\).
+Calculamos o termo jacobiano como<sup class="nota-ref nota-tradutor"><a href="#nota-74" id="ref-74">74</a></sup>
+<span class="eq">\[
+J(x, y) = \det\begin{pmatrix}
+\frac{\partial u}{\partial x} &amp; \frac{\partial v}{\partial x}\\[2ex]
+\frac{\partial u}{\partial y} &amp; \frac{\partial v}{\partial y}
+\end{pmatrix}
+= \det\begin{pmatrix}
+\frac{1}{\sqrt{y/n}} &amp; 0\\[2ex]
+\frac{-x\sqrt{n}}{y^{3/2}} &amp; 1
+\end{pmatrix}
+= \frac{1}{\sqrt{y/n}}.
+\]</span>
+Logo,
+<span class="eq">\begin{align*}
+f_{U, V}(u, v)
+&amp;= f_{X, Y}\left(u\sqrt{\frac{v}{n}},\, v\right)
+   J^{-1}\left(u\sqrt{\frac{v}{n}},\, v\right)\\
+&amp;= \frac{e^{-\left(u^2 v\right)/2n}\, v^{(n/2)-1} e^{-v/2}}
+        {\sqrt{2\pi}\, 2^{n/2}\, \Gamma\left(\frac{n}{2}\right)}
+   \sqrt{\frac{v}{n}}\\
+&amp;= \frac{1}{\sqrt{\pi}\,\Gamma(n/2)}\,\frac{1}{2^{(n+1)/2}}\,\frac{1}{\sqrt{n}}\,
+   v^{(n+1)/2-1} e^{-(v/2)\left(1 + u^2/n\right)}
+\end{align*}</span>
+para \(v &gt; 0\) (com \(f_{U, V}(u, v) = 0\) para \(v &lt; 0\)).</p>
+<p>Por fim, calculamos a densidade marginal<sup class="nota-ref nota-termo"><a href="#nota-75" id="ref-75">75</a></sup> de \(U\):
+<span class="eq">\begin{align*}
+f_U(u)
+&amp;= \int_{-\infty}^{\infty} f_{U, V}(u, v)\, dv\\
+&amp;= \frac{1}{\sqrt{\pi}\,\Gamma(n/2)}\,\frac{1}{2^{(n+1)/2}}\,\frac{1}{\sqrt{n}}
+   \int_0^{\infty} v^{(n+1)/2-1} e^{-(v/2)\left(1 + u^2/n\right)}\, dv\\
+&amp;= \frac{1}{\sqrt{\pi}\,\Gamma(n/2)}
+   \left(1 + \frac{u^2}{n}\right)^{-(n+1)/2} \frac{1}{\sqrt{n}}
+   \int_0^{\infty} w^{(n+1)/2-1} e^{-w/2}\, dw\\
+&amp;= \frac{\Gamma\left(\frac{n+1}{2}\right)}{\sqrt{\pi}\,\Gamma(n/2)}
+   \left(1 + \frac{u^2}{n}\right)^{-(n+1)/2} \frac{1}{\sqrt{n}},
+\end{align*}</span>
+em que fizemos a substituição \(w = \left(1 + u^2/n\right)v/2\) para obter a
+terceira igualdade e depois usamos a definição da função gama<sup class="nota-ref nota-termo"><a href="#nota-76" id="ref-76">76</a></sup> para obter o
+resultado.<sup class="nota-ref nota-tradutor"><a href="#nota-77" id="ref-77">77</a></sup></p></div>
+<div class="dem fim demonstracaode"><div class="cab"><span class="rot">Demonstração do Teorema 4.6.9</span></div><p>Queremos mostrar que, quando \(U \sim F(m, n)\), então
+<span class="eq">\[
+f_U(u) = \frac{\Gamma\left(\frac{m+n}{2}\right)}
+{\Gamma\left(\frac{m}{2}\right)\Gamma\left(\frac{n}{2}\right)}
+\left(\frac{m}{n}u\right)^{(m/2)-1}
+\left(1 + \frac{m}{n}u\right)^{-(m+n)/2} \frac{m}{n}
+\]</span>
+para \(u &gt; 0\), com \(f_U(u) = 0\) para \(u &lt; 0\).</p>
+<p>Como \(U \sim F(n, m)\), podemos escrever \(U = (X/m)/(Y/n)\), em que \(X\) e \(Y\)
+são independentes, com \(X \sim \chi^2(m)\) e \(Y \sim \chi^2(n)\).<sup class="nota-ref nota-tradutor"><a href="#nota-78" id="ref-78">78</a></sup> Segue que \(X\) e \(Y\) têm densidade
+conjunta dada por
+<span class="eq">\[
+f_{X, Y}(x, y) = \frac{x^{(m/2)-1} e^{-x/2}\, y^{(n/2)-1} e^{-y/2}}
+{2^{m/2}\,\Gamma\left(\frac{m}{2}\right) 2^{n/2}\,\Gamma\left(\frac{n}{2}\right)}
+\]</span>
+quando \(x, y &gt; 0\) (com \(f_{X, Y}(x, y) = 0\) para \(x &lt; 0\) ou \(y &lt; 0\)).</p>
+<p>Seja \(V = Y\), e usemos a fórmula de mudança de variável multivariada
+(Teorema 2.9.2) para calcular a densidade conjunta \(f_{U, V}(u, v)\) de \(U\) e
+\(V\). Como \(U = (X/m)/(Y/n)\) e \(V = Y\), segue que \(X = (m/n)UV\) e \(Y = V\).
+Calculamos o termo jacobiano como
+<span class="eq">\[
+J(x, y) = \det\begin{pmatrix}
+\frac{\partial u}{\partial x} &amp; \frac{\partial v}{\partial x}\\[2ex]
+\frac{\partial u}{\partial y} &amp; \frac{\partial v}{\partial y}
+\end{pmatrix}
+= \det\begin{pmatrix}
+\frac{n}{my} &amp; 0\\[2ex]
+\frac{-nX}{mY^2} &amp; 1
+\end{pmatrix}
+= \frac{n}{my}.
+\]</span>
+Logo,
+<span class="eq">\begin{align*}
+f_{U, V}(u, v)
+&amp;= f_{X, Y}\bigl((m/n)uv,\, v\bigr) J^{-1}\bigl((m/n)uv,\, v\bigr)\\
+&amp;= \frac{\left(\frac{m}{n}uv\right)^{(m/2)-1} e^{-(m/n)(uv/2)}\, v^{(n/2)-1} e^{-(v/2)}}
+        {2^{m/2}\,\Gamma\left(\frac{m}{2}\right) 2^{n/2}\,\Gamma\left(\frac{n}{2}\right)}
+   \frac{m}{n} v\\
+&amp;= \frac{1}{\Gamma\left(\frac{m}{2}\right)\Gamma\left(\frac{n}{2}\right)}
+   \left(\frac{m}{n}u\right)^{(m/2)-1} \frac{m}{n}\,\frac{1}{2^{(m+n)/2}}\,
+   v^{(m+n)/2-1} e^{-(v/2)(1 + mu/n)}
+\end{align*}</span>
+para \(u, v &gt; 0\) (com \(f_{U, V}(u, v) = 0\) para \(u &lt; 0\) ou \(v &lt; 0\)).</p>
+<p>Por fim, calculamos a densidade marginal de \(U\) como
+<span class="eq">\begin{align*}
+&amp;f_U(u)\\
+&amp;= \int_{-\infty}^{\infty} f_{U, V}(u, v)\, dv\\
+&amp;= \frac{1}{\Gamma\left(\frac{m}{2}\right)\Gamma\left(\frac{n}{2}\right)}
+   \left(\frac{m}{n}u\right)^{(m/2)-1} \frac{m}{n}\,\frac{1}{2^{(m+n)/2}}
+   \int_0^{\infty} v^{(m+n)/2-1} e^{-(v/2)(1 + mu/n)}\, dv\\
+&amp;= \frac{1}{\Gamma\left(\frac{m}{2}\right)\Gamma\left(\frac{n}{2}\right)}
+   \left(\frac{m}{n}u\right)^{(m/2)-1}
+   \left(1 + \frac{m}{n}u\right)^{-(n+m)/2} \frac{m}{n}
+   \int_0^{\infty} w^{(m+n)/2-1} e^{-w}\, dw\\
+&amp;= \frac{\Gamma\left(\frac{m+n}{2}\right)}
+        {\Gamma\left(\frac{m}{2}\right)\Gamma\left(\frac{n}{2}\right)}
+   \left(\frac{m}{n}u\right)^{(m/2)-1}
+   \left(1 + \frac{m}{n}u\right)^{-(n+m)/2} \frac{m}{n},
+\end{align*}</span>
+em que usamos a substituição \(w = (1 + mu/n)\,v/2\) para obter a terceira
+igualdade, e o resultado final segue da definição da função gama.</p></div>
+<section class="notas" aria-label="Notas do capítulo"><h4>Notas do capítulo</h4><ol><li id="nota-1" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">variável aleatória</span> — no original, <em lang="en">random variable</em></span> <a class="voltar" href="#ref-1" aria-label="Voltar ao texto">↩</a></li><li id="nota-2" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">variância</span> — no original, <em lang="en">variance</em></span> <a class="voltar" href="#ref-2" aria-label="Voltar ao texto">↩</a></li><li id="nota-3" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">distribuição amostral</span> — no original, <em lang="en">sampling distribution</em></span> <a class="voltar" href="#ref-3" aria-label="Voltar ao texto">↩</a></li><li id="nota-4" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">função de probabilidade</span> — no original, <em lang="en">probability function</em></span> <a class="voltar" href="#ref-4" aria-label="Voltar ao texto">↩</a></li><li id="nota-5" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">função densidade</span> — no original, <em lang="en">density function</em></span> <a class="voltar" href="#ref-5" aria-label="Voltar ao texto">↩</a></li><li id="nota-6" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">distribuição limite</span> — no original, <em lang="en">limiting distribution</em></span> <a class="voltar" href="#ref-6" aria-label="Voltar ao texto">↩</a></li><li id="nota-7" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">teorema central do limite</span> — no original, <em lang="en">central limit theorem</em></span> <a class="voltar" href="#ref-7" aria-label="Voltar ao texto">↩</a></li><li id="nota-8" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">estimativa</span> — no original, <em lang="en">estimate</em></span> <a class="voltar" href="#ref-8" aria-label="Voltar ao texto">↩</a></li><li id="nota-9" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">média geométrica</span> — no original, <em lang="en">geometric mean</em></span> <a class="voltar" href="#ref-9" aria-label="Voltar ao texto">↩</a></li><li id="nota-10" class="nota-tradutor"><span class="tipo">Nota do tradutor</span> <span class="conteudo">o original traz \(\{(1, 3), (1, 3)\}\) na linha de \(\sqrt{3}\); pela
+conta seria \(\{(1, 3), (3, 1)\}\)</span> <a class="voltar" href="#ref-10" aria-label="Voltar ao texto">↩</a></li><li id="nota-11" class="nota-tradutor"><span class="tipo">Nota do tradutor</span> <span class="conteudo">na notação \(N(\mu, \sigma^2)\) do livro, o
+segundo parâmetro deveria ser a variância, \(0{,}011060\), e \(0{,}105167\) é o desvio
+padrão de \(\ln Y_{20}\), e é com ele que a Figura 4.1.1 foi desenhada</span> <a class="voltar" href="#ref-11" aria-label="Voltar ao texto">↩</a></li><li id="nota-12" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">injetora</span> — no original, <em lang="en">one-to-one</em></span> <a class="voltar" href="#ref-12" aria-label="Voltar ao texto">↩</a></li><li id="nota-13" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">desvio padrão</span> — no original, <em lang="en">standard deviation</em></span> <a class="voltar" href="#ref-13" aria-label="Voltar ao texto">↩</a></li><li id="nota-14" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">função geradora de momentos</span> — no original, <em lang="en">moment-generating function</em></span> <a class="voltar" href="#ref-14" aria-label="Voltar ao texto">↩</a></li><li id="nota-15" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">teorema da unicidade</span> — no original, <em lang="en">uniqueness theorem</em></span> <a class="voltar" href="#ref-15" aria-label="Voltar ao texto">↩</a></li><li id="nota-16" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">distribuição uniforme</span> — no original, <em lang="en">uniform distribution</em></span> <a class="voltar" href="#ref-16" aria-label="Voltar ao texto">↩</a></li><li id="nota-17" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">convergência em probabilidade</span> — no original, <em lang="en">convergence in probability</em></span> <a class="voltar" href="#ref-17" aria-label="Voltar ao texto">↩</a></li><li id="nota-18" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">lei fraca dos grandes números</span> — no original, <em lang="en">weak law of large numbers</em></span> <a class="voltar" href="#ref-18" aria-label="Voltar ao texto">↩</a></li><li id="nota-19" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">tamanho da amostra</span> — no original, <em lang="en">sample size</em></span> <a class="voltar" href="#ref-19" aria-label="Voltar ao texto">↩</a></li><li id="nota-20" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">valor esperado</span> — no original, <em lang="en">expected value</em></span> <a class="voltar" href="#ref-20" aria-label="Voltar ao texto">↩</a></li><li id="nota-21" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">linearidade</span> — no original, <em lang="en">linearity</em></span> <a class="voltar" href="#ref-21" aria-label="Voltar ao texto">↩</a></li><li id="nota-22" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">de Chebychev</span> — no original, <em lang="en">Chebychev&#x27;s</em></span> <a class="voltar" href="#ref-22" aria-label="Voltar ao texto">↩</a></li><li id="nota-23" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">convergência com probabilidade 1</span> — no original, <em lang="en">convergence with probability 1</em></span> <a class="voltar" href="#ref-23" aria-label="Voltar ao texto">↩</a></li><li id="nota-24" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">quase certamente</span> — no original, <em lang="en">almost surely</em></span> <a class="voltar" href="#ref-24" aria-label="Voltar ao texto">↩</a></li><li id="nota-25" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">recíproca</span> — no original, <em lang="en">converse</em></span> <a class="voltar" href="#ref-25" aria-label="Voltar ao texto">↩</a></li><li id="nota-26" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">função indicadora</span> — no original, <em lang="en">indicator function</em></span> <a class="voltar" href="#ref-26" aria-label="Voltar ao texto">↩</a></li><li id="nota-27" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">infinitas vezes</span> — no original, <em lang="en">infinitely often</em></span> <a class="voltar" href="#ref-27" aria-label="Voltar ao texto">↩</a></li><li id="nota-28" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">lei forte dos grandes números</span> — no original, <em lang="en">strong law of large numbers</em></span> <a class="voltar" href="#ref-28" aria-label="Voltar ao texto">↩</a></li><li id="nota-29" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">lei dos grandes números</span> — no original, <em lang="en">law of large numbers</em></span> <a class="voltar" href="#ref-29" aria-label="Voltar ao texto">↩</a></li><li id="nota-30" class="nota-tradutor"><span class="tipo">Nota do tradutor</span> <span class="conteudo">o original traz \(X_{n,r}\) nesta última fórmula; pela notação do
+enunciado seria \(X_{r,n}\)</span> <a class="voltar" href="#ref-30" aria-label="Voltar ao texto">↩</a></li><li id="nota-31" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">absolutamente contínua</span> — no original, <em lang="en">absolutely continuous</em></span> <a class="voltar" href="#ref-31" aria-label="Voltar ao texto">↩</a></li><li id="nota-32" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">convergência em distribuição</span> — no original, <em lang="en">convergence in distribution</em></span> <a class="voltar" href="#ref-32" aria-label="Voltar ao texto">↩</a></li><li id="nota-33" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">função de distribuição acumulada</span> — no original, <em lang="en">cumulative distribution function</em></span> <a class="voltar" href="#ref-33" aria-label="Voltar ao texto">↩</a></li><li id="nota-34" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">soma amostral</span> — no original, <em lang="en">sample sum</em></span> <a class="voltar" href="#ref-34" aria-label="Voltar ao texto">↩</a></li><li id="nota-35" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">versão padronizada</span> — no original, <em lang="en">standardized version</em></span> <a class="voltar" href="#ref-35" aria-label="Voltar ao texto">↩</a></li><li id="nota-36" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">distribuição normal padrão</span> — no original, <em lang="en">standard normal distribution</em></span> <a class="voltar" href="#ref-36" aria-label="Voltar ao texto">↩</a></li><li id="nota-37" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">simulação de Monte Carlo</span> — no original, <em lang="en">Monte Carlo simulation</em></span> <a class="voltar" href="#ref-37" aria-label="Voltar ao texto">↩</a></li><li id="nota-38" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">não negativo</span> — no original, <em lang="en">nonnegative</em></span> <a class="voltar" href="#ref-38" aria-label="Voltar ao texto">↩</a></li><li id="nota-39" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">correção de continuidade</span> — no original, <em lang="en">correction for continuity</em></span> <a class="voltar" href="#ref-39" aria-label="Voltar ao texto">↩</a></li><li id="nota-40" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">praticamente com certeza</span> — no original, <em lang="en">with virtual certainty</em></span> <a class="voltar" href="#ref-40" aria-label="Voltar ao texto">↩</a></li><li id="nota-41" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">semicomprimento</span> — no original, <em lang="en">half-length</em></span> <a class="voltar" href="#ref-41" aria-label="Voltar ao texto">↩</a></li><li id="nota-42" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">estimativa consistente</span> — no original, <em lang="en">consistent estimate</em></span> <a class="voltar" href="#ref-42" aria-label="Voltar ao texto">↩</a></li><li id="nota-43" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">erro padrão</span> — no original, <em lang="en">standard error</em></span> <a class="voltar" href="#ref-43" aria-label="Voltar ao texto">↩</a></li><li id="nota-44" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">esperança</span> — no original, <em lang="en">expectation</em></span> <a class="voltar" href="#ref-44" aria-label="Voltar ao texto">↩</a></li><li id="nota-45" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">aproximação de Monte Carlo</span> — no original, <em lang="en">Monte Carlo approximation</em></span> <a class="voltar" href="#ref-45" aria-label="Voltar ao texto">↩</a></li><li id="nota-46" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">reescrever</span> — no original, <em lang="en">plausibility</em></span> <a class="voltar" href="#ref-46" aria-label="Voltar ao texto">↩</a></li><li id="nota-47" class="nota-tradutor"><span class="tipo">Nota do tradutor</span> <span class="conteudo">O original traz \(I\); a integral deste
+exemplo é \(J\).</span> <a class="voltar" href="#ref-47" aria-label="Voltar ao texto">↩</a></li><li id="nota-48" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">medida de probabilidade</span> — no original, <em lang="en">probability measure</em></span> <a class="voltar" href="#ref-48" aria-label="Voltar ao texto">↩</a></li><li id="nota-49" class="nota-tradutor"><span class="tipo">Nota do tradutor</span> <span class="conteudo">O original traz \(/n\) dentro das raízes; como a média é de \(N\)
+indicadoras, seria \(/N\).</span> <a class="voltar" href="#ref-49" aria-label="Voltar ao texto">↩</a></li><li id="nota-50" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">densidade conjunta</span> — no original, <em lang="en">joint density</em></span> <a class="voltar" href="#ref-50" aria-label="Voltar ao texto">↩</a></li><li id="nota-51" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">cota inferior</span> — no original, <em lang="en">lower bound</em></span> <a class="voltar" href="#ref-51" aria-label="Voltar ao texto">↩</a></li><li id="nota-52" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">estatísticas de ordem</span> — no original, <em lang="en">order statistics</em></span> <a class="voltar" href="#ref-52" aria-label="Voltar ao texto">↩</a></li><li id="nota-53" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">amostragem por importância</span> — no original, <em lang="en">importance sampling</em></span> <a class="voltar" href="#ref-53" aria-label="Voltar ao texto">↩</a></li><li id="nota-54" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">amostrador por importância</span> — no original, <em lang="en">importance sampler</em></span> <a class="voltar" href="#ref-54" aria-label="Voltar ao texto">↩</a></li><li id="nota-55" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">estimador consistente</span> — no original, <em lang="en">consistent estimator</em></span> <a class="voltar" href="#ref-55" aria-label="Voltar ao texto">↩</a></li><li id="nota-56" class="nota-tradutor"><span class="tipo">Nota do tradutor</span> <span class="conteudo">O original traz \(c^2\sigma^2\); pela notação do
+trecho seria \(c^2\sigma_1^2\).</span> <a class="voltar" href="#ref-56" aria-label="Voltar ao texto">↩</a></li><li id="nota-57" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">covariância</span> — no original, <em lang="en">covariance</em></span> <a class="voltar" href="#ref-57" aria-label="Voltar ao texto">↩</a></li><li id="nota-58" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">mudança de variável</span> — no original, <em lang="en">change of variable</em></span> <a class="voltar" href="#ref-58" aria-label="Voltar ao texto">↩</a></li><li id="nota-59" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">distribuição qui-quadrado</span> — no original, <em lang="en">chi-squared distribution</em></span> <a class="voltar" href="#ref-59" aria-label="Voltar ao texto">↩</a></li><li id="nota-60" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">graus de liberdade</span> — no original, <em lang="en">degrees of freedom</em></span> <a class="voltar" href="#ref-60" aria-label="Voltar ao texto">↩</a></li><li id="nota-61" class="nota-tradutor"><span class="tipo">Nota do tradutor</span> <span class="conteudo">Com a parametrização do livro (densidade
+\(\lambda e^{-\lambda x}\), Exemplo 2.4.5), a densidade \(\chi^2(2)\), que é
+\(\frac{1}{2} e^{-z/2}\), seria a Exponencial\((1/2)\).</span> <a class="voltar" href="#ref-61" aria-label="Voltar ao texto">↩</a></li><li id="nota-62" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">de Cauchy</span> — no original, <em lang="en">Cauchy</em></span> <a class="voltar" href="#ref-62" aria-label="Voltar ao texto">↩</a></li><li id="nota-63" class="nota-tradutor"><span class="tipo">Nota do tradutor</span> <span class="conteudo">No original, a linha cheia começa em
+  cerca de \(0{,}22\) em \(u = 0\) e fica cerca de cinco vezes abaixo da fórmula do
+  Teorema 4.6.9, que para \(m = 2\), \(n = 1\) dá \(f_U(u) = (1 + 2u)^{-3/2}\) (igual
+  a 1 em \(u = 0\)). O gráfico aqui foi calculado pela fórmula.</span> <a class="voltar" href="#ref-63" aria-label="Voltar ao texto">↩</a></li><li id="nota-64" class="nota-tradutor"><span class="tipo">Nota do tradutor</span> <span class="conteudo">A distribuição qui-quadrado é a da Seção
+4.6.1; a 4.6.2 é a da distribuição \(t\).</span> <a class="voltar" href="#ref-64" aria-label="Voltar ao texto">↩</a></li><li id="nota-65" class="nota-tradutor"><span class="tipo">Nota do tradutor</span> <span class="conteudo">A distribuição \(t\) é a da Seção 4.6.2; a 4.6.3 é a da distribuição
+\(F\).</span> <a class="voltar" href="#ref-65" aria-label="Voltar ao texto">↩</a></li><li id="nota-66" class="nota-tradutor"><span class="tipo">Nota do tradutor</span> <span class="conteudo">A distribuição \(F\) é a da Seção 4.6.3; não há Seção 4.6.4.</span> <a class="voltar" href="#ref-66" aria-label="Voltar ao texto">↩</a></li><li id="nota-67" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">sequência decrescente</span> — no original, <em lang="en">decreasing sequence</em></span> <a class="voltar" href="#ref-67" aria-label="Voltar ao texto">↩</a></li><li id="nota-68" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">subaditividade</span> — no original, <em lang="en">subadditivity</em></span> <a class="voltar" href="#ref-68" aria-label="Voltar ao texto">↩</a></li><li id="nota-69" class="nota-tradutor"><span class="tipo">Nota do tradutor</span> <span class="conteudo">o original
+cita o Teorema 3.5.3 (sobre \(E(g(Y)E(X \mid Y))\)); pelo conteúdo, seria o
+Teorema 3.4.3, que dá \(m_X(0) = 1\), \(m_X'(0) = E(X)\) e \(m_X''(0) = E(X^2)\).</span> <a class="voltar" href="#ref-69" aria-label="Voltar ao texto">↩</a></li><li id="nota-70" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">série de Taylor</span> — no original, <em lang="en">Taylor series</em></span> <a class="voltar" href="#ref-70" aria-label="Voltar ao texto">↩</a></li><li id="nota-71" class="nota-tradutor"><span class="tipo">Nota do tradutor</span> <span class="conteudo">o original traz \(o(s^2)/s \to 0\); pela definição dada na
+própria frase, seria \(o(s^2)/s^2 \to 0\).</span> <a class="voltar" href="#ref-71" aria-label="Voltar ao texto">↩</a></li><li id="nota-72" class="nota-tradutor"><span class="tipo">Nota do tradutor</span> <span class="conteudo">o original traz \(m_Y(s/2\sqrt{n})\); pela conta anterior, seria
+\(m_Y(s/\sqrt{n})\).</span> <a class="voltar" href="#ref-72" aria-label="Voltar ao texto">↩</a></li><li id="nota-73" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">jacobiano</span> — no original, <em lang="en">Jacobian</em></span> <a class="voltar" href="#ref-73" aria-label="Voltar ao texto">↩</a></li><li id="nota-74" class="nota-tradutor"><span class="tipo">Nota do tradutor</span> <span class="conteudo">o original traz \(-x\sqrt{n}/y^{3/2}\); pela derivada de
+\(x/\sqrt{y/n}\) em \(y\), seria \(-x\sqrt{n}/(2y^{3/2})\). O determinante não muda.</span> <a class="voltar" href="#ref-74" aria-label="Voltar ao texto">↩</a></li><li id="nota-75" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">densidade marginal</span> — no original, <em lang="en">marginal density</em></span> <a class="voltar" href="#ref-75" aria-label="Voltar ao texto">↩</a></li><li id="nota-76" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">função gama</span> — no original, <em lang="en">gamma function</em></span> <a class="voltar" href="#ref-76" aria-label="Voltar ao texto">↩</a></li><li id="nota-77" class="nota-tradutor"><span class="tipo">Nota do tradutor</span> <span class="conteudo">na terceira linha o original traz \(e^{-w/2}\); com a
+substituição \(w = (1 + u^2/n)v/2\), seria \(e^{-w}\), o que dá o resultado
+final.</span> <a class="voltar" href="#ref-77" aria-label="Voltar ao texto">↩</a></li><li id="nota-78" class="nota-tradutor"><span class="tipo">Nota do tradutor</span> <span class="conteudo">o
+original traz \(U \sim F(n, m)\); pelo enunciado e pela representação
+\(U = (X/m)/(Y/n)\), seria \(F(m, n)\).</span> <a class="voltar" href="#ref-78" aria-label="Voltar ao texto">↩</a></li></ol></section>
+<nav class="paginacao"><a class="ant" href="cap03.html">← Capítulo 3</a><a class="prox" href="cap05.html">Capítulo 5 →</a></nav>
+</main>
+<script>
+window.MathJax = { tex: { inlineMath: [["\\(", "\\)"]], displayMath: [["\\[", "\\]"]], tags: "none",
+  macros: { allowbreak: "", nolinebreak: "", upshape: "", itshape: "", sloppy: "", negrito: ["\\boldsymbol{#1}", 1],
+    Var: "\\operatorname{Var}", Cov: "\\operatorname{Cov}", Corr: "\\operatorname{Corr}", Sd: "\\operatorname{Sd}" } },
+  output: { font: "mathjax-stix2" }, svg: { fontCache: "global" }, options: { enableMenu: false } };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@4.0.0/tex-svg.js"></script>
+<script src="leitor.js"></script>
+</body>
+</html>

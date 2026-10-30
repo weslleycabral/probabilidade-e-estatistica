@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fundamentos Matemáticos — Probabilidade e Estatística: A Ciência da Incerteza</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=IBM+Plex+Sans+Condensed:wght@500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Sans+3:wght@500;600;700&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<link rel="stylesheet" href="leitor.css">
+<script>try{var c=JSON.parse(localStorage.getItem('leitor-config')||'{}');for(var k in c)document.documentElement.setAttribute('data-'+k,c[k]);}catch(e){}</script>
+</head>
+<body data-pagina="apA">
+<header class="barra">
+  <button class="botao" id="abrir-sumario" type="button" aria-label="Sumário" aria-expanded="false">☰</button>
+  <a class="livro" href="index.html">Probabilidade e Estatística: A Ciência da Incerteza</a>
+  <span class="onde">Apêndice A · Fundamentos Matemáticos</span>
+  <button class="botao" id="abrir-ajustes" type="button" aria-label="Ajustes de leitura" aria-expanded="false">Aa</button>
+  <div class="progresso" id="progresso"></div>
+</header>
+<nav class="sumario" id="sumario" aria-label="Sumário do capítulo"><ol><li class="nivel-2"><a href="#sec-A.1"><span class="n">A.1</span> Derivadas</a></li><li class="nivel-2"><a href="#sec-A.2"><span class="n">A.2</span> Integrais</a></li><li class="nivel-2"><a href="#sec-A.3"><span class="n">A.3</span> Séries Infinitas</a></li><li class="nivel-2"><a href="#sec-A.4"><span class="n">A.4</span> Multiplicação de Matrizes</a></li><li class="nivel-2"><a href="#sec-A.5"><span class="n">A.5</span> Derivadas Parciais</a></li><li class="nivel-2"><a href="#sec-A.6"><span class="n">A.6</span> Integrais Múltiplas</a></li></ol></nav>
+<div class="ajustes" id="ajustes" hidden></div>
+<main class="corpo">
+<h1 id="ap-A"><span class="n">Apêndice A</span><span class="t">Fundamentos Matemáticos</span></h1>
+<p>Para entender este livro, é necessário conhecer certos assuntos de
+matemática, listados a seguir. Como se supõe que o estudante já tenha feito um
+curso de cálculo, temas como derivadas, integrais e séries infinitas são
+tratados aqui de forma bem breve. As integrais múltiplas são
+tratadas com um pouco mais de detalhe.</p>
+<h2 id="sec-A.1"><span class="n">A.1</span> <span class="t">Derivadas</span></h2>
+<p>Do cálculo, sabemos que a <em>derivada</em> de uma função \(f\) é a sua taxa de
+variação instantânea:
+<span class="eq">\[
+  f'(x) = \frac{d}{dx} f(x) = \lim_{h \to 0} \frac{f(x + h) - f(x)}{h}.
+\]</span></p>
+<p>Em particular, o leitor deve se lembrar, do cálculo, de que
+<span class="eq">\[
+  \begin{array}{lll}
+    \frac{d}{dx} 5 = 0, \qquad &amp; \frac{d}{dx} x^3 = 3x^2, \qquad &amp; \frac{d}{dx} x^n = n x^{n-1}, \\[8pt]
+    \frac{d}{dx} e^x = e^x, \qquad &amp; \frac{d}{dx} \sin x = \cos x, \qquad &amp; \frac{d}{dx} \cos x = -\sin x,
+  \end{array}
+\]</span>
+etc. Assim, se \(f(x) = x^3\), então \(f'(x) = 3x^2\) e, por exemplo,
+\(f'(7) = 3\;7^2 = 147\).</p>
+<p>As derivadas respeitam a soma e a multiplicação por escalar; assim, se \(f\) e
+\(g\) são funções e \(C\) é uma constante, então
+<span class="eq">\[
+  \frac{d}{dx} \bigl(C f(x) + g(x)\bigr) = C f'(x) + g'(x).
+\]</span>
+Portanto,
+<span class="eq">\[
+  \frac{d}{dx} (5x^3 - 3x^2 + 7x + 12) = 15x^2 - 6x + 7,
+\]</span>
+etc.</p>
+<p>Por fim, as derivadas satisfazem uma <em>regra da cadeia</em>: se uma função
+pode ser escrita como uma <em>composição</em> de duas outras funções, como em
+\(f(x) = g(h(x))\), então \(f'(x) = g'(h(x))\, h'(x)\). Assim,
+<span class="eq">\begin{align*}
+  &amp;\tfrac{d}{dx} e^{5x} = 5 e^{5x}, \\
+  &amp;\tfrac{d}{dx} \sin(x^2) = 2x \cos(x^2), \\
+  &amp;\tfrac{d}{dx} (x^2 + x^3)^5 = 5 (x^2 + x^3)^4 (2x + 3x^2),
+\end{align*}</span>
+etc.</p>
+<p>As derivadas de ordem superior são definidas por
+<span class="eq">\[
+  f''(x) = \frac{d}{dx} f'(x), \quad f'''(x) = \frac{d}{dx} f''(x),
+\]</span>
+etc. Em geral, a derivada de ordem \(r\), \(f^{(r)}(x)\), pode ser definida por
+indução, com \(f^{(0)}(x) = f(x)\) e
+<span class="eq">\[
+  f^{(r)}(x) = \frac{d}{dx} f^{(r-1)}(x)
+\]</span>
+para \(r \ge 1\). Assim, se \(f(x) = x^4\), então \(f'(x) = 4x^3\),
+\(f''(x) = f^{(2)}(x) = 12x^2\), \(f^{(3)}(x) = 24x\), \(f^{(4)}(x) = 24\) etc.</p>
+<p>As derivadas são usadas com frequência neste texto.</p>
+<h2 id="sec-A.2"><span class="n">A.2</span> <span class="t">Integrais</span></h2>
+<p>Se \(f\) é uma função e \(a &lt; b\) são constantes, então a <em>integral</em> de \(f\)
+no intervalo \([a, b]\), escrita
+<span class="eq">\[
+  \int_a^b f(x)\, dx,
+\]</span>
+representa a soma dos valores \(f(x)\), multiplicados pelas larguras de
+pequenos intervalos em torno de \(x\). Isto é,
+\(\int_a^b f(x)\, dx \approx \sum_{i=1}^d f(x_i)(x_i - x_{i-1})\), em que
+\(a = x_0 &lt; x_1 &lt; \ldots &lt; x_d = b\) e em que \(x_i - x_{i-1}\) é pequeno.</p>
+<p>Mais formalmente, podemos tomar \(x_i = a + (i/d)(b - a)\) e fazer
+\(d \to \infty\), para obter uma definição formal de integral como
+<span class="eq">\[
+  \int_a^b f(x)\, dx = \lim_{d \to \infty} \sum_{i=1}^d f\bigl(a + (i/d)(b - a)\bigr)\,(1/d).
+\]</span></p>
+<p>Calcular \(\int_a^b f(x)\, dx\) dessa maneira toda vez seria tedioso.
+Felizmente, o <em>teorema fundamental do cálculo</em> oferece um jeito muito mais
+fácil de calcular integrais. Ele diz que, se \(F(x)\) é qualquer função com
+\(F'(x) = f(x)\), então \(\int_a^b f(x)\, dx = F(b) - F(a)\). Logo,
+<span class="eq">\begin{align*}
+  &amp;\textstyle\int_a^b 3x^2\, dx = b^3 - a^3, \\
+  &amp;\textstyle\int_a^b x^2\, dx = \frac{1}{3}(b^3 - a^3), \\
+  &amp;\textstyle\int_a^b x^n\, dx = \frac{1}{n+1}(b^{n+1} - a^{n+1}),
+\end{align*}</span>
+e
+<span class="eq">\begin{align*}
+  &amp;\textstyle\int_a^b \cos x\, dx = \sin b - \sin a, \\
+  &amp;\textstyle\int_a^b \sin x\, dx = -(\cos b - \cos a), \\
+  &amp;\textstyle\int_a^b e^{5x}\, dx = \frac{1}{5}(e^{5b} - e^{5a}).
+\end{align*}</span></p>
+<h2 id="sec-A.3"><span class="n">A.3</span> <span class="t">Séries Infinitas</span></h2>
+<p>Se \(a_1, a_2, a_3, \ldots\) é uma sequência infinita de números, podemos
+considerar a soma infinita (ou <em>série</em>)
+<span class="eq">\[
+  \sum_{i=1}^\infty a_i = a_1 + a_2 + a_3 + \cdots.
+\]</span>
+Formalmente, <span class="mat-quebravel">\(\sum_{i=1}^\infty a_i\) \({}= \lim_{N \to \infty} \sum_{i=1}^N a_i\)</span>.
+Essa soma pode ser finita ou infinita.</p>
+<p>Por exemplo, é claro que <span class="mat-quebravel">\(\sum_{i=1}^\infty 1\) \({}= 1 + 1 + 1 + 1\) \({}+ \cdots = \infty\)</span>.
+Por outro lado, como
+<span class="eq">\[
+  \frac{1}{2} + \frac{1}{4} + \frac{1}{8} + \frac{1}{16} + \cdots + \frac{1}{2^n} = \frac{2^n - 1}{2^n},
+\]</span>
+vemos que
+<span class="eq">\[
+  \frac{1}{2} + \frac{1}{4} + \frac{1}{8} + \frac{1}{16} + \cdots
+  = \sum_{i=1}^\infty \frac{1}{2^i}
+  = \lim_{N \to \infty} \sum_{i=1}^N \frac{1}{2^i}
+  = \lim_{N \to \infty} \frac{2^N - 1}{2^N} = 1.
+\]</span></p>
+<p>De modo mais geral, calculamos que
+<span class="eq">\[
+  \sum_{i=1}^\infty a^i = \frac{a}{1 - a}
+\]</span>
+sempre que \(\lvert a \rvert &lt; 1\).</p>
+<p>Um tipo de série infinita particularmente importante é a <em>série de
+Taylor<sup class="nota-ref nota-termo"><a href="#nota-1" id="ref-1">1</a></sup></em>. Se \(f\) é uma função, então a sua série de Taylor é dada por
+<span class="eq">\[
+  f(0) + x f'(0) + \frac{1}{2!} x^2 f''(0) + \frac{1}{3!} x^3 f^{(3)}(0) + \cdots
+  = \sum_{i=0}^\infty \frac{1}{i!} x^i f^{(i)}(0).
+\]</span>
+(Aqui, \(i! = i(i - 1)(i - 2) \cdots (2)(1)\) indica <em>\(i\) fatorial</em>, com
+\(0! = 1! = 1\), \(2! = 2\), \(3! = 6\), \(4! = 24\) etc.) Em geral, \(f(x)\) será
+exatamente igual à expansão em série de Taylor; assim,<sup class="nota-ref nota-tradutor"><a href="#nota-2" id="ref-2">2</a></sup>
+<span class="eq">\begin{align*}
+  \sin x &amp;= x - x^3/3 + x^5/5 - x^7/7 + \cdots, \\
+  \cos x &amp;= 1 - x^2/2 + x^4/4 - x^5/5 + \cdots, \\
+  e^x &amp;= 1 + x + x^2/2! + x^3/3! + x^4/4! + \cdots, \\
+  e^{5x} &amp;= 1 + 5x + (5x)^2/2! + (5x)^3/3! + (5x)^4/4! + \cdots,
+\end{align*}</span>
+etc. Se \(f(x)\) é um polinômio (por exemplo, \(f(x) = x^3 - 3x^2 + 2x - 6\)),
+então a série de Taylor de \(f(x)\) é exatamente a mesma função que \(f(x)\).</p>
+<h2 id="sec-A.4"><span class="n">A.4</span> <span class="t">Multiplicação de Matrizes</span></h2>
+<p>Uma <em>matriz</em> é qualquer coleção \(r \times s\) de números, por exemplo,
+<span class="eq">\[
+  A = \begin{pmatrix} 8 &amp; 6 \\ 5 &amp; 2 \end{pmatrix}, \quad
+  B = \begin{pmatrix} 3 &amp; 6 &amp; 2 \\ -7 &amp; 6 &amp; 0 \end{pmatrix}, \quad
+  C = \begin{pmatrix} 2 &amp; -1 \\ 3/5 &amp; 2/5 \\ -0{,}6 &amp; -17{,}9 \end{pmatrix},
+\]</span>
+etc.</p>
+<p>As matrizes podem ser <em>multiplicadas</em> da seguinte maneira. Se \(A\) é uma
+matriz \(r \times s\) e \(B\) é uma matriz \(s \times u\), então o produto \(AB\) é
+uma matriz \(r \times u\) cuja entrada \(i, j\) é dada por
+\(\sum_{k=1}^s A_{ik} B_{kj}\), uma soma de produtos. Por exemplo, com \(A\) e \(B\)
+como acima, se \(M = AB\), então
+<span class="eq">\begin{align*}
+  M &amp;= \begin{pmatrix} 8 &amp; 6 \\ 5 &amp; 2 \end{pmatrix}
+       \begin{pmatrix} 3 &amp; 6 &amp; 2 \\ -7 &amp; 6 &amp; 0 \end{pmatrix} \\
+    &amp;= \begin{pmatrix} 8(3) + 6(-7) &amp; 8(6) + 6(6) &amp; 8(2) + 6(0) \\
+                       5(3) + 2(-7) &amp; 5(6) + 2(6) &amp; 5(2) + 2(0) \end{pmatrix}
+     = \begin{pmatrix} -18 &amp; 84 &amp; 16 \\ 1 &amp; 42 &amp; 10 \end{pmatrix},
+\end{align*}</span>
+já que, por exemplo, a entrada \((2, 1)\) de \(M\) é igual a
+\(5(3) + 2(-7) = 1\).</p>
+<p>A multiplicação de matrizes acaba sendo surpreendentemente útil e é usada em
+vários pontos deste livro.</p>
+<h2 id="sec-A.5"><span class="n">A.5</span> <span class="t">Derivadas Parciais</span></h2>
+<p>Suponha que \(f\) seja uma função de <em>duas</em> variáveis, como em
+\(f(x, y) = 3x^2 y^3\). Então podemos tomar uma <em>derivada parcial</em> de \(f\) em
+relação a \(x\), escrita
+<span class="eq">\[
+  \frac{\partial}{\partial x} f(x, y),
+\]</span>
+variando \(x\) enquanto mantemos \(y\) fixo. Isto é,
+<span class="eq">\[
+  \frac{\partial}{\partial x} f(x, y) = \lim_{h \to 0} \frac{f(x + h, y) - f(x, y)}{h}.
+\]</span></p>
+<p>Ela pode ser calculada simplesmente tratando \(y\) como um valor constante. No
+exemplo acima,
+<span class="eq">\[
+  \frac{\partial}{\partial x} (3x^2 y^3) = 6x y^3.
+\]</span>
+Da mesma forma, tratando \(x\) como constante e variando \(y\), vemos que
+<span class="eq">\[
+  \frac{\partial}{\partial y} (3x^2 y^3) = 9x^2 y^2.
+\]</span></p>
+<p>Outros exemplos são<sup class="nota-ref nota-tradutor"><a href="#nota-3" id="ref-3">3</a></sup>
+<span class="eq">\begin{align*}
+  \frac{\partial}{\partial x} \bigl(18 e^{xy} + x^6 y^8 - \sin(y^3)\bigr) &amp;= 18 y e^{xy} + 6x^5 y^8, \\
+  \frac{\partial}{\partial y} \bigl(18 e^{xy} + x^6 y^8 - \sin(y^3)\bigr) &amp;= 18 x e^{xy} + 8x^6 y^7 - 3y^2 \sin(y^3),
+\end{align*}</span>
+etc.</p>
+<p>Se \(f\) é uma função de três ou mais variáveis, as derivadas parciais podem
+ser tomadas do mesmo modo. Assim,
+<span class="eq">\[
+  \frac{\partial}{\partial x} (x^2 y^4 z^6) = 2x y^4 z^6, \quad
+  \frac{\partial}{\partial y} (x^2 y^4 z^6) = 4x^2 y^3 z^6, \quad
+  \frac{\partial}{\partial z} (x^2 y^4 z^6) = 6x^2 y^4 z^5,
+\]</span>
+etc.</p>
+<h2 id="sec-A.6"><span class="n">A.6</span> <span class="t">Integrais Múltiplas</span></h2>
+<p>Se \(f\) é uma função de duas ou mais variáveis, ainda podemos calcular
+integrais de \(f\). Porém, em vez de tomar integrais num intervalo \([a, b]\),
+precisamos tomar integrais em <em>regiões</em> de dimensão maior.</p>
+<p>Por exemplo, seja \(f(x, y) = x^2 y^3\) e seja \(R\) a região retangular dada por
+<span class="mat-quebravel">\(R = \{0 \le x \le 1, 5 \le y \le 7\}\) \({}= [0, 1] \times [5, 7]\)</span>. Quanto vale
+<span class="eq">\[
+  \int_R \int f(x, y)\, dx\, dy,
+\]</span>
+a integral de \(f\) na região \(R\)? Em termos geométricos, é o volume sob o
+gráfico de \(f\) (que é uma superfície) acima da região \(R\). Mas como
+calculamos isso?</p>
+<p>Bem, se \(y\) é constante, sabemos que
+<span class="eq">\begin{equation}
+  \int_0^1 f(x, y)\, dx = \int_0^1 x^2 y^3\, dx = \frac{1}{3} y^3.
+  \tag{A.6.1}
+\end{equation}</span>
+Isso corresponde a somar os valores de \(f\) ao longo de uma “faixa” da região
+\(R\), na qual \(y\) é constante. Na Figura A.6.1, mostramos a região de
+integração \(R = [0, 1] \times [5, 7]\). O valor de (A.6.1), quando
+\(y = 6{,}2\), é \((6{,}2)^3/3 = 79{,}443\); essa é a área sob a curva \(x^2 (6{,}2)^3\)
+acima do segmento \([0, 1] \times \{6{,}2\}\).</p>
+<figure class="figura">
+  <img class="figura" src="figuras/tikz-77b92945ba31.svg" alt="" style="width: min(100%, 28.5em)">
+  <figcaption id="figura-A.6.1"><span class="rot">Figura A.6.1:</span> Gráfico da região de integração (sombreada)
+  \(R = [0, 1] \times [5, 7]\), junto com a reta \(y = 6{,}2\).</figcaption>
+</figure>
+<p>Se então somarmos os valores das áreas sobre essas faixas ao longo de todos os
+valores possíveis de \(y\), obtemos a integral total, ou volume, da seguinte
+maneira:
+<span class="eq">\begin{align*}
+  \int_R \int f(x, y)\, dx\, dy
+  &amp;= \int_5^7 \Bigl(\int_0^1 f(x, y)\, dx\Bigr)\, dy
+   = \int_5^7 \Bigl(\int_0^1 x^2 y^3\, dx\Bigr)\, dy \\
+  &amp;= \int_5^7 \Bigl(\frac{1}{3} y^3\Bigr)\, dy
+   = \frac{1}{3}\,\frac{1}{4}(7^4 - 5^4) = 148.
+\end{align*}</span>
+Assim, o volume sob o gráfico de \(f\) e acima da região \(R\) é igual a \(148\).</p>
+<p>Observe que também podemos calcular essa integral integrando primeiro em \(y\)
+e depois em \(x\), e obtemos a mesma resposta:
+<span class="eq">\begin{align*}
+  \int_R \int f(x, y)\, dx\, dy
+  &amp;= \int_0^1 \Bigl(\int_5^7 f(x, y)\, dy\Bigr)\, dx
+   = \int_0^1 \Bigl(\int_5^7 x^2 y^3\, dy\Bigr)\, dx \\
+  &amp;= \int_0^1 \Bigl(\frac{1}{4} x^2 (7^4 - 5^4)\Bigr)\, dx
+   = \frac{1}{3}\,\frac{1}{4}(7^4 - 5^4) = 148.
+\end{align*}</span></p>
+<h4 class="intertitulo">Regiões Não Retangulares</h4>
+<p>Se a região \(R\) não é um retângulo, o cálculo é mais complicado. A ideia é
+que, para cada valor de \(x\), integramos \(y\) apenas nos valores para os quais
+o ponto \((x, y)\) está dentro de \(R\).</p>
+<p>Por exemplo, suponha que \(R\) seja o triângulo dado por
+\(R = \{(x, y) : 0 \le 2y \le x \le 6\}\). Na Figura A.6.2, representamos essa
+região junto com os cortes em \(x = 3\) e \(y = 3/2\). Usamos os cortes em \(x\)
+para determinar os limites de \(y\) para \(x\) fixo quando integramos primeiro em
+\(y\); usamos os cortes em \(y\) para determinar os limites de \(x\) para \(y\) fixo
+quando integramos primeiro em \(x\).</p>
+<figure class="figura">
+  <img class="figura" src="figuras/tikz-50f06cc51d0c.svg" alt="" style="width: min(100%, 39.2em)">
+  <figcaption id="figura-A.6.2"><span class="rot">Figura A.6.2:</span> A região de integração (sombreada)
+  \(R = \{(x, y) : 0 \le 2y \le x \le 6\}\), junto com os cortes em \(x = 3\) e
+  \(y = 3/2\).</figcaption>
+</figure>
+<p>Então \(x\) pode assumir qualquer valor entre \(0\) e \(6\). Porém, uma vez
+conhecido \(x\), \(y\) só pode assumir valores entre \(0\) e \(x/2\). Logo, se
+\(f(x, y) = xy + x^6 y^8\), então
+<span class="eq">\begin{align*}
+  &amp;\int_R \int f(x, y)\, dx\, dy \\
+  &amp;= \int_0^6 \Bigl(\int_0^{x/2} f(x, y)\, dy\Bigr)\, dx
+   = \int_0^6 \Bigl(\int_0^{x/2} (xy + x^6 y^8)\, dy\Bigr)\, dx \\
+  &amp;= \int_0^6 \Bigl(x \frac{1}{2}\bigl((x/2)^2 - 0^2\bigr)
+     + \bigl(x^6 \frac{1}{9}\bigl((x/2)^9 - 0^9\bigr)\bigr)\Bigr)\, dx \\
+  &amp;= \int_0^6 \Bigl(\frac{1}{8} x^3 + \frac{1}{4608} x^{15}\Bigr)\, dx \\
+  &amp;= \frac{1}{8}\,\frac{1}{4}(6^4 - 0^4) + \frac{1}{4608}\,\frac{1}{16}(6^{16} - 0^{16}) \\
+  &amp;= 3{,}8264 \times 10^7.
+\end{align*}</span></p>
+<p>Mais uma vez, podemos calcular a mesma integral na ordem inversa, integrando
+primeiro em \(x\) e depois em \(y\). Nesse caso, \(y\) pode assumir qualquer valor
+entre \(0\) e \(3\). Então, para um dado valor de \(y\), vemos que \(x\) pode assumir
+valores entre \(0\) e \(2y\). Logo,<sup class="nota-ref nota-tradutor"><a href="#nota-4" id="ref-4">4</a></sup>
+<span class="eq">\[
+  \int_R \int f(x, y)\, dx\, dy
+  = \int_0^3 \Bigl(\int_{2y}^6 f(x, y)\, dx\Bigr)\, dy
+  = \int_0^3 \Bigl(\int_{2y}^6 (xy + x^6 y^8)\, dx\Bigr)\, dy.
+\]</span>
+Deixamos como exercício para o leitor terminar esta integral e verificar que
+se obtém a mesma resposta de antes.</p>
+<p>Funções de três ou mais variáveis também podem ser integradas em regiões da
+dimensão correspondente, três ou maior. Para simplificar, não damos ênfase a
+essas integrais de ordem superior neste livro.</p>
+<section class="notas" aria-label="Notas do capítulo"><h4>Notas do capítulo</h4><ol><li id="nota-1" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">série de Taylor</span> — no original, <em lang="en">Taylor series</em></span> <a class="voltar" href="#ref-1" aria-label="Voltar ao texto">↩</a></li><li id="nota-2" class="nota-tradutor"><span class="tipo">Nota do tradutor</span> <span class="conteudo">O original traz
+estas duas séries assim; pela fórmula de Taylor acima seriam
+<span class="mat-quebravel">\(\sin x = x - x^3/3!\) \({}+ x^5/5! - x^7/7!\) \({}+ \cdots\)</span> e
+<span class="mat-quebravel">\(\cos x = 1 - x^2/2!\) \({}+ x^4/4! - x^6/6!\) \({}+ \cdots\)</span>.</span> <a class="voltar" href="#ref-2" aria-label="Voltar ao texto">↩</a></li><li id="nota-3" class="nota-tradutor"><span class="tipo">Nota do tradutor</span> <span class="conteudo">O original traz \(-3y^2 \sin(y^3)\) no fim da segunda
+linha; pela conta seria \(-3y^2 \cos(y^3)\).</span> <a class="voltar" href="#ref-3" aria-label="Voltar ao texto">↩</a></li><li id="nota-4" class="nota-tradutor"><span class="tipo">Nota do tradutor</span> <span class="conteudo">O original traz “entre 0 e
+\(2y\)”; pela região e pelos limites da integral abaixo, seria entre \(2y\) e \(6\).</span> <a class="voltar" href="#ref-4" aria-label="Voltar ao texto">↩</a></li></ol></section>
+<nav class="paginacao"><a class="ant" href="cap11.html">← Capítulo 11</a><a class="prox" href="apB.html">Apêndice B →</a></nav>
+</main>
+<script>
+window.MathJax = { tex: { inlineMath: [["\\(", "\\)"]], displayMath: [["\\[", "\\]"]], tags: "none",
+  macros: { allowbreak: "", nolinebreak: "", upshape: "", itshape: "", sloppy: "", negrito: ["\\boldsymbol{#1}", 1],
+    Var: "\\operatorname{Var}", Cov: "\\operatorname{Cov}", Corr: "\\operatorname{Corr}", Sd: "\\operatorname{Sd}" } },
+  output: { font: "mathjax-stix2" }, svg: { fontCache: "global" }, options: { enableMenu: false } };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@4.0.0/tex-svg.js"></script>
+<script src="leitor.js"></script>
+</body>
+</html>

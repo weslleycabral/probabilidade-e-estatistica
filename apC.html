@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Distribuições Comuns — Probabilidade e Estatística: A Ciência da Incerteza</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=IBM+Plex+Sans+Condensed:wght@500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Sans+3:wght@500;600;700&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<link rel="stylesheet" href="leitor.css">
+<script>try{var c=JSON.parse(localStorage.getItem('leitor-config')||'{}');for(var k in c)document.documentElement.setAttribute('data-'+k,c[k]);}catch(e){}</script>
+</head>
+<body data-pagina="apC">
+<header class="barra">
+  <button class="botao" id="abrir-sumario" type="button" aria-label="Sumário" aria-expanded="false">☰</button>
+  <a class="livro" href="index.html">Probabilidade e Estatística: A Ciência da Incerteza</a>
+  <span class="onde">Apêndice C · Distribuições Comuns</span>
+  <button class="botao" id="abrir-ajustes" type="button" aria-label="Ajustes de leitura" aria-expanded="false">Aa</button>
+  <div class="progresso" id="progresso"></div>
+</header>
+<nav class="sumario" id="sumario" aria-label="Sumário do capítulo"><ol><li class="nivel-2"><a href="#sec-C.1"><span class="n">C.1</span> Distribuições Discretas</a></li><li class="nivel-2"><a href="#sec-C.2"><span class="n">C.2</span> Distribuições Absolutamente Contínuas</a></li></ol></nav>
+<div class="ajustes" id="ajustes" hidden></div>
+<main class="corpo">
+<h1 id="ap-C"><span class="n">Apêndice C</span><span class="t">Distribuições Comuns</span></h1>
+<p>Registramos aqui as distribuições mais usadas em probabilidade e
+estatística, bem como algumas de suas características básicas.</p>
+<h2 id="sec-C.1"><span class="n">C.1</span> <span class="t">Distribuições Discretas</span></h2>
+<p><strong>1.</strong> <em>Bernoulli</em>\((\theta)\), \(\theta \in [0, 1]\) (igual à
+Binomial\((1, \theta)\)).<br>função de probabilidade<sup class="nota-ref nota-termo"><a href="#nota-1" id="ref-1">1</a></sup>: \(p(x) = \theta^x (1 - \theta)^{1-x}\) para
+\(x = 0, 1\).<br>média: \(\theta\).<br>variância<sup class="nota-ref nota-termo"><a href="#nota-2" id="ref-2">2</a></sup>: \(\theta(1 - \theta)\).<br>função geradora de momentos<sup class="nota-ref nota-termo"><a href="#nota-3" id="ref-3">3</a></sup>: \(m(t) = (1 - \theta + \theta e^t)\) para
+\(t \in R^1\).</p>
+<p><strong>2.</strong> <em>Binomial</em>\((n, \theta)\), \(n &gt; 0\) inteiro,
+\(\theta \in [0, 1]\).<br>função de probabilidade: \(p(x) = \binom{n}{x} \theta^x (1 - \theta)^{n-x}\)
+para \(x = 0, 1, \ldots, n\).<br>média: \(n\theta\).<br>variância: \(n\theta(1 - \theta)\).<br>função geradora de momentos: \(m(t) = (1 - \theta + \theta e^t)^n\) para
+\(t \in R^1\).</p>
+<p><strong>3.</strong> <em>Geométrica</em>\((\theta)\), \(\theta \in (0, 1]\) (igual à
+Binomial Negativa\((1, \theta)\)).<br>função de probabilidade: \(p(x) = (1 - \theta)^x \theta\) para
+\(x = 0, 1, 2, \ldots\).<br>média: \((1 - \theta)/\theta\).<br>variância: \((1 - \theta)/\theta^2\).<br>função geradora de momentos: \(m(t) = \theta\bigl(1 - (1 - \theta) e^t\bigr)^{-1}\)
+para \(t &lt; -\ln(1 - \theta)\).</p>
+<p><strong>4.</strong> <em>Hipergeométrica</em>\((N, M, n)\), \(M \le N\), \(n \le N\),
+todos inteiros positivos.<br>função de probabilidade:
+<span class="eq">\[
+  p(x) = \binom{M}{x} \binom{N - M}{n - x} \Big/ \binom{N}{n}
+  \quad \text{para } \max(0, n + M - N) \le x \le \min(n, M).
+\]</span>
+média: \(n \frac{M}{N}\).<br>variância: \(n \frac{M}{N} \left(1 - \frac{M}{N}\right) \frac{N - n}{N - 1}\).</p>
+<p><strong>5.</strong> <em>Multinomial</em>\((n, \theta_1, \ldots, \theta_k)\), \(n &gt; 0\)
+inteiro, cada \(\theta_i \in [0, 1]\), \(\theta_1 + \cdots + \theta_k = 1\).<br>função de probabilidade:
+<span class="eq">\begin{align*}
+  p(x_1, \ldots, x_k) &amp;= \binom{n}{x_1 \ldots x_k} \theta_1^{x_1} \cdots \theta_k^{x_k}
+  \quad \text{em que cada } x_i \in \{0, 1, \ldots, n\} \\
+  &amp;\phantom{{}={}} \text{e } x_1 + \cdots + x_k = n.
+\end{align*}</span>
+média: \(E(X_i) = n\theta_i\).<br>variância: \(\Var(X_i) = n\theta_i(1 - \theta_i)\).<br>covariância<sup class="nota-ref nota-termo"><a href="#nota-4" id="ref-4">4</a></sup>: \(\Cov(X_i, X_j) = -n\theta_i\theta_j\) quando \(i \ne j\).</p>
+<p><strong>6.</strong> <em>Binomial Negativa</em>\((r, \theta)\), \(r &gt; 0\) inteiro,
+\(\theta \in (0, 1]\).<br>função de probabilidade: \(p(x) = \binom{r - 1 + x}{x} \theta^r (1 - \theta)^x\)
+para \(x = 0, 1, 2, 3, \ldots\).<br>média: \(r(1 - \theta)/\theta\).<br>variância: \(r(1 - \theta)/\theta^2\).<br>função geradora de momentos:
+\(m(t) = \theta^r \bigl(1 - (1 - \theta) e^t\bigr)^{-r}\) para
+\(t &lt; -\ln(1 - \theta)\).</p>
+<p><strong>7.</strong> <em>Poisson</em>\((\lambda)\), \(\lambda &gt; 0\).<br>função de probabilidade: \(p(x) = \frac{\lambda^x}{x!} e^{-\lambda}\) para
+\(x = 0, 1, 2, 3, \ldots\).<br>média: \(\lambda\).<br>variância: \(\lambda\).<br>função geradora de momentos: \(m(t) = \exp\{\lambda(e^t - 1)\}\) para
+\(t \in R^1\).</p>
+<h2 id="sec-C.2"><span class="n">C.2</span> <span class="t">Distribuições Absolutamente Contínuas</span></h2>
+<p><strong>1.</strong> <em>Beta</em>\((a, b)\), \(a &gt; 0\), \(b &gt; 0\) (igual à
+Dirichlet\((a, b)\)).<br>função densidade<sup class="nota-ref nota-termo"><a href="#nota-5" id="ref-5">5</a></sup>:
+\(f(x) = \frac{\Gamma(a + b)}{\Gamma(a)\Gamma(b)} x^{a-1} (1 - x)^{b-1}\) para
+\(x \in (0, 1)\).<br>média: \(a/(a + b)\).<br>variância: \(ab/(a + b + 1)(a + b)^2\).</p>
+<p><strong>2.</strong> <em>Normal Bivariada</em>\((\mu_1, \mu_2, \sigma_1^2, \sigma_2^2, \rho)\)
+para \(\mu_1, \mu_2 \in R^1\), \(\sigma_1^2, \sigma_2^2 &gt; 0\),
+\(\rho \in [-1, 1]\).<br>função densidade:
+<span class="eq">\begin{align*}
+  &amp;f_{X_1, X_2}(x_1, x_2) \\
+  &amp;= \frac{1}{2\pi \sigma_1 \sigma_2 \sqrt{1 - \rho^2}}
+     \exp\left\{ -\frac{1}{2(1 - \rho^2)}
+     \left[ \begin{array}{c}
+       \left(\frac{x_1 - \mu_1}{\sigma_1}\right)^2
+       + \left(\frac{x_2 - \mu_2}{\sigma_2}\right)^2 - {} \\[4pt]
+       2\rho \left(\frac{x_1 - \mu_1}{\sigma_1}\right)
+       \left(\frac{x_2 - \mu_2}{\sigma_2}\right)
+     \end{array} \right] \right\} \\
+  &amp;\qquad \text{para } x_1 \in R^1, x_2 \in R^1.
+\end{align*}</span>
+média: \(E(X_i) = \mu_i\).<br>variância: \(\Var(X_i) = \sigma_i^2\).<br>covariância: \(\Cov(X_1, X_2) = \rho \sigma_1 \sigma_2\).</p>
+<p><strong>3.</strong> <em>Qui-quadrado</em>\((\alpha)\) ou \(\chi^2(\alpha)\),
+\(\alpha &gt; 0\) (igual à Gama\((\alpha/2, 1/2)\)).<br>função densidade:
+\(f(x) = 2^{-\alpha/2} \bigl(\Gamma(\alpha/2)\bigr)^{-1} x^{(\alpha/2)-1} e^{-x/2}\)
+para \(x &gt; 0\).<br>média: \(\alpha\).<br>variância: \(2\alpha\).<br>função geradora de momentos: \(m(t) = (1 - 2t)^{-\alpha/2}\) para \(t &lt; 1/2\).</p>
+<p><strong>4.</strong> <em>Dirichlet</em>\((\alpha_1, \ldots, \alpha_{k+1})\),
+\(\alpha_i &gt; 0\) para cada \(i\).<br>função densidade:
+<span class="eq">\begin{align*}
+  &amp;f_{X_1, \ldots, X_k}(x_1, \ldots, x_k) \\
+  &amp;= \frac{\Gamma(\alpha_1 + \cdots + \alpha_{k+1})}{\Gamma(\alpha_1) \cdots \Gamma(\alpha_{k+1})}
+     x_1^{\alpha_1 - 1} \cdots x_k^{\alpha_k - 1}
+     (1 - x_1 - \cdots - x_k)^{\alpha_{k+1} - 1} \\
+  &amp;\qquad \text{para } x_i \ge 0,\ i = 1, \ldots, k \text{ e }
+     0 \le x_1 + \cdots + x_k \le 1.
+\end{align*}</span>
+média:
+<span class="eq">\[
+  E(X_i) = \frac{\alpha_i}{\alpha_1 + \cdots + \alpha_{k+1}}.
+\]</span>
+variância:
+<span class="eq">\[
+  \Var(X_i) = \frac{\alpha_i(\alpha_1 + \cdots + \alpha_{k+1} - \alpha_i)}
+  {(\alpha_1 + \cdots + \alpha_{k+1})^2 (1 + \alpha_1 + \cdots + \alpha_{k+1})}.
+\]</span>
+covariância quando \(i \ne j\):
+<span class="eq">\[
+  \Cov(X_i, X_j) = \frac{-\alpha_i \alpha_j}
+  {(\alpha_1 + \cdots + \alpha_{k+1})^2 (1 + \alpha_1 + \cdots + \alpha_{k+1})}.
+\]</span></p>
+<p><strong>5.</strong> <em>Exponencial</em>\((\lambda)\), \(\lambda &gt; 0\) (igual à
+Gama\((1, \lambda)\)).<br>função densidade: \(f(x) = \lambda e^{-\lambda x}\) para \(x &gt; 0\).<br>média: \(\lambda^{-1}\).<br>variância: \(\lambda^{-2}\).<br>função geradora de momentos: \(m(t) = \lambda(\lambda - t)^{-1}\) para
+\(t &lt; \lambda\).</p>
+<p>Observe que alguns livros e pacotes de software substituem \(\lambda\) por
+\(1/\lambda\) na definição da distribuição Exponencial\((\lambda)\) — sempre
+confira isso ao usar outro livro ou ao usar um software para gerar valores
+dessa distribuição.</p>
+<p><strong>6.</strong> \(F(\alpha, \beta)\), \(\alpha &gt; 0\), \(\beta &gt; 0\).<br>função densidade:
+<span class="eq">\begin{align*}
+  f(x) &amp;= \frac{\Gamma\left(\frac{\alpha + \beta}{2}\right)}
+         {\Gamma\left(\frac{\alpha}{2}\right) \Gamma\left(\frac{\beta}{2}\right)}
+         \left(\frac{\alpha}{\beta} x\right)^{\alpha/2 - 1}
+         \left(1 + \frac{\alpha}{\beta} x\right)^{-(\alpha + \beta)/2}
+         \frac{\alpha}{\beta} \\
+       &amp;\qquad \text{para } x &gt; 0.
+\end{align*}</span>
+média: \(\beta/(\beta - 2)\) quando \(\beta &gt; 2\).<br>variância: \(2\beta^2(\alpha + \beta - 2)/\alpha(\beta - 2)^2(\beta - 4)\) quando
+\(\beta &gt; 4\).</p>
+<p><strong>7.</strong> <em>Gama</em>\((\alpha, \lambda)\), \(\alpha &gt; 0\),
+\(\lambda &gt; 0\).<br>função densidade:
+\(f(x) = \frac{\lambda^\alpha x^{\alpha - 1}}{\Gamma(\alpha)} e^{-\lambda x}\)
+para \(x &gt; 0\).<br>média: \(\alpha/\lambda\).<br>variância: \(\alpha/\lambda^2\).<br>função geradora de momentos: \(m(t) = \lambda^\alpha (\lambda - t)^{-\alpha}\)
+para \(t &lt; \lambda\).</p>
+<p>Observe que alguns livros e pacotes de software substituem \(\lambda\) por
+\(1/\lambda\) na definição da distribuição Gama\((\alpha, \lambda)\) — sempre
+confira isso ao usar outro livro ou ao usar um software para gerar valores
+dessa distribuição.</p>
+<p><strong>8.</strong> Log-normal ou \(\log N(\mu, \sigma^2)\), \(\mu \in R^1\),
+\(\sigma^2 &gt; 0\).<br>função densidade:
+\(f(x) = (2\pi\sigma^2)^{-1/2} x^{-1}
+\exp\left(-\frac{1}{2\sigma^2}(\ln x - \mu)^2\right)\) para \(x &gt; 0\).<br>média: \(\exp(\mu + \sigma^2/2)\).<br>variância: \(\exp(2\mu + \sigma^2)\bigl(\exp(\sigma^2) - 1\bigr)\).</p>
+<p><strong>9.</strong> \(N(\mu, \sigma^2)\), \(\mu \in R^1\), \(\sigma^2 &gt; 0\).<br>função densidade:
+\(f(x) = (2\pi\sigma^2)^{-1/2} \exp\left(-\frac{1}{2\sigma^2}(x - \mu)^2\right)\)
+para \(x \in R^1\).<br>média: \(\mu\).<br>variância: \(\sigma^2\).<br>função geradora de momentos: \(m(t) = \exp(\mu t + \sigma^2 t^2/2)\) para
+\(t \in R^1\).</p>
+<p><strong>10.</strong> <em>Student</em>\((\alpha)\) ou \(t(\alpha)\), \(\alpha &gt; 0\)
+(\(\alpha = 1\) dá a distribuição de Cauchy<sup class="nota-ref nota-termo"><a href="#nota-6" id="ref-6">6</a></sup>).<br>função densidade:
+<span class="eq">\begin{align*}
+  f(x) &amp;= \frac{\Gamma\left(\frac{\alpha + 1}{2}\right)}
+         {\Gamma\left(\frac{1}{2}\right) \Gamma\left(\frac{\alpha}{2}\right)}
+         \left(1 + \frac{x^2}{\alpha}\right)^{-(\alpha + 1)/2}
+         \frac{1}{\sqrt{\alpha}} \\
+       &amp;\qquad \text{para } x \in R^1.
+\end{align*}</span>
+média: \(0\) quando \(\alpha &gt; 1\).<br>variância: \(\alpha/(\alpha - 2)\) quando \(\alpha &gt; 2\).</p>
+<p><strong>11.</strong> <em>Uniforme</em>\([L, R]\), \(R &gt; L\).<br>função densidade: \(f(x) = 1/(R - L)\) para \(L &lt; x &lt; R\).<br>média: \((L + R)/2\).<br>variância: \((R - L)^2/12\).<br>função geradora de momentos: \(m(t) = (e^{Rt} - e^{Lt})/t(R - L)\).</p>
+<section class="notas" aria-label="Notas do capítulo"><h4>Notas do capítulo</h4><ol><li id="nota-1" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">função de probabilidade</span> — no original, <em lang="en">probability function</em></span> <a class="voltar" href="#ref-1" aria-label="Voltar ao texto">↩</a></li><li id="nota-2" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">variância</span> — no original, <em lang="en">variance</em></span> <a class="voltar" href="#ref-2" aria-label="Voltar ao texto">↩</a></li><li id="nota-3" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">função geradora de momentos</span> — no original, <em lang="en">moment-generating function</em></span> <a class="voltar" href="#ref-3" aria-label="Voltar ao texto">↩</a></li><li id="nota-4" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">covariância</span> — no original, <em lang="en">covariance</em></span> <a class="voltar" href="#ref-4" aria-label="Voltar ao texto">↩</a></li><li id="nota-5" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">função densidade</span> — no original, <em lang="en">density function</em></span> <a class="voltar" href="#ref-5" aria-label="Voltar ao texto">↩</a></li><li id="nota-6" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">de Cauchy</span> — no original, <em lang="en">Cauchy</em></span> <a class="voltar" href="#ref-6" aria-label="Voltar ao texto">↩</a></li></ol></section>
+<nav class="paginacao"><a class="ant" href="apB.html">← Apêndice B</a><a class="prox" href="apD.html">Apêndice D →</a></nav>
+</main>
+<script>
+window.MathJax = { tex: { inlineMath: [["\\(", "\\)"]], displayMath: [["\\[", "\\]"]], tags: "none",
+  macros: { allowbreak: "", nolinebreak: "", upshape: "", itshape: "", sloppy: "", negrito: ["\\boldsymbol{#1}", 1],
+    Var: "\\operatorname{Var}", Cov: "\\operatorname{Cov}", Corr: "\\operatorname{Corr}", Sd: "\\operatorname{Sd}" } },
+  output: { font: "mathjax-stix2" }, svg: { fontCache: "global" }, options: { enableMenu: false } };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@4.0.0/tex-svg.js"></script>
+<script src="leitor.js"></script>
+</body>
+</html>

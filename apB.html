@@ -1,0 +1,1006 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cálculos — Probabilidade e Estatística: A Ciência da Incerteza</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=IBM+Plex+Sans+Condensed:wght@500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Sans+3:wght@500;600;700&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<link rel="stylesheet" href="leitor.css">
+<script>try{var c=JSON.parse(localStorage.getItem('leitor-config')||'{}');for(var k in c)document.documentElement.setAttribute('data-'+k,c[k]);}catch(e){}</script>
+</head>
+<body data-pagina="apB">
+<header class="barra">
+  <button class="botao" id="abrir-sumario" type="button" aria-label="Sumário" aria-expanded="false">☰</button>
+  <a class="livro" href="index.html">Probabilidade e Estatística: A Ciência da Incerteza</a>
+  <span class="onde">Apêndice B · Cálculos</span>
+  <button class="botao" id="abrir-ajustes" type="button" aria-label="Ajustes de leitura" aria-expanded="false">Aa</button>
+  <div class="progresso" id="progresso"></div>
+</header>
+<nav class="sumario" id="sumario" aria-label="Sumário do capítulo"><ol><li class="nivel-2"><a href="#sec-B.1"><span class="n">B.1</span> Usando o R</a></li><li class="nivel-2"><a href="#sec-B.2"><span class="n">B.2</span> Usando o Minitab</a></li></ol></nav>
+<div class="ajustes" id="ajustes" hidden></div>
+<main class="corpo">
+<h1 id="ap-B"><span class="n">Apêndice B</span><span class="t">Cálculos</span></h1>
+<p>Descrevemos brevemente dois pacotes computacionais que podem ser usados para
+todos os cálculos feitos no texto. Recomendamos que os estudantes se
+familiarizem com pelo menos um deles. A descrição do R é bastante completa, ao
+menos para os cálculos baseados no material deste texto, ao passo que é
+necessária outra referência para aprender o Minitab.</p>
+<h2 id="sec-B.1"><span class="n">B.1</span> <span class="t">Usando o R</span></h2>
+<p>O R é um pacote estatístico gratuito que pode ser baixado e instalado no seu
+computador (veja <a href="http://cran.r-project.org/">http://cran.r-project.org/</a>). Um manual gratuito também
+está disponível nesse site.</p>
+<p>Depois de instalar o R no seu sistema, você pode iniciá-lo clicando no ícone
+correspondente (ou, em sistemas Unix, simplesmente digitando “R”). Aparece então
+uma janela, chamada <em>R Console</em>, que contém algum texto e um prompt
+“<code>&gt;</code>”, depois do qual você digita os comandos. Os comandos são separados
+por novas linhas ou por “<code>;</code>”. A saída dos comandos também é exibida
+nessa janela, a menos que seja propositalmente direcionada para outro lugar.
+Para sair do R, digite <code>q()</code> depois do prompt. Para saber mais sobre
+qualquer coisa no R, um recurso conveniente é usar o Help da barra de menus, no
+alto da janela do R. Outra opção é digitar <code>?name</code> depois do prompt (e
+pressionar Enter) para exibir informações sobre <code>name</code>; por exemplo,
+<code>?q</code> abre uma página com informações sobre o comando de encerramento
+<code>q</code>.</p>
+<h4 class="intertitulo">Operações e Funções Básicas</h4>
+<p>Um comando básico avalia uma expressão, como</p>
+<pre class="codigo"><code>&gt; 2+3
+[1] 5</code></pre>
+<p>que soma 2 e 3 e produz a resposta 5. Outra possibilidade é <em>atribuir</em> o
+valor da expressão a uma variável, como em</p>
+<pre class="codigo"><code>&gt; a &lt;- 2</code></pre>
+<p>em que <code>&lt;-</code> (sinal de menor seguido de sinal de menos) atribui o valor 2
+a uma variável chamada <code>a</code>. Também se pode usar <code>=</code> na
+atribuição, como em <code>a = 2</code>, mas usaremos <code>&lt;-</code>. Podemos então
+verificar essa atribuição simplesmente digitando <code>a</code> e apertando Enter, o
+que faz o valor de <code>a</code> ser impresso.</p>
+<pre class="codigo"><code>&gt; a
+[1] 2</code></pre>
+<p>Observe que o R diferencia maiúsculas de minúsculas, de modo que <code>A</code>
+seria uma variável diferente de <code>a</code>. Há algumas restrições na escolha de
+nomes para variáveis e vetores, mas você não errará se sempre começar o nome
+com uma letra.</p>
+<p>Podemos atribuir os valores de um vetor usando a função de concatenação
+<code>c()</code>, como em</p>
+<pre class="codigo"><code>&gt; b &lt;- c(1,1,1,3,4,5)
+&gt; b
+[1] 1 1 1 3 4 5</code></pre>
+<p>o que cria um vetor chamado <code>b</code> com seis valores. Podemos acessar a
+\(i\)-ésima entrada de um vetor <code>b</code> referindo-nos a ela como
+<code>b[i]</code>. Por exemplo,</p>
+<pre class="codigo"><code>&gt; b[3]
+[1] 1</code></pre>
+<p>imprime a terceira entrada de <code>b</code>, isto é, <code>1</code>. Outra
+possibilidade é usar o comando <code>scan</code> para a entrada de dados. Por
+exemplo,</p>
+<pre class="codigo"><code>&gt; b &lt;- scan()
+1:  1 1 1 3 4 5
+7:
+Read 6 items
+&gt; b
+[1] 1 1 1 3 4 5</code></pre>
+<p>faz a mesma atribuição. Observe que, com o comando <code>scan</code>, simplesmente
+digitamos os dados e encerramos a entrada com uma linha em branco. Também
+podemos usar <code>scan</code> para ler dados de um arquivo; para isso, remetemos o
+leitor a <code>?scan</code>.</p>
+<p>Às vezes queremos vetores cujas entradas seguem algum padrão. Muitas vezes
+podemos usar a função <code>rep</code> para isso. Por exemplo,
+<code>x &lt;- rep(1,20)</code> cria um vetor de 20 uns. Padrões mais complicados podem
+ser obtidos; para isso, remetemos o leitor a <code>?rep</code>.</p>
+<p>A aritmética básica pode ser feita com variáveis e vetores usando <code>+</code>
+(adição), <code>-</code> (subtração), <code>*</code> (multiplicação), <code>/</code>
+(divisão) e <code>^</code> (exponenciação). Essas operações são
+feitas componente a componente. Por exemplo, poderíamos multiplicar cada
+componente de <code>b</code> por ele mesmo com</p>
+<pre class="codigo"><code>&gt; b*b
+[1] 1 1 1 9 16 25</code></pre>
+<p>ou multiplicar cada elemento de <code>b</code> por 2, como em</p>
+<pre class="codigo"><code>&gt; 2*b
+[1] 2 2 2 6 8 10</code></pre>
+<p>o que realiza essa operação.</p>
+<p>Há várias funções disponíveis no R, como <code>abs(x)</code> (calcula o valor
+absoluto de <code>x</code>), <code>log(x)</code> (calcula o logaritmo natural de
+<code>x</code>), <code>exp(x)</code> (calcula \(e\) elevado à potência <code>x</code>),
+<code>sin(x)</code>, <code>cos(x)</code>, <code>tan(x)</code> (que calculam as funções
+trigonométricas), <code>sqrt(x)</code> (que calcula a raiz quadrada de
+<code>x</code>), <code>ceiling(x)</code> e <code>floor(x)</code> (que calculam o teto e o
+piso de <code>x</code>). Quando uma dessas funções é aplicada a um vetor
+<code>x</code>, ela devolve um vetor de mesmo comprimento, com a função aplicada a
+cada elemento do vetor original. Há inúmeras funções especiais disponíveis no
+R, mas duas importantes são <code>gamma(x)</code>, que devolve a função gama<sup class="nota-ref nota-termo"><a href="#nota-1" id="ref-1">1</a></sup>
+aplicada a <code>x</code>, e <code>lgamma(x)</code>, que devolve o logaritmo natural da
+função gama.</p>
+<p>Há também funções que devolvem um único valor quando aplicadas a um vetor. Por
+exemplo, <code>min(x)</code> e <code>max(x)</code> devolvem, respectivamente, o menor e
+o maior elemento de <code>x</code>; <code>length(x)</code> dá o número de elementos de
+<code>x</code>; e <code>sum(x)</code> dá a soma dos valores de <code>x</code>.</p>
+<p>O R também opera com as quantidades lógicas <code>TRUE</code> (ou <code>T</code>, para
+verdadeiro) e <code>FALSE</code> (ou <code>F</code>, para falso). Valores lógicos são
+gerados por condições que são verdadeiras ou falsas. Por exemplo,</p>
+<pre class="codigo"><code>&gt; a &lt;- c(-3,4,2,-1,-5)
+&gt; b &lt;- a&gt;0
+&gt; b
+[1] FALSE TRUE TRUE FALSE FALSE</code></pre>
+<p>compara cada elemento do vetor <code>a</code> com 0, devolvendo <code>TRUE</code>
+quando ele é maior que 0 e <code>FALSE</code> caso contrário, e esses valores
+lógicos são guardados no vetor <code>b</code>. Podem ser usados os seguintes
+operadores lógicos: <code>&lt;</code>, <code>&lt;=</code>, <code>&gt;=</code>, <code>&gt;</code>,
+<code>==</code> (igualdade), <code>!=</code> (desigualdade), além de <code>&amp;</code>
+(conjunção), <code>|</code> (disjunção) e <code>!</code> (negação). Por exemplo, se
+criarmos um vetor lógico <code>c</code> assim:</p>
+<pre class="codigo"><code>&gt; c &lt;- c(T,T,T,T,T)
+&gt; b&amp;c
+[1] FALSE TRUE TRUE FALSE FALSE
+&gt; b|c
+[1] TRUE TRUE TRUE TRUE TRUE</code></pre>
+<p>então um elemento de <code>b&amp;c</code> é <code>TRUE</code> quando os dois elementos
+correspondentes de <code>b</code> e <code>c</code> são TRUE, enquanto um elemento de
+<code>b|c</code> é <code>TRUE</code> quando pelo menos um dos elementos correspondentes
+de <code>b</code> e <code>c</code> é TRUE.</p>
+<p>Às vezes podemos ter variáveis que assumem valores de caractere. Embora sempre
+seja possível codificar esses valores como números, não há necessidade disso,
+pois o R também lida com variáveis de valores de caractere. Por exemplo, os
+comandos</p>
+<pre class="codigo"><code>&gt; A &lt;- c(&#x27;a&#x27;,&#x27;b&#x27;)
+&gt; A
+[1] &quot;a&quot; &quot;b&quot;</code></pre>
+<p>criam um vetor de caracteres <code>A</code>, contendo dois valores, <code>a</code> e
+<code>b</code>, e depois imprimem esse vetor. Observe que pusemos os valores de
+caractere entre aspas simples ao fazer a atribuição.</p>
+<p>Às vezes faltam valores nos dados, e eles são então listados como <code>NA</code>
+(not available, não disponível). Operações com valores faltantes criam valores
+faltantes. Além disso, uma operação impossível, como 0/0, produz <code>NaN</code>
+(not a number, não é um número).</p>
+<p>Vários objetos podem ser criados durante uma sessão do R. Para ver os que foram
+criados até o momento na sua sessão, use o comando <code>ls()</code>. Você pode
+remover qualquer objeto da sua área de trabalho usando o comando <code>rm</code>.
+Por exemplo, <code>rm(x)</code> remove o vetor <code>x</code>.</p>
+<h4 class="intertitulo">Funções de Probabilidade</h4>
+<p>O R tem várias funções embutidas para calcular a fda, a fda inversa, a função
+densidade<sup class="nota-ref nota-termo"><a href="#nota-2" id="ref-2">2</a></sup> ou de probabilidade e para gerar amostras aleatórias das distribuições
+comuns que encontramos em probabilidade e estatística. Elas se distinguem por
+um prefixo e pelo nome da distribuição base. Alguns dos nomes de distribuições
+são dados na tabela a seguir.</p>
+<div class="centro"><div class="tbl"><table><tr><th>Distribuição</th><th>Nome no R e argumentos</th></tr><tr><td>beta</td><td><code>beta(</code>\(\cdot\)<code>,a,b)</code></td></tr><tr><td>binomial</td><td><code>binom(</code>\(\cdot\)<code>,n,p)</code></td></tr><tr><td>qui-quadrado</td><td><code>chisq(</code>\(\cdot\)<code>,df)</code></td></tr><tr><td>exponencial</td><td><code>exp(</code>\(\cdot\)<code>,lambda)</code></td></tr><tr><td>F</td><td><code>f(</code>\(\cdot\)<code>,df1,df2)</code></td></tr><tr><td>gama</td><td><code>gamma(</code>\(\cdot\)<code>,alpha,lambda)</code></td></tr><tr><td>geométrica</td><td><code>geom(</code>\(\cdot\)<code>,p)</code></td></tr><tr><td>hipergeométrica</td><td><code>hyper(</code>\(\cdot\)<code>,N,M,n)</code></td></tr><tr><td>binomial negativa</td><td><code>nbinom(</code>\(\cdot\)<code>,k,p)</code></td></tr><tr><td>normal</td><td><code>norm(</code>\(\cdot\)<code>,mu,sigma)</code></td></tr><tr><td>Poisson</td><td><code>pois(</code>\(\cdot\)<code>,lambda)</code></td></tr><tr><td>t</td><td><code>t(</code>\(\cdot\)<code>,df)</code></td></tr><tr><td>uniforme</td><td><code>unif(</code>\(\cdot\)<code>,min,max)</code></td></tr></table></div></div>
+<p>Como sempre, é preciso tomar cuidado com a distribuição gama. O caminho mais
+seguro é incluir outro argumento junto com a distribuição para indicar se
+<code>lambda</code> é um parâmetro de taxa (a densidade é
+\((\Gamma(\alpha))^{-1}\lambda^{\alpha}x^{\alpha-1}e^{-\lambda x}\)) ou um
+parâmetro de escala (a densidade é
+\((\Gamma(\alpha))^{-1}\lambda^{-\alpha}x^{\alpha-1}e^{-x/\lambda}\)). Assim,
+<code>gamma(</code>\(\cdot\)<code>,alpha,rate=lambda)</code> indica que <code>lambda</code> é
+um parâmetro de taxa, e <code>gamma(</code>\(\cdot\)<code>,alpha,scale=lambda)</code>
+indica que ele é um parâmetro de escala.</p>
+<p>O argumento indicado por \(\cdot\) é especificado de acordo com a finalidade do
+comando que usa o nome da distribuição. Para obter a fda de uma distribuição,
+ponha <code>p</code> antes do nome; então \(\cdot\) é o valor em que se quer calcular
+a fda. Para obter a fda inversa de uma distribuição, ponha <code>q</code> antes do
+nome; então \(\cdot\) é o valor em que se quer calcular a fda inversa. Para obter
+a função densidade ou de probabilidade, ponha <code>d</code> antes do nome; então
+\(\cdot\) é o valor em que se quer calcular a densidade ou a função de
+probabilidade<sup class="nota-ref nota-termo"><a href="#nota-3" id="ref-3">3</a></sup>. Para obter amostras aleatórias, ponha <code>r</code> antes do nome;
+então \(\cdot\) é o tamanho da amostra<sup class="nota-ref nota-termo"><a href="#nota-4" id="ref-4">4</a></sup> aleatória que se quer gerar.</p>
+<p>Por exemplo,</p>
+<pre class="codigo"><code>&gt; x &lt;- rnorm(4,1,2)
+&gt; x
+[1] -0.2462307 2.7992913 4.7541085 3.3169241</code></pre>
+<p>gera uma amostra de tamanho 4 da distribuição \(N(1, 2^2)\) e a atribui ao vetor
+<code>x</code>. O comando</p>
+<pre class="codigo"><code>&gt; dnorm(3.2,2,.5)
+[1] 0.04478906</code></pre>
+<p>calcula a densidade \(N(2; 0{,}25)\) em 3,2, enquanto</p>
+<pre class="codigo"><code>&gt; pnorm(3.2,2,.5)
+[1] 0.9918025</code></pre>
+<p>calcula a fda \(N(2; 0{,}25)\) em 3,2, e</p>
+<pre class="codigo"><code>&gt; qnorm(.025,2,.5)
+[1] 1.020018</code></pre>
+<p>dá o quantil 0,025 da distribuição \(N(2; 0{,}25)\).</p>
+<p>Se temos dados guardados num vetor <code>x</code>, podemos amostrar valores de
+<code>x</code>, com ou sem reposição, usando a função <code>sample</code>. Por exemplo,
+<code>sample(x,n,T)</code> gera uma amostra de tamanho <code>n</code> de <code>x</code> com
+reposição, enquanto <code>sample(x,n,F)</code> gera uma amostra de tamanho
+<code>n</code> de <code>x</code> sem reposição (observe que, neste último caso,
+<code>n</code> não pode ser maior que <code>length(x)</code>).</p>
+<p>Às vezes é conveniente poder repetir uma simulação de modo que os mesmos valores
+aleatórios sejam gerados. Para isso, pode-se usar o comando <code>set.seed</code>.
+Por exemplo, <code>set.seed(12345)</code> fixa a semente em <code>12345</code>.</p>
+<h4 class="intertitulo">Tabulação de Dados</h4>
+<p>O comando <code>table</code> está disponível para tabular dados. Por exemplo,
+<code>table(x)</code> devolve uma tabela com a lista dos valores distintos
+encontrados em <code>x</code> e suas frequências de ocorrência em <code>x</code>. Essa
+tabela pode ser atribuída a uma variável com</p>
+<pre class="codigo"><code>y &lt;- table(x)</code></pre>
+<p>para análise posterior (veja o trecho O Teste Qui-Quadrado, mais adiante).</p>
+<p>Se <code>x</code> e <code>y</code> são vetores de mesmo comprimento, então
+<code>table(x,y)</code> produz uma tabulação cruzada, isto é, conta o número de
+vezes em que se obtém cada valor possível de \((x, y)\), em que \(x\) pode ser
+qualquer um dos valores assumidos em <code>x</code> e \(y\) pode ser qualquer um dos
+valores assumidos em <code>y</code>.</p>
+<h4 class="intertitulo">Gráficos de Dados</h4>
+<p>O R tem vários comandos disponíveis para fazer gráficos de dados. Por exemplo,
+suponha que temos uma amostra de tamanho \(n\) guardada no vetor <code>x</code>.</p>
+<p>O comando <code>hist(x)</code> fornece um histograma de frequências dos dados, com
+os pontos de corte escolhidos automaticamente pelo R. Podemos acrescentar
+argumentos opcionais a <code>hist</code>. Seguem alguns dos argumentos disponíveis.</p>
+<div class="citacao"><p><code>breaks</code> — Um vetor que contém os pontos de corte.</p>
+<p><code>freq</code> — Uma variável lógica; quando <code>freq=T</code> (o padrão),
+obtém-se um histograma de frequências e, quando <code>freq=F</code>, obtém-se um
+histograma de densidade.</p></div>
+<p>Por exemplo, <code>hist(x,breaks=c(-10,-5,-2,0,2,5,10),freq=F)</code> faz o
+gráfico de um histograma de densidade com pontos de corte
+\(-10, -5, -2, 0, 2, 5, 10\), em que tivemos o cuidado de garantir que
+<code>min(x)</code> \(&gt; -10\) e <code>max(x)</code> \(&lt; 10\).</p>
+<p>Se <code>y</code> é outro vetor de mesmo comprimento que <code>x</code>, podemos
+produzir um diagrama de dispersão<sup class="nota-ref nota-termo"><a href="#nota-5" id="ref-5">5</a></sup> de <code>y</code> contra <code>x</code> com o comando
+<code>plot(x,y)</code>. O comando <code>plot(x,y,type="l")</code> fornece um diagrama
+de dispersão de <code>y</code> contra <code>x</code>, mas agora com os pontos ligados
+por linhas. O comando <code>plot(x)</code> faz o gráfico dos valores de <code>x</code>
+contra seus índices. O comando <code>plot(ecdf(x))</code> faz o gráfico da fda
+empírica dos dados de <code>x</code>.</p>
+<p>Um boxplot dos dados de <code>x</code> é obtido com o comando
+<code>boxplot(x)</code>. Boxplots lado a lado dos dados de <code>x</code>, <code>y</code>,
+<code>z</code> etc. podem ser obtidos com <code>boxplot(x,y,z)</code>.</p>
+<p>Um gráfico de probabilidade normal<sup class="nota-ref nota-termo"><a href="#nota-6" id="ref-6">6</a></sup> dos valores de <code>x</code> pode ser obtido com
+o comando <code>qqnorm(x)</code>.</p>
+<p>Um gráfico de barras pode ser obtido com o comando <code>barplot</code>. Por
+exemplo,</p>
+<pre class="codigo"><code>&gt; h &lt;- c(1,2,3)
+&gt; barplot(h)</code></pre>
+<p>produz um gráfico de barras com 3 barras de alturas 1, 2 e 3.</p>
+<p>Há muitos outros aspectos dos gráficos no R que dão ao usuário um controle
+considerável sobre a aparência dos gráficos. Remetemos o leitor ao manual para
+uma discussão mais ampla sobre eles.</p>
+<h4 class="intertitulo">Inferência Estatística</h4>
+<p>O R tem uma abordagem poderosa para ajustar modelos e fazer inferência sobre
+eles. Os modelos são especificados pelo símbolo <code>~</code>. Não
+discutimos isso por completo aqui; apenas indicamos como usá-lo para tratar os
+modelos de regressão linear simples e múltipla (em que a resposta e os
+preditores são todos quantitativos), os modelos com um e com dois fatores (em
+que a resposta é quantitativa, mas os preditores são categóricos) e o modelo de
+regressão logística<sup class="nota-ref nota-termo"><a href="#nota-7" id="ref-7">7</a></sup> (em que a resposta é categórica, mas os preditores são
+quantitativos). Suponha, então, que temos um vetor <code>y</code> com os valores da
+resposta.</p>
+<h4 class="intertitulo">Estatísticas Básicas</h4>
+<p>A função <code>mean(y)</code> devolve a média dos valores de <code>y</code>,
+<code>var(y)</code> devolve a variância<sup class="nota-ref nota-termo"><a href="#nota-8" id="ref-8">8</a></sup> amostral dos valores de <code>y</code>, e
+<code>sd(y)</code> dá o desvio padrão<sup class="nota-ref nota-termo"><a href="#nota-9" id="ref-9">9</a></sup> amostral. O comando <code>median(y)</code>
+devolve a mediana de <code>y</code>, enquanto <code>quantile(y,p)</code> devolve os
+quantis amostrais especificados no vetor de probabilidades <code>p</code>. Por
+exemplo, <code>quantile(y,c(.25,.5,.75))</code> devolve a mediana e o primeiro e o
+terceiro quartis. A função <code>sort(y)</code> devolve um vetor com os valores de
+<code>y</code> ordenados do menor para o maior, e <code>rank(y)</code> dá os postos dos
+valores de <code>y</code>.</p>
+<h4 class="intertitulo">O Teste \(t\)</h4>
+<p>Para os dados em <code>y</code>, podemos usar o comando</p>
+<pre class="codigo"><code>&gt; t.test(y,mu=1,alternative=&quot;two.sided&quot;,conf.level=.95)</code></pre>
+<p>para fazer um teste \(t\). Ele calcula o valor-p do teste de \(H_0: \mu = 1\) e
+forma um intervalo de confiança<sup class="nota-ref nota-termo"><a href="#nota-10" id="ref-10">10</a></sup> 0,95 para \(\mu\).</p>
+<h4 class="intertitulo">O Teste Qui-Quadrado</h4>
+<p>Suponha que <code>y</code> contenha um vetor de contagens para <code>k</code> caselas e
+que <code>prob</code> contenha as probabilidades hipotéticas dessas caselas. Então
+o comando</p>
+<pre class="codigo"><code>&gt; chisq.test(y,p=prob)</code></pre>
+<p>faz o teste qui-quadrado para avaliar essa hipótese. Observe que <code>y</code>
+também poderia corresponder a uma tabela unidimensional.</p>
+<p>Se <code>x</code> e <code>y</code> são dois vetores de mesmo comprimento, então
+<code>chisq.test(x,y)</code> faz um teste qui-quadrado de independência na tabela
+formada pela tabulação cruzada das entradas de <code>x</code> e <code>y</code>. Se
+primeiro criarmos essa tabulação cruzada na tabela <code>t</code> usando a função
+<code>table</code>, então <code>chisq.test(t)</code> faz esse teste.</p>
+<h4 class="intertitulo">Regressão Linear Simples</h4>
+<p>Suponha que temos um único preditor<sup class="nota-ref nota-termo"><a href="#nota-11" id="ref-11">11</a></sup>, com valores no vetor <code>x</code>. O modelo
+de regressão linear simples<sup class="nota-ref nota-termo"><a href="#nota-12" id="ref-12">12</a></sup> \(E(y \mid x) = \beta_1 + \beta_2 x\) é então
+especificado no R por <code>y~x</code>. Chamamos
+<code>y~x</code> de fórmula do modelo e a lemos como “<code>y</code> é
+modelado como um modelo linear envolvendo <code>x</code>”. Para fazer o ajuste (o
+que fizemos aqui para um conjunto específico de dados), usamos o comando de
+ajuste de modelos lineares <code>lm</code>, como segue. O comando</p>
+<pre class="codigo"><code>&gt; regexamp &lt;- lm(y~x)</code></pre>
+<p>faz os cálculos de ajuste e de inferência sobre esse modelo e atribui o
+resultado a uma estrutura chamada <code>regexamp</code>. Qualquer outro nome válido
+poderia ter sido usado para essa estrutura. Podemos agora usar várias funções do
+R para extrair vários itens de interesse. Por exemplo,</p>
+<pre class="codigo"><code>&gt; summary(regexamp)
+Call:
+lm(formula = y~x)
+Residuals:
+  Min      1Q    Median 3Q     Max
+-4.2211 -2.1163 0.3248 1.7255 4.3323
+Coefficients:
+ Estimate          Std.  Error  t value Pr(&gt;|t|)
+(Intercept) 6.5228   1.2176     5.357   4.31e-05 ***
+    x       1.7531   0.1016    17.248   1.22e-12 ***
+--
+Signif.  codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’
+0.1 ‘ ’ 1
+Residual standard error:  2.621 on 18 degrees of freedom
+Multiple R-squared:  0.9429, Adjusted R-squared:  0.9398
+
+F-statistic:  297.5 on 1 and 18 DF, p-value:  1.219e-12</code></pre>
+<p>usa a função <code>summary</code> para nos dar todas as informações de que
+precisamos. Por exemplo, a reta ajustada é dada por \(6{,}5228 + 1{,}7531x\). O teste
+de \(H_0: \beta_2 = 0\) tem valor-p de \(1{,}22 \times 10^{-12}\), de modo que temos
+forte evidência contra \(H_0\). Além disso, o \(R^2\) é dado por 94,29%. Itens
+individuais podem ser acessados por várias funções do R; para isso, remetemos o
+leitor a <code>?lm</code>.</p>
+<h4 class="intertitulo">Regressão Linear Múltipla</h4>
+<p>Se temos dois preditores quantitativos nos vetores <code>x1</code> e <code>x2</code>,
+podemos proceder exatamente como na regressão linear simples para ajustar o
+modelo de regressão linear
+<span class="mat-quebravel">\(E(y \mid x_1, x_2)\) \({}= \beta_1 + \beta_2 x_1\) \({}+ \beta_2 x_2\)</span>.<sup class="nota-ref nota-tradutor"><a href="#nota-13" id="ref-13">13</a></sup> Por exemplo, os comandos</p>
+<pre class="codigo"><code>&gt; regex &lt;- lm(y~x1+x2)
+&gt; summary(regex)</code></pre>
+<p>ajustam o modelo linear acima, atribuem os resultados à estrutura
+<code>regex</code>, e então a função <code>summary</code> imprime (omitido aqui) todas
+as quantidades relevantes. Lemos <code>y~x1+x2</code> como
+“<code>y</code> é modelado como um modelo linear envolvendo <code>x1</code> <em>e</em>
+<code>x2</code>”. Em particular, obtêm-se a estatística \(F\) e o valor-p associado a
+ela para o teste de \(H_0: \beta_2 = \beta_3 = 0\).</p>
+<p>Isso se generaliza imediatamente para modelos de regressão linear com \(k\)
+preditores quantitativos \(x_1, \ldots, x_k\). Além disso, suponha que queremos
+testar se o modelo envolve apenas \(x_1, \ldots, x_l\), para \(l &lt; k\). Usamos
+<code>lm</code> para ajustar o modelo com todos os \(k\) preditores e atribuímos isso
+a <code>regex</code>, e também usamos <code>lm</code> para ajustar o modelo que envolve
+só \(l\) preditores e atribuímos isso a <code>regex1</code>. Então o comando
+<code>anova(regex,regex1)</code> fornece a estatística \(F\) e seu valor-p para o
+teste de \(H_0: \beta_{l+1} = \cdots = \beta_k = 0\).</p>
+<h4 class="intertitulo">ANOVA com Um e com Dois Fatores</h4>
+<p>Suponha agora que \(A\) denota um preditor categórico que assume dois níveis,
+\(a_1\) e \(a_2\). Observe que os valores de \(A\) podem ser de caractere em vez de
+numéricos; por exemplo, <code>x</code> é um vetor de caracteres contendo os valores
+<code>a1</code> e <code>a2</code>, usados para indicar em que nível o valor
+correspondente de <code>y</code> foi observado. Em qualquer caso, precisamos
+transformar isso num fator <code>A</code>, com o comando</p>
+<pre class="codigo"><code>&gt; A &lt;- factor(x)</code></pre>
+<p>para que <code>A</code> possa ser usado na análise. Então o comando</p>
+<pre class="codigo"><code>&gt; aov(y~A)</code></pre>
+<p>produz a tabela de ANOVA com um fator. Naturalmente, <code>aov</code> também trata
+fatores com mais de dois níveis. Para obter as médias das caselas, use o
+comando <code>tapply(y,A,mean)</code>.</p>
+<p>Suponha que exista um segundo fator \(B\), com 5 níveis \(b_1, \ldots, b_5\). Se
+esse é o fator <code>B</code> no R, então o comando</p>
+<pre class="codigo"><code>&gt; aov(y~A+B+A:B)</code></pre>
+<p>produz a ANOVA com dois fatores para testar interações entre os fatores
+<code>A</code> e <code>B</code>. Para obter as médias das caselas, use o comando
+<code>tapply(y,list(A,B),mean)</code>. O comando <code>aov(y~A+B)</code>
+produz a tabela de ANOVA supondo que não há interações.</p>
+<h4 class="intertitulo">Regressão Logística</h4>
+<p>Suponha que temos dados binários guardados no vetor <code>y</code> e que <code>x</code>
+contém os valores correspondentes de um preditor quantitativo. Então podemos
+usar o comando de modelo linear generalizado <code>glm</code> para ajustar o modelo
+de regressão logística
+<span class="mat-quebravel">\(P(Y = 1 \mid x)\) \({}= \exp\{\beta_1\) \({}+ \beta_2 x\}/(1 + \exp\{\beta_1 + \beta_2 x\})\)</span>.
+Os comandos</p>
+<pre class="codigo"><code>&gt; logreg &lt;- glm(y~x,family=binomial)
+&gt; summary(logreg)</code></pre>
+<p>ajustam o modelo de regressão logística, atribuem os resultados a
+<code>logreg</code>, e então o comando <code>summary</code> imprime esse material. Isso
+nos dá as estimativas dos \(\beta_i\), seus erros padrão e os valores-p para
+testar que \(\beta_i = 0\).</p>
+<h4 class="intertitulo">Comandos de Controle e Programas em R</h4>
+<p>Um comando de controle básico tem a forma <code>if (expr1) expr2 else expr3</code>,
+em que <code>expr1</code> assume um valor lógico, <code>expr2</code> é executado se
+<code>expr1</code> é <code>T</code>, e <code>expr3</code> é executado se <code>expr1</code> é
+<code>F</code>. Por exemplo, se <code>x</code> é uma variável que assume o valor \(-2\),
+então</p>
+<pre class="codigo"><code>&gt; if (x&lt;0) {y &lt;- -1} else {y &lt;- 1}</code></pre>
+<p>faz com que seja atribuído a <code>y</code> o valor \(-1\). Observe que a parte
+<code>else</code> do comando pode ser omitida.</p>
+<p>O comando <code>for (name in expr) expr2</code> executa <code>expr2</code> para cada
+valor de <code>name</code> em <code>expr1</code>.<sup class="nota-ref nota-tradutor"><a href="#nota-14" id="ref-14">14</a></sup> Por exemplo,</p>
+<pre class="codigo"><code>&gt; for (i in 1:10) print(i)</code></pre>
+<p>imprime o valor da variável <code>i</code> à medida que são atribuídos a
+<code>i</code>, sucessivamente, os valores de \(\{1, 2, \ldots, 10\}\). Observe que
+<code>m:n</code> é, no R, uma abreviação da sequência \((m, m + 1, \ldots, n)\). Outro
+exemplo:</p>
+<pre class="codigo"><code>&gt; for (i in 1:20) y[i] &lt;- 2^i</code></pre>
+<p>cria um vetor <code>y</code> com 20 entradas, em que o \(i\)-ésimo elemento de
+<code>y</code> é igual a \(2^i\).</p>
+<p>O <code>break</code> encerra um laço, possivelmente com base em alguma condição que
+se verifique, enquanto <code>next</code> interrompe o processamento da iteração
+atual e avança o índice do laço. Tanto <code>break</code> quanto <code>next</code> valem
+apenas para o mais interno de laços aninhados.</p>
+<p>Comandos no R podem ser agrupados colocando-os entre chaves,
+<code>{expr1; expr2; ...}</code>. Os comandos dentro das chaves são executados
+como uma unidade. Por exemplo,</p>
+<pre class="codigo"><code>&gt; for (i in 1:20) {print(i); y[i] &lt;- 2^i}; print(y[i])}</code></pre>
+<p>faz com que <code>i</code> seja impresso, <code>y[i]</code> seja atribuído e
+<code>y[i]</code> seja impresso, tudo dentro de um laço <code>for</code>.<sup class="nota-ref nota-tradutor"><a href="#nota-15" id="ref-15">15</a></sup></p>
+<p>Muitas vezes, quando um cálculo é complicado, como um que envolve laços, é
+melhor pôr todos os comandos do R num único arquivo e executar o arquivo em modo
+de lote. Por exemplo, suponha que você tem um arquivo <code>prog.R</code> contendo
+código R. Então o comando <code>source("pathname/prog.R")</code> faz com que todos
+os comandos do arquivo sejam executados.</p>
+<p>Muitas vezes é conveniente pôr comentários nos programas em R para explicar o
+que as linhas de código fazem. Uma linha de comentário é precedida por
+<code>#</code> e, claro, não é executada.</p>
+<h4 class="intertitulo">Funções Definidas pelo Usuário</h4>
+<p>O R também permite funções definidas pelo usuário. A sintaxe da definição de uma
+função é a seguinte.</p>
+<div class="citacao"><p><em>nome da função</em> <code>&lt;-</code> <strong>function</strong>(<em>argumentos</em>) {<br>
+<em>corpo da função</em>;<br>
+return(<em>valor de retorno</em>);<br>
+}</p></div>
+<p>Por exemplo, a função a seguir calcula o coeficiente de variação amostral dos
+dados <code>x</code>.</p>
+<pre class="codigo"><code>coef_var &lt;- function(x) {
+    result &lt;- sd(x)/mean(x);
+    return(result);
+}</code></pre>
+<p>Então, se depois quisermos calcular o coeficiente de variação dos dados
+<code>y</code>, basta digitar <code>coef_var(y)</code>.</p>
+<h4 class="intertitulo">Arranjos e Listas</h4>
+<p>Um vetor de comprimento \(m\) também pode ser visto como um arranjo
+unidimensional de comprimento \(m\). O R pode lidar com <em>arranjos</em>
+multidimensionais, por exemplo, arranjos \(m \times n\), \(m \times n \times p\)
+etc. Se <code>a</code> é um arranjo tridimensional, então <code>a[i,j,k]</code> se
+refere à entrada na posição \((i, j, k)\) do arranjo. Há várias operações que
+podem ser feitas com arranjos; para elas, remetemos o leitor ao manual. Mais
+adiante neste manual, discutiremos o caso especial dos arranjos
+bidimensionais, também conhecidos como matrizes. Por ora, pensamos nos arranjos
+apenas como objetos em que guardamos dados.</p>
+<p>Uma estrutura de dados muito geral no R é dada por uma <em>lista</em>. Uma lista é
+parecida com um arranjo, com várias diferenças importantes.</p>
+<ol><li>Qualquer entrada de um arranjo é referida pelo seu índice. Já qualquer
+entrada de uma lista pode ser referida por um nome de caracteres. Por exemplo,
+os coeficientes da regressão ajustada são referidos por
+<code>regex$coefficients</code> depois do ajuste do modelo linear
+<code>regex &lt;- lm(y ~ x1 + x2)</code>. O cifrão ($) é o operador de
+referência a entradas, isto é, <code>varname$entname</code> indica a entrada
+“entname” da lista “varname”.</li>
+<li>Enquanto um arranjo guarda dados de um só tipo, uma lista pode guardar
+quaisquer objetos do R. Por exemplo, a entrada <code>coefficients</code> de um
+objeto de regressão linear é um vetor numérico, e a entrada <code>model</code> é uma
+lista.</li>
+<li>Os operadores de referência são diferentes: <code>arr[i]</code> se refere à
+\(i\)-ésima entrada do arranjo <code>arr</code>, e <code>lst[[i]]</code> se refere à
+\(i\)-ésima entrada da lista <code>lst</code>. Observe que \(i\) pode ser o nome da
+entrada, isto é, <code>lst$entname</code> e <code>lst[['entname']]</code> se referem
+aos mesmos dados.</li></ol>
+<h4 class="intertitulo">Exemplos</h4>
+<p>Consideramos agora alguns exemplos relativos a seções ou exemplos específicos
+do texto principal. Para executar qualquer um destes códigos, é preciso
+primeiro definir as funções. Para isso, carregue o código com o comando
+<code>source</code>. Depois, é preciso especificar os argumentos das funções.
+Observe que as linhas das listagens podem estar quebradas de modo pouco natural
+e continuar na linha seguinte.</p>
+<div class="ex" id="exemplo-B.1.1"><div class="cab"><span class="rot">Exemplo B.1.1</span> <span class="nome">Bootstrap<sup class="nota-ref nota-termo"><a href="#nota-16" id="ref-16">16</a></sup> no Exemplo 6.4.2</span></div><div class="txt fim"><p>O código R a seguir gera amostras bootstrap e calcula a mediana de cada uma
+delas. Para executar este código, digite <code>y &lt;- bootstrap_median(m,x)</code>,
+em que <code>m</code> é o número de amostras bootstrap, <code>x</code> contém a amostra
+original e as medianas das reamostras são guardadas em <code>y</code>. A estatística
+a que se aplica o bootstrap pode ser trocada substituindo <code>median</code> no
+código.</p></div></div>
+<pre class="codigo"><code>#   Example B.1.1
+#   function name: bootstrap_median
+#   parameters:
+#       m   resample size
+#       x   original data
+#   return value:
+#       a vector of resampled medians
+#   description: resamples and stores its median
+  bootstrap_median &lt;- function(m,x) {
+      n &lt;- length(x);
+      result &lt;- rep(0,m);
+      for(i in 1:m) result[i] &lt;- median(sample(x,n,T));
+   return(result);
+  }</code></pre>
+<div class="ex" id="exemplo-B.1.2"><div class="cab"><span class="rot">Exemplo B.1.2</span> <span class="nome">Amostragem da Distribuição a Posteriori<sup class="nota-ref nota-termo"><a href="#nota-17" id="ref-17">17</a></sup> no Exemplo 7.3.1</span></div><div class="txt fim"><p>O código R a seguir gera uma amostra de da distribuição a posteriori conjunta no
+Exemplo 7.3.1.<sup class="nota-ref nota-tradutor"><a href="#nota-18" id="ref-18">18</a></sup> Para executar uma
+simulação, digite</p>
+<p><code>post &lt;- post_normal(m,x,alpha0,beta0,mu0,tau0square)</code></p>
+<p>em que <code>m</code> é o tamanho da amostra de Monte Carlo e os demais argumentos
+são os hiperparâmetros da priori. O resultado é uma lista chamada (neste caso)
+<code>post</code>, em que <code>post$mu</code> e <code>post$sigmasq</code> contêm os
+valores gerados de \(\mu\) e \(\sigma^2\), respectivamente. Por exemplo,</p>
+<p><code>&gt; x &lt;- c(11.6714, 1.8957, 2.1228, 2.1286, 1.0751, 8.1631,</code><br>
+<code>1.8236, 4.0362, 6.8513, 7.6461, 1.9020, 7.4899, 4.9233,</code><br>
+<code>8.3223, 7.9486);</code><br>
+<code>&gt; post &lt;- post_normal(10**4,x,2,1,4,2)</code><br>
+<code>&gt; z &lt;- sqrt(post$sigmasq)/post$mu</code></p>
+<p>executa uma simulação como no Exemplo 7.3.1, com \(N = 10^4\).</p></div></div>
+<pre class="codigo"><code>#   Example B.1.2
+#   function name: post_normal
+#   parameters:
+#       m       sample size
+#       x       data
+#       alpha0  shape parameter for 1/sigma^2
+#       beta0   rate parameter for 1/sigma^2
+#       mu0     location parameter for mu
+#       tau0square  variance ratio parameter for mu
+#   returned values:
+#       mu      sampled mu
+#       sigmasq sampled sigmasquare
+#   description: samples from the posterior distribution
+#   in Example 7.3.1
+#
+post_normal&lt;-function(m,x,alpha0,beta0,mu0,tau0square){
+# set the length of the data
+n &lt;- length(x);
+# the shape and rate parameters of the posterior dist.
+# alpha_x = first parameter of the gamma dist.
+#         = (alpha0 + n/2)
+alpha_x &lt;- alpha0 + n/2
+# beta_x  = the rate parameter of the gamma dist.
+beta_x  &lt;- beta0 + (n-1)/2 * var(x) + n*(mean(x)-mu0)**2/
+           2/(1+n*tau0square);
+# mu_x    = the mean parameter of the normal dist.
+mu_x    &lt;- (mu0/tau0square+n*mean(x))/(n+1/tau0square);
+# tausq_x = the variance ratio parameter of the normal
+#           distribution
+tausq_x &lt;- 1/(n+1/tau0square);
+# initialize the result
+result  &lt;- list();
+result$sigmasq &lt;- 1/rgamma(m,alpha_x,rate=beta_x);
+result$mu      &lt;- rnorm(m,mu_x,sqrt(tausq_x *
+                      result$sigmasq));
+return(result);
+}</code></pre>
+<div class="ex" id="exemplo-B.1.3"><div class="cab"><span class="rot">Exemplo B.1.3</span> <span class="nome">Cálculo das Estimativas e dos Erros Padrão no Exemplo 7.3.1</span></div><div class="txt fim"><p>Uma vez que temos uma amostra de valores da distribuição a posteriori de \(\psi\)
+guardada em <code>psi</code>, podemos calcular o intervalo dado pelo valor médio<sup class="nota-ref nota-termo"><a href="#nota-19" id="ref-19">19</a></sup> de
+psi mais ou menos 3 desvios padrão como medida da precisão da estimação<sup class="nota-ref nota-termo"><a href="#nota-20" id="ref-20">20</a></sup>.</p></div></div>
+<pre class="codigo"><code># Example B.1.3
+# set the data
+x &lt;- c(11.6714, 1.8957, 2.1228, 2.1286, 1.0751, 8.1631,
+  1.8236, 4.0362, 6.8513, 7.6461, 1.9020, 7.4899,
+  4.9233, 8.3223, 7.9486);
+post &lt;- post_normal(10**4,x,2,1,4,2);
+# compute the coefficient of variation
+psi &lt;- sqrt(post$sigmasq)/post$mu;
+psi_hat &lt;- mean(psi &lt;= .5);
+psi_se  &lt;- sqrt(psi_hat * (1-psi_hat))/sqrt(length(psi));
+# the interval
+cq &lt;- 3
+cat(&quot;The three times s.e. interval is &quot;,
+  &quot;[&quot;,psi_hat-cq*psi_se, &quot;, &quot;, psi_hat+cq*psi_se,&quot;]\n&quot;);</code></pre>
+<div class="ex" id="exemplo-B.1.4"><div class="cab"><span class="rot">Exemplo B.1.4</span> <span class="nome">Uso do Amostrador de Gibbs<sup class="nota-ref nota-termo"><a href="#nota-21" id="ref-21">21</a></sup> no Exemplo 7.3.2</span></div><div class="txt fim"><p>Para executar esta função, digite</p>
+<p><code>post&lt;-gibbs_normal(m,x,alpha0,beta0,lambda,mu0,</code><br>
+<code>tau0sq,burnin=0)</code></p>
+<p>pois isso cria uma lista chamada <code>post</code>, em que <code>post$mu</code> e
+<code>post$sigmasq</code> contêm os valores gerados de \(\mu\) e \(\sigma^2\),
+respectivamente. Observe que o argumento <code>burnin</code> recebe um inteiro não
+negativo<sup class="nota-ref nota-termo"><a href="#nota-22" id="ref-22">22</a></sup> e indica que queremos descartar os primeiros <code>burnin</code> valores
+de \(\mu\) e \(\sigma^2\) e reter os últimos <code>m</code>. O valor padrão é
+<code>burnin=0</code>.</p></div></div>
+<pre class="codigo"><code># Example B.1.4
+#   function name: gibbs_normal
+#   parameters
+#     m         the size of posterior sample
+#     x         data
+#     alpha0    shape parameter for 1/sigma^2
+#     beta0     rate parameter for 1/sigma^2
+#     lambda    degree of freedom of Student&#x27;s t-dist.
+#     mu0       location parameter for mu
+#     tau0sq    scale parameter for mu
+#     burnin    size of burn in. the default value is 0.
+#
+#   returnrd values
+#       mu       sampled mu&#x27;s
+#       sigmasq  sampled sigma^2&#x27;s
+#   description: samples from the posterior in Ex. 7.3.2
+#
+gibbs_normal &lt;- function(m,x,alpha0,beta0,lambda,mu0,
+                         tau0sq,burnin=0) {
+  # initialize the result
+  result &lt;- list();
+  result$sigmasq &lt;- result$mu &lt;- rep(0,m);
+  # set the initial parameter
+  mu      &lt;- mean(x);
+  sigmasq &lt;- var(x);
+  n       &lt;- length(x);
+
+  # set parameters
+  alpha_x &lt;- n/2 + alpha0 + 1/2;
+  # loop
+  for(i in (1-burnin):m) {
+   # update v_i&#x27;s
+   v       &lt;- rgamma(n,(lambda+1)/2,rate=((x-mu)**2/
+                          sigmasq/lambda+1)/2);
+   # update sigma-square
+   beta_x &lt;-(sum(v*(x-mu)**2)/lambda+(mu-mu0)**2/
+                               tau0sq)/2+beta0;
+   sigmasq&lt;- 1/rgamma(1,alpha_x,rate=beta_x);
+   # update mu
+   r       &lt;- 1/(sum(v)/lambda+1/tau0sq);
+   mu      &lt;- rnorm(1,r*(sum(v*x)/lambda+mu0/tau0sq),
+                       sqrt(r*sigmasq));
+   # burnin check
+   if(i &lt; 1) next;
+   result$mu[i]      &lt;- mu;
+   result$sigmasq[i] &lt;- sigmasq;
+  }
+  result$psi &lt;- sqrt(result$sigmasq)/result$mu;
+  return(result);
+}</code></pre>
+<div class="ex" id="exemplo-B.1.5"><div class="cab"><span class="rot">Exemplo B.1.5</span> <span class="nome">Formação de Lotes no Exemplo 7.3.2</span></div><div class="txt fim"><p>O código R a seguir divide uma série de dados em lotes e calcula as médias dos
+lotes. Para executar o código, digite <code>y&lt;-batching(k,x)</code> para pôr no
+vetor <code>y</code> as médias dos lotes consecutivos de tamanho <code>k</code> dos
+dados do vetor <code>x</code>.</p></div></div>
+<pre class="codigo"><code>#   Example B.1.5
+#   function name: batching
+#   parameters:
+#       k   size of each batch
+#       x   data
+#   return value:
+#       an array of the averages of each batch
+#   description: this function separates the data x into
+#   floor(length(x)/k) batches and returns the array of
+#   the averages of each batch
+batching &lt;- function(k,x) {
+    m &lt;- floor(length(x)/k);
+    result &lt;- rep(0,m);
+    for(i in 1:m) result[i] &lt;- mean(x[(i-1)*k+(1:k)]);
+    return(result);
+}</code></pre>
+<div class="ex" id="exemplo-B.1.6"><div class="cab"><span class="rot">Exemplo B.1.6</span> <span class="nome">Simulação de uma Amostra da Distribuição da Estatística de Discrepância<sup class="nota-ref nota-termo"><a href="#nota-23" id="ref-23">23</a></sup> no Exemplo 9.1.2</span></div><div class="txt fim"><p>O código R a seguir gera uma amostra da estatística de discrepância especificada
+no Exemplo 9.1.2. Para gerar a amostra, digite <code>y&lt;-discrepancy(m,n)</code>
+para pôr em <code>y</code> uma amostra de tamanho <code>m</code>, em que <code>n</code> é o
+tamanho do conjunto de dados original. Este código pode ser facilmente
+modificado para gerar amostras de outras estatísticas de discrepância.</p></div></div>
+<pre class="codigo"><code>#   Example B.1.6
+#   function name: discrepancy
+#   parameters:
+#       m   resample size
+#       n   size of data
+#   return value:
+#       an array of m discrepancies
+#   description: this function generates m discrepancies
+#   when the data size is n
+discrepancy &lt;- function(m,n) {
+    result &lt;- rep(0,m);
+    for(i in 1:m) {
+        x    &lt;- rnorm(n);
+        xbar &lt;- mean(x);
+        r    &lt;- (x-xbar)/sqrt((sum((x-xbar)**2)));
+        result[i] &lt;- -sum(log(r**2));
+    }
+    return(result/n);
+}</code></pre>
+<div class="ex" id="exemplo-B.1.7"><div class="cab"><span class="rot">Exemplo B.1.7</span> <span class="nome">Geração a partir de uma Distribuição Dirichlet<sup class="nota-ref nota-termo"><a href="#nota-24" id="ref-24">24</a></sup> no Exemplo 10.2.3</span></div><div class="txt fim"><p>O código R a seguir gera uma amostra de uma distribuição
+Dirichlet\((\alpha_1, \alpha_2, \alpha_3, \alpha_4)\). Para gerar dessa
+distribuição, primeiro atribua valores ao vetor <code>alpha</code> e depois digite
+<code>ddirichlet(n,alpha)</code>, em que <code>n</code> é o tamanho da amostra.</p></div></div>
+<pre class="codigo"><code>#   Example B.1.7
+#   function name: ddirichlet
+#   parameters:
+#       n      sample size
+#       alpha  vector(alpha1,...,alphak)
+#   return value:
+#       a (n x k) matrix. rows are i.i.d. samples
+#   description: this function generates n random samples
+#   from Dirichlet(alpha1,...,alphak) distribution
+ddirichlet &lt;- function(n,alpha) {
+    k &lt;- length(alpha);
+    result &lt;- matrix(0,n,k);
+    for(i in 1:k) result[,i] &lt;- rgamma(n,alpha[i]);
+    for(i in 1:n) result[i,] &lt;- result[i,] /
+                                     sum(result[i,]);
+    return(result);
+}</code></pre>
+<h4 class="intertitulo">Matrizes</h4>
+<p>Uma matriz pode ser vista como uma coleção de valores de dados com dois índices
+ou como um arranjo retangular de dados. Assim, se <code>a</code> é uma matriz, então
+<code>a[i,j]</code> é o elemento \((i, j)\) de <code>a</code>. Observe que <code>a[i,]</code>
+se refere à \(i\)-ésima linha de <code>a</code> e <code>a[,j]</code> se refere à
+\(j\)-ésima coluna de <code>a</code>. Se uma matriz tem \(m\) linhas e \(n\) colunas, ela
+é uma matriz \(m \times n\), e \(m\) e \(n\) são chamados de dimensões da matriz.</p>
+<p>Talvez a maneira mais simples de criar matrizes seja com os comandos
+<code>cbind</code> e <code>rbind</code>. Por exemplo,</p>
+<pre class="codigo"><code>&gt; x&lt;-c(1,2,3)
+&gt; y&lt;-c(4,5,6)
+&gt; a&lt;-cbind(x,y)
+&gt; a
+ x y
+[1,] 1 4
+[2,] 2 5
+[3,] 3 6</code></pre>
+<p>cria os vetores <code>x</code> e <code>y</code>, e o comando <code>cbind</code> toma
+<code>x</code> como primeira coluna e <code>y</code> como segunda coluna da matriz
+\(3 \times 2\) recém-criada <code>a</code>. Observe que, na impressão de <code>a</code>,
+as colunas continuam rotuladas <code>x</code> e <code>y</code>, embora ainda possamos
+nos referir a elas como <code>a[,1]</code> e <code>a[,2]</code>. Podemos remover esses
+nomes de colunas com o comando <code>colnames(a)&lt;-NULL</code>. Do mesmo modo, o
+comando <code>rbind</code> trata os vetores dados como argumentos como as linhas de
+uma matriz. Para determinar o número de linhas e de colunas de uma matriz
+<code>a</code>, podemos usar os comandos <code>nrow(a)</code> e <code>ncol(a)</code>.
+Também podemos criar uma matriz diagonal usando o comando <code>diag</code>. Se
+<code>x</code> é um vetor \(n\)-dimensional, então <code>diag(x)</code> é uma matriz
+\(n \times n\) com as entradas de <code>x</code> na diagonal e 0 nas demais posições.
+Se <code>a</code> é uma matriz \(m \times n\), então <code>diag(a)</code> é o vetor com as
+entradas tiradas da diagonal principal de <code>a</code>. Para criar uma matriz
+identidade \(n \times n\), use <code>diag(n)</code>.</p>
+<p>Há várias operações que podem ser feitas com matrizes. Se as matrizes
+<code>a</code> e <code>b</code> são \(m \times n\), então <code>a+b</code> é a matriz
+\(m \times n\) formada pela soma das matrizes componente a componente. A
+transposta de <code>a</code> é a matriz \(n \times m\) <code>t(a)</code>, cuja \(i\)-ésima
+linha é igual à \(i\)-ésima coluna de <code>a</code>. Se <code>c</code> é um número,
+então <code>c*a</code> é a matriz \(m \times n\) formada pela multiplicação de cada
+elemento de <code>a</code> por <code>c</code>. Se <code>a</code> é \(m \times n\) e
+<code>b</code> é \(n \times p\), então <code>a%*%b</code> é a matriz \(m \times p\)
+produto (Apêndice A.4) de <code>a</code> e <code>b</code>. Um vetor numérico é tratado
+como vetor coluna na multiplicação de matrizes. Observe que <code>a*b</code> também
+está definido quando <code>a</code> e <code>b</code> têm a mesma dimensão, mas esse é o
+produto componente a componente das duas matrizes, bem diferente do produto de
+matrizes.</p>
+<p>Se <code>a</code> é uma matriz \(m \times m\), a inversa de <code>a</code> é obtida como
+<code>solve(a)</code>. O comando <code>solve</code> devolve um erro se a matriz não
+tiver inversa. Se <code>a</code> é uma matriz quadrada, então <code>det(a)</code>
+calcula o determinante de <code>a</code>.</p>
+<p>Consideramos agora uma aplicação importante.</p>
+<div class="ex" id="exemplo-B.1.8"><div class="cab"><span class="rot">Exemplo B.1.8</span> <span class="nome">Ajuste de Modelos de Regressão</span></div><div class="txt fim"><p>Suponha que o vetor \(n\)-dimensional <code>y</code> corresponda ao vetor de respostas
+e que a matriz \(n \times k\) <code>V</code> corresponda à matriz de planejamento
+quando ajustamos um modelo de regressão linear dado por \(E(y \mid V) = V\beta\).
+A estimativa de mínimos quadrados<sup class="nota-ref nota-termo"><a href="#nota-25" id="ref-25">25</a></sup> de \(\beta\) é dada por <code>b</code>, calculada em</p>
+<p><code>b&lt;-solve(t(V)%*%V)%*%t(V)%*%y</code></p>
+<p>com o vetor de valores preditos <code>p</code> e os resíduos <code>r</code> dados por</p>
+<p><code>&gt; p&lt;-V%*%b</code><br>
+<code>&gt; r&lt;-y-p</code></p>
+<p>com comprimentos ao quadrado</p>
+<p><code>&gt; slp&lt;-t(p)%*%p</code><br>
+<code>&gt; slr&lt;-t(r)%*%r</code></p>
+<p>em que <code>slp</code> é o comprimento ao quadrado de <code>p</code> e <code>slr</code> é o
+comprimento ao quadrado de <code>r</code>. Observe que a matriz
+<code>solve(t(V)%*%V)</code> é usada para formar intervalos de confiança e testes
+para os \(\beta_i\) individuais. Praticamente todos os cálculos envolvidos no
+ajuste e na inferência para o modelo de regressão linear podem ser feitos com
+cálculos matriciais no R como os que ilustramos.<sup class="nota-ref nota-tradutor"><a href="#nota-26" id="ref-26">26</a></sup></p></div></div>
+<h4 class="intertitulo">Pacotes</h4>
+<p>Há muitos pacotes escritos para estender a capacidade do R básico. É muito
+provável que, se você tiver uma necessidade de análise de dados que não possa
+ser atendida pelo R, encontre um pacote disponível gratuitamente para
+acrescentar. Remetemos o leitor a <code>?install.packages</code> e
+<code>?library</code> para saber mais sobre isso.</p>
+<h2 id="sec-B.2"><span class="n">B.2</span> <span class="t">Usando o Minitab</span></h2>
+<p>Todos os cálculos encontrados neste texto foram feitos com o Minitab. Esse
+pacote de software estatístico é muito fácil de aprender e de usar. Outros
+pacotes, como o SAS ou o R (ver a Seção B.1), também poderiam ser usados com
+essa finalidade.</p>
+<p>A maior parte dos cálculos foi feita usando o Minitab como uma calculadora,
+isto é, os dados eram digitados e então se recorria a vários comandos do
+Minitab para obter as quantidades desejadas. Esses cálculos não exigem
+nenhuma programação.</p>
+<p>Houve alguns cálculos, porém, que envolveram um pouco de programação. Em geral,
+tratava-se de um cálculo em que muitas operações tinham de ser feitas
+repetidas vezes, e por isso convinha usar um laço. Em cada um desses casos,
+registramos aqui o código do Minitab que usamos nesses cálculos. Como mostram
+os exemplos a seguir, esses programas nunca foram muito complicados.</p>
+<p>Os estudantes podem usar esses programas como modelos para escrever os
+próprios programas no Minitab. Na verdade, a linguagem é tão simples que
+achamos que qualquer pessoa que programe em outra linguagem consegue ler esses
+programas e usá-los como modelos do mesmo jeito. Basta pensar nos símbolos
+<code>c1</code>, <code>c2</code> etc. como vetores (<em>arrays</em>), em que o
+\(i\)-ésimo elemento do vetor <code>c1</code> é acessado por <code>c1(i)</code>. Além
+disso, há as constantes <code>k1</code>, <code>k2</code> etc.</p>
+<p>Um programa do Minitab se chama <em>macro</em> e precisa começar com a
+instrução <code>gmacro</code> e terminar com a instrução <code>endmacro</code>. A
+primeira instrução depois de <code>gmacro</code> dá um nome ao programa.
+Comentários num programa, postos ali para explicar o código, começam com
+<code>note</code>.</p>
+<p>Se o arquivo que contém o programa se chama <code>prog.txt</code> e está gravado
+no diretório raiz de uma unidade de disco chamada <code>c</code>, então o comando
+do Minitab</p>
+<div class=""><p><code>MTB&gt; %c:/prog.txt</code></p></div>
+<p>executa o programa. Qualquer saída será impressa na janela Session (se você
+tiver usado um comando <code>print</code>) ou guardada na planilha (<em>worksheet</em>)
+do Minitab.</p>
+<p>Mais detalhes sobre o Minitab podem ser encontrados no <code>Help</code> do
+programa. A seguir, damos alguns exemplos de macros do Minitab usadas no
+texto.</p>
+<div class="ex" id="exemplo-B.2.1"><div class="cab"><span class="rot">Exemplo B.2.1</span> <span class="nome">Bootstrap no Exemplo 6.4.2</span></div><div class="txt fim"><p>O código do Minitab a seguir gera 1000 amostras bootstrap a partir dos dados
+em <code>c1</code>, calcula a mediana de cada uma dessas amostras e depois calcula
+a variância amostral dessas medianas.</p></div></div>
+<pre class="codigo"><code>gmacro
+bootstrapping
+base 34256734
+note - original sample is stored in c1
+note - bootstrap sample is placed in c2 with each one
+note   overwritten
+note - medians of bootstrap samples are stored in c3
+note - k1 = size of data set (and bootstrap samples)
+let k1=15
+do k2=1:1000
+sample 15 c1 c2;
+replace.
+let c3(k2)=median(c2)
+enddo
+note - k3 equals (6.4.5)
+let k3=(stdev(c3))**2
+print k3
+endmacro</code></pre>
+<div class="ex" id="exemplo-B.2.2"><div class="cab"><span class="rot">Exemplo B.2.2</span> <span class="nome">Amostragem da Distribuição a Posteriori no Exemplo 7.3.1</span></div><div class="txt fim"><p>O código do Minitab a seguir gera uma amostra de tamanho \(10^4\) da distribuição
+a posteriori conjunta do Exemplo 7.3.1. Observe que, no software Minitab, a
+densidade Gama\((\alpha, \beta)\) tem a forma
+\((\beta^{-\alpha}/\Gamma(\alpha))x^{\alpha-1}e^{-x/\beta}\). Assim, para gerar
+de uma distribuição Gama\((\alpha, \beta)\), como definida neste livro,
+precisamos tomar no Minitab o segundo parâmetro de forma igual a \(1/\beta\).</p></div></div>
+<pre class="codigo"><code>gmacro
+normalpost
+note - the base command sets the seed for the random
+note   numbers
+base 34256734
+note - the parameters of the posterior
+note - k1 = first parameter of the gamma distribution
+note      = (alpha_0 + n/2)
+let k1=9.5
+note - k2 = 1/beta
+let k2=1/77.578
+note - k3 = posterior mean of mu
+let k3=5.161
+note - k4 = (n + 1/(tau_0 squared) )^(-1)
+let k4=1/15.5
+note - main loop
+note - c3 contains generated value of sigma**2
+note - c4 contains generated value of mu
+note - c5 contains generated value of coefficient of
+         variation
+do k5=1:10000
+random 1 c1;
+gamma k1 k2.
+let c3(k5)=1/c1(1)
+let k6=sqrt(k4/c1(1))
+random 1 c2;
+normal k3 k6.
+let c4(k5)=c2(1)
+let c5(k5)=sqrt(c3(k5))/c4(k5)
+enddo
+endmacro</code></pre>
+<div class="ex" id="exemplo-B.2.3"><div class="cab"><span class="rot">Exemplo B.2.3</span> <span class="nome">Cálculo das Estimativas e dos Erros Padrão no Exemplo 7.3.1</span></div><div class="txt fim"><p>Temos uma amostra de \(10^4\) valores da distribuição a posteriori de \(\psi\),
+guardada em <code>C5</code>. Os cálculos a seguir usam essa amostra para calcular
+uma estimativa<sup class="nota-ref nota-termo"><a href="#nota-27" id="ref-27">27</a></sup> da probabilidade a posteriori de que \(\psi \le 0{,}5\)
+(<code>k1</code>), e também o erro padrão<sup class="nota-ref nota-termo"><a href="#nota-28" id="ref-28">28</a></sup> dessa estimativa (<code>k2</code>), a
+estimativa menos três vezes o seu erro padrão (<code>k3</code>) e a estimativa
+mais três vezes o seu erro padrão (<code>k4</code>).</p></div></div>
+<pre class="codigo"><code>let c6=c5 le .5
+let k1=mean(c6)
+let k2=sqrt(k1*(1-k1))/sqrt(10000)
+let k3=k1-3*k2
+let k4=k1+3*k2
+print k1 k2 k3 k4</code></pre>
+<div class="ex" id="exemplo-B.2.4"><div class="cab"><span class="rot">Exemplo B.2.4</span> <span class="nome">Uso do Amostrador de Gibbs no Exemplo 7.3.2</span></div><div class="txt fim"><p>O código do Minitab a seguir gera uma cadeia de \(10^4\) valores com o
+amostrador de Gibbs descrito no Exemplo 7.3.2.</p></div></div>
+<pre class="codigo"><code>gmacro
+gibbs
+base 34256734
+note - data sample is stored in c1
+note - starting value for mu.
+let k1=mean(c1)
+note - starting value for sigma**2
+let k2=stdev(c1)
+let k2=k2**2
+note - lambda
+let k3=3
+note - sample size
+let k4=15
+note - n/2 + alpha_0 + 1/2
+let k5=k4/2 +2+.5
+note - mu_0
+let k6=4
+note - tau_0**2
+let k7=2
+note - beta_0
+let k8=1
+let k9=(k3/2+.5)
+note - main loop
+do k100=1:10000
+note - generate the nu_i in c10
+do k111=1:15
+let k10=.5*(((c1(k111)-k1)**2)/(k2*k3) +1)
+let k10=1/k10
+random 1 c2;
+gamma k9 k10.
+let c10(k111)=c2(1)
+enddo
+note - generate sigma**2 in c20
+let c11=c10*((c1-k1)**2)
+let k11=.5*sum(c11)/k3+.5*((k1-k6)**2)/k7 +k8
+let k11=1/k11
+random 1 c2;
+gamma k5 k11.
+let c20(k100)=1/c2(1)
+let k2=1/c2(1)
+note - generate mu in c21
+let k13=1/(sum(c10)/k3 +1/k7)
+let c11=c1*c10/k3
+let k14=sum(c11)+k6/k7
+let k14=k13*k14
+let k13=sqrt(k13*k2)
+random 1 c2;
+normal k14 k13.
+let c21(k100)=c2(1)
+let k1=c2(1)
+enddo
+endmacro</code></pre>
+<div class="ex" id="exemplo-B.2.5"><div class="cab"><span class="rot">Exemplo B.2.5</span> <span class="nome">Divisão em Lotes no Exemplo 7.3.2</span></div><div class="txt fim"><p>O código do Minitab a seguir divide em lotes a amostra gerada pelo código da
+amostragem de Gibbs<sup class="nota-ref nota-termo"><a href="#nota-29" id="ref-29">29</a></sup> do Exemplo 7.3.2 e calcula as médias dos lotes.</p></div></div>
+<pre class="codigo"><code>gmacro
+batching
+note - k2= batch size
+let k2=40
+note - k4 holds the batch sums
+note - c1 contains the data to be batched (10000 data values)
+note - c2 will contain the batch means (250 batch means)
+do k10=1:10000/40
+let k4=0
+do k20=0:39
+let k3=c1(k10+k20)
+let k4=k4+k3
+enddo
+let k11=floor(k10/k2) +1
+let c2(k11)=k4/k2
+enddo
+endmacro</code></pre>
+<div class="ex" id="exemplo-B.2.6"><div class="cab"><span class="rot">Exemplo B.2.6</span> <span class="nome">Simulação de uma Amostra da Distribuição da Estatística de Discrepância no Exemplo 9.1.2</span></div><div class="txt fim"><p>O código a seguir gera uma amostra da estatística de discrepância especificada
+no Exemplo 9.1.2.</p></div></div>
+<pre class="codigo"><code>gmacro
+goodnessoffit
+base 34256734
+note - generated sample is stored in c1
+note - residuals are placed in c2
+note - value of D(r) are placed in c3
+note - k1 = size of data set
+let k1=5
+do k2=1:10000
+random k1 c1
+let k3=mean(c1)
+let k4=sqrt(k1-1)*stdev(c1)
+let c2=((c1-k3)/k4)**2
+let c2=loge(c2)
+let k5=-sum(c2)/k1
+let c3(k2)=k5
+enddo
+endmacro</code></pre>
+<div class="ex" id="exemplo-B.2.7"><div class="cab"><span class="rot">Exemplo B.2.7</span> <span class="nome">Geração a Partir de uma Distribuição Dirichlet no Exemplo 10.2.3</span></div><div class="txt fim"><p>O código a seguir gera uma amostra de uma distribuição
+Dirichlet\((\alpha_1, \alpha_2, \alpha_3, \alpha_4)\), em que \(\alpha_1 = 2\),
+\(\alpha_2 = 3\), \(\alpha_3 = 1\), \(\alpha_4 = 1{,}5\).</p></div></div>
+<pre class="codigo"><code>gmacro
+dirichlet
+note - the base command sets the seed for the random
+note   number generator (so you can repeat a simulation).
+base 34256734
+note - here we provide the algorithm for generating from
+note   a Dirichlet(k1,k2,k3,k4) distribution.
+note - assign the values of the parameters.
+let k1=2
+let k2=3
+let k3=1
+let k4=1.5
+let k5=K2+k3+k4
+let k6=k3+k4
+note - generate the sample with i-th sample in i-th row
+note   of c2, c3, c4, c5, ....
+do k10=1:5
+random 1 c1;
+beta k1 k5.
+let c2(k10)=c1(1)
+random 1 c1;
+beta k2 k6.
+let c3(k10)=(1-c2(k10))*c1(1)
+random 1 c1;
+beta k3 k4.
+let c4(k10)=(1-c2(k10)-c3(k10))*c1(1)
+let c5(k10)= 1-c2(k10)-c3(k10)-c4(k10)
+enddo
+endmacro</code></pre>
+<section class="notas" aria-label="Notas do capítulo"><h4>Notas do capítulo</h4><ol><li id="nota-1" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">função gama</span> — no original, <em lang="en">gamma function</em></span> <a class="voltar" href="#ref-1" aria-label="Voltar ao texto">↩</a></li><li id="nota-2" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">função densidade</span> — no original, <em lang="en">density function</em></span> <a class="voltar" href="#ref-2" aria-label="Voltar ao texto">↩</a></li><li id="nota-3" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">função de probabilidade</span> — no original, <em lang="en">probability function</em></span> <a class="voltar" href="#ref-3" aria-label="Voltar ao texto">↩</a></li><li id="nota-4" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">tamanho da amostra</span> — no original, <em lang="en">sample size</em></span> <a class="voltar" href="#ref-4" aria-label="Voltar ao texto">↩</a></li><li id="nota-5" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">diagrama de dispersão</span> — no original, <em lang="en">scatter plot</em></span> <a class="voltar" href="#ref-5" aria-label="Voltar ao texto">↩</a></li><li id="nota-6" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">gráfico de probabilidade normal</span> — no original, <em lang="en">normal probability plot</em></span> <a class="voltar" href="#ref-6" aria-label="Voltar ao texto">↩</a></li><li id="nota-7" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">regressão logística</span> — no original, <em lang="en">logistic regression</em></span> <a class="voltar" href="#ref-7" aria-label="Voltar ao texto">↩</a></li><li id="nota-8" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">variância</span> — no original, <em lang="en">variance</em></span> <a class="voltar" href="#ref-8" aria-label="Voltar ao texto">↩</a></li><li id="nota-9" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">desvio padrão</span> — no original, <em lang="en">standard deviation</em></span> <a class="voltar" href="#ref-9" aria-label="Voltar ao texto">↩</a></li><li id="nota-10" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">intervalo de confiança</span> — no original, <em lang="en">confidence interval</em></span> <a class="voltar" href="#ref-10" aria-label="Voltar ao texto">↩</a></li><li id="nota-11" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">preditor</span> — no original, <em lang="en">predictor</em></span> <a class="voltar" href="#ref-11" aria-label="Voltar ao texto">↩</a></li><li id="nota-12" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">modelo de regressão linear simples</span> — no original, <em lang="en">simple linear regression model</em></span> <a class="voltar" href="#ref-12" aria-label="Voltar ao texto">↩</a></li><li id="nota-13" class="nota-tradutor"><span class="tipo">Nota do tradutor</span> <span class="conteudo">O original
+traz \(\beta_2 x_2\) no último termo; pelo teste de \(H_0: \beta_2 = \beta_3 = 0\)
+logo adiante, seria \(\beta_3 x_2\).</span> <a class="voltar" href="#ref-13" aria-label="Voltar ao texto">↩</a></li><li id="nota-14" class="nota-tradutor"><span class="tipo">Nota do tradutor</span> <span class="conteudo">O original escreve
+<code>expr</code> no comando e <code>expr1</code> logo depois; trata-se da mesma
+expressão.</span> <a class="voltar" href="#ref-14" aria-label="Voltar ao texto">↩</a></li><li id="nota-15" class="nota-tradutor"><span class="tipo">Nota do tradutor</span> <span class="conteudo">O
+comando impresso no original tem uma chave a mais, depois de
+<code>2^i</code>; pela descrição, seria
+<code>{print(i); y[i] &lt;- 2^i; print(y[i])}</code>.</span> <a class="voltar" href="#ref-15" aria-label="Voltar ao texto">↩</a></li><li id="nota-16" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">bootstrap</span> — no original, <em lang="en">bootstrapping</em></span> <a class="voltar" href="#ref-16" aria-label="Voltar ao texto">↩</a></li><li id="nota-17" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">a posteriori</span> — no original, <em lang="en">posterior</em></span> <a class="voltar" href="#ref-17" aria-label="Voltar ao texto">↩</a></li><li id="nota-18" class="nota-tradutor"><span class="tipo">Nota do tradutor</span> <span class="conteudo">Falta no original o que é amostrado (“a sample of from”);
+pelo Exemplo 7.3.1, são valores de \((\mu, \sigma^2)\).</span> <a class="voltar" href="#ref-18" aria-label="Voltar ao texto">↩</a></li><li id="nota-19" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">valor médio</span> — no original, <em lang="en">mean value</em></span> <a class="voltar" href="#ref-19" aria-label="Voltar ao texto">↩</a></li><li id="nota-20" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">estimação</span> — no original, <em lang="en">estimation</em></span> <a class="voltar" href="#ref-20" aria-label="Voltar ao texto">↩</a></li><li id="nota-21" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">amostrador de Gibbs</span> — no original, <em lang="en">Gibbs sampler</em></span> <a class="voltar" href="#ref-21" aria-label="Voltar ao texto">↩</a></li><li id="nota-22" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">não negativo</span> — no original, <em lang="en">nonnegative</em></span> <a class="voltar" href="#ref-22" aria-label="Voltar ao texto">↩</a></li><li id="nota-23" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">estatística de discrepância</span> — no original, <em lang="en">discrepancy statistic</em></span> <a class="voltar" href="#ref-23" aria-label="Voltar ao texto">↩</a></li><li id="nota-24" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">distribuição Dirichlet</span> — no original, <em lang="en">Dirichlet distribution</em></span> <a class="voltar" href="#ref-24" aria-label="Voltar ao texto">↩</a></li><li id="nota-25" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">estimativa de mínimos quadrados</span> — no original, <em lang="en">least-squares estimate</em></span> <a class="voltar" href="#ref-25" aria-label="Voltar ao texto">↩</a></li><li id="nota-26" class="nota-tradutor"><span class="tipo">Nota do tradutor</span> <span class="conteudo">O original diz “linear
+regression matrix” (matriz de regressão linear); pelo contexto, trata-se do
+modelo de regressão linear.</span> <a class="voltar" href="#ref-26" aria-label="Voltar ao texto">↩</a></li><li id="nota-27" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">estimativa</span> — no original, <em lang="en">estimate</em></span> <a class="voltar" href="#ref-27" aria-label="Voltar ao texto">↩</a></li><li id="nota-28" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">erro padrão</span> — no original, <em lang="en">standard error</em></span> <a class="voltar" href="#ref-28" aria-label="Voltar ao texto">↩</a></li><li id="nota-29" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">amostragem de Gibbs</span> — no original, <em lang="en">Gibbs sampling</em></span> <a class="voltar" href="#ref-29" aria-label="Voltar ao texto">↩</a></li></ol></section>
+<nav class="paginacao"><a class="ant" href="apA.html">← Apêndice A</a><a class="prox" href="apC.html">Apêndice C →</a></nav>
+</main>
+<script>
+window.MathJax = { tex: { inlineMath: [["\\(", "\\)"]], displayMath: [["\\[", "\\]"]], tags: "none",
+  macros: { allowbreak: "", nolinebreak: "", upshape: "", itshape: "", sloppy: "", negrito: ["\\boldsymbol{#1}", 1],
+    Var: "\\operatorname{Var}", Cov: "\\operatorname{Cov}", Corr: "\\operatorname{Corr}", Sd: "\\operatorname{Sd}" } },
+  output: { font: "mathjax-stix2" }, svg: { fontCache: "global" }, options: { enableMenu: false } };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@4.0.0/tex-svg.js"></script>
+<script src="leitor.js"></script>
+</body>
+</html>

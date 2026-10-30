@@ -1,0 +1,1418 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Modelos de Probabilidade — Probabilidade e Estatística: A Ciência da Incerteza</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=IBM+Plex+Sans+Condensed:wght@500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Sans+3:wght@500;600;700&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<link rel="stylesheet" href="leitor.css">
+<script>try{var c=JSON.parse(localStorage.getItem('leitor-config')||'{}');for(var k in c)document.documentElement.setAttribute('data-'+k,c[k]);}catch(e){}</script>
+</head>
+<body data-pagina="cap01">
+<header class="barra">
+  <button class="botao" id="abrir-sumario" type="button" aria-label="Sumário" aria-expanded="false">☰</button>
+  <a class="livro" href="index.html">Probabilidade e Estatística: A Ciência da Incerteza</a>
+  <span class="onde">Capítulo 1 · Modelos de Probabilidade</span>
+  <button class="botao" id="abrir-ajustes" type="button" aria-label="Ajustes de leitura" aria-expanded="false">Aa</button>
+  <div class="progresso" id="progresso"></div>
+</header>
+<nav class="sumario" id="sumario" aria-label="Sumário do capítulo"><ol><li class="nivel-2"><a href="#sec-1.1"><span class="n">1.1</span> Probabilidade: Uma Medida de Incerteza</a></li><li class="nivel-3"><a href="#subsec-1.1.1"><span class="n">1.1.1</span> Por Que Precisamos da Teoria da Probabilidade?</a></li><li class="nivel-2"><a href="#sec-1.2"><span class="n">1.2</span> Modelos de Probabilidade</a></li><li class="nivel-3"><a href="#subsec-1.2.1"><span class="n">1.2.1</span> Diagramas de Venn e Subconjuntos</a></li><li class="nivel-2"><a href="#sec-1.3"><span class="n">1.3</span> Propriedades dos Modelos de Probabilidade</a></li><li class="nivel-2"><a href="#sec-1.4"><span class="n">1.4</span> Probabilidade Uniforme em Espaços Finitos</a></li><li class="nivel-3"><a href="#subsec-1.4.1"><span class="n">1.4.1</span> Princípios de Contagem</a></li><li class="nivel-2"><a href="#sec-1.5"><span class="n">1.5</span> Probabilidade Condicional e Independência</a></li><li class="nivel-3"><a href="#subsec-1.5.1"><span class="n">1.5.1</span> Probabilidade Condicional</a></li><li class="nivel-3"><a href="#subsec-1.5.2"><span class="n">1.5.2</span> Independência de Eventos</a></li><li class="nivel-2"><a href="#sec-1.6"><span class="n">1.6</span> Continuidade de \(P\)</a></li><li class="nivel-2"><a href="#sec-1.7"><span class="n">1.7</span> Demonstrações Adicionais (Avançado)</a></li></ol></nav>
+<div class="ajustes" id="ajustes" hidden></div>
+<main class="corpo">
+<h1 id="cap-1"><span class="n">Capítulo 1</span><span class="t">Modelos de Probabilidade</span></h1>
+<section class="esboco"><h4>Esboço do capítulo</h4><ul><li><strong>Seção 1</strong> Probabilidade: Uma Medida de Incerteza</li>
+<li><strong>Seção 2</strong> Modelos de Probabilidade</li>
+<li><strong>Seção 3</strong> Propriedades dos Modelos de Probabilidade</li>
+<li><strong>Seção 4</strong> Probabilidade Uniforme em Espaços Finitos</li>
+<li><strong>Seção 5</strong> Probabilidade Condicional e Independência</li>
+<li><strong>Seção 6</strong> Continuidade de \(P\)</li>
+<li><strong>Seção 7</strong> Demonstrações Adicionais (Avançado)</li></ul></section>
+<p>Este capítulo apresenta o conceito básico de todo o curso, a saber,
+a probabilidade. Discutimos por que a probabilidade foi introduzida como um
+conceito científico e como ela foi formalizada matematicamente em termos de
+um modelo de probabilidade<sup class="nota-ref nota-termo"><a href="#nota-1" id="ref-1">1</a></sup>. Em seguida, desenvolvemos alguns dos resultados
+matemáticos básicos associados ao modelo de probabilidade.</p>
+<h2 id="sec-1.1"><span class="n">1.1</span> <span class="t">Probabilidade: Uma Medida de Incerteza</span></h2>
+<p>Muitas vezes, na vida, nos deparamos com a nossa própria ignorância. Seja
+quando pensamos no engarrafamento de hoje à noite, no tempo de amanhã, nos
+preços das ações na semana que vem, numa eleição que se aproxima ou em onde
+deixamos o chapéu, frequentemente não conhecemos um resultado com certeza. Em
+vez disso, somos obrigados a adivinhar, a estimar, a nos precaver em nossas
+apostas.</p>
+<p>Probabilidade é a ciência da incerteza. Ela fornece regras matemáticas
+precisas para entender e analisar a nossa própria ignorância. Ela não nos diz
+como estará o tempo amanhã nem quais serão os preços das ações na semana que
+vem; em vez disso, nos dá uma estrutura para trabalhar com o nosso
+conhecimento limitado e para tomar decisões sensatas com base no que sabemos e
+no que não sabemos.</p>
+<p>Dizer que há 40% de chance de chuva amanhã não é saber como estará o tempo
+amanhã. É, antes, saber o que não sabemos sobre o tempo de amanhã.</p>
+<p>Neste texto, vamos desenvolver uma compreensão mais precisa do que significa
+dizer que há 40% de chance de chuva amanhã. Vamos aprender a trabalhar com
+ideias de aleatoriedade, probabilidade, valor esperado<sup class="nota-ref nota-termo"><a href="#nota-2" id="ref-2">2</a></sup>, previsão, estimação<sup class="nota-ref nota-termo"><a href="#nota-3" id="ref-3">3</a></sup>
+etc., de maneiras que sejam sensatas e matematicamente claras.</p>
+<p>Há também outras fontes de aleatoriedade além da incerteza. Por exemplo, os
+computadores costumam usar <em>números pseudoaleatórios<sup class="nota-ref nota-termo"><a href="#nota-4" id="ref-4">4</a></sup></em> para tornar os
+jogos divertidos, as simulações precisas e as buscas eficientes. Além disso,
+segundo a teoria moderna da mecânica quântica, a constituição da matéria
+atômica é, em certo sentido, <em>verdadeiramente</em> aleatória. Todas essas
+fontes de aleatoriedade podem ser estudadas com as técnicas deste texto.</p>
+<p>Outra maneira de pensar sobre probabilidade é em termos de <em>frequência
+relativa<sup class="nota-ref nota-termo"><a href="#nota-5" id="ref-5">5</a></sup></em>. Por exemplo, dizer que uma moeda tem 50% de chance de dar cara
+pode ser interpretado como dizer que, se lançássemos a moeda muitas e muitas
+vezes, ela daria cara aproximadamente na metade das vezes. Essa interpretação
+tem algumas limitações. Em muitos casos (como o tempo de amanhã ou os preços
+das ações na semana que vem), é impossível repetir o experimento muitas e
+muitas vezes. Além disso, o que exatamente significa “aproximadamente” nesse
+caso? Apesar dessas limitações, porém, a interpretação por frequência relativa
+é uma maneira útil de pensar sobre probabilidades e de desenvolver intuição
+sobre elas.</p>
+<p>A incerteza nos acompanha desde sempre, é claro, mas a teoria matemática da
+probabilidade surgiu no século XVII. Em 1654, o jogador parisiense Le
+Chevalier de Méré perguntou a Blaise Pascal sobre certas probabilidades que
+apareciam nos jogos de azar (por exemplo: se um jogo de azar é interrompido
+no meio, qual é a probabilidade de que cada jogador teria vencido caso o jogo
+continuasse?). Pascal ficou intrigado e se correspondeu com o grande
+matemático e advogado Pierre de Fermat sobre essas questões. Mais tarde,
+Pascal escreveu o livro <em>Traité du Triangle Arithmetique</em>, em que
+discute os coeficientes binomiais (o triângulo de Pascal) e a distribuição de
+probabilidade binomial.</p>
+<p>No início do século XX, russos como Andrei Andreyevich Markov, Andrey
+Nikolayevich Kolmogorov e Pafnuty L. Chebychev (e o americano Norbert Wiener)
+desenvolveram uma teoria matemática da probabilidade mais formal. Na década de
+1950, os americanos William Feller e Joe Doob escreveram livros importantes
+sobre a matemática da teoria da probabilidade. Eles popularizaram o assunto no
+mundo ocidental, tanto como uma área importante da matemática pura quanto pelas
+suas aplicações importantes na física, na química e, mais tarde, na ciência da
+computação, na economia e nas finanças.</p>
+<h3 id="subsec-1.1.1"><span class="n">1.1.1</span> <span class="t">Por Que Precisamos da Teoria da Probabilidade?</span></h3>
+<p>A teoria da probabilidade aparece com muita frequência no nosso dia a dia.
+Apresentamos alguns exemplos aqui.</p>
+<p>Suponha que você esteja pensando em comprar um bilhete da loteria “Lotto
+6/49”. Nessa loteria, você escolhe seis números inteiros distintos entre 1 e
+49. Em seguida, outros seis inteiros distintos entre 1 e 49 são sorteados ao
+acaso pela empresa da loteria. Se os dois conjuntos de seis inteiros forem
+idênticos, você ganha o prêmio máximo.</p>
+<p>Depois de dominar a Seção 1.4, você saberá calcular que a probabilidade de os
+dois conjuntos coincidirem é igual a uma chance em 13.983.816. Ou seja, é
+cerca de 14 milhões de vezes mais provável que você não ganhe o prêmio máximo
+do que ganhe. (Não são chances muito boas!)</p>
+<p>Suponha que os bilhetes da loteria custem US$ 1 cada. Depois de dominar os
+valores esperados no Capítulo 3, você saberá que não deve nem sequer
+<em>cogitar</em> comprar um bilhete de loteria a menos que o prêmio máximo seja
+maior que US$ 14 milhões (o que normalmente não é). Além disso, se o prêmio
+máximo algum dia passar de US$ 14 milhões, é provável que muitas outras
+pessoas comprem bilhetes</p>
+<p>naquela semana, o que aumenta a probabilidade de você ter de <em>dividir</em> o
+prêmio máximo com outros ganhadores mesmo que ganhe — portanto,
+provavelmente não vale a pena comprar um bilhete de loteria nem mesmo nesse
+caso.</p>
+<p>Suponha, em vez disso, que um “amigo” lhe proponha uma aposta. Ele tem três
+cartas: uma vermelha dos dois lados, uma preta dos dois lados e uma vermelha
+de um lado e preta do outro. Ele mistura as três cartas num chapéu, tira uma
+ao acaso e a coloca deitada sobre a mesa, com apenas um lado à mostra.
+Suponha que esse lado seja vermelho. Ele então propõe apostar os US$ 4 dele
+contra os seus US$ 3 que o outro lado da carta também é vermelho.</p>
+<p>À primeira vista, você pode achar que a probabilidade de o outro lado também
+ser vermelho é de 50%; logo, uma boa aposta. No entanto, depois de dominar a
+probabilidade condicional<sup class="nota-ref nota-termo"><a href="#nota-6" id="ref-6">6</a></sup> (Seção 1.5), você saberá que, dado que um lado é
+vermelho, a probabilidade condicional de o outro lado também ser vermelho é
+igual a 2/3. Assim, pela teoria dos valores esperados (Capítulo 3), você
+saberá que não deve aceitar a aposta do seu “amigo”.</p>
+<p>Por fim, suponha que ele sugira que você lance uma moeda mil vezes. Seu
+“amigo” diz que, se a moeda der cara pelo menos seiscentas vezes, ele lhe
+pagará US$ 100; caso contrário, você terá de pagar a ele apenas US$ 1.</p>
+<p>À primeira vista, você pode achar que, embora 500 caras seja o mais provável,
+ainda há uma chance <em>razoável</em> de aparecerem 600 caras — pelo menos
+boa o bastante para justificar aceitar a aposta de US$ 100 contra US$ 1 do
+seu amigo. No entanto, depois de dominar as leis dos grandes números
+(Capítulo 4), você saberá que, à medida que o número de lançamentos da moeda
+cresce, torna-se cada vez mais provável que o número de caras fique muito
+próximo da metade do número total de lançamentos. De fato, neste caso, há
+menos de uma chance em dez bilhões de se obterem mais de 600 caras! Portanto,
+você também não deve aceitar essa aposta.</p>
+<p>Como mostram esses exemplos, uma boa compreensão da teoria da probabilidade
+permitirá que você avalie corretamente as probabilidades em situações do dia a
+dia, o que, por sua vez, permitirá que você tome decisões mais sensatas. Pode
+até fazer você economizar dinheiro!</p>
+<p>A teoria da probabilidade também desempenha um papel fundamental em muitas
+aplicações importantes da ciência e da tecnologia. Por exemplo, o projeto de
+um reator nuclear deve ser tal que o vazamento de radioatividade para o meio
+ambiente seja um evento extremamente raro. É claro que gostaríamos de dizer
+que é categoricamente impossível que isso aconteça algum dia, mas reatores
+são sistemas complicados, formados por muitos subsistemas interligados, e
+sabemos que cada um deles vai deixar de funcionar direito em algum momento.
+Além disso, nunca podemos afirmar com certeza que não pode ocorrer um evento
+natural, como um terremoto, que danifique o reator o suficiente para permitir
+uma emissão. O melhor que podemos fazer é tentar quantificar a nossa
+incerteza a respeito das falhas dos componentes do reator ou da ocorrência de
+eventos naturais que levariam a tal evento. É aí que a probabilidade entra em
+cena. Usando a probabilidade como ferramenta para lidar com as incertezas, o
+reator pode ser projetado para garantir que uma emissão inaceitável tenha uma
+probabilidade extremamente pequena — digamos, uma vez em um bilhão de anos
+— de ocorrer.</p>
+<p>Os exemplos dos jogos de azar e do reator nuclear tratam essencialmente do
+conceito de <em>risco</em> — o risco de perder dinheiro, o risco de ser
+exposto a um nível nocivo de radioatividade etc. Na verdade, estamos expostos
+a riscos o tempo todo. Quando andamos de carro, viajamos de avião ou mesmo
+quando caminhamos pela rua, estamos expostos a riscos. Sabemos que o risco de
+nos ferirmos nessas circunstâncias nunca é zero, e ainda assim continuamos a
+realizar essas atividades. Isso acontece porque percebemos intuitivamente que
+a probabilidade de ocorrer um acidente é extremamente baixa.</p>
+<p>Assim, usamos a probabilidade todos os dias da nossa vida para avaliar riscos.
+À medida que os problemas que enfrentamos, individual ou coletivamente, ficam
+mais complicados, precisamos refinar e desenvolver as nossas ideias
+intuitivas e grosseiras sobre probabilidade para chegar a uma abordagem clara
+e precisa. É por isso que a teoria da probabilidade se desenvolveu como
+disciplina. Aliás, o setor de seguros se desenvolveu para nos ajudar a lidar
+com o risco. A probabilidade é a ferramenta usada para determinar quanto você
+paga para reduzir o seu risco ou para indenizar você ou a sua família em caso
+de lesão pessoal.</p>
+<section class="resumo"><h4>Resumo da Seção 1.1</h4><ul><li>A teoria da probabilidade nos dá uma compreensão precisa da incerteza.</li>
+<li>Essa compreensão pode nos ajudar a fazer previsões, tomar decisões
+  melhores, avaliar riscos e até ganhar dinheiro.</li></ul></section>
+<h4 class="bloco bloco-discussao">Tópicos para discussão</h4>
+<p class="exerc" id="exerc-1.1.1"><span class="k">1.1.1</span> Você acha que o tempo de amanhã e os preços das ações na semana
+que vem são “realmente” aleatórios, ou essa é apenas uma maneira conveniente
+de discuti-los e analisá-los?</p>
+<p class="exerc" id="exerc-1.1.2"><span class="k">1.1.2</span> Você acha que é possível que as probabilidades dependam de quem
+as observa, ou de quando são observadas?</p>
+<p class="exerc" id="exerc-1.1.3"><span class="k">1.1.3</span> Você acha surpreendente que a teoria da probabilidade não tenha
+sido discutida como assunto matemático até o século XVII? Por quê?</p>
+<p class="exerc" id="exerc-1.1.4"><span class="k">1.1.4</span> De que maneiras a probabilidade é importante para áreas como a
+física, a ciência da computação e as finanças? Explique.</p>
+<p class="exerc" id="exerc-1.1.5"><span class="k">1.1.5</span> Quais são exemplos da sua própria vida em que pensar em
+probabilidades economizou — ou poderia ter economizado — dinheiro, ou
+ajudou você a tomar uma decisão melhor? (Liste tantos quantos puder.)</p>
+<p class="exerc" id="exerc-1.1.6"><span class="k">1.1.6</span> As probabilidades costumam ser retratadas em filmes e programas
+de televisão populares. Liste tantos exemplos quanto puder. Você acha que as
+probabilidades foram retratadas ali de maneira “razoável”?</p>
+<h2 id="sec-1.2"><span class="n">1.2</span> <span class="t">Modelos de Probabilidade</span></h2>
+<p>Uma definição formal de probabilidade começa com um <em>espaço amostral<sup class="nota-ref nota-termo"><a href="#nota-7" id="ref-7">7</a></sup></em>,
+geralmente denotado por \(S\). Esse espaço amostral é qualquer conjunto que liste
+todos os <em>resultados</em> (ou <em>respostas</em>) possíveis de algum experimento
+ou situação desconhecida. Por exemplo, talvez
+<span class="eq">\[
+  S = \{\text{chuva}, \ \text{neve}, \ \text{limpo}\}
+\]</span>
+ao prever o tempo de amanhã. Ou talvez \(S\) seja o conjunto de todos os números
+reais positivos, ao prever o preço de uma ação na próxima semana. O ponto é que
+\(S\) pode ser qualquer conjunto, até mesmo um conjunto infinito. Costumamos
+escrever \(s\) para um elemento de \(S\), de modo que \(s \in S\). Observe que \(S\)
+descreve apenas aquilo que nos interessa; se estamos estudando o tempo, então
+chuva e neve estão em \(S\), mas os preços das ações de amanhã não estão.</p>
+<p>Um modelo de probabilidade também exige uma coleção de <em>eventos</em>, que são
+subconjuntos de \(S\) aos quais se podem atribuir probabilidades. No exemplo do
+tempo acima, os subconjuntos \(\{\text{chuva}\}\), \(\{\text{neve}\}\),
+\(\{\text{chuva}, \allowbreak\text{neve}\}\), \(\{\text{chuva}, \allowbreak\text{limpo}\}\),
+\(\{\text{chuva}, \allowbreak\text{neve}, \allowbreak\text{limpo}\}\) e até o conjunto vazio
+\(\emptyset = \{\ \}\) são todos exemplos de subconjuntos de \(S\) que poderiam ser
+eventos. Observe que aqui a vírgula significa “ou”; assim,
+\(\{\text{chuva}, \allowbreak\text{neve}\}\) é o evento de que vai chover <em>ou</em> nevar.
+Em geral, vamos supor que <em>todos</em> os subconjuntos de \(S\) são eventos. (Na
+verdade, em situações complicadas há algumas restrições técnicas sobre quais
+subconjuntos podem ou não ser eventos, de acordo com a área da matemática
+chamada teoria da medida<sup class="nota-ref nota-termo"><a href="#nota-8" id="ref-8">8</a></sup>. Mas não vamos nos ocupar dessas tecnicalidades aqui.)</p>
+<p>Por fim, e mais importante, um modelo de probabilidade exige uma <em>medida de
+probabilidade<sup class="nota-ref nota-termo"><a href="#nota-9" id="ref-9">9</a></sup></em>, geralmente denotada por \(P\). Essa medida de probabilidade deve
+atribuir a cada evento \(A\) uma probabilidade \(P(A)\). Exigimos as seguintes
+propriedades:</p>
+<ol><li>\(P(A)\) é sempre um número real não negativo<sup class="nota-ref nota-termo"><a href="#nota-10" id="ref-10">10</a></sup>, entre 0 e 1, inclusive.</li>
+<li>\(P(\emptyset) = 0\), isto é, se \(A\) é o conjunto vazio \(\emptyset\), então \(P(A) = 0\).</li>
+<li>\(P(S) = 1\), isto é, se \(A\) é o espaço amostral \(S\) inteiro, então \(P(A) = 1\).</li>
+<li>\(P\) é <em>(enumeravelmente) aditiva</em>, o que significa que, se
+    \(A_1, A_2, \ldots\) é uma sequência finita ou enumerável<sup class="nota-ref nota-termo"><a href="#nota-11" id="ref-11">11</a></sup> de eventos
+    disjuntos<sup class="nota-ref nota-termo"><a href="#nota-12" id="ref-12">12</a></sup>, então
+    <span class="eq">\begin{equation}
+      P(A_1 \cup A_2 \cup \cdots) = P(A_1) + P(A_2) + \cdots .
+      \tag{1.2.1}
+    \end{equation}</span></li></ol>
+<p>A primeira dessas propriedades diz que vamos medir todas as probabilidades numa
+escala de 0 a 1, em que 0 significa impossível e 1 (ou 100%) significa certo.
+A segunda propriedade diz que a probabilidade de que <em>nada</em> aconteça é 0;
+em outras palavras, é impossível que <em>nenhum</em> resultado ocorra. A terceira
+propriedade diz que a probabilidade de que <em>algo</em> aconteça é 1; em outras
+palavras, é certo que <em>algum</em> resultado deve ocorrer.</p>
+<p>A quarta propriedade é a mais sutil. Ela diz que podemos calcular
+probabilidades de eventos complicados somando as probabilidades de eventos
+menores, desde que esses eventos menores sejam <em>disjuntos</em> e, juntos,
+contenham o evento complicado inteiro. Observe que eventos são
+<em>disjuntos</em> se não têm nenhum resultado em comum. Por exemplo,
+\(\{\text{chuva}\}\) e \(\{\text{neve}, \allowbreak\text{limpo}\}\) são disjuntos, ao passo que
+\(\{\text{chuva}\}\) e \(\{\text{chuva}, \allowbreak\text{limpo}\}\) não são disjuntos. (Estamos
+supondo, por simplicidade, que não pode chover <em>e</em> nevar amanhã.) Assim,
+devemos ter
+<span class="mat-quebravel">\(P(\{\text{chuva}\})\) \({}+ P(\{\text{neve}, \allowbreak\text{limpo}\})\) \({}= P(\{\text{chuva}, \allowbreak\text{neve}, \allowbreak\text{limpo}\})\)</span>,
+mas <em>não</em> devemos esperar ter
+<span class="mat-quebravel">\(P(\{\text{chuva}\})\) \({}+ P(\{\text{chuva}, \allowbreak\text{limpo}\})\) \({}= P(\{\text{chuva}, \allowbreak\text{chuva}, \allowbreak\text{limpo}\})\)</span>
+(este último sendo o mesmo que \(P(\{\text{chuva}, \allowbreak\text{limpo}\})\)).</p>
+<p>Agora formalizamos a definição de modelo de probabilidade.</p>
+<div class="def definicao" id="definicao-1.2.1"><div class="cab"><span class="rot">Definição 1.2.1</span></div><div class="txt"><p>Um <em>modelo de probabilidade</em> consiste em um conjunto não vazio chamado
+espaço amostral \(S\); uma coleção de eventos que são subconjuntos de \(S\); e uma
+medida de probabilidade \(P\) que atribui uma probabilidade entre 0 e 1 a cada
+evento, com \(P(\emptyset) = 0\) e \(P(S) = 1\) e com \(P\) aditiva como em (1.2.1).</p></div></div>
+<div class="ex" id="exemplo-1.2.1"><div class="cab"><span class="rot">Exemplo 1.2.1</span></div><div class="txt fim"><p>Considere de novo o exemplo do tempo, com
+\(S = \{\text{chuva}, \text{neve}, \text{limpo}\}\). Suponha que a probabilidade de
+chuva seja 40%, a probabilidade de neve seja 15% e a probabilidade de um dia
+limpo seja 45%. Podemos expressar isso como \(P(\{\text{chuva}\}) = 0{,}40\),
+\(P(\{\text{neve}\}) = 0{,}15\) e \(P(\{\text{limpo}\}) = 0{,}45\).</p>
+<p>Neste exemplo, é claro que \(P(\emptyset) = 0\), isto é, é impossível que
+<em>nada</em> aconteça amanhã. Além disso,
+<span class="mat-quebravel">\(P(\{\text{chuva}, \text{neve}, \text{limpo}\})\) \({}= 1\)</span>, porque estamos supondo que
+exatamente <em>um</em> entre chuva, neve ou tempo limpo deve ocorrer amanhã. (Para
+ser mais realista, poderíamos dizer que estamos prevendo o tempo exatamente às
+11h da manhã de amanhã.) Agora, qual é a probabilidade de que chova <em>ou</em>
+neve amanhã? Bem, pela propriedade de aditividade, vemos que
+<span class="eq">\[
+  P(\{\text{chuva}, \text{neve}\}) = P(\{\text{chuva}\}) + P(\{\text{neve}\})
+  = 0{,}40 + 0{,}15 = 0{,}55.
+\]</span>
+Concluímos assim que, como esperado, há 55% de chance de chuva <em>ou</em> neve
+amanhã.</p></div></div>
+<div class="ex" id="exemplo-1.2.2"><div class="cab"><span class="rot">Exemplo 1.2.2</span></div><div class="txt fim"><p>Suponha que seu candidato tenha 60% de chance de vencer uma eleição em
+andamento. Então \(S = \{\text{vitória}, \text{derrota}\}\), com
+\(P(\text{vitória}) = 0{,}6\) e \(P(\text{derrota}) = 0{,}4\). Observe que
+\(P(\text{vitória}) + P(\text{derrota}) = 1\).</p></div></div>
+<div class="ex" id="exemplo-1.2.3"><div class="cab"><span class="rot">Exemplo 1.2.3</span></div><div class="txt fim"><p>Suponha que lançamos uma moeda honesta, que pode dar cara (\(H\)) ou coroa (\(T\))
+com igual probabilidade. Então \(S = \{H, T\}\), com \(P(H) = P(T) = 0{,}5\). É claro
+que \(P(H) + P(T) = 1\).</p></div></div>
+<div class="ex" id="exemplo-1.2.4"><div class="cab"><span class="rot">Exemplo 1.2.4</span></div><div class="txt fim"><p>Suponha que lançamos três moedas honestas em sequência e registramos a
+sequência de caras e coroas resultante. Então
+<span class="eq">\[
+  S = \{HHH, HHT, HTH, HTT, THH, THT, TTH, TTT\}.
+\]</span>
+Além disso, esses oito resultados são todos igualmente prováveis; assim,
+\(P(HHH) = 1/8\), \(P(TTT) = 1/8\) etc. Também, a probabilidade de que a primeira
+moeda dê cara <em>e</em> a segunda dê coroa, sendo a terceira qualquer uma, é
+igual à soma das probabilidades dos eventos \(HTH\) e \(HTT\), isto é,
+\(P(HTH) + P(HTT) = 1/8 + 1/8 = 1/4\).</p></div></div>
+<div class="ex" id="exemplo-1.2.5"><div class="cab"><span class="rot">Exemplo 1.2.5</span></div><div class="txt fim"><p>Suponha que lançamos três moedas honestas em sequência, mas nos importamos
+apenas com o número de caras resultante. Então \(S = \{0, 1, 2, 3\}\). No
+entanto, as probabilidades desses quatro resultados <em>não</em> são todas iguais;
+veremos mais adiante que, na verdade, \(P(0) = P(3) = 1/8\), enquanto
+\(P(1) = P(2) = 3/8\).</p></div></div>
+<p>Observamos que também é possível definir modelos de probabilidade em espaços
+amostrais mais complicados (por exemplo, infinitos não enumeráveis).</p>
+<div class="ex" id="exemplo-1.2.6"><div class="cab"><span class="rot">Exemplo 1.2.6</span></div><div class="txt fim"><p>Suponha que \(S = [0, 1]\) seja o intervalo unitário. Podemos definir uma medida
+de probabilidade \(P\) em \(S\) dizendo que
+<span class="eq">\begin{equation}
+  P([a, b]) = b - a\,, \qquad \text{sempre que } 0 \le a \le b \le 1.
+  \tag{1.2.2}
+\end{equation}</span>
+Em palavras, para qualquer<sup class="nota-ref nota-autor"><a href="#nota-13" id="ref-13">13</a></sup> subintervalo \([a, b]\) de \([0, 1]\), a probabilidade do
+intervalo é simplesmente o <em>comprimento</em> desse intervalo. Este exemplo é
+chamado de <em>distribuição uniforme<sup class="nota-ref nota-termo"><a href="#nota-14" id="ref-14">14</a></sup> em</em> \([0, 1]\). A distribuição uniforme é
+apenas a primeira de muitas distribuições em espaços de estados não
+enumeráveis. Muitos outros exemplos serão dados no Capítulo 2.</p></div></div>
+<h3 id="subsec-1.2.1"><span class="n">1.2.1</span> <span class="t">Diagramas de Venn e Subconjuntos</span></h3>
+<p>Os <em>diagramas de Venn</em> oferecem um método gráfico muito útil para
+representar o espaço amostral \(S\) e seus subconjuntos. Por exemplo, na
+Figura 1.2.1 temos um diagrama de Venn<sup class="nota-ref nota-termo"><a href="#nota-15" id="ref-15">15</a></sup> que mostra o subconjunto \(A \subset S\) e
+o <em>complementar<sup class="nota-ref nota-termo"><a href="#nota-16" id="ref-16">16</a></sup></em>
+<span class="eq">\[
+  A^c = \{s : s \notin A\}
+\]</span>
+de \(A\). O retângulo representa o espaço amostral \(S\) inteiro. O círculo (e seu
+interior) representa o subconjunto \(A\); a região fora do círculo, mas dentro de
+\(S\), representa \(A^c\).</p>
+<figure class="figura">
+<img class="figura" src="figuras/tikz-5009e907ed39.svg" alt="" style="width: min(100%, 20.0em)">
+<figcaption id="figura-1.2.1"><span class="rot">Figura 1.2.1:</span> Diagrama de Venn dos subconjuntos \(A\) e \(A^c\) do espaço amostral \(S\).</figcaption>
+</figure>
+<p>Dois subconjuntos \(A \subset S\) e \(B \subset S\) são representados por dois
+círculos, como na Figura 1.2.2 na próxima página. A <em>interseção</em>
+<span class="eq">\[
+  A \cap B = \{s : s \in A \text{ e } s \in B\}
+\]</span>
+dos subconjuntos \(A\) e \(B\) é o conjunto dos elementos comuns aos dois conjuntos
+e é representada pela região onde os dois círculos se sobrepõem. O conjunto
+<span class="eq">\[
+  A \setminus B = A \cap B^c = \{s : s \in A \text{ e } s \notin B\}
+\]</span>
+é chamado de <em>complementar de</em> \(B\) <em>em</em> \(A\) e é representado pela
+região dentro do círculo \(A\), mas fora do círculo \(B\). Esse é o conjunto dos
+elementos que estão em \(A\) mas não em \(B\). Da mesma forma, temos o
+complementar de \(A\) em \(B\), a saber, \(A^c \cap B\). Observe que os conjuntos
+\(A \cap B\), \(A \cap B^c\) e \(A^c \cap B\) são disjuntos dois a dois<sup class="nota-ref nota-termo"><a href="#nota-17" id="ref-17">17</a></sup>.</p>
+<p>A <em>união</em>
+<span class="eq">\[
+  A \cup B = \{s : s \in A \text{ ou } s \in B\}
+\]</span>
+dos conjuntos \(A\) e \(B\) é o conjunto dos elementos que estão em \(A\) ou em \(B\).
+Na Figura 1.2.2, ela é representada pela região coberta pelos dois círculos.
+Observe que \(A \cup B = (A \cap B^c) \cup (A \cap B) \cup (A^c \cap B)\).</p>
+<p>Há mais uma região na Figura 1.2.2. É o complementar de \(A \cup B\), a saber, o
+conjunto dos elementos que não estão nem em \(A\) nem em \(B\). Assim, temos
+imediatamente
+<span class="eq">\[
+  (A \cup B)^c = A^c \cap B^c.
+\]</span>
+Da mesma forma, podemos mostrar que
+<span class="eq">\[
+  (A \cap B)^c = A^c \cup B^c,
+\]</span>
+isto é, o subconjunto dos elementos que não estão ao mesmo tempo em \(A\) e em \(B\)
+é dado pelo conjunto dos elementos que não estão em \(A\) ou não estão em \(B\).</p>
+<figure class="figura">
+<img class="figura" src="figuras/tikz-ff695748e141.svg" alt="" style="width: min(100%, 24.5em)">
+<figcaption id="figura-1.2.2"><span class="rot">Figura 1.2.2:</span> Diagrama de Venn que representa os subconjuntos \(A\), \(B\),
+\(A \cap B\), \(A \cap B^c\), \(A^c \cap B\), \(A^c \cap B^c\) e \(A \cup B\).</figcaption>
+</figure>
+<p>Por fim, observamos que, se \(A\) e \(B\) são subconjuntos disjuntos, faz sentido
+representá-los como na Figura 1.2.3, isto é, como dois círculos que não se
+sobrepõem, já que eles não têm elementos em comum.</p>
+<figure class="figura">
+<img class="figura" src="figuras/tikz-09370bbbff29.svg" alt="" style="width: min(100%, 23.4em)">
+<figcaption id="figura-1.2.3"><span class="rot">Figura 1.2.3:</span> Diagrama de Venn dos subconjuntos disjuntos \(A\) e \(B\).</figcaption>
+</figure>
+<section class="resumo"><h4>Resumo da Seção 1.2</h4><ul><li>Um modelo de probabilidade consiste em um espaço amostral \(S\) e uma
+    medida de probabilidade \(P\) que atribui probabilidades a cada evento.</li>
+<li>Diferentes tipos de conjuntos podem surgir como espaços amostrais.</li>
+<li>Os diagramas de Venn oferecem um método conveniente para representar
+    conjuntos e as relações entre eles.</li></ul></section>
+<h4 class="bloco bloco-exercicios">Exercícios</h4>
+<p class="exerc" id="exerc-1.2.1"><span class="k">1.2.1</span> Suponha que \(S = \{1, 2, 3\}\), com \(P(\{1\}) = 1/2\),
+\(P(\{2\}) = 1/3\) e \(P(\{3\}) = 1/6\).
+<span class="parte"><span class="pl">(a)</span>  Quanto vale \(P(\{1, 2\})\)?</span><span class="parte"><span class="pl">(b)</span>  Quanto vale \(P(\{1, 2, 3\})\)?</span><span class="parte"><span class="pl">(c)</span>  Liste todos os eventos \(A\) tais que \(P(A) = 1/2\).</span></p>
+<p class="exerc" id="exerc-1.2.2"><span class="k">1.2.2</span> Suponha que \(S = \{1, 2, 3, 4, 5, 6, 7, 8\}\), com
+\(P(\{s\}) = 1/8\) para \(1 \le s \le 8\).
+<span class="parte"><span class="pl">(a)</span>  Quanto vale \(P(\{1, 2\})\)?</span><span class="parte"><span class="pl">(b)</span>  Quanto vale \(P(\{1, 2, 3\})\)?</span><span class="parte"><span class="pl">(c)</span>  Quantos eventos \(A\) existem tais que \(P(A) = 1/2\)?</span></p>
+<p class="exerc" id="exerc-1.2.3"><span class="k">1.2.3</span> Suponha que \(S = \{1, 2, 3\}\), com \(P(\{1\}) = 1/2\) e
+\(P(\{1, 2\}) = 2/3\). Quanto deve valer \(P(\{2\})\)?</p>
+<p class="exerc" id="exerc-1.2.4"><span class="k">1.2.4</span> Suponha que \(S = \{1, 2, 3\}\) e que tentamos definir \(P\) por
+\(P(\{1, 2, 3\}) = 1\), \(P(\{1, 2\}) = 0{,}7\), \(P(\{1, 3\}) = 0{,}5\),
+\(P(\{2, 3\}) = 0{,}7\), \(P(\{1\}) = 0{,}2\), \(P(\{2\}) = 0{,}5\), \(P(\{3\}) = 0{,}3\).
+\(P\) é uma medida de probabilidade válida? Por quê?</p>
+<p class="exerc" id="exerc-1.2.5"><span class="k">1.2.5</span> Considere a distribuição uniforme em \([0, 1]\). Seja
+\(s \in [0, 1]\) um resultado qualquer. Quanto vale \(P(\{s\})\)? Esse resultado
+surpreende você?</p>
+<p class="exerc" id="exerc-1.2.6"><span class="k">1.2.6</span> Rotule as sub-regiões do diagrama de Venn da Figura 1.2.4 usando
+os conjuntos \(A\), \(B\) e \(C\) e seus complementares (assim como fizemos na
+Figura 1.2.2).</p>
+<p class="exerc" id="exerc-1.2.7"><span class="k">1.2.7</span> Num diagrama de Venn, represente o conjunto dos elementos que
+estão nos subconjuntos \(A\) ou \(B\), mas <em>não</em> em ambos. Escreva também esse
+conjunto como um subconjunto envolvendo uniões e interseções de \(A\), \(B\) e seus
+complementares.</p>
+<p class="exerc" id="exerc-1.2.8"><span class="k">1.2.8</span> Suponha que \(S = \{1, 2, 3\}\), \(P(\{1, 2\}) = 1/3\) e
+\(P(\{2, 3\}) = 2/3\). Calcule \(P(\{1\})\), \(P(\{2\})\) e \(P(\{3\})\).</p>
+<p class="exerc" id="exerc-1.2.9"><span class="k">1.2.9</span> Suponha que \(S = \{1, 2, 3, 4\}\), \(P(\{1\}) = 1/12\),
+\(P(\{1, 2\}) = 1/6\) e \(P(\{1, 2, 3\}) = 1/3\). Calcule \(P(\{1\})\),
+\(P(\{2\})\), \(P(\{3\})\) e \(P(\{4\})\).</p>
+<p class="exerc" id="exerc-1.2.10"><span class="k">1.2.10</span> Suponha que \(S = \{1, 2, 3\}\) e
+\(P(\{1\}) = P(\{3\}) = 2\,P(\{2\})\). Calcule \(P(\{1\})\), \(P(\{2\})\) e
+\(P(\{3\})\).</p>
+<p class="exerc" id="exerc-1.2.11"><span class="k">1.2.11</span> Suponha que \(S = \{1, 2, 3\}\), \(P(\{1\}) = P(\{2\}) + 1/6\) e
+\(P(\{3\}) = 2\,P(\{2\})\). Calcule \(P(\{1\})\), \(P(\{2\})\) e \(P(\{3\})\).</p>
+<p class="exerc" id="exerc-1.2.12"><span class="k">1.2.12</span> Suponha que \(S = \{1, 2, 3, 4\}\) e
+<span class="mat-quebravel">\(P(\{1\}) - 1/8\) \({}= P(\{2\}) = 3\,P(\{3\})\) \({}= 4\,P(\{4\})\)</span>. Calcule \(P(\{1\})\),
+\(P(\{2\})\), \(P(\{3\})\) e \(P(\{4\})\).</p>
+<figure class="figura">
+<img class="figura" src="figuras/tikz-94199cc70a69.svg" alt="" style="width: min(100%, 25.1em)">
+<figcaption id="figura-1.2.4"><span class="rot">Figura 1.2.4:</span> Diagrama de Venn dos subconjuntos \(A\), \(B\) e \(C\).</figcaption>
+</figure>
+<h4 class="bloco bloco-problemas">Problemas</h4>
+<p class="exerc" id="exerc-1.2.13"><span class="k">1.2.13</span> Considere de novo a distribuição uniforme em \([0, 1]\). É
+verdade que
+<span class="eq">\[
+  P([0, 1]) = \sum_{s \in [0, 1]} P(\{s\})\,?
+\]</span>
+Como isso se relaciona com a propriedade de aditividade das medidas de
+probabilidade?</p>
+<p class="exerc" id="exerc-1.2.14"><span class="k">1.2.14</span> Suponha que \(S\) seja um conjunto finito ou enumerável. É
+possível que \(P(\{s\}) = 0\) para todo \(s \in S\)? Por quê?</p>
+<p class="exerc" id="exerc-1.2.15"><span class="k">1.2.15</span> Suponha que \(S\) seja um conjunto não enumerável<sup class="nota-ref nota-termo"><a href="#nota-18" id="ref-18">18</a></sup>. É possível que
+\(P(\{s\}) = 0\) para todo \(s \in S\)? Por quê?</p>
+<h4 class="bloco bloco-discussao">Tópicos para discussão</h4>
+<p class="exerc" id="exerc-1.2.16"><span class="k">1.2.16</span> A propriedade de aditividade faz sentido intuitivamente? Por quê?</p>
+<p class="exerc" id="exerc-1.2.17"><span class="k">1.2.17</span> É importante que tenhamos sempre \(P(S) = 1\)? Como a teoria da
+probabilidade mudaria se não fosse assim?</p>
+<h2 id="sec-1.3"><span class="n">1.3</span> <span class="t">Propriedades dos Modelos de Probabilidade</span></h2>
+<p>A propriedade de aditividade das medidas de probabilidade implica automaticamente
+certas propriedades básicas. Elas valem para <em>qualquer</em> modelo de probabilidade.</p>
+<p>Se \(A\) é um evento qualquer, escrevemos \(A^c\) (lê-se “complementar de \(A\)”) para o
+evento em que \(A\) <em>não</em> ocorre. No exemplo do tempo, se \(A = \{\text{chuva}\}\),
+então \(A^c = \{\text{neve}, \text{limpo}\}\). Nos exemplos das moedas, se \(A\) é o
+evento em que a primeira moeda dá cara, então \(A^c\) é o evento em que a primeira
+moeda dá coroa.</p>
+<p>Ora, \(A\) e \(A^c\) são sempre disjuntos. Além disso, sua união é sempre o espaço
+amostral inteiro: \(A \cup A^c = S\). Logo, pela propriedade de aditividade, devemos
+ter \(P(A) + P(A^c) = P(S)\). Mas sempre temos \(P(S) = 1\). Assim,
+\(P(A) + P(A^c) = 1\), ou
+<span class="eq">\begin{equation}
+  P(A^c) = 1 - P(A). \tag{1.3.1}
+\end{equation}</span>
+Em palavras, a probabilidade de um evento qualquer <em>não</em> ocorrer é igual a um
+menos a probabilidade de ele <em>ocorrer</em>. Esse é um fato muito útil, que usaremos
+com frequência.</p>
+<p>Suponha agora que \(A_1, A_2, \ldots\) sejam eventos que formam uma <em>partição</em> do
+espaço amostral \(S\). Isso significa que \(A_1, A_2, \ldots\) são disjuntos e, além disso,
+que sua união é igual a \(S\), isto é, \(A_1 \cup A_2 \cup \cdots = S\). Temos o seguinte
+teorema básico, que permite decompor o cálculo da probabilidade de \(B\) na soma das
+probabilidades dos conjuntos \(A_i \cap B\). Muitas vezes, essas são mais fáceis de
+calcular.</p>
+<div class="teo teorema" id="teorema-1.3.1"><div class="cab"><span class="rot">Teorema 1.3.1</span> <span class="nome">(<em>Lei da probabilidade total<sup class="nota-ref nota-termo"><a href="#nota-19" id="ref-19">19</a></sup>, versão não condicionada</em>)</span></div><div class="txt"><p>Sejam \(A_1, A_2, \ldots\) eventos que formam uma partição do espaço amostral \(S\).
+Seja \(B\) um evento qualquer. Então
+<span class="eq">\[
+  P(B) = P(A_1 \cap B) + P(A_2 \cap B) + \cdots .
+\]</span></p></div></div>
+<div class="dem fim"><span class="rot">Demonstração.</span> <p>Os eventos \((A_1 \cap B), (A_2 \cap B), \ldots\) são disjuntos, e sua união é \(B\).
+Logo, o resultado segue imediatamente da propriedade de aditividade (1.2.1).</p></div>
+<p>Uma versão um pouco mais útil da lei da probabilidade total, bem como
+aplicações de seu uso, é apresentada na Seção 1.5.</p>
+<p>Suponha agora que \(A\) e \(B\) sejam dois eventos tais que \(A\) <em>contém</em> \(B\) (em
+símbolos, \(A \supseteq B\)). Em palavras, todos os resultados de \(B\) também estão em
+\(A\). Intuitivamente, \(A\) é um evento “maior” que \(B\), de modo que esperaríamos que sua
+probabilidade fosse maior. Temos o seguinte resultado.</p>
+<div class="teo teorema" id="teorema-1.3.2"><div class="cab"><span class="rot">Teorema 1.3.2</span></div><div class="txt"><p>Sejam \(A\) e \(B\) dois eventos com \(A \supseteq B\). Então
+<span class="eq">\begin{equation}
+  P(A) = P(B) + P(A \cap B^c). \tag{1.3.2}
+\end{equation}</span></p></div></div>
+<div class="dem fim"><span class="rot">Demonstração.</span> <p>Podemos escrever \(A = B \cup (A \cap B^c)\), em que \(B\) e \(A \cap B^c\) são disjuntos.
+Logo, \(P(A) = P(B) + P(A \cap B^c)\) por aditividade.</p></div>
+<p>Como sempre temos \(P(A \cap B^c) \geq 0\), concluímos o seguinte.</p>
+<div class="teo corolario" id="corolario-1.3.1"><div class="cab"><span class="rot">Corolário 1.3.1</span> <span class="nome">(<em>Monotonicidade<sup class="nota-ref nota-termo"><a href="#nota-20" id="ref-20">20</a></sup></em>)</span></div><div class="txt"><p>Sejam \(A\) e \(B\) dois eventos, com \(A \supseteq B\). Então
+<span class="eq">\[
+  P(A) \geq P(B).
+\]</span></p></div></div>
+<p>Por outro lado, reorganizando (1.3.2), obtemos o seguinte.</p>
+<div class="teo corolario" id="corolario-1.3.2"><div class="cab"><span class="rot">Corolário 1.3.2</span></div><div class="txt"><p>Sejam \(A\) e \(B\) dois eventos, com \(A \supseteq B\). Então
+<span class="eq">\begin{equation}
+  P(A \cap B^c) = P(A) - P(B). \tag{1.3.3}
+\end{equation}</span></p></div></div>
+<p>Mais geralmente, mesmo que não tenhamos \(A \supseteq B\), vale a seguinte propriedade.</p>
+<div class="teo teorema" id="teorema-1.3.3"><div class="cab"><span class="rot">Teorema 1.3.3</span> <span class="nome">(<em>Princípio da inclusão-exclusão<sup class="nota-ref nota-termo"><a href="#nota-21" id="ref-21">21</a></sup>, versão para dois eventos</em>)</span></div><div class="txt"><p>Sejam \(A\) e \(B\) dois eventos. Então
+<span class="eq">\begin{equation}
+  P(A \cup B) = P(A) + P(B) - P(A \cap B). \tag{1.3.4}
+\end{equation}</span></p></div></div>
+<div class="dem fim"><span class="rot">Demonstração.</span> <p>Podemos escrever \(A \cup B = (A \cap B^c) \cup (B \cap A^c) \cup (A \cap B)\), em que
+\(A \cap B^c\), \(B \cap A^c\) e \(A \cap B\) são disjuntos. Por aditividade, temos
+<span class="eq">\begin{equation}
+  P(A \cup B) = P(A \cap B^c) + P(B \cap A^c) + P(A \cap B). \tag{1.3.5}
+\end{equation}</span>
+Por outro lado, usando o Corolário 1.3.2 (com \(B\) substituído por \(A \cap B\)), temos
+<span class="eq">\begin{equation}
+  P(A \cap B^c) = P(A \cap (A \cap B)^c) = P(A) - P(A \cap B) \tag{1.3.6}
+\end{equation}</span>
+e, de modo análogo,
+<span class="eq">\begin{equation}
+  P(B \cap A^c) = P(B) - P(A \cap B). \tag{1.3.7}
+\end{equation}</span>
+Substituindo (1.3.6) e (1.3.7) em (1.3.5), o resultado segue.</p></div>
+<p>Uma versão mais geral do princípio da inclusão-exclusão é desenvolvida no
+Desafio 1.3.10.</p>
+<p>Às vezes não precisamos calcular a probabilidade de uma união; basta saber que ela é
+limitada superiormente pela soma das probabilidades dos eventos individuais. Isso se
+chama subaditividade<sup class="nota-ref nota-termo"><a href="#nota-22" id="ref-22">22</a></sup>.</p>
+<div class="teo teorema" id="teorema-1.3.4"><div class="cab"><span class="rot">Teorema 1.3.4</span> <span class="nome">(<em>Subaditividade</em>)</span></div><div class="txt"><p>Seja \(A_1, A_2, \ldots\) uma sequência finita ou infinita enumerável de eventos, não
+necessariamente disjuntos. Então
+<span class="eq">\[
+  P(A_1 \cup A_2 \cup \cdots) \leq P(A_1) + P(A_2) + \cdots .
+\]</span></p></div></div>
+<div class="dem fim"><span class="rot">Demonstração.</span> <p>Veja a Seção 1.7 para a demonstração deste resultado.</p></div>
+<p>Observamos que algumas propriedades da definição de modelo de probabilidade na
+verdade decorrem de outras. Por exemplo, uma vez que sabemos que a probabilidade \(P\)
+é aditiva e que \(P(S) = 1\), segue que <em>necessariamente</em> \(P(\emptyset) = 0\). De
+fato, como \(S\) e \(\emptyset\) são disjuntos, \(P(S \cup \emptyset) = P(S) +
+P(\emptyset)\). Mas, é claro, \(P(S \cup \emptyset) = P(S) = 1\), de modo que devemos ter
+\(P(\emptyset) = 0\).</p>
+<p>Do mesmo modo, uma vez que sabemos que \(P\) é aditiva em sequências infinitas
+enumeráveis de eventos disjuntos, segue que \(P\) também tem de ser aditiva em sequências
+finitas de eventos disjuntos. De fato, dada uma sequência finita disjunta
+\(A_1, \ldots, A_n\), basta tomar \(A_i = \emptyset\) para todo \(i &gt; n\) para obter uma
+sequência infinita enumerável disjunta com a mesma união e a mesma soma de
+probabilidades.</p>
+<section class="resumo"><h4>Resumo da Seção 1.3</h4><ul><li>A probabilidade do complementar de um evento é igual a um menos a probabilidade
+  do evento.</li>
+<li>As probabilidades sempre satisfazem as propriedades básicas de probabilidade
+  total, subaditividade e monotonicidade.</li>
+<li>O princípio da inclusão-exclusão permite calcular \(P(A \cup B)\) em termos de
+  eventos mais simples.</li></ul></section>
+<h4 class="bloco bloco-exercicios">Exercícios</h4>
+<p class="exerc" id="exerc-1.3.1"><span class="k">1.3.1</span> Suponha que \(S = \{1, 2, \ldots, 100\}\). Suponha, além disso, que
+\(P(\{1\}) = 0{,}1\).
+<span class="parte"><span class="pl">(a)</span>  Qual é a probabilidade \(P(\{2, 3, 4, \ldots, 100\})\)?</span><span class="parte"><span class="pl">(b)</span>  Qual é o menor valor possível de \(P(\{1, 2, 3\})\)?</span></p>
+<p class="exerc" id="exerc-1.3.2"><span class="k">1.3.2</span> Suponha que Al assista ao telejornal das seis horas em \(2/3\) das vezes,
+ao telejornal das onze horas em \(1/2\) das vezes e a ambos, o das seis e o das onze,
+em \(1/3\) das vezes. Num dia escolhido ao acaso, qual é a probabilidade de que Al
+assista apenas ao telejornal das seis? Num dia escolhido ao acaso, qual é a
+probabilidade de que Al não assista a nenhum dos dois telejornais?</p>
+<p class="exerc" id="exerc-1.3.3"><span class="k">1.3.3</span> Suponha que um funcionário chegue atrasado em 10% das vezes, saia mais
+cedo em 20% das vezes, e chegue atrasado <em>e</em> saia mais cedo em 5% das vezes.
+Qual é a probabilidade de que, num dado dia, esse funcionário chegue atrasado
+<em>ou</em> saia mais cedo (ou ambos)?</p>
+<p class="exerc" id="exerc-1.3.4"><span class="k">1.3.4</span> Suponha que seu joelho direito doa em 15% do tempo e que seu joelho
+esquerdo doa em 10% do tempo. Qual é a maior porcentagem possível do tempo em que
+pelo menos um dos seus joelhos está dolorido? Qual é a menor porcentagem possível do
+tempo em que pelo menos um dos seus joelhos está dolorido?</p>
+<p class="exerc" id="exerc-1.3.5"><span class="k">1.3.5</span> Suponha que uma moeda honesta seja lançada cinco vezes seguidas.
+<span class="parte"><span class="pl">(a)</span>  Qual é a probabilidade de obter cara em todos os cinco lançamentos?</span><span class="parte"><span class="pl">(b)</span>  Qual é a probabilidade de obter pelo menos uma coroa?</span></p>
+<p class="exerc" id="exerc-1.3.6"><span class="k">1.3.6</span> Suponha que uma carta seja escolhida uniformemente ao acaso de um
+baralho comum de 52 cartas.
+<span class="parte"><span class="pl">(a)</span>  Qual é a probabilidade de que a carta seja um valete?</span><span class="parte"><span class="pl">(b)</span>  Qual é a probabilidade de que a carta seja de paus?</span><span class="parte"><span class="pl">(c)</span>  Qual é a probabilidade de que a carta seja um valete e de paus?</span><span class="parte"><span class="pl">(d)</span>  Qual é a probabilidade de que a carta seja um valete ou de paus (ou ambos)?</span></p>
+<p class="exerc" id="exerc-1.3.7"><span class="k">1.3.7</span> Suponha que seu time tenha 40% de chance de vencer ou empatar o jogo de
+hoje e 30% de chance de vencer o jogo de hoje. Qual é a probabilidade de que o jogo de
+hoje termine empatado?</p>
+<p class="exerc" id="exerc-1.3.8"><span class="k">1.3.8</span> Suponha que 55% dos estudantes sejam do sexo feminino, dos quais 4/5
+(44%) têm cabelo comprido, e que 45% sejam do sexo masculino, dos quais 1/3 (15% de
+todos os estudantes) têm cabelo comprido. Qual é a probabilidade de que um estudante
+escolhido ao acaso seja do sexo feminino ou tenha cabelo comprido (ou ambos)?</p>
+<h4 class="bloco bloco-problemas">Problemas</h4>
+<p class="exerc" id="exerc-1.3.9"><span class="k">1.3.9</span> Suponha que escolhemos um inteiro positivo ao acaso, de acordo com alguma
+distribuição de probabilidade desconhecida. Suponha ainda que saibamos que
+\(P(\{1, 2, 3, 4, 5\}) = 0{,}3\), que \(P(\{4, 5, 6\}) = 0{,}4\) e que \(P(\{1\}) = 0{,}1\).
+Quais são o maior e o menor valores possíveis de \(P(\{2\})\)?</p>
+<h4 class="bloco bloco-desafios">Desafios</h4>
+<p class="exerc" id="exerc-1.3.10"><span class="k">1.3.10</span> Generalize o princípio da inclusão-exclusão, da seguinte forma.
+<span class="parte"><span class="pl">(a)</span>  Suponha que haja três eventos \(A\), \(B\) e \(C\). Prove que
+<span class="eq">\begin{align*}
+  P(A \cup B \cup C) = P(A) + P(B) + P(C) &amp;- P(A \cap B) - P(A \cap C) \\
+  &amp;- P(B \cap C) + P(A \cap B \cap C).
+\end{align*}</span></span><span class="parte"><span class="pl">(b)</span>  Suponha que haja \(n\) eventos \(A_1, A_2, \ldots, A_n\). Prove que
+<span class="eq">\begin{align*}
+  P(A_1 \cup \cdots \cup A_n) &amp;= \sum_{i=1}^{n} P(A_i)
+    - \sum_{\substack{i,j=1\\ i&lt;j}}^{n} P(A_i \cap A_j)
+    + \sum_{\substack{i,j,k=1\\ i&lt;j&lt;k}}^{n} P(A_i \cap A_j \cap A_k) \\
+  &amp;\qquad - \cdots \pm P(A_1 \cap \cdots \cap A_n).
+\end{align*}</span>
+(Sugestão: use indução.)</span></p>
+<h4 class="bloco bloco-discussao">Tópicos para discussão</h4>
+<p class="exerc" id="exerc-1.3.11"><span class="k">1.3.11</span> Dos vários teoremas apresentados nesta seção, quais você considera os
+mais importantes? Quais você considera os menos importantes? Explique as razões das
+suas escolhas.</p>
+<h2 id="sec-1.4"><span class="n">1.4</span> <span class="t">Probabilidade Uniforme em Espaços Finitos</span></h2>
+<p>Se o espaço amostral \(S\) é finito, uma medida de probabilidade possível em \(S\)
+é a medida de probabilidade <em>uniforme</em>, que atribui probabilidade \(1/|S|\)
+a cada resultado. Aqui, \(|S|\) é o número de elementos do espaço amostral \(S\).
+Pela aditividade, segue então que, para qualquer evento \(A\), temos
+<span class="eq">\begin{equation}
+  P(A) = \frac{|A|}{|S|}. \tag{1.4.1}
+\end{equation}</span></p>
+<div class="ex" id="exemplo-1.4.1"><div class="cab"><span class="rot">Exemplo 1.4.1</span></div><div class="txt fim"><p>Suponha que lançamos um dado de seis faces. Os resultados possíveis são
+\(S = \{1, 2, 3, 4, 5, 6\}\), de modo que \(|S| = 6\). Se o dado é honesto,
+acreditamos que todos os resultados são igualmente prováveis. Assim, fazemos
+\(P(\{i\}) = 1/6\) para cada \(i \in S\), de modo que \(P(\{3\}) = 1/6\),
+\(P(\{4\}) = 1/6\) etc. Segue de (1.4.1) que, por exemplo,
+\(P(\{3, 4\}) = 2/6 = 1/3\), \(P(\{1, 5, 6\}) = 3/6 = 1/2\) etc. Este é um bom
+modelo para um único lançamento de um dado honesto de seis faces.</p></div></div>
+<div class="ex" id="exemplo-1.4.2"><div class="cab"><span class="rot">Exemplo 1.4.2</span></div><div class="txt fim"><p>Como segundo exemplo, suponha que lançamos uma moeda honesta uma vez. Então
+\(S = \{\text{cara}, \text{coroa}\}\), de modo que \(|S| = 2\), e
+<span class="mat-quebravel">\(P(\{\text{cara}\})\) \({}= P(\{\text{coroa}\})\) \({}= 1/2\)</span>.</p></div></div>
+<div class="ex" id="exemplo-1.4.3"><div class="cab"><span class="rot">Exemplo 1.4.3</span></div><div class="txt fim"><p>Suponha agora que lançamos <em>três moedas honestas diferentes</em>. O resultado
+pode ser escrito como uma sequência de três letras, em que cada letra é \(H\)
+(para cara) ou \(T\) (para coroa). Assim,
+<span class="eq">\[
+  S = \{HHH, HHT, HTH, HTT, THH, THT, TTH, TTT\}.
+\]</span>
+Aqui \(|S| = 8\), e cada um dos eventos é igualmente provável. Logo,
+\(P(\{HHH\}) = 1/8\), \(P(\{HHH, TTT\}) = 2/8 = 1/4\) etc. Note também que, pela
+aditividade, temos, por exemplo, que
+<span class="mat-quebravel">\(P(\text{exatamente duas caras})\) \({}= P(\{HHT, HTH, THH\})\) \({}= 1/8 + 1/8 + 1/8\) \({}= 3/8\)</span>
+etc.</p></div></div>
+<div class="ex" id="exemplo-1.4.4"><div class="cab"><span class="rot">Exemplo 1.4.4</span></div><div class="txt fim"><p>Como último exemplo, suponha que lançamos um dado honesto de seis faces
+<em>e</em> uma moeda honesta. Então podemos escrever
+<span class="eq">\[
+  S = \{1H, 2H, 3H, 4H, 5H, 6H, 1T, 2T, 3T, 4T, 5T, 6T\}.
+\]</span>
+Logo, \(|S| = 12\) neste caso, e \(P(s) = 1/12\) para cada \(s \in S\).</p></div></div>
+<h3 id="subsec-1.4.1"><span class="n">1.4.1</span> <span class="t">Princípios de Contagem</span></h3>
+<p>Por causa de (1.4.1), problemas que envolvem distribuições uniformes em espaços
+amostrais finitos muitas vezes se resumem a conseguir calcular os tamanhos \(|A|\)
+e \(|S|\) dos conjuntos envolvidos. Isto é, precisamos ser bons em <em>contar</em>
+o número de elementos de diversos conjuntos. A ciência da contagem se chama
+<em>análise combinatória<sup class="nota-ref nota-termo"><a href="#nota-23" id="ref-23">23</a></sup></em>, e alguns de seus aspectos são muito sofisticados.
+No restante desta seção, consideramos algumas regras de contagem simples e sua
+aplicação na teoria da probabilidade quando a distribuição uniforme é
+apropriada.</p>
+<div class="ex" id="exemplo-1.4.5"><div class="cab"><span class="rot">Exemplo 1.4.5</span> <span class="nome">Contando sequências: o princípio multiplicativo<sup class="nota-ref nota-termo"><a href="#nota-24" id="ref-24">24</a></sup></span></div><div class="txt fim"><p>Suponha que lançamos três moedas honestas e dois dados honestos de seis faces.
+Qual é a probabilidade de que as três moedas deem cara e os dois dados deem 6?
+Cada moeda tem dois resultados possíveis (cara e coroa), e cada dado tem seis
+resultados possíveis \(\{1, 2, 3, 4, 5, 6\}\). O número total de resultados
+possíveis das três moedas e dos dois dados é, então, obtido
+<em>multiplicando</em> três 2 e dois 6, isto é,
+\(2 \times 2 \times 2 \times 6 \times 6 = 288\). Isso às vezes é chamado de
+<em>princípio multiplicativo</em>. Há, portanto, 288 resultados possíveis para o
+nosso experimento (por exemplo, \(HHH66\), \(HTH24\), \(TTH15\) etc.). Desses
+resultados, apenas um (a saber, \(HHH66\)) conta como sucesso. Assim, a
+probabilidade de que as três moedas deem cara e os dois dados deem 6 é igual a
+1/288.</p>
+<p>Note que podemos obter esse resultado de outra maneira. A chance de que
+qualquer uma das moedas dê cara é 1/2, e a chance de que qualquer um dos dados
+dê 6 é 1/6. Além disso, esses eventos são todos <em>independentes</em> (veja a
+próxima seção). Sob independência, a probabilidade de que <em>todos</em> ocorram
+é dada pelo produto de suas probabilidades individuais, a saber,
+<span class="eq">\[
+  (1/2)(1/2)(1/2)(1/6)(1/6) = 1/288.
+\]</span></p>
+<p>De modo mais geral, suponha que temos \(k\) conjuntos finitos
+\(S_1, \ldots, S_k\) e queremos contar o número de sequências de comprimento \(k\)
+em que o \(i\)-ésimo elemento vem de \(S_i\), isto é, contar o número de elementos
+de
+<span class="eq">\[
+  S = \{(s_1, \ldots, s_k) : s_i \in S_i\} = S_1 \times \cdots \times S_k.
+\]</span>
+O princípio multiplicativo diz que o número dessas sequências é obtido
+multiplicando os números de elementos de cada conjunto \(S_i\), isto é,
+<span class="eq">\[
+  |S| = |S_1| \cdots |S_k|.
+\]</span></p></div></div>
+<div class="ex" id="exemplo-1.4.6"><div class="cab"><span class="rot">Exemplo 1.4.6</span></div><div class="txt fim"><p>Suponha que lançamos dois dados honestos de seis faces. Qual é a probabilidade
+de que a soma dos números obtidos seja igual a 10? Pelo princípio multiplicativo
+acima, o número total de resultados possíveis é igual a \(6 \times 6 = 36\).
+Desses resultados, há três cuja soma é 10, a saber, \((4, 6)\), \((5, 5)\) e
+\((6, 4)\). Assim, a probabilidade de que a soma seja 10 é igual a 3/36, ou 1/12.</p></div></div>
+<div class="ex" id="exemplo-1.4.7"><div class="cab"><span class="rot">Exemplo 1.4.7</span> <span class="nome">Contando permutações</span></div><div class="txt fim"><p>Suponha que quatro amigos vão a um restaurante e cada um deixa o casaco na
+chapelaria. No fim da refeição, os quatro casacos são devolvidos
+<em>aleatoriamente</em> às quatro pessoas. Qual é a probabilidade de que cada uma
+das quatro pessoas receba o próprio casaco? Aqui, o número total de maneiras
+diferentes de devolver os casacos é igual a \(4 \times 3 \times 2 \times 1\), ou
+\(4!\) (isto é, quatro fatorial). Isso porque o primeiro casaco pode ser devolvido
+a qualquer um dos quatro amigos, o segundo casaco a qualquer um dos três amigos
+restantes, e assim por diante. Apenas uma dessas atribuições é a correta. Logo,
+a probabilidade de que cada uma das quatro pessoas receba o próprio casaco é
+igual a \(1/4!\), ou \(1/24\).</p>
+<p>Aqui estamos contando permutações, isto é, sequências de elementos de um
+conjunto em que nenhum elemento aparece mais de uma vez. Podemos usar o
+princípio multiplicativo para contar permutações de modo mais geral. Por
+exemplo, suponha que \(|S| = n\) e queremos contar o número de permutações de
+comprimento \(k \le n\) obtidas de \(S\), isto é, queremos contar o número de
+elementos do conjunto
+<span class="eq">\[
+  \bigl\{(s_1, \ldots, s_k) : s_i \in S,\ s_i \neq s_j \text{ quando } i \neq j\bigr\}.
+\]</span>
+Então temos \(n\) escolhas para o primeiro elemento \(s_1\), \(n - 1\) escolhas para o
+segundo elemento e, por fim, \(n - (k - 1) = n - k + 1\) escolhas para o último
+elemento. Portanto, há \(n\,(n - 1) \cdots (n - k + 1)\) permutações de
+comprimento \(k\) de um conjunto de \(n\) elementos. Isso também pode ser escrito
+como \(n!/(n - k)!\). Note que, quando \(k = n\), há
+<span class="eq">\[
+  n! = n\,(n - 1) \cdots 2 \cdot 1
+\]</span>
+permutações de comprimento \(n\).</p></div></div>
+<div class="ex" id="exemplo-1.4.8"><div class="cab"><span class="rot">Exemplo 1.4.8</span> <span class="nome">Contando subconjuntos</span></div><div class="txt fim"><p>Suponha que 10 moedas honestas são lançadas. Qual é a probabilidade de que
+exatamente sete delas deem cara? Aqui, cada sequência possível de 10 caras ou
+coroas (por exemplo, \(HHHTTTHTTT\), \(THTTTTHHHT\) etc.) é igualmente provável e,
+pelo princípio multiplicativo, o número total de resultados possíveis é igual a
+2 multiplicado por si mesmo 10 vezes, ou \(2^{10} = 1024\). Logo, a probabilidade
+de ocorrer uma sequência específica qualquer é \(1/1024\). Mas, dessas sequências,
+quantas têm exatamente sete caras?</p>
+<p>Para responder a isso, note que podemos especificar uma dessas sequências
+dando as posições das sete caras, o que envolve escolher um subconjunto de
+tamanho 7 do conjunto de índices possíveis \(\{1, \ldots, 10\}\). Há
+\(10!/3! = 10 \cdot 9 \cdots 5 \cdot 4\) permutações diferentes de comprimento 7
+de \(\{1, \ldots, 10\}\), e cada uma dessas permutações especifica uma sequência
+de sete caras e três coroas. Mas podemos permutar os índices que especificam
+onde ficam as caras de \(7!\) maneiras diferentes sem alterar a sequência de caras
+e coroas. Assim, o número total de resultados com exatamente sete caras é igual
+a \(10!/3!7! = 120\). A probabilidade de que exatamente sete das 10 moedas deem
+cara é, portanto, igual a \(120/1024\), ou pouco menos de 12%.</p>
+<p>Em geral, se temos um conjunto \(S\) de \(n\) elementos, então o número de
+subconjuntos diferentes de tamanho \(k\) que podemos construir escolhendo
+elementos de \(S\) é
+<span class="eq">\[
+  \binom{n}{k} = \frac{n!}{k!\,(n - k)!},
+\]</span>
+que é chamado de <em>coeficiente binomial<sup class="nota-ref nota-termo"><a href="#nota-25" id="ref-25">25</a></sup></em>. Isso decorre do mesmo argumento, a
+saber, há \(n!/(n - k)!\) permutações de comprimento \(k\) obtidas do conjunto; cada
+uma dessas permutações, junto com as \(k!\) permutações obtidas permutando-a,
+especifica um único subconjunto de \(S\).</p></div></div>
+<p>Segue, por exemplo, que a probabilidade de obter exatamente \(k\) caras ao lançar
+um total de \(n\) moedas honestas é dada por
+<span class="eq">\[
+  \binom{n}{k} 2^{-n} = \frac{n!}{k!\,(n - k)!}\, 2^{-n}.
+\]</span>
+Isso porque há \(\binom{n}{k}\) padrões diferentes de \(k\) caras e \(n - k\) coroas,
+e um total de \(2^n\) sequências diferentes de \(n\) caras e coroas.</p>
+<p>De modo mais geral, se cada moeda tem probabilidade \(\theta\) de dar cara (e
+probabilidade \(1 - \theta\) de dar coroa), em que \(0 \le \theta \le 1\), então a
+probabilidade de obter exatamente \(k\) caras ao lançar um total de \(n\) dessas
+moedas é dada por
+<span class="eq">\begin{equation}
+  \binom{n}{k} \theta^k (1 - \theta)^{n-k}
+  = \frac{n!}{k!\,(n - k)!}\, \theta^k (1 - \theta)^{n-k}, \tag{1.4.2}
+\end{equation}</span>
+porque cada um dos \(\binom{n}{k}\) padrões diferentes de \(k\) caras e \(n - k\)
+coroas tem probabilidade \(\theta^k (1 - \theta)^{n-k}\) de ocorrer (isso decorre
+da discussão sobre independência na Seção 1.5.2). Se \(\theta = 1/2\), isso se
+reduz à fórmula anterior.</p>
+<div class="ex" id="exemplo-1.4.9"><div class="cab"><span class="rot">Exemplo 1.4.9</span> <span class="nome">Contando sequências de subconjuntos e partições</span></div><div class="txt fim"><p>Suponha que temos um conjunto \(S\) de \(n\) elementos e queremos contar o número
+de elementos de
+<span class="eq">\[
+  \bigl\{(S_1, S_2, \ldots, S_l) : S_i \subset S,\ |S_i| = k_i,\
+  S_i \cap S_j = \emptyset \text{ quando } i \neq j\bigr\},
+\]</span>
+ou seja, queremos contar o número de sequências de \(l\) subconjuntos de um
+conjunto em que dois subconjuntos quaisquer não têm elementos em comum e o
+\(i\)-ésimo subconjunto tem \(k_i\) elementos. Pelo princípio multiplicativo, isso
+é igual a
+<span class="eq">\begin{align}
+  &amp;\binom{n}{k_1}\binom{n - k_1}{k_2} \cdots \binom{n - k_1 - \cdots - k_{l-1}}{k_l}
+  \notag\\
+  &amp;\qquad = \frac{n!}{k_1! \cdots k_{l-1}!\,k_l!\,(n - k_1 - \cdots - k_l)!},
+  \tag{1.4.3}
+\end{align}</span>
+porque podemos escolher os elementos de \(S_1\) de \(\binom{n}{k_1}\) maneiras,
+escolher os elementos de \(S_2\) de \(\binom{n - k_1}{k_2}\) maneiras etc.</p>
+<p>Quando, além de os conjuntos serem disjuntos dois a dois, temos
+\(S = S_1 \cup S_2 \cup \cdots \cup S_l\), estamos contando o número de
+<em>partições ordenadas<sup class="nota-ref nota-termo"><a href="#nota-26" id="ref-26">26</a></sup></em> de um conjunto de \(n\) elementos com \(k_1\) elementos
+no primeiro conjunto, \(k_2\) elementos no segundo conjunto etc. Nesse caso,
+(1.4.3) é igual a
+<span class="eq">\begin{equation}
+  \binom{n}{k_1\ k_2\ \ldots\ k_l} = \frac{n!}{k_1!\,k_2! \cdots k_l!}, \tag{1.4.4}
+\end{equation}</span>
+que é chamado de <em>coeficiente multinomial<sup class="nota-ref nota-termo"><a href="#nota-27" id="ref-27">27</a></sup></em>.</p></div></div>
+<p>Por exemplo, quantas mãos de bridge diferentes existem? Com isso, queremos
+dizer de quantas maneiras diferentes um baralho de 52 cartas pode ser dividido
+em quatro mãos de 13 cartas cada, com as mãos identificadas como Norte, Leste,
+Sul e Oeste, respectivamente. Por (1.4.4), isso é igual a
+<span class="eq">\[
+  \binom{52}{13\ 13\ 13\ 13} = \frac{52!}{13!\,13!\,13!\,13!}
+  \approx 5{,}364474 \times 10^{28},
+\]</span>
+que é um número muito grande.</p>
+<section class="resumo"><h4>Resumo da Seção 1.4</h4><ul><li>A distribuição de probabilidade uniforme em um espaço amostral finito \(S\)
+  satisfaz \(P(A) = |A|/|S|\).</li>
+<li>Calcular \(P(A)\) nesse caso exige calcular os <em>tamanhos</em> dos conjuntos
+  \(A\) e \(S\). Isso pode exigir princípios de contagem<sup class="nota-ref nota-termo"><a href="#nota-28" id="ref-28">28</a></sup>, como o princípio
+  multiplicativo, fatoriais e coeficientes binomiais/multinomiais.</li></ul></section>
+<h4 class="bloco bloco-exercicios">Exercícios</h4>
+<p class="exerc" id="exerc-1.4.1"><span class="k">1.4.1</span> Suponha que lançamos oito dados honestos de seis faces.
+<span class="parte"><span class="pl">(a)</span>  Qual é a probabilidade de que os oito dados mostrem 6?</span><span class="parte"><span class="pl">(b)</span>  Qual é a probabilidade de que os oito dados mostrem o mesmo número?</span><span class="parte"><span class="pl">(c)</span>  Qual é a probabilidade de que a soma dos oito dados seja igual a 9?</span></p>
+<p class="exerc" id="exerc-1.4.2"><span class="k">1.4.2</span> Suponha que lançamos 10 dados honestos de seis faces. Qual é a
+probabilidade de que apareçam exatamente dois 2?</p>
+<p class="exerc" id="exerc-1.4.3"><span class="k">1.4.3</span> Suponha que lançamos 100 moedas honestas independentes. Qual é a
+probabilidade de que pelo menos três delas deem cara? (Dica: talvez seja útil
+usar (1.3.1).)</p>
+<p class="exerc" id="exerc-1.4.4"><span class="k">1.4.4</span> Suponha que recebemos cinco cartas de um baralho comum de 52
+cartas. Qual é a probabilidade de que
+<span class="parte"><span class="pl">(a)</span>  recebamos os quatro ases, mais o rei de espadas?</span><span class="parte"><span class="pl">(b)</span>  as cinco cartas sejam de espadas?</span><span class="parte"><span class="pl">(c)</span>  não recebamos nenhum par (isto é, as cinco cartas tenham valores
+diferentes)?</span><span class="parte"><span class="pl">(d)</span>  recebamos um full house (isto é, três cartas de um mesmo valor, mais
+um par de outro valor)?</span></p>
+<p class="exerc" id="exerc-1.4.5"><span class="k">1.4.5</span> Suponha que distribuímos quatro mãos de bridge de 13 cartas a
+partir de um baralho comum de 52 cartas. Qual é a probabilidade de que
+<span class="parte"><span class="pl">(a)</span>  as 13 cartas de espadas fiquem todas na mesma mão?</span><span class="parte"><span class="pl">(b)</span>  os quatro ases fiquem todos na mesma mão?</span></p>
+<p class="exerc" id="exerc-1.4.6"><span class="k">1.4.6</span> Suponha que tiramos duas cartas ao acaso de um baralho comum de 52
+cartas. Qual é a probabilidade de que a soma dos valores das duas cartas (em que
+valetes, damas e reis contam como 10, e ases contam como 1) seja pelo menos 4?</p>
+<p class="exerc" id="exerc-1.4.7"><span class="k">1.4.7</span> Suponha que continuamos distribuindo cartas de um baralho comum de
+52 cartas até aparecer o primeiro valete. Qual é a probabilidade de que pelo
+menos 10 cartas passem <em>antes</em> do primeiro valete?</p>
+<p class="exerc" id="exerc-1.4.8"><span class="k">1.4.8</span> Em um baralho comum de 52 cartas bem embaralhado, qual é a
+probabilidade de que o ás de espadas e o ás de paus fiquem um ao lado do outro?</p>
+<p class="exerc" id="exerc-1.4.9"><span class="k">1.4.9</span> Suponha que lançamos repetidamente dois dados honestos de seis
+faces, considerando a cada vez a <em>soma</em> dos dois valores obtidos. Qual é a
+probabilidade de que a primeira vez em que a soma é exatamente 7 seja no
+terceiro lançamento?</p>
+<p class="exerc" id="exerc-1.4.10"><span class="k">1.4.10</span> Suponha que lançamos três dados honestos de seis faces. Qual é a
+probabilidade de que dois deles mostrem o mesmo valor, mas o terceiro não?</p>
+<p class="exerc" id="exerc-1.4.11"><span class="k">1.4.11</span> Considere duas urnas, identificadas como urna nº 1 e urna nº 2.
+Suponha que a urna nº 1 tem 5 bolas vermelhas e 7 azuis. Suponha que a urna nº 2
+tem 6 bolas vermelhas e 12 azuis. Suponha que escolhemos três bolas
+uniformemente ao acaso de cada uma das duas urnas. Qual é a probabilidade de que
+as seis bolas escolhidas sejam todas da mesma cor?</p>
+<p class="exerc" id="exerc-1.4.12"><span class="k">1.4.12</span> Suponha que lançamos um dado honesto de seis faces e três moedas
+honestas. Qual é a probabilidade de que o número total de caras seja igual ao
+número mostrado pelo dado?</p>
+<p class="exerc" id="exerc-1.4.13"><span class="k">1.4.13</span> Suponha que lançamos duas moedas de 1 centavo, três de 5 centavos
+e quatro de 10 centavos. Qual é a probabilidade de que o valor total de todas as
+moedas que deram cara seja igual a US$ 0,31?</p>
+<h4 class="bloco bloco-problemas">Problemas</h4>
+<p class="exerc" id="exerc-1.4.14"><span class="k">1.4.14</span> Mostre que uma medida de probabilidade definida por (1.4.1) é
+sempre aditiva no sentido de (1.2.1).</p>
+<p class="exerc" id="exerc-1.4.15"><span class="k">1.4.15</span> Suponha que lançamos oito dados honestos de seis faces. Qual é a
+probabilidade de que a soma dos oito dados seja igual a 9? Qual é a
+probabilidade de que a soma dos oito dados seja igual a 10? Qual é a
+probabilidade de que a soma dos oito dados seja igual a 11?</p>
+<p class="exerc" id="exerc-1.4.16"><span class="k">1.4.16</span> Suponha que lançamos um dado honesto de seis faces e seis moedas.
+Qual é a probabilidade de que o número de caras seja igual ao número mostrado
+pelo dado?</p>
+<p class="exerc" id="exerc-1.4.17"><span class="k">1.4.17</span> Suponha que lançamos 10 dados honestos de seis faces. Qual é a
+probabilidade de que apareçam exatamente dois 2 <em>e</em> exatamente três 3?</p>
+<p class="exerc" id="exerc-1.4.18"><span class="k">1.4.18</span> Suponha que distribuímos quatro mãos de bridge de 13 cartas a
+partir de um baralho comum de 52 cartas. Qual é a probabilidade de que as mãos
+Norte e Leste tenham exatamente o mesmo número de cartas de espadas?</p>
+<p class="exerc" id="exerc-1.4.19"><span class="k">1.4.19</span> Suponha que tiramos uma carta ao acaso de um baralho comum de 52
+cartas e também lançamos 10 moedas honestas. Qual é a probabilidade de que o
+número de caras seja igual ao valor da carta (em que valetes, damas e reis
+contam como 10, e ases contam como 1)?</p>
+<h4 class="bloco bloco-desafios">Desafios</h4>
+<p class="exerc" id="exerc-1.4.20"><span class="k">1.4.20</span> Suponha que lançamos dois dados honestos de seis faces e 12
+moedas. Qual é a probabilidade de que o número de caras seja igual à soma dos
+números mostrados pelos dois dados?</p>
+<p class="exerc" id="exerc-1.4.21"><span class="k">1.4.21</span> <em>(O problema do aniversário)</em> Suponha que há \(C\) pessoas e
+que o aniversário (apenas mês e dia) de cada uma tem a mesma probabilidade de
+cair em qualquer um dos 365 dias de um ano normal (isto é, não bissexto).
+<span class="parte"><span class="pl">(a)</span>  Suponha que \(C = 2\). Qual é a probabilidade de que as duas pessoas
+façam aniversário exatamente no mesmo dia?</span><span class="parte"><span class="pl">(b)</span>  Suponha que \(C \ge 2\). Qual é a probabilidade de que todas as \(C\)
+pessoas façam aniversário exatamente no mesmo dia?</span><span class="parte"><span class="pl">(c)</span>  Suponha que \(C \ge 2\). Qual é a probabilidade de que <em>algum par</em>
+entre as \(C\) pessoas faça aniversário exatamente no mesmo dia? (Dica: talvez
+seja útil usar (1.3.1).)</span><span class="parte"><span class="pl">(d)</span>  Qual é o menor valor de \(C\) para o qual a probabilidade do item (c) é
+maior que \(0{,}5\)? Esse resultado surpreende você?</span></p>
+<h2 id="sec-1.5"><span class="n">1.5</span> <span class="t">Probabilidade Condicional e Independência</span></h2>
+<p>Considere novamente o exemplo das três moedas, como no Exemplo 1.4.3, em que
+lançamos três moedas honestas diferentes, e
+<span class="eq">\[
+S = \{HHH, HHT, HTH, HTT, THH, THT, TTH, TTT\},
+\]</span>
+com \(P(s) = 1/8\) para cada \(s \in S\). Qual é a probabilidade de a primeira
+moeda dar cara? Bem, é claro que deve ser \(1/2\). Podemos ver isso de modo mais
+formal dizendo que <span class="mat-quebravel">\(P(\text{primeira moeda cara})\) \({}= P(\{HHH, HHT, HTH, HTT\})\) \({}=
+4/8 = 1/2\)</span>, como deveria ser.</p>
+<p>Mas suponha agora que um informante nos diga que exatamente duas das três
+moedas deram cara. <em>Agora</em>, qual é a probabilidade de a primeira moeda ter
+dado cara?</p>
+<p>A questão é que esse informante mudou a informação de que dispomos, isto é,
+mudou o nosso nível de ignorância. Segue-se que as probabilidades
+correspondentes também devem mudar. De fato, se sabemos que exatamente duas
+das moedas deram cara, então sabemos que o resultado foi um de \(HHT\), \(HTH\) e
+\(THH\). Como esses três resultados devem (neste caso) continuar igualmente
+prováveis, e como só os dois primeiros correspondem à primeira moeda dar cara,
+concluímos o seguinte: se sabemos que exatamente duas das três moedas deram
+cara, <em>então</em> a probabilidade de a primeira moeda ter dado cara é \(2/3\).</p>
+<p>Mais precisamente, calculamos uma <em>probabilidade condicional</em>. Isto é,
+determinamos que, <em>condicionada</em> ao conhecimento de que exatamente duas
+moedas deram cara, a <em>probabilidade condicional</em> de a primeira moeda ter
+dado cara é \(2/3\). Escrevemos isso em notação matemática como
+<span class="eq">\[
+P(\text{primeira moeda cara} \mid \text{duas moedas cara}) = 2/3.
+\]</span>
+Aqui a barra vertical \(\mid\) significa “condicionado a” ou “dado que”.</p>
+<h3 id="subsec-1.5.1"><span class="n">1.5.1</span> <span class="t">Probabilidade Condicional</span></h3>
+<p>Em geral, dados dois eventos \(A\) e \(B\) com \(P(B) &gt; 0\), a <em>probabilidade
+condicional</em> de \(A\) dado \(B\), escrita \(P(A \mid B)\), representa a fração das
+vezes em que \(A\) ocorre uma vez que <em>sabemos</em> que \(B\) ocorre. Ela é
+calculada como a razão entre a probabilidade de \(A\) e \(B\) <em>ambos</em>
+ocorrerem e a probabilidade de \(B\) ocorrer, da seguinte forma.</p>
+<div class="def definicao" id="definicao-1.5.1"><div class="cab"><span class="rot">Definição 1.5.1</span></div><div class="txt"><p>Dados dois eventos \(A\) e \(B\), com \(P(B) &gt; 0\), a probabilidade condicional de
+\(A\) dado \(B\) é igual a
+<span class="eq">\begin{equation}
+P(A \mid B) = \frac{P(A \cap B)}{P(B)}. \tag{1.5.1}
+\end{equation}</span></p></div></div>
+<p>A motivação para (1.5.1) é a seguinte. O evento \(B\) ocorrerá numa fração
+\(P(B)\) das vezes. Além disso, \(A\) e \(B\) <em>ambos</em> ocorrerão numa fração
+\(P(A \cap B)\) das vezes. A razão \(P(A \cap B)/P(B)\) dá, portanto, a
+<em>proporção</em> das vezes em que \(B\) ocorre nas quais \(A\) <em>também</em>
+ocorre. Isto é, se <em>ignorarmos</em> todas as vezes em que \(B\) não ocorre e
+considerarmos só as vezes em que \(B\) ocorre, então a razão \(P(A \cap B)/P(B)\)
+é igual à fração das vezes em que \(A\) também ocorrerá. É exatamente isso que
+se quer dizer com a probabilidade condicional de \(A\) dado \(B\).</p>
+<p>No exemplo que acabamos de calcular, \(A\) é o evento em que a primeira moeda dá
+cara, e \(B\) é o evento em que exatamente duas moedas dão cara. Assim, em termos
+matemáticos, \(A = \{HHH, HHT, HTH, HTT\}\) e \(B = \{HHT, HTH, THH\}\). Segue-se
+que \(A \cap B = \{HHT, HTH\}\). Portanto,
+<span class="eq">\[
+P(A \mid B) = \frac{P(A \cap B)}{P(B)}
+= \frac{P(\{HHT, HTH\})}{P(\{HHT, HTH, THH\})}
+= \frac{2/8}{3/8} = 2/3,
+\]</span>
+como já havíamos calculado.</p>
+<p>Por outro lado, calculamos de modo análogo que
+<span class="eq">\[
+P(\text{primeira moeda coroa} \mid \text{duas moedas cara}) = 1/3.
+\]</span>
+Vemos, assim, que condicionar a algum evento (como “duas moedas cara”) pode
+fazer as probabilidades aumentarem (como no caso do evento “primeira moeda
+cara”) ou diminuírem (como no caso do evento “primeira moeda coroa”).</p>
+<p>A definição de \(P(B \mid A)\) leva imediatamente à <em>fórmula da
+multiplicação<sup class="nota-ref nota-termo"><a href="#nota-29" id="ref-29">29</a></sup></em>
+<span class="eq">\begin{equation}
+P(A \cap B) = P(A) P(B \mid A). \tag{1.5.2}
+\end{equation}</span>
+Ela nos permite calcular a probabilidade conjunta de \(A\) e \(B\) quando são
+dadas a probabilidade de \(A\) e a probabilidade condicional de \(B\) dado \(A\).</p>
+<p>A probabilidade condicional nos permite expressar o Teorema 1.3.1, a lei da
+probabilidade total, de um modo diferente e às vezes mais útil.</p>
+<div class="teo teorema" id="teorema-1.5.1"><div class="cab"><span class="rot">Teorema 1.5.1</span> <span class="nome">(<em>Lei da probabilidade total, versão condicional</em>)</span></div><div class="txt"><p>Sejam \(A_1, A_2, \ldots\) eventos que formam uma partição do espaço
+amostral \(S\), cada um com probabilidade positiva. Seja \(B\) um evento
+qualquer. Então
+<span class="mat-quebravel">\(P(B) = P(A_1) P(B \mid A_1)\) \({}+ P(A_2) P(B \mid A_2)\) \({}+ \cdots\)</span>.</p></div></div>
+<div class="dem fim"><span class="rot">Demonstração.</span> <p>A fórmula da multiplicação (1.5.2) dá \(P(A_i \cap B) = P(A_i) P(B \mid A_i)\).
+O resultado segue então imediatamente do Teorema 1.3.1.</p></div>
+<div class="ex" id="exemplo-1.5.1"><div class="cab"><span class="rot">Exemplo 1.5.1</span></div><div class="txt fim"><p>Suponha que uma turma tenha 60% de meninas e 40% de meninos. Suponha que
+30% das meninas tenham cabelo comprido e que 20% dos meninos tenham cabelo
+comprido. Um aluno é escolhido uniformemente ao acaso na turma. Qual é a
+probabilidade de o aluno escolhido ter cabelo comprido?</p>
+<p>Para responder, seja \(A_1\) o conjunto das meninas e \(A_2\) o conjunto dos
+meninos. Então \(\{A_1, A_2\}\) é uma partição da turma. Seja ainda \(B\) o
+conjunto de todos os alunos de cabelo comprido.</p>
+<p>Estamos interessados em \(P(B)\). Calculamos esse valor pelo Teorema 1.5.1 como
+<span class="eq">\[
+P(B) = P(A_1) P(B \mid A_1) + P(A_2) P(B \mid A_2) = (0{,}6)(0{,}3) + (0{,}4)(0{,}2) = 0{,}26,
+\]</span>
+de modo que há 26% de chance de o aluno escolhido ao acaso ter cabelo
+comprido.</p></div></div>
+<p>Suponha agora que \(A\) e \(B\) sejam dois eventos, cada um com probabilidade
+positiva. Em algumas aplicações, são dados os valores de \(P(A)\), \(P(B)\) e
+\(P(B \mid A)\) e queremos calcular \(P(A \mid B)\). O resultado a seguir
+estabelece uma relação simples entre essas quantidades.</p>
+<div class="teo teorema" id="teorema-1.5.2"><div class="cab"><span class="rot">Teorema 1.5.2</span> <span class="nome">(<em>Teorema de Bayes</em>)</span></div><div class="txt"><p>Sejam \(A\) e \(B\) dois eventos, cada um com probabilidade positiva.
+Então
+<span class="eq">\[
+P(A \mid B) = \frac{P(A)}{P(B)}\, P(B \mid A).
+\]</span></p></div></div>
+<div class="dem fim"><span class="rot">Demonstração.</span> <p>Calculamos que
+<span class="eq">\[
+\frac{P(A)}{P(B)} P(B \mid A) = \frac{P(A)}{P(B)} \frac{P(A \cap B)}{P(A)}
+= \frac{P(A \cap B)}{P(B)} = P(A \mid B).
+\]</span>
+Isso dá o resultado.</p></div>
+<p>Aplicações típicas da fórmula da multiplicação, da lei da probabilidade total
+e do teorema de Bayes ocorrem em <em>sistemas em dois estágios</em>. A resposta
+de um sistema desse tipo pode ser pensada como algo que acontece em duas
+etapas, ou estágios. Em geral, são dadas as probabilidades do primeiro estágio
+e as probabilidades condicionais do segundo estágio. A fórmula da
+multiplicação é então usada para calcular probabilidades conjuntas do que
+acontece nos dois estágios; a lei da probabilidade total é usada para calcular
+as probabilidades do que acontece no segundo estágio; e o teorema de Bayes é
+usado para calcular as probabilidades condicionais do primeiro estágio, dado
+o que ocorreu no segundo estágio. Ilustramos isso com um exemplo.</p>
+<div class="ex" id="exemplo-1.5.2"><div class="cab"><span class="rot">Exemplo 1.5.2</span></div><div class="txt fim"><p>Suponha que a urna nº 1 tenha 3 bolas vermelhas e 2 azuis, e que a urna nº 2
+tenha 4 bolas vermelhas e 7 azuis. Suponha que uma das duas urnas seja
+escolhida, cada uma com probabilidade \(1/2\), e que então uma das bolas dessa
+urna seja retirada uniformemente ao acaso.</p>
+<p>Qual é a probabilidade de a urna nº 2 ser escolhida no primeiro estágio
+(evento \(A\)) e de uma bola azul ser retirada no segundo estágio (evento \(B\))?
+A fórmula da multiplicação dá o modo correto de calcular essa probabilidade:
+<span class="eq">\[
+P(A \cap B) = P(A) P(B \mid A) = \frac{1}{2}\,\frac{7}{11} = \frac{7}{22}.
+\]</span></p>
+<p>Suponha, em vez disso, que queremos calcular a probabilidade de obter uma bola
+azul. Usando a lei da probabilidade total (Teorema 1.5.1), temos
+<span class="eq">\[
+P(B) = P(A) P(B \mid A) + P(A^c) P(B \mid A^c)
+= \frac{1}{2}\,\frac{7}{11} + \frac{1}{2}\,\frac{2}{5}.
+\]</span></p>
+<p>Suponha agora que recebemos a informação de que a bola retirada é azul. Então,
+pelo teorema de Bayes, a probabilidade condicional de termos escolhido a urna
+nº 2 é dada por
+<span class="eq">\begin{align*}
+P(A \mid B) &amp;= \frac{P(A)}{P(B)}\, P(B \mid A)
+= \left( \frac{1/2}{(1/2)(2/5) + (1/2)(7/11)} \right) \frac{7}{11} \\
+&amp;= 35/57 = 0{,}614.
+\end{align*}</span></p>
+<p>Observe que, sem a informação de que saiu uma bola azul no segundo estágio,
+temos
+<span class="eq">\[
+P(\text{urna nº 2 escolhida}) = 1/2.
+\]</span>
+Vemos que saber que a bola era azul <em>aumenta</em> consideravelmente a
+probabilidade de a urna nº 2 ter sido escolhida.</p></div></div>
+<p>Podemos representar um sistema em dois estágios por meio de uma árvore, como
+na Figura 1.5.1. Pode ser útil desenhar uma figura assim ao fazer cálculos de
+probabilidade para esses sistemas. Há dois resultados possíveis no primeiro
+estágio e três resultados possíveis no segundo estágio.</p>
+<figure class="figura">
+<img class="figura" src="figuras/tikz-fb56d61bf540.svg" alt="" style="width: min(100%, 40.7em)">
+<figcaption id="figura-1.5.1"><span class="rot">Figura 1.5.1:</span> Uma árvore representando um sistema em dois estágios com dois
+resultados possíveis no primeiro estágio e três resultados possíveis no
+segundo estágio.</figcaption>
+</figure>
+<h3 id="subsec-1.5.2"><span class="n">1.5.2</span> <span class="t">Independência de Eventos</span></h3>
+<p>Considere agora o Exemplo 1.4.4, em que lançamos um dado honesto e uma moeda
+honesta, de modo que
+<span class="eq">\[
+S = \{1H, 2H, 3H, 4H, 5H, 6H, 1T, 2T, 3T, 4T, 5T, 6T\}
+\]</span>
+e \(P(\{s\}) = 1/12\) para cada \(s \in S\). Aqui, a probabilidade de o dado dar 5
+é igual a \(P(\{5H, 5T\}) = 2/12 = 1/6\), como deveria ser.</p>
+<p>Mas agora, qual é a probabilidade de o dado dar 5, <em>condicionada</em> ao
+conhecimento de que a moeda deu coroa? Bem, podemos calcular essa
+probabilidade como
+<span class="eq">\begin{align*}
+P(\text{dado} = 5 \mid \text{moeda} = \text{coroa})
+&amp;= \frac{P(\text{dado} = 5 \text{ e moeda} = \text{coroa})}{P(\text{moeda} = \text{coroa})} \\
+&amp;= \frac{P(\{5T\})}{P(\{1T, 2T, 3T, 4T, 5T, 6T\})} \\
+&amp;= \frac{1/12}{6/12} = 1/6.
+\end{align*}</span>
+Isso é o mesmo que a probabilidade incondicional<sup class="nota-ref nota-termo"><a href="#nota-30" id="ref-30">30</a></sup>, \(P(\text{dado} = 5)\).
+Parece que saber que a moeda deu coroa não teve efeito algum sobre a
+probabilidade de o dado dar 5. Essa propriedade se chama
+<em>independência</em>. Dizemos que a moeda e o dado são <em>independentes</em>
+neste exemplo, para indicar que a ocorrência de um não tem nenhuma influência
+sobre a probabilidade de o outro ocorrer.</p>
+<p>Mais formalmente, fazemos a definição a seguir.</p>
+<div class="def definicao" id="definicao-1.5.2"><div class="cab"><span class="rot">Definição 1.5.2</span></div><div class="txt"><p>Dois eventos \(A\) e \(B\) são <em>independentes</em> se
+<span class="eq">\[
+P(A \cap B) = P(A)\, P(B).
+\]</span></p></div></div>
+<p>Agora, como \(P(A \mid B) = P(A \cap B)/P(B)\), vemos que \(A\) e \(B\) são
+independentes se e somente se \(P(A \mid B) = P(A)\) ou \(P(B \mid A) = P(B)\),
+desde que \(P(A) &gt; 0\) e \(P(B) &gt; 0\). A Definição 1.5.2 tem a vantagem de
+continuar válida mesmo que \(P(B) = 0\) ou \(P(A) = 0\), respectivamente.
+Intuitivamente, os eventos \(A\) e \(B\) são independentes se nenhum dos dois tem
+qualquer impacto sobre a probabilidade do outro.</p>
+<div class="ex" id="exemplo-1.5.3"><div class="cab"><span class="rot">Exemplo 1.5.3</span></div><div class="txt fim"><p>No Exemplo 1.4.4, se \(A\) é o evento em que o dado deu 5 e \(B\) é o evento em
+que a moeda deu coroa, então \(P(A) = P(\{5H, 5T\}) = 2/12 = 1/6\), e
+<span class="eq">\[
+P(B) = P(\{1T, 2T, 3T, 4T, 5T, 6T\}) = 6/12 = 1/2.
+\]</span>
+Além disso, \(P(A \cap B) = P(\{5T\}) = 1/12\), que de fato é igual a
+\((1/6)(1/2)\). Logo, \(A\) e \(B\) são independentes neste caso.</p></div></div>
+<p>Para vários eventos, a definição de independência é um pouco mais elaborada.</p>
+<div class="def definicao" id="definicao-1.5.3"><div class="cab"><span class="rot">Definição 1.5.3</span></div><div class="txt"><p>Uma coleção de eventos \(A_1, A_2, A_3, \ldots\) é <em>independente</em> se
+<span class="eq">\[
+P(A_{i_1} \cap \cdots \cap A_{i_j}) = P(A_{i_1}) \cdots P(A_{i_j})
+\]</span>
+para <em>toda</em> subcoleção finita \(A_{i_1}, \ldots, A_{i_j}\) de eventos
+distintos.</p></div></div>
+<div class="ex" id="exemplo-1.5.4"><div class="cab"><span class="rot">Exemplo 1.5.4</span></div><div class="txt fim"><p>De acordo com a Definição 1.5.3, três eventos \(A\), \(B\) e \(C\) são
+independentes se <em>todas</em> as equações a seguir valem:
+<span class="eq">\begin{align}
+P(A \cap B) &amp;= P(A) P(B), \notag \\
+P(A \cap C) &amp;= P(A) P(C), \notag \\
+P(B \cap C) &amp;= P(B) P(C), \tag{1.5.3}
+\end{align}</span>
+e
+<span class="eq">\begin{equation}
+P(A \cap B \cap C) = P(A) P(B) P(C). \tag{1.5.4}
+\end{equation}</span>
+Não basta verificar só <em>algumas</em> dessas condições para comprovar a
+independência. Por exemplo, suponha que \(S = \{1, 2, 3, 4\}\), com
+<span class="mat-quebravel">\(P(\{1\}) = P(\{2\})\) \({}= P(\{3\}) = P(\{4\})\) \({}= 1/4\)</span>. Sejam \(A = \{1, 2\}\),
+\(B = \{1, 3\}\) e \(C = \{1, 4\}\). Então cada uma das três equações (1.5.3) vale,
+mas a equação (1.5.4) não vale. Aqui, os eventos \(A\), \(B\) e \(C\) são chamados
+<em>independentes dois a dois<sup class="nota-ref nota-termo"><a href="#nota-31" id="ref-31">31</a></sup></em>, mas não são independentes.</p></div></div>
+<section class="resumo"><h4>Resumo da Seção 1.5</h4><ul><li>A probabilidade condicional mede a probabilidade de \(A\) ocorrer dado que
+  \(B\) ocorre; ela é dada por \(P(A \mid B) = P(A \cap B) \,/\, P(B)\).</li>
+<li>A probabilidade condicional satisfaz sua própria lei da probabilidade
+  total.</li>
+<li>Eventos são independentes se não têm efeito sobre as probabilidades uns
+  dos outros. Formalmente, isso significa que \(P(A \cap B) = P(A) P(B)\).</li>
+<li>Se \(A\) e \(B\) são independentes, e \(P(A) &gt; 0\) e \(P(B) &gt; 0\), então
+  \(P(A \mid B) = P(A)\) e \(P(B \mid A) = P(B)\).</li></ul></section>
+<h4 class="bloco bloco-exercicios">Exercícios</h4>
+<p class="exerc" id="exerc-1.5.1"><span class="k">1.5.1</span> Suponha que lançamos quatro dados honestos de seis faces.
+<span class="parte"><span class="pl">(a)</span>  Qual é a probabilidade condicional de o primeiro dado mostrar 2,
+condicionada ao evento em que exatamente três dados mostram 2?</span><span class="parte"><span class="pl">(b)</span>  Qual é a probabilidade condicional de o primeiro dado mostrar 2,
+condicionada ao evento em que <em>pelo menos</em> três dados mostram 2?</span></p>
+<p class="exerc" id="exerc-1.5.2"><span class="k">1.5.2</span> Suponha que lançamos duas moedas honestas e um dado honesto de
+seis faces.
+<span class="parte"><span class="pl">(a)</span>  Qual é a probabilidade de o número de caras ser igual ao número que
+aparece no dado?</span><span class="parte"><span class="pl">(b)</span>  Qual é a probabilidade condicional de o número de caras ser igual ao
+número que aparece no dado, condicionada ao conhecimento de que o dado mostrou
+1?</span><span class="parte"><span class="pl">(c)</span>  A resposta do item (b) é maior ou menor que a resposta do item (a)?
+Explique intuitivamente por que isso acontece.</span></p>
+<p class="exerc" id="exerc-1.5.3"><span class="k">1.5.3</span> Suponha que lançamos três moedas honestas.
+<span class="parte"><span class="pl">(a)</span>  Qual é a probabilidade de as três moedas darem cara?</span><span class="parte"><span class="pl">(b)</span>  Qual é a probabilidade condicional de as três moedas darem cara,
+condicionada ao conhecimento de que o número de caras é ímpar?</span><span class="parte"><span class="pl">(c)</span>  Qual é a probabilidade condicional de as três moedas darem cara,
+dado que o número de caras é par?</span></p>
+<p class="exerc" id="exerc-1.5.4"><span class="k">1.5.4</span> Suponha que distribuímos cinco cartas de um baralho comum de 52
+cartas. Qual é a probabilidade condicional de as cinco cartas serem de
+espadas, dado que pelo menos quatro delas são de espadas?</p>
+<p class="exerc" id="exerc-1.5.5"><span class="k">1.5.5</span> Suponha que distribuímos cinco cartas de um baralho comum de 52
+cartas. Qual é a probabilidade condicional de a mão conter os quatro ases,
+dado que a mão contém pelo menos quatro ases?</p>
+<p class="exerc" id="exerc-1.5.6"><span class="k">1.5.6</span> Suponha que distribuímos cinco cartas de um baralho comum de 52
+cartas. Qual é a probabilidade condicional de a mão não conter nenhum par,
+dado que ela não contém nenhuma carta de espadas?</p>
+<p class="exerc" id="exerc-1.5.7"><span class="k">1.5.7</span> Suponha que um arremessador de beisebol lance bolas rápidas em
+80% das vezes e bolas curvas em 20% das vezes. Suponha que um rebatedor
+acerte um home run em 8% de todos os arremessos de bola rápida e em 5% de
+todos os arremessos de bola curva. Qual é a probabilidade de esse rebatedor
+acertar um home run no próximo arremesso desse arremessador?</p>
+<p class="exerc" id="exerc-1.5.8"><span class="k">1.5.8</span> Suponha que a probabilidade de nevar seja de 20% e que a
+probabilidade de um acidente de trânsito seja de 10%. Suponha ainda que a
+probabilidade <em>condicional</em> de um acidente, dado que neva, seja de 40%.
+Qual é a probabilidade condicional de nevar, dado que há um acidente?</p>
+<p class="exerc" id="exerc-1.5.9"><span class="k">1.5.9</span> Suponha que lançamos dois dados honestos de seis faces, um
+vermelho e um azul. Seja \(A\) o evento em que os dois dados mostram o mesmo
+valor. Seja \(B\) o evento em que a soma dos dois dados é igual a 12. Seja \(C\) o
+evento em que o dado vermelho mostra 4. Seja \(D\) o evento em que o dado azul
+mostra 4.
+<span class="parte"><span class="pl">(a)</span>  \(A\) e \(B\) são independentes?</span><span class="parte"><span class="pl">(b)</span>  \(A\) e \(C\) são independentes?</span><span class="parte"><span class="pl">(c)</span>  \(A\) e \(D\) são independentes?</span><span class="parte"><span class="pl">(d)</span>  \(C\) e \(D\) são independentes?</span><span class="parte"><span class="pl">(e)</span>  \(A\), \(C\) e \(D\) são todos independentes?</span></p>
+<p class="exerc" id="exerc-1.5.10"><span class="k">1.5.10</span> Considere duas urnas, chamadas urna nº 1 e urna nº 2. Suponha,
+como no Exercício 1.4.11, que a urna nº 1 tenha 5 bolas vermelhas e 7 azuis,
+que a urna nº 2 tenha 6 bolas vermelhas e 12 azuis, e que retiramos três bolas
+uniformemente ao acaso de cada uma das duas urnas. Condicionada ao fato de as
+seis bolas escolhidas serem todas da mesma cor, qual é a probabilidade
+condicional de essa cor ser vermelha?</p>
+<p class="exerc" id="exerc-1.5.11"><span class="k">1.5.11</span> Suponha que lançamos um dado honesto de seis faces e depois
+lançamos um número de moedas honestas igual ao número que aparece no dado.
+(Por exemplo, se o dado mostra 4, então lançamos 4 moedas.)
+<span class="parte"><span class="pl">(a)</span>  Qual é a probabilidade de o número de caras ser igual a 3?</span><span class="parte"><span class="pl">(b)</span>  Condicionada ao conhecimento de que o número de caras é igual a 3,
+qual é a probabilidade condicional de o dado ter mostrado o número 5?</span></p>
+<p class="exerc" id="exerc-1.5.12"><span class="k">1.5.12</span> Suponha que lançamos um dado honesto de seis faces e depois
+tiramos de um baralho bem embaralhado um número de cartas igual ao número que
+aparece no dado. (Por exemplo, se o dado mostra 4, então tiramos 4 cartas.)
+<span class="parte"><span class="pl">(a)</span>  Qual é a probabilidade de o número de valetes na nossa mão ser igual
+a 2?</span><span class="parte"><span class="pl">(b)</span>  Condicionada ao conhecimento de que o número de valetes na nossa mão
+é igual a 2, qual é a probabilidade condicional de o dado ter mostrado o
+número 3?</span></p>
+<h4 class="bloco bloco-problemas">Problemas</h4>
+<p class="exerc" id="exerc-1.5.13"><span class="k">1.5.13</span> Considere três cartas, assim: uma é vermelha dos dois lados,
+uma é preta dos dois lados e uma é vermelha de um lado e preta do outro.
+Suponha que as cartas sejam colocadas num chapéu e que uma seja escolhida ao
+acaso. Suponha ainda que essa carta seja colocada deitada sobre a mesa, de
+modo que só conseguimos ver um dos lados.
+<span class="parte"><span class="pl">(a)</span>  Qual é a probabilidade de esse lado ser vermelho?</span><span class="parte"><span class="pl">(b)</span>  Condicionada a esse lado ser vermelho, qual é a probabilidade de a
+carta à mostra ser a que é vermelha dos dois lados? (Dica: a resposta é um
+tanto surpreendente.)</span><span class="parte"><span class="pl">(c)</span>  Suponha que você quisesse verificar a resposta do item (b) por meio
+de um experimento físico real. Explique como poderia fazer isso.</span></p>
+<p class="exerc" id="exerc-1.5.14"><span class="k">1.5.14</span> Prove que \(A\) e \(B\) são independentes se e somente se \(A^C\) e
+\(B\) são independentes.</p>
+<p class="exerc" id="exerc-1.5.15"><span class="k">1.5.15</span> Sejam \(A\) e \(B\) eventos de probabilidade positiva. Prove que
+\(P(A \mid B) &gt; P(A)\) se e somente se \(P(B \mid A) &gt; P(B)\).</p>
+<h4 class="bloco bloco-desafios">Desafios</h4>
+<p class="exerc" id="exerc-1.5.16"><span class="k">1.5.16</span> Suponha que lançamos três dados honestos de seis faces. Calcule
+a probabilidade condicional de o primeiro dado mostrar 4, dado que a soma dos
+três números que aparecem é 12.</p>
+<p class="exerc" id="exerc-1.5.17"><span class="k">1.5.17</span> <em>(O jogo de craps)</em> O jogo de craps é jogado lançando-se
+dois dados honestos de seis faces. No primeiro lançamento, se a soma dos dois
+números que aparecem for igual a 2, 3 ou 12, o jogador perde imediatamente.
+Se a soma for igual a 7 ou 11, o jogador ganha imediatamente. Se a soma for
+igual a qualquer outro valor, esse valor passa a ser o “ponto” do jogador. O
+jogador então lança os dois dados repetidamente, até tirar de novo o valor do
+ponto (caso em que ganha) ou tirar um 7 (caso em que perde).
+<span class="parte"><span class="pl">(a)</span>  Suponha que o ponto do jogador seja igual a 4. Condicionada a isso,
+qual é a probabilidade condicional de ele ganhar (isto é, de tirar outro 4
+antes de tirar um 7)? (Dica: o último lançamento será um 4 ou um 7; qual é a
+probabilidade condicional de ser um 4?)</span><span class="parte"><span class="pl">(b)</span>  Para \(2 \le i \le 12\), seja \(p_i\) a probabilidade condicional de o
+jogador ganhar, condicionada a ter tirado \(i\) no primeiro lançamento. Calcule
+\(p_i\) para todo \(i\) com \(2 \le i \le 12\). (Dica: você já fez isso para \(i = 4\)
+no item (b). Além disso, os casos \(i = 2, 3, 7, 11, 12\) são triviais. Os
+demais casos são parecidos com o caso \(i = 4\).)</span><span class="parte"><span class="pl">(c)</span>  Calcule a probabilidade total de um jogador ganhar no craps. (Dica:
+use o item (b) e o Teorema 1.5.1.)</span></p>
+<p class="exerc" id="exerc-1.5.18"><span class="k">1.5.18</span> <em>(O problema de Monty Hall)</em> Suponha que haja três
+portas, chamadas A, B e C. Um carro novo está atrás de uma das três portas,
+mas você não sabe de qual. Você escolhe uma das portas, digamos a porta A. O
+apresentador então abre uma das portas B ou C, da seguinte maneira: se o carro
+está atrás de B, ele abre C; se o carro está atrás de C, ele abre B; se o
+carro está atrás de A, ele abre B ou C, cada uma com probabilidade \(1/2\). (Em
+qualquer caso, a porta aberta pelo apresentador <em>não</em> terá o carro atrás
+dela.) O apresentador então lhe dá a <em>opção</em> de ficar com a porta que
+você escolheu originalmente (isto é, A) ou de trocar para a porta restante
+ainda fechada (isto é, aquela entre B e C que o apresentador não abriu). Você
+então ganha (isto é, fica com o carro) se e somente se o carro estiver atrás
+da porta que você escolheu no final. (Fonte: <em>Parade Magazine</em>, coluna
+“Ask Marilyn”, 9 de setembro de 1990.) Suponha, para fixar as ideias, que o
+apresentador abra a porta B.
+<span class="parte"><span class="pl">(a)</span>  Se você ficar com a escolha original (isto é, a porta A),
+condicionada a o apresentador ter aberto a porta B, qual é a sua probabilidade
+de ganhar? (Dica: primeiro condicione à verdadeira posição do carro. Depois
+use o Teorema 1.5.2.)</span><span class="parte"><span class="pl">(b)</span>  Se você trocar para a porta restante (isto é, a porta C),
+condicionada a o apresentador ter aberto a porta B, qual é a sua probabilidade
+de ganhar?</span><span class="parte"><span class="pl">(c)</span>  Você acha surpreendente o resultado dos itens (a) e (b)? Como você
+poderia planejar um experimento físico para verificar o resultado?</span><span class="parte"><span class="pl">(d)</span>  Suponha que mudemos as regras de modo que, se você escolheu
+originalmente A e o carro de fato estava atrás de A, o apresentador sempre
+abre a porta B. Como mudariam as respostas dos itens (a) e (b) nesse caso?</span><span class="parte"><span class="pl">(e)</span>  Suponha que mudemos as regras de modo que, se você escolheu
+originalmente A, o apresentador sempre abre a porta B <em>não importa onde
+esteja o carro</em>. Então <em>condicionamos</em> ao fato de a porta B, por acaso,
+<em>não</em> ter um carro atrás dela. Como mudariam as respostas dos itens (a) e
+(b) nesse caso?</span></p>
+<h4 class="bloco bloco-discussao">Tópicos para discussão</h4>
+<p class="exerc" id="exerc-1.5.19"><span class="k">1.5.19</span> Suponha que duas pessoas lancem, cada uma, uma moeda honesta ao
+mesmo tempo. Os resultados dos dois lançamentos costumam ser independentes?
+Em que tipo de circunstância eles poderiam não ser independentes? (Liste
+tantas circunstâncias desse tipo quantas conseguir.)</p>
+<p class="exerc" id="exerc-1.5.20"><span class="k">1.5.20</span> Suponha que você consiga repetir um experimento muitas vezes e
+queira verificar se dois eventos são independentes ou não. Como você poderia
+fazer isso?</p>
+<p class="exerc" id="exerc-1.5.21"><span class="k">1.5.21</span> O problema de Monty Hall (Desafio 1.5.18) foi apresentado
+originalmente por Marilyn von Savant, que escrevia na coluna “Ask Marilyn” da
+<em>Parade Magazine</em>. Ela deu a resposta correta. No entanto, muitas
+pessoas (entre elas alguns matemáticos conhecidos, além de muitos leigos)
+escreveram para reclamar que a resposta dela estava errada. A controvérsia se
+arrastou por meses, com muitas cartas e linguagem muito dura dos dois lados
+(no fim, von Savant teve razão). Parte da confusão estava nas hipóteses que
+estavam sendo feitas; por exemplo, algumas pessoas interpretaram a pergunta
+dela como a da versão modificada do item (e) do Desafio 1.5.18. No entanto,
+boa parte da confusão se deveu simplesmente a erros matemáticos e
+mal-entendidos. (Fonte: <em>Parade Magazine</em>, coluna “Ask Marilyn”, 9 de
+setembro de 1990; 2 de dezembro de 1990; 17 de fevereiro de 1991; 7 de julho
+de 1991.)
+<span class="parte"><span class="pl">(a)</span>  Surpreende você que tanta gente, incluindo matemáticos conhecidos,
+tenha errado ao resolver este problema? Por quê?</span><span class="parte"><span class="pl">(b)</span>  Surpreende você que tanta gente, incluindo muitos leigos, se
+importasse tanto com a resposta deste problema? Por quê?</span></p>
+<h2 id="sec-1.6"><span class="n">1.6</span> <span class="t">Continuidade de \(P\)</span></h2>
+<p>Suponha que \(A_1, A_2, \ldots\) seja uma sequência de eventos que estão ficando
+“mais próximos” (em algum sentido) de outro evento, \(A\). Então poderíamos
+esperar que as probabilidades \(P(A_1), P(A_2), \ldots\) estejam se aproximando
+de \(P(A)\), isto é, que \(\lim_{n\to\infty} P(A_n) = P(A)\). Mas podemos ter
+certeza disso?</p>
+<p>Propriedades como essa, que dizem que \(P(A_n)\) está próximo de \(P(A)\) sempre
+que \(A_n\) está “próximo” de \(A\), são chamadas de <em>propriedades de
+continuidade</em>. A pergunta acima pode, portanto, ser traduzida, grosso modo,
+como a pergunta sobre se as medidas de probabilidade \(P\) são ou não
+“contínuas”. Acontece que \(P\) é, de fato, contínua em certo sentido.</p>
+<p>Especificamente, vamos escrever \(\{A_n\} \nearrow A\) e dizer que a sequência
+\(\{A_n\}\) <em>cresce</em> para \(A\) se \(A_1 \subseteq A_2 \subseteq A_3 \subseteq
+\cdots\) e, além disso, \(\bigcup_{n=1}^{\infty} A_n = A\). Ou seja, a sequência de
+eventos é uma sequência <em>crescente</em> e, além disso, sua união é igual a
+\(A\). Por exemplo, se \(A_n = \bigl(1/n, n\bigr]\), então \(A_1 \subseteq A_2
+\subseteq \cdots\) e \(\bigcup_{n=1}^{\infty} A_n = (0, \infty)\). Logo,
+\(\bigl\{(1/n, n]\bigr\} \nearrow (0, \infty)\). A Figura 1.6.1 representa uma
+sequência crescente<sup class="nota-ref nota-termo"><a href="#nota-32" id="ref-32">32</a></sup> de subconjuntos.</p>
+<p>Analogamente, vamos escrever \(\{A_n\} \searrow A\) e dizer que a sequência
+\(\{A_n\}\) <em>decresce</em> para \(A\) se \(A_1 \supseteq A_2 \supseteq A_3
+\supseteq \cdots\) e, além disso, \(\bigcap_{n=1}^{\infty} A_n = A\). Ou seja, a
+sequência de eventos é uma sequência <em>decrescente</em> e, além disso, sua
+interseção é igual a \(A\). Por exemplo, se \(A_n = \bigl(-1/n, 1/n\bigr]\), então
+\(A_1 \supseteq A_2 \supseteq \cdots\) e \(\bigcap_{n=1}^{\infty} A_n = \{0\}\).
+Logo, \(\bigl\{(-1/n, 1/n]\bigr\} \searrow \{0\}\). A Figura 1.6.2 representa
+uma sequência decrescente<sup class="nota-ref nota-termo"><a href="#nota-33" id="ref-33">33</a></sup> de subconjuntos.</p>
+<figure class="figura">
+<img class="figura" src="figuras/tikz-0afdf63dd87f.svg" alt="" style="width: min(100%, 21.7em)">
+<figcaption id="figura-1.6.1"><span class="rot">Figura 1.6.1:</span> Uma sequência crescente de subconjuntos \(A_1 \subseteq A_2 \subseteq A_3 \subseteq \ldots\) .</figcaption>
+</figure>
+<figure class="figura">
+<img class="figura" src="figuras/tikz-b810ed457caf.svg" alt="" style="width: min(100%, 21.7em)">
+<figcaption id="figura-1.6.2"><span class="rot">Figura 1.6.2:</span> Uma sequência decrescente de subconjuntos \(A_1 \supseteq A_2 \supseteq A_3 \supseteq \ldots\) .</figcaption>
+</figure>
+<p>Consideraremos sequências de conjuntos como essas em vários pontos do texto.
+Para isso, precisamos do resultado a seguir.</p>
+<div class="teo teorema" id="teorema-1.6.1"><div class="cab"><span class="rot">Teorema 1.6.1</span></div><div class="txt"><p>Sejam \(A, A_1, A_2, \ldots\) eventos e suponha que \(\{A_n\} \nearrow A\) ou
+\(\{A_n\} \searrow A\). Então
+<span class="eq">\[
+  \lim_{n\to\infty} P(A_n) = P(A).
+\]</span></p></div></div>
+<div class="dem fim"><span class="rot">Demonstração.</span> <p>Veja a Seção 1.7 para a demonstração deste teorema.</p></div>
+<div class="ex" id="exemplo-1.6.1"><div class="cab"><span class="rot">Exemplo 1.6.1</span></div><div class="txt fim"><p>Suponha que \(S\) seja o conjunto de todos os inteiros positivos, com
+\(P(s) = 2^{-s}\) para todo \(s \in S\). Então, quanto vale
+\(P(\{5, 6, 7, 8, \ldots\})\)?</p>
+<p>Começamos observando que os eventos \(A_n = \{5, 6, 7, 8, \ldots, n\}\) crescem
+para \(A = \{5, 6, 7, 8, \ldots\}\), isto é, \(\{A_n\} \nearrow A\). Logo, usando a
+continuidade das probabilidades, devemos ter
+<span class="eq">\begin{align*}
+  P(\{5, 6, 7, 8, \ldots\})
+  &amp;= \lim_{n\to\infty} P(\{5, 6, 7, 8, \ldots, n\}) \\
+  &amp;= \lim_{n\to\infty} \bigl(P(5) + P(6) + \cdots + P(n)\bigr) \\
+  &amp;= \lim_{n\to\infty} \Bigl(2^{-5} + 2^{-6} + \cdots + 2^{-n}\Bigr)
+   = \lim_{n\to\infty} \left(\frac{2^{-5} - 2^{-n-1}}{1 - 2^{-1}}\right) \\
+  &amp;= \lim_{n\to\infty} \Bigl(2^{-4} - 2^{-n}\Bigr) = 2^{-4} = 1/16.
+\end{align*}</span></p>
+<p>Alternativamente, poderíamos usar a aditividade enumerável diretamente para
+concluir que
+<span class="eq">\[
+  P(\{5, 6, 7, 8, \ldots\}) = P(5) + P(6) + P(7) + \cdots,
+\]</span>
+o que dá no mesmo.</p></div></div>
+<div class="ex" id="exemplo-1.6.2"><div class="cab"><span class="rot">Exemplo 1.6.2</span></div><div class="txt fim"><p>Seja \(P\) <em>alguma</em> medida de probabilidade no espaço \(S = R^1\). Suponha que
+<span class="eq">\[
+  P\bigl((3, 5 + 1/n)\bigr) \ge \delta
+\]</span>
+para todo \(n\), em que \(\delta &gt; 0\). Seja \(A_n = (3, 5 + 1/n)\). Então
+\(\{A_n\} \searrow A\), em que \(A = (3, 5]\). Logo, devemos ter também
+\(P(A) = P((3, 5]) \ge \delta\).</p>
+<p>Observe, no entanto, que ainda poderíamos ter \(P((3, 5)) = 0\). Por exemplo,
+talvez \(P(\{5\}) = \delta\), mas \(P((3, 5)) = 0\).</p></div></div>
+<section class="resumo"><h4>Resumo da Seção 1.6</h4><ul><li>Se \(\{A_n\} \nearrow A\) ou \(\{A_n\} \searrow A\), então
+  \(\lim_{n\to\infty} P(A_n) = P(A)\).</li>
+<li>Isso nos permite calcular ou limitar várias probabilidades que, de outra
+  forma, não poderiam ser compreendidas.</li></ul></section>
+<h4 class="bloco bloco-exercicios">Exercícios</h4>
+<p class="exerc" id="exerc-1.6.1"><span class="k">1.6.1</span> Suponha que \(S = \{1, 2, 3, \ldots\}\) seja o conjunto de todos os
+inteiros positivos e que \(P(\{s\}) = 2^{-s}\) para todo \(s \in S\). Calcule
+\(P(A)\), em que \(A = \{2, 4, 6, \ldots\}\) é o conjunto de todos os inteiros
+positivos <em>pares</em>. Faça isso de duas maneiras: usando a continuidade de
+\(P\) (junto com a aditividade finita<sup class="nota-ref nota-termo"><a href="#nota-34" id="ref-34">34</a></sup>) e usando a aditividade enumerável.</p>
+<p class="exerc" id="exerc-1.6.2"><span class="k">1.6.2</span> Considere a distribuição uniforme em \([0, 1]\). Calcule (com
+demonstração)
+<span class="eq">\[
+  \lim_{n\to\infty} P([1/4,\ 1 - e^{-n}]).
+\]</span></p>
+<p class="exerc" id="exerc-1.6.3"><span class="k">1.6.3</span> Suponha que \(S = \{1, 2, 3, \ldots\}\) seja o conjunto de todos os
+inteiros positivos e que \(P\) seja <em>alguma</em> medida de probabilidade em \(S\).
+Prove que devemos ter
+<span class="eq">\[
+  \lim_{n\to\infty} P(\{1, 2, \ldots, n\}) = 1.
+\]</span></p>
+<p class="exerc" id="exerc-1.6.4"><span class="k">1.6.4</span> Suponha que \(P([0, \frac{8}{4+n}]) = \frac{2+e^{-n}}{6}\) para
+todo \(n = 1, 2, 3, \ldots\) . Quanto deve valer \(P(\{0\})\)?</p>
+<p class="exerc" id="exerc-1.6.5"><span class="k">1.6.5</span> Suponha que \(P([0, 1]) = 1\), mas \(P([1/n, 1]) = 0\) para todo
+\(n = 1, 2, 3, \ldots\) . Quanto deve valer \(P(\{0\})\)?</p>
+<p class="exerc" id="exerc-1.6.6"><span class="k">1.6.6</span> Suponha que \(P([1/n, 1/2]) \le 1/3\) para todo
+\(n = 1, 2, 3, \ldots\) .
+<span class="parte"><span class="pl">(a)</span>  Devemos ter \(P((0, 1/2]) \le 1/3\)?</span><span class="parte"><span class="pl">(b)</span>  Devemos ter \(P([0, 1/2]) \le 1/3\)?</span></p>
+<p class="exerc" id="exerc-1.6.7"><span class="k">1.6.7</span> Suponha que \(P([0, \infty)) = 1\). Prove que existe algum \(n\) tal
+que \(P([0, n]) &gt; 0{,}9\).</p>
+<p class="exerc" id="exerc-1.6.8"><span class="k">1.6.8</span> Suponha que \(P((0, 1/2]) = 1/3\). Prove que há algum \(n\) tal que
+\(P([1/n, 1/2]) &gt; 1/4\).</p>
+<p class="exerc" id="exerc-1.6.9"><span class="k">1.6.9</span> Suponha que \(P([0, 1/2]) = 1/3\). Deve existir algum \(n\) tal que
+\(P([1/n, 1/2]) &gt; 1/4\)?</p>
+<h4 class="bloco bloco-problemas">Problemas</h4>
+<p class="exerc" id="exerc-1.6.10"><span class="k">1.6.10</span> Seja \(P\) <em>alguma</em> medida de probabilidade no espaço
+amostral \(S = [0, 1]\).
+<span class="parte"><span class="pl">(a)</span>  Prove que devemos ter \(\lim_{n\to\infty} P((0, 1/n)) = 0\).</span><span class="parte"><span class="pl">(b)</span>  Mostre, por meio de um exemplo, que podemos ter
+\(\lim_{n\to\infty} P([0, 1/n)) &gt; 0\).</span></p>
+<h4 class="bloco bloco-desafios">Desafios</h4>
+<p class="exerc" id="exerc-1.6.11"><span class="k">1.6.11</span> Suponha que saibamos que \(P\) é <em>finitamente</em> aditiva, mas
+<em>não</em> saibamos se ela é <em>enumeravelmente</em> aditiva. Em outras
+palavras, sabemos que <span class="mat-quebravel">\(P(A_1 \cup \cdots \cup A_n)\) \({}= P(A_1) + \cdots\) \({}+ P(A_n)\)</span>
+para qualquer coleção finita de eventos disjuntos \(\{A_1, \ldots, A_n\}\), mas
+não sabemos nada sobre \(P(A_1 \cup A_2 \cup \cdots)\) para coleções infinitas de
+eventos disjuntos. Suponha, além disso, que saibamos que \(P\) é contínua no
+sentido do Teorema 1.6.1. Usando isso, dê uma <em>demonstração</em> de que \(P\)
+deve ser enumeravelmente aditiva<sup class="nota-ref nota-termo"><a href="#nota-35" id="ref-35">35</a></sup>. (Na prática, você está provando que a
+continuidade de \(P\) é <em>equivalente</em> à aditividade enumerável de \(P\), pelo
+menos uma vez que se saiba que \(P\) é finitamente aditiva<sup class="nota-ref nota-termo"><a href="#nota-36" id="ref-36">36</a></sup>.)</p>
+<h2 id="sec-1.7"><span class="n">1.7</span> <span class="t">Demonstrações Adicionais (Avançado)</span></h2>
+<div class="dem fim demonstracaode"><div class="cab"><span class="rot">Demonstração do Teorema 1.3.4</span></div><p><em>Queremos provar que, sempre que \(A_1, A_2, \ldots\) for uma sequência
+finita ou infinita enumerável de eventos, não necessariamente disjuntos,
+então <span class="mat-quebravel">\(P(A_1 \cup A_2 \cup \cdots) \le P(A_1)\) \({}+ P(A_2) + \cdots\)</span> .</em></p>
+<p>Seja \(B_1 = A_1\) e, para \(n \ge 2\), seja
+\(B_n = A_n \cap (A_1 \cup \cdots \cup A_{n-1})^c\). Então \(B_1, B_2, \ldots\)
+são disjuntos, <span class="mat-quebravel">\(B_1 \cup B_2 \cup \cdots\) \({}= A_1 \cup A_2 \cup \cdots\)</span> e, pela
+aditividade,
+<span class="eq">\begin{equation}
+  P(A_1 \cup A_2 \cup \cdots) = P(B_1 \cup B_2 \cup \cdots) = P(B_1) + P(B_2) + \cdots\,.
+  \tag{1.7.1}
+\end{equation}</span>
+Além disso, \(A_n \supseteq B_n\); logo, pela monotonicidade, temos
+\(P(A_n) \ge P(B_n)\). Segue de (1.7.1) que
+<span class="eq">\[
+  P(A_1 \cup A_2 \cup \cdots) = P(B_1) + P(B_2) + \cdots \le P(A_1) + P(A_2) + \cdots
+\]</span>
+como afirmado.</p></div>
+<div class="dem fim demonstracaode"><div class="cab"><span class="rot">Demonstração do Teorema 1.6.1</span></div><p><em>Queremos provar que, quando \(A, A_1, A_2, \ldots\) são eventos e
+\(\{A_n\} \nearrow A\) ou \(\{A_n\} \searrow A\), então
+\(\lim_{n\to\infty} P(A_n) = P(A)\).</em></p>
+<p>Suponha primeiro que \(\{A_n\} \nearrow A\). Então podemos escrever
+<span class="eq">\[
+  A = A_1 \cup (A_2 \cap A_1^c) \cup (A_3 \cap A_2^c) \cup \cdots
+\]</span>
+em que a união é disjunta. Logo, pela aditividade,
+<span class="eq">\[
+  P(A) = P(A_1) + P(A_2 \cap A_1^c) + P(A_3 \cap A_2^c) + \cdots\,.
+\]</span>
+Ora, por definição, escrever essa soma infinita é o mesmo que escrever
+<span class="eq">\begin{equation}
+  P(A) = \lim_{n\to\infty} \bigl(P(A_1) + P(A_2 \cap A_1^c) + \cdots + P(A_n \cap A_{n-1}^c)\bigr).
+  \tag{1.7.2}
+\end{equation}</span>
+No entanto, novamente pela aditividade, vemos que
+<span class="eq">\[
+  P(A_1) + P(A_2 \cap A_1^c) + P(A_3 \cap A_2^c) + \cdots + P(A_n \cap A_{n-1}^c) = P(A_n).
+\]</span>
+Substituindo essa informação em (1.7.2), obtemos
+\(P(A) = \lim_{n\to\infty} P(A_n)\), que era o que queríamos provar.</p>
+<p>Suponha agora que \(\{A_n\} \searrow A\). Sejam \(B_n = A_n^c\) e \(B = A^c\). Então
+vemos que \(\{B_n\} \nearrow B\) (por quê?). Logo, pelo que acabamos de provar,
+devemos ter \(P(B) = \lim_{n\to\infty} P(B_n)\). Mas então, usando (1.3.1),
+temos
+<span class="eq">\[
+  1 - P(A) = \lim_{n\to\infty} \{1 - P(A_n)\},
+\]</span>
+de onde segue que \(P(A) = \lim_{n\to\infty} P(A_n)\). Isso completa a
+demonstração.</p></div>
+<section class="notas" aria-label="Notas do capítulo"><h4>Notas do capítulo</h4><ol><li id="nota-1" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">modelo de probabilidade</span> — no original, <em lang="en">probability model</em></span> <a class="voltar" href="#ref-1" aria-label="Voltar ao texto">↩</a></li><li id="nota-2" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">valor esperado</span> — no original, <em lang="en">expected value</em></span> <a class="voltar" href="#ref-2" aria-label="Voltar ao texto">↩</a></li><li id="nota-3" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">estimação</span> — no original, <em lang="en">estimation</em></span> <a class="voltar" href="#ref-3" aria-label="Voltar ao texto">↩</a></li><li id="nota-4" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">números pseudoaleatórios</span> — no original, <em lang="en">pseudorandom numbers</em></span> <a class="voltar" href="#ref-4" aria-label="Voltar ao texto">↩</a></li><li id="nota-5" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">frequência relativa</span> — no original, <em lang="en">relative frequency</em></span> <a class="voltar" href="#ref-5" aria-label="Voltar ao texto">↩</a></li><li id="nota-6" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">probabilidade condicional</span> — no original, <em lang="en">conditional probability</em></span> <a class="voltar" href="#ref-6" aria-label="Voltar ao texto">↩</a></li><li id="nota-7" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">espaço amostral</span> — no original, <em lang="en">sample space</em></span> <a class="voltar" href="#ref-7" aria-label="Voltar ao texto">↩</a></li><li id="nota-8" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">teoria da medida</span> — no original, <em lang="en">measure theory</em></span> <a class="voltar" href="#ref-8" aria-label="Voltar ao texto">↩</a></li><li id="nota-9" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">medida de probabilidade</span> — no original, <em lang="en">probability measure</em></span> <a class="voltar" href="#ref-9" aria-label="Voltar ao texto">↩</a></li><li id="nota-10" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">não negativo</span> — no original, <em lang="en">nonnegative</em></span> <a class="voltar" href="#ref-10" aria-label="Voltar ao texto">↩</a></li><li id="nota-11" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">enumerável</span> — no original, <em lang="en">countable</em></span> <a class="voltar" href="#ref-11" aria-label="Voltar ao texto">↩</a></li><li id="nota-12" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">disjuntos</span> — no original, <em lang="en">disjoint</em></span> <a class="voltar" href="#ref-12" aria-label="Voltar ao texto">↩</a></li><li id="nota-13" class="nota-autor"><span class="tipo">Nota do autor</span> <span class="conteudo">Para a distribuição uniforme em \([0, 1]\),
+acontece que nem todos os subconjuntos de \([0, 1]\) podem ser considerados
+<em>eventos</em> propriamente ditos neste modelo. No entanto, isso é apenas uma
+propriedade técnica, e qualquer subconjunto que consigamos escrever
+explicitamente será sempre um evento. Veja livros de probabilidade mais
+avançados, por exemplo, a página 3 de <em>A First Look at Rigorous Probability
+Theory</em>, segunda edição, de J. S. Rosenthal (World Scientific Publishing,
+Singapura, 2006).</span> <a class="voltar" href="#ref-13" aria-label="Voltar ao texto">↩</a></li><li id="nota-14" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">distribuição uniforme</span> — no original, <em lang="en">uniform distribution</em></span> <a class="voltar" href="#ref-14" aria-label="Voltar ao texto">↩</a></li><li id="nota-15" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">diagrama de Venn</span> — no original, <em lang="en">Venn diagram</em></span> <a class="voltar" href="#ref-15" aria-label="Voltar ao texto">↩</a></li><li id="nota-16" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">complementar</span> — no original, <em lang="en">complement</em></span> <a class="voltar" href="#ref-16" aria-label="Voltar ao texto">↩</a></li><li id="nota-17" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">disjuntos dois a dois</span> — no original, <em lang="en">mutually disjoint</em></span> <a class="voltar" href="#ref-17" aria-label="Voltar ao texto">↩</a></li><li id="nota-18" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">não enumerável</span> — no original, <em lang="en">uncountable</em></span> <a class="voltar" href="#ref-18" aria-label="Voltar ao texto">↩</a></li><li id="nota-19" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">lei da probabilidade total</span> — no original, <em lang="en">law of total probability</em></span> <a class="voltar" href="#ref-19" aria-label="Voltar ao texto">↩</a></li><li id="nota-20" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">monotonicidade</span> — no original, <em lang="en">monotonicity</em></span> <a class="voltar" href="#ref-20" aria-label="Voltar ao texto">↩</a></li><li id="nota-21" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">inclusão-exclusão</span> — no original, <em lang="en">inclusion–exclusion</em></span> <a class="voltar" href="#ref-21" aria-label="Voltar ao texto">↩</a></li><li id="nota-22" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">subaditividade</span> — no original, <em lang="en">subadditivity</em></span> <a class="voltar" href="#ref-22" aria-label="Voltar ao texto">↩</a></li><li id="nota-23" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">análise combinatória</span> — no original, <em lang="en">combinatorics</em></span> <a class="voltar" href="#ref-23" aria-label="Voltar ao texto">↩</a></li><li id="nota-24" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">princípio multiplicativo</span> — no original, <em lang="en">multiplication principle</em></span> <a class="voltar" href="#ref-24" aria-label="Voltar ao texto">↩</a></li><li id="nota-25" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">coeficiente binomial</span> — no original, <em lang="en">binomial coefficient</em></span> <a class="voltar" href="#ref-25" aria-label="Voltar ao texto">↩</a></li><li id="nota-26" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">partições ordenadas</span> — no original, <em lang="en">ordered partitions</em></span> <a class="voltar" href="#ref-26" aria-label="Voltar ao texto">↩</a></li><li id="nota-27" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">coeficiente multinomial</span> — no original, <em lang="en">multinomial coefficient</em></span> <a class="voltar" href="#ref-27" aria-label="Voltar ao texto">↩</a></li><li id="nota-28" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">princípios de contagem</span> — no original, <em lang="en">counting rules</em></span> <a class="voltar" href="#ref-28" aria-label="Voltar ao texto">↩</a></li><li id="nota-29" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">fórmula da multiplicação</span> — no original, <em lang="en">multiplication formula</em></span> <a class="voltar" href="#ref-29" aria-label="Voltar ao texto">↩</a></li><li id="nota-30" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">probabilidade incondicional</span> — no original, <em lang="en">unconditional probability</em></span> <a class="voltar" href="#ref-30" aria-label="Voltar ao texto">↩</a></li><li id="nota-31" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">independentes dois a dois</span> — no original, <em lang="en">pairwise independent</em></span> <a class="voltar" href="#ref-31" aria-label="Voltar ao texto">↩</a></li><li id="nota-32" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">sequência crescente</span> — no original, <em lang="en">increasing sequence</em></span> <a class="voltar" href="#ref-32" aria-label="Voltar ao texto">↩</a></li><li id="nota-33" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">sequência decrescente</span> — no original, <em lang="en">decreasing sequence</em></span> <a class="voltar" href="#ref-33" aria-label="Voltar ao texto">↩</a></li><li id="nota-34" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">aditividade finita</span> — no original, <em lang="en">finite additivity</em></span> <a class="voltar" href="#ref-34" aria-label="Voltar ao texto">↩</a></li><li id="nota-35" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">enumeravelmente aditiva</span> — no original, <em lang="en">countably additive</em></span> <a class="voltar" href="#ref-35" aria-label="Voltar ao texto">↩</a></li><li id="nota-36" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">finitamente aditiva</span> — no original, <em lang="en">finitely additive</em></span> <a class="voltar" href="#ref-36" aria-label="Voltar ao texto">↩</a></li></ol></section>
+<nav class="paginacao"><a class="ant" href="prefacio.html">← Prefácio</a><a class="prox" href="cap02.html">Capítulo 2 →</a></nav>
+</main>
+<script>
+window.MathJax = { tex: { inlineMath: [["\\(", "\\)"]], displayMath: [["\\[", "\\]"]], tags: "none",
+  macros: { allowbreak: "", nolinebreak: "", upshape: "", itshape: "", sloppy: "", negrito: ["\\boldsymbol{#1}", 1],
+    Var: "\\operatorname{Var}", Cov: "\\operatorname{Cov}", Corr: "\\operatorname{Corr}", Sd: "\\operatorname{Sd}" } },
+  output: { font: "mathjax-stix2" }, svg: { fontCache: "global" }, options: { enableMenu: false } };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@4.0.0/tex-svg.js"></script>
+<script src="leitor.js"></script>
+</body>
+</html>

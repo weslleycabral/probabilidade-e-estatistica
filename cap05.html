@@ -1,0 +1,1865 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Inferência Estatística — Probabilidade e Estatística: A Ciência da Incerteza</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=IBM+Plex+Sans+Condensed:wght@500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Sans+3:wght@500;600;700&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<link rel="stylesheet" href="leitor.css">
+<script>try{var c=JSON.parse(localStorage.getItem('leitor-config')||'{}');for(var k in c)document.documentElement.setAttribute('data-'+k,c[k]);}catch(e){}</script>
+</head>
+<body data-pagina="cap05">
+<header class="barra">
+  <button class="botao" id="abrir-sumario" type="button" aria-label="Sumário" aria-expanded="false">☰</button>
+  <a class="livro" href="index.html">Probabilidade e Estatística: A Ciência da Incerteza</a>
+  <span class="onde">Capítulo 5 · Inferência Estatística</span>
+  <button class="botao" id="abrir-ajustes" type="button" aria-label="Ajustes de leitura" aria-expanded="false">Aa</button>
+  <div class="progresso" id="progresso"></div>
+</header>
+<nav class="sumario" id="sumario" aria-label="Sumário do capítulo"><ol><li class="nivel-2"><a href="#sec-5.1"><span class="n">5.1</span> Por Que Precisamos da Estatística?</a></li><li class="nivel-2"><a href="#sec-5.2"><span class="n">5.2</span> Inferência Usando um Modelo de Probabilidade</a></li><li class="nivel-2"><a href="#sec-5.3"><span class="n">5.3</span> Modelos Estatísticos</a></li><li class="nivel-2"><a href="#sec-5.4"><span class="n">5.4</span> Coleta de Dados</a></li><li class="nivel-3"><a href="#subsec-5.4.1"><span class="n">5.4.1</span> Populações Finitas</a></li><li class="nivel-3"><a href="#subsec-5.4.2"><span class="n">5.4.2</span> Amostragem Aleatória Simples</a></li><li class="nivel-3"><a href="#subsec-5.4.3"><span class="n">5.4.3</span> Histogramas</a></li><li class="nivel-3"><a href="#subsec-5.4.4"><span class="n">5.4.4</span> Amostragem por Levantamento</a></li><li class="nivel-2"><a href="#sec-5.5"><span class="n">5.5</span> Algumas Inferências Básicas</a></li><li class="nivel-3"><a href="#subsec-5.5.1"><span class="n">5.5.1</span> Estatísticas Descritivas</a></li><li class="nivel-3"><a href="#subsec-5.5.2"><span class="n">5.5.2</span> Gráficos dos Dados</a></li><li class="nivel-3"><a href="#subsec-5.5.3"><span class="n">5.5.3</span> Tipos de Inferências</a></li></ol></nav>
+<div class="ajustes" id="ajustes" hidden></div>
+<main class="corpo">
+<h1 id="cap-5"><span class="n">Capítulo 5</span><span class="t">Inferência Estatística</span></h1>
+<section class="esboco"><h4>Esboço do capítulo</h4><ul><li><strong>Seção 1</strong> Por Que Precisamos da Estatística?</li>
+<li><strong>Seção 2</strong> Inferência Usando um Modelo de Probabilidade</li>
+<li><strong>Seção 3</strong> Modelos Estatísticos</li>
+<li><strong>Seção 4</strong> Coleta de Dados</li>
+<li><strong>Seção 5</strong> Algumas Inferências Básicas</li></ul></section>
+<p>Neste capítulo, começamos nossa discussão da inferência estatística. A
+teoria da probabilidade se ocupa principalmente de calcular diversas quantidades
+associadas a um modelo de probabilidade<sup class="nota-ref nota-termo"><a href="#nota-1" id="ref-1">1</a></sup>. Isso exige que <em>saibamos</em> qual é o
+modelo de probabilidade correto. Nas aplicações, muitas vezes não é esse o caso,
+e o melhor que podemos dizer é que a medida de probabilidade<sup class="nota-ref nota-termo"><a href="#nota-2" id="ref-2">2</a></sup> correta a ser usada
+está num conjunto de medidas de probabilidade possíveis. Chamamos essa coleção de
+<em>modelo estatístico</em>. Assim, num certo sentido, nossa incerteza aumentou:
+não temos apenas a incerteza associada a um resultado ou resposta, tal como
+descrita por uma medida de probabilidade, mas agora também estamos incertos
+sobre qual é a medida de probabilidade.</p>
+<p>A inferência estatística se ocupa de fazer afirmações, ou inferências, sobre
+características da verdadeira medida de probabilidade subjacente. É claro que
+essas inferências precisam se basear em algum tipo de informação; o modelo
+estatístico constitui parte dela. Outra parte importante da informação será dada
+por um resultado ou resposta observada, que chamamos de <em>dados</em>. As
+inferências tomam então a forma de diversas afirmações sobre a verdadeira medida
+de probabilidade subjacente da qual os dados foram obtidos. Elas assumem formas
+variadas, que chamamos de <em>tipos de inferência</em>.</p>
+<p>O papel deste capítulo é apresentar os conceitos e as ideias básicas da
+inferência estatística. As abordagens mais importantes da inferência são
+discutidas nos Capítulos 6, 7 e 8. Os métodos de verossimilhança<sup class="nota-ref nota-termo"><a href="#nota-3" id="ref-3">3</a></sup>, como descrito
+no Capítulo 6, são os que exigem menos estrutura. Os métodos bayesianos,
+discutidos no Capítulo 7, exigem alguns ingredientes adicionais. Os métodos de
+inferência baseados em medidas de desempenho e em funções de perda são descritos
+no Capítulo 8.</p>
+<h2 id="sec-5.1"><span class="n">5.1</span> <span class="t">Por Que Precisamos da Estatística?</span></h2>
+<p>Embora passemos boa parte do nosso tempo discutindo a teoria da estatística,
+devemos sempre lembrar que a estatística é uma disciplina aplicada. Com isso
+queremos dizer que, em última análise, a teoria estatística será aplicada a
+situações do mundo real para responder a perguntas de importância prática.</p>
+<p>O que caracteriza os contextos em que os métodos estatísticos são úteis? Talvez
+a melhor maneira de responder a isso seja considerar um exemplo prático em que a
+metodologia estatística desempenha um papel importante.</p>
+<div class="ex" id="exemplo-5.1.1"><div class="cab"><span class="rot">Exemplo 5.1.1</span> <span class="nome">Estudo de Transplante Cardíaco de Stanford</span></div><div class="txt fim"><p>No artigo de Turnbull, Brown e Hu intitulado “Survivorship of Heart Transplant
+Data” (<em>Journal of the American Statistical Association</em>, março de 1974,
+volume 69, 74–80), é feita uma análise para determinar se um programa de
+transplante cardíaco, instituído na Universidade Stanford, está de fato
+produzindo o resultado pretendido. Neste caso, o resultado pretendido é um
+aumento do tempo de vida<sup class="nota-ref nota-termo"><a href="#nota-4" id="ref-4">4</a></sup>, isto é, um paciente que recebe um coração novo deveria
+viver mais do que se não tivesse recebido um coração novo.</p>
+<p>É evidentemente importante garantir que um tratamento<sup class="nota-ref nota-termo"><a href="#nota-5" id="ref-5">5</a></sup> médico proposto para uma
+doença leve a uma melhora do quadro. Claramente, não gostaríamos que ele levasse
+a uma piora do quadro. Além disso, se produzisse apenas uma pequena melhora,
+talvez não valesse a pena aplicá-lo, caso fosse muito caro ou causasse
+sofrimento adicional.</p>
+<p>Nunca podemos saber se um determinado paciente que recebeu um coração novo viveu
+mais <em>por causa</em> do transplante. Assim, nossa única esperança<sup class="nota-ref nota-termo"><a href="#nota-6" id="ref-6">6</a></sup> de determinar
+se o tratamento está funcionando é comparar os tempos de vida dos pacientes que
+receberam corações novos com os tempos de vida dos pacientes que não receberam.
+Há muitos fatores que influenciam o tempo de vida de um paciente, e muitos deles
+não terão nada a ver com o estado do coração do paciente. Por exemplo, o estilo
+de vida e a existência de outras doenças, que variam muito de paciente para
+paciente, terão grande influência. Então, como podemos fazer essa comparação?</p>
+<p>Uma abordagem para esse problema é imaginar que existem distribuições de
+probabilidade que descrevem os tempos de vida dos dois grupos. Sejam elas dadas
+pelas densidades \(f_T\) e \(f_C\), em que \(T\) indica transplante e \(C\) indica
+ausência de transplante. Aqui usamos \(C\) como rótulo porque esse grupo serve
+como <em>controle</em> no estudo, fornecendo uma comparação com o tratamento (um
+transplante cardíaco). Consideramos então o tempo de vida de um paciente que
+recebeu um transplante como uma observação aleatória de \(f_T\), e o tempo de vida
+de um paciente que não recebeu um transplante como uma observação aleatória de
+\(f_C\). Queremos comparar \(f_T\) e \(f_C\), de alguma maneira, para determinar se o
+tratamento com transplante está funcionando. Por exemplo, poderíamos calcular o
+tempo de vida médio de cada distribuição e compará-los. Se o tempo de vida médio
+de \(f_T\) for maior que o de \(f_C\), podemos afirmar que o tratamento está
+funcionando. É claro que ainda teríamos de julgar se o tamanho da melhora basta
+para justificar o gasto adicional e o sofrimento dos pacientes.</p>
+<p>Se pudéssemos tomar um número arbitrariamente grande de observações de \(f_T\) e
+de \(f_C\), sabemos, pelos resultados dos capítulos anteriores, que poderíamos
+determinar essas distribuições com bastante precisão. Na prática, porém, ficamos
+restritos a um número relativamente pequeno de observações. Por exemplo, no
+estudo citado havia 30 pacientes no grupo de controle (os que não receberam
+transplante) e 52 pacientes no grupo de tratamento (os que receberam
+transplante).</p>
+<p>Para cada paciente do grupo de controle, registrou-se o valor de \(X\) — o
+número de dias em que ele esteve vivo desde a data em que foi considerado
+candidato a um transplante cardíaco até a data de encerramento do estudo. Por
+diversos motivos, esses pacientes não receberam corações novos; por exemplo,
+morreram antes que se pudesse encontrar um coração novo para eles. Esses dados,
+junto com um indicador da situação do paciente na data de encerramento do
+estudo, são apresentados na Tabela 5.1. O valor do indicador \(S = a\) indica que
+o paciente estava vivo no fim do estudo, e \(S = d\) indica que o paciente estava
+morto.</p>
+<p>Para cada paciente do grupo de tratamento, registraram-se o valor de \(Y\), o
+número de dias que ele esperou pelo transplante desde a data em que foi
+considerado candidato a um transplante cardíaco, e o valor de \(Z\), o número de
+dias em que esteve vivo desde a data em que recebeu o transplante cardíaco até a
+data de encerramento do estudo. Os tempos de sobrevivência do grupo de
+tratamento são então dados pelos valores de \(Y + Z\). Esses dados, junto com um
+indicador da situação do paciente na data de encerramento do estudo, são
+apresentados na Tabela 5.2.</p>
+<p>Não podemos comparar \(f_T\) e \(f_C\) diretamente, porque não conhecemos essas
+distribuições. Mas temos alguma informação sobre elas, porque obtivemos valores
+de cada uma, como apresentado nas Tabelas 5.1 e 5.2. Então, como usamos esses
+dados para comparar \(f_T\) e \(f_C\) e responder à questão de importância central,
+isto é, se o tratamento é eficaz? Esse é o domínio da estatística e da teoria
+estatística, a saber, fornecer métodos para fazer inferências sobre
+distribuições de probabilidade desconhecidas com base em observações (amostras)
+obtidas delas.</p>
+<p>Observamos que simplificamos um pouco este exemplo, embora nossa discussão
+apresente a essência do problema. A complexidade adicional vem do fato de que,
+em geral, os estatísticos terão à disposição dados adicionais sobre cada
+paciente, como idade, sexo e histórico de doenças. Como um exemplo particular
+disso, na Tabela 5.2 temos os valores tanto de \(Y\) quanto de \(Z\) para cada
+paciente do grupo de tratamento. Acontece que essa informação adicional,
+conhecida como covariáveis, pode ser usada para tornar nossas comparações mais
+precisas. Isso será discutido no Capítulo 10.</p></div></div>
+<figure class="tabela">
+<div class="tbl"><table><tr><th>\(P\)</th><th>\(X\)</th><th>\(S\)</th><th>\(P\)</th><th>\(X\)</th><th>\(S\)</th><th>\(P\)</th><th>\(X\)</th><th>\(S\)</th></tr><tr><td>1</td><td>49</td><td>d</td><td>11</td><td>1400</td><td>a</td><td>21</td><td>2</td><td>d</td></tr><tr><td>2</td><td>5</td><td>d</td><td>12</td><td>5</td><td>d</td><td>22</td><td>148</td><td>d</td></tr><tr><td>3</td><td>17</td><td>d</td><td>13</td><td>34</td><td>d</td><td>23</td><td>1</td><td>d</td></tr><tr><td>4</td><td>2</td><td>d</td><td>14</td><td>15</td><td>d</td><td>24</td><td>68</td><td>d</td></tr><tr><td>5</td><td>39</td><td>d</td><td>15</td><td>11</td><td>d</td><td>25</td><td>31</td><td>d</td></tr><tr><td>6</td><td>84</td><td>d</td><td>16</td><td>2</td><td>d</td><td>26</td><td>1</td><td>d</td></tr><tr><td>7</td><td>7</td><td>d</td><td>17</td><td>1</td><td>d</td><td>27</td><td>20</td><td>d</td></tr><tr><td>8</td><td>0</td><td>d</td><td>18</td><td>39</td><td>d</td><td>28</td><td>118</td><td>a</td></tr><tr><td>9</td><td>35</td><td>d</td><td>19</td><td>8</td><td>d</td><td>29</td><td>91</td><td>a</td></tr><tr><td>10</td><td>36</td><td>d</td><td>20</td><td>101</td><td>d</td><td>30</td><td>427</td><td>a</td></tr></table></div>
+<figcaption id="tabela-5.1"><span class="rot">Tabela 5.1:</span> Tempos de sobrevivência (\(X\)) em dias e situação (\(S\)) no
+fim do estudo de cada paciente (\(P\)) do grupo de controle.</figcaption>
+</figure>
+<figure class="tabela">
+<div class="tbl"><table><tr><th>\(P\)</th><th>\(Y\)</th><th>\(Z\)</th><th>\(S\)</th><th>\(P\)</th><th>\(Y\)</th><th>\(Z\)</th><th>\(S\)</th><th>\(P\)</th><th>\(Y\)</th><th>\(Z\)</th><th>\(S\)</th></tr><tr><td>1</td><td>0</td><td>15</td><td>d</td><td>19</td><td>50</td><td>1140</td><td>a</td><td>37</td><td>77</td><td>442</td><td>a</td></tr><tr><td>2</td><td>35</td><td>3</td><td>d</td><td>20</td><td>22</td><td>1153</td><td>a</td><td>38</td><td>2</td><td>65</td><td>d</td></tr><tr><td>3</td><td>50</td><td>624</td><td>d</td><td>21</td><td>45</td><td>54</td><td>d</td><td>39</td><td>26</td><td>419</td><td>a</td></tr><tr><td>4</td><td>11</td><td>46</td><td>d</td><td>22</td><td>18</td><td>47</td><td>d</td><td>40</td><td>32</td><td>362</td><td>a</td></tr><tr><td>5</td><td>25</td><td>127</td><td>d</td><td>23</td><td>4</td><td>0</td><td>d</td><td>41</td><td>13</td><td>64</td><td>d</td></tr><tr><td>6</td><td>16</td><td>61</td><td>d</td><td>24</td><td>1</td><td>43</td><td>d</td><td>42</td><td>56</td><td>228</td><td>d</td></tr><tr><td>7</td><td>36</td><td>1350</td><td>d</td><td>25</td><td>40</td><td>971</td><td>a</td><td>43</td><td>2</td><td>65</td><td>d</td></tr><tr><td>8</td><td>27</td><td>312</td><td>d</td><td>26</td><td>57</td><td>868</td><td>a</td><td>44</td><td>9</td><td>264</td><td>a</td></tr><tr><td>9</td><td>19</td><td>24</td><td>d</td><td>27</td><td>0</td><td>44</td><td>d</td><td>45</td><td>4</td><td>25</td><td>d</td></tr><tr><td>10</td><td>17</td><td>10</td><td>d</td><td>28</td><td>1</td><td>780</td><td>a</td><td>46</td><td>30</td><td>193</td><td>a</td></tr><tr><td>11</td><td>7</td><td>1024</td><td>d</td><td>29</td><td>20</td><td>51</td><td>d</td><td>47</td><td>3</td><td>196</td><td>a</td></tr><tr><td>12</td><td>11</td><td>39</td><td>d</td><td>30</td><td>35</td><td>710</td><td>a</td><td>48</td><td>26</td><td>63</td><td>d</td></tr><tr><td>13</td><td>2</td><td>730</td><td>d</td><td>31</td><td>82</td><td>663</td><td>a</td><td>49</td><td>4</td><td>12</td><td>d</td></tr><tr><td>14</td><td>82</td><td>136</td><td>d</td><td>32</td><td>31</td><td>253</td><td>d</td><td>50</td><td>45</td><td>103</td><td>a</td></tr><tr><td>15</td><td>24</td><td>1379</td><td>a</td><td>33</td><td>40</td><td>147</td><td>d</td><td>51</td><td>25</td><td>60</td><td>a</td></tr><tr><td>16</td><td>70</td><td>1</td><td>d</td><td>34</td><td>9</td><td>51</td><td>d</td><td>52</td><td>5</td><td>43</td><td>a</td></tr><tr><td>17</td><td>15</td><td>836</td><td>d</td><td>35</td><td>66</td><td>479</td><td>a</td><td></td><td></td><td></td><td></td></tr><tr><td>18</td><td>16</td><td>60</td><td>d</td><td>36</td><td>20</td><td>322</td><td>d</td><td></td><td></td><td></td><td></td></tr></table></div>
+<figcaption id="tabela-5.2"><span class="rot">Tabela 5.2:</span> Número de dias até o transplante (\(Y\)), tempos de
+sobrevivência em dias após o transplante (\(Z\)) e situação (\(S\)) no fim do
+estudo de cada paciente (\(P\)) do grupo de tratamento.</figcaption>
+</figure>
+<p>O exemplo anterior fornece alguma evidência de que questões de grande
+importância prática exigem o uso do pensamento e da metodologia estatísticos. Há
+muitas situações nas ciências físicas e sociais em que a estatística desempenha
+um papel fundamental, e os motivos são exatamente como os encontrados no
+Exemplo 5.1.1. O ingrediente central em todas elas é que nos deparamos com
+incerteza. Essa incerteza é causada tanto pela variação, que pode ser modelada
+por meio da probabilidade, quanto pelo fato de não podermos coletar observações
+suficientes para conhecer com precisão os modelos de probabilidade corretos. Os
+quatro primeiros capítulos trataram da construção e do uso de um modelo
+matemático para lidar com a primeira fonte de incerteza. Neste capítulo,
+começamos a discutir métodos para lidar com a segunda fonte de incerteza.</p>
+<section class="resumo"><h4>Resumo da Seção 5.1</h4><ul><li>A estatística é aplicada a situações em que temos perguntas que não podem
+ser respondidas de forma definitiva, em geral por causa da variação nos dados.</li>
+<li>A probabilidade é usada para modelar a variação observada nos dados. A
+inferência estatística se ocupa de usar os dados observados para ajudar a
+identificar a verdadeira distribuição de probabilidade (ou as verdadeiras
+distribuições) que produz essa variação e, assim, compreender melhor as
+respostas às perguntas de interesse.</li></ul></section>
+<h4 class="bloco bloco-exercicios">Exercícios</h4>
+<p class="exerc" id="exerc-5.1.1"><span class="k">5.1.1</span> Calcule os tempos médios de sobrevivência do grupo de controle e
+do grupo de tratamento no Exemplo 5.1.1. O que você conclui a partir desses
+números? Você acha válido basear suas conclusões sobre a eficácia do tratamento
+nesses números? Explique por quê.</p>
+<p class="exerc" id="exerc-5.1.2"><span class="k">5.1.2</span> Há observações atípicas nos dados apresentados no
+Exemplo 5.1.1? Em caso afirmativo, que efeito você acha que essas observações
+têm sobre os tempos médios de sobrevivência calculados no Exercício 5.1.1?</p>
+<p class="exerc" id="exerc-5.1.3"><span class="k">5.1.3</span> No Exemplo 5.1.1, podemos usar a variável de situação \(S\) como
+covariável. Qual é o significado prático dessa variável?</p>
+<p class="exerc" id="exerc-5.1.4"><span class="k">5.1.4</span> Um estudante está incerto sobre a nota que vai receber numa
+disciplina de estatística. O professor da disciplina disponibilizou um banco de
+dados com as notas da disciplina ao longo de vários anos. Você consegue
+identificar uma distribuição de probabilidade que possa ser relevante para
+quantificar a incerteza do estudante? Que covariáveis poderiam ser relevantes
+nessa situação?</p>
+<p class="exerc" id="exerc-5.1.5"><span class="k">5.1.5</span> Os dados a seguir foram gerados por um estudante a partir de uma
+distribuição \(N(\mu, 1)\). Infelizmente, o estudante esqueceu qual valor de
+\(\mu\) foi usado, de modo que estamos incertos sobre a distribuição de
+probabilidade correta a ser usada para descrever a variação nos dados.</p>
+<div class="centro"><div class="tbl"><table><tr><th>\(0{,}2\)</th><th>\(-0{,}7\)</th><th>\(0{,}0\)</th><th>\(-1{,}9\)</th><th>\(0{,}7\)</th><th>\(-0{,}3\)</th><th>\(0{,}3\)</th><th>\(0{,}4\)</th></tr><tr><td>\(0{,}3\)</td><td>\(-0{,}8\)</td><td>\(1{,}5\)</td><td>\(0{,}1\)</td><td>\(0{,}3\)</td><td>\(-0{,}7\)</td><td>\(-1{,}8\)</td><td>\(0{,}2\)</td></tr></table></div></div>
+<p>Você consegue sugerir um valor plausível para \(\mu\)? Explique seu raciocínio.</p>
+<p class="exerc" id="exerc-5.1.6"><span class="k">5.1.6</span> Suponha que você queira determinar a idade média de todos os
+alunos do sexo masculino de uma determinada faculdade. A secretaria acadêmica da
+faculdade lhe dá acesso a um banco de dados que lista a idade de cada aluno da
+faculdade. Descreva como você poderia responder à sua pergunta. Esse é um
+problema estatístico, no sentido de que você está incerto sobre alguma coisa e,
+portanto, precisará usar metodologia estatística?</p>
+<p class="exerc" id="exerc-5.1.7"><span class="k">5.1.7</span> Suponha que lhe digam que uma característica \(X\) segue uma
+distribuição \(N(\mu_1, 1)\) e uma característica \(Y\) segue uma distribuição
+\(N(\mu_2, 1)\), em que \(\mu_1\) e \(\mu_2\) são desconhecidos. Além disso, você
+recebe os resultados \(x_1, \ldots, x_m\) de \(m\) medições independentes de \(X\) e
+\(y_1, \ldots, y_n\) de \(n\) medições independentes de \(Y\). Sugira um método para
+determinar se \(\mu_1\) e \(\mu_2\) são iguais. Você consegue pensar em algum
+problema na sua abordagem?</p>
+<p class="exerc" id="exerc-5.1.8"><span class="k">5.1.8</span> Suponha que saibamos que uma característica \(X\) segue uma
+distribuição Exponencial\((\lambda)\) e que lhe peçam para determinar \(\lambda\) com
+base em observações i.i.d. \(x_1, \ldots, x_n\) dessa distribuição. Sugira um
+método para fazer isso. Você consegue pensar em algum problema na sua abordagem?</p>
+<h4 class="bloco bloco-problemas">Problemas</h4>
+<p class="exerc" id="exerc-5.1.9"><span class="k">5.1.9</span> Você consegue identificar algum problema potencial no método que
+discutimos no Exemplo 5.1.1 para determinar se o programa de transplante
+cardíaco é eficaz em prolongar a vida?</p>
+<p class="exerc" id="exerc-5.1.10"><span class="k">5.1.10</span> Suponha que você consiga gerar amostras de qualquer tamanho de
+uma distribuição de probabilidade \(P\) para a qual é muito difícil calcular
+\(P(C)\) para algum conjunto \(C\). Explique como você poderia estimar \(P(C)\) com
+base numa amostra. Que papel o tamanho da amostra<sup class="nota-ref nota-termo"><a href="#nota-7" id="ref-7">7</a></sup> desempenha na sua incerteza
+sobre a qualidade da sua aproximação? O tamanho de \(P(C)\) tem algum papel nisso?</p>
+<h4 class="bloco bloco-problemas-computacionais">Problemas computacionais</h4>
+<p class="exerc" id="exerc-5.1.11"><span class="k">5.1.11</span> Suponha que queiramos obter a distribuição da quantidade
+\(Y = X^4 + 2X^3 - 3\) quando \(X \sim N(0, 1)\). Aqui nos deparamos com uma forma
+de incerteza matemática, porque é muito difícil determinar a distribuição de \(Y\)
+por métodos matemáticos. Proponha um método computacional para aproximar a
+função de distribuição de \(Y\) e estimar \(P(Y \in (1, 2))\). Qual é a relevância
+da metodologia estatística para a sua abordagem?</p>
+<h4 class="bloco bloco-discussao">Tópicos para discussão</h4>
+<p class="exerc" id="exerc-5.1.12"><span class="k">5.1.12</span> Às vezes se afirma que todas as incertezas podem e devem ser
+modeladas por meio da probabilidade. Discuta essa questão no contexto do
+Exemplo 5.1.1, isto é, indique todas as coisas sobre as quais você está incerto
+neste exemplo e como você poderia propor distribuições de probabilidade para
+quantificar essas incertezas.</p>
+<h2 id="sec-5.2"><span class="n">5.2</span> <span class="t">Inferência Usando um Modelo de Probabilidade</span></h2>
+<p>Nos quatro primeiros capítulos, discutimos a teoria da probabilidade, e boa
+parte dessa discussão envolveu a matemática da teoria da probabilidade. É ela
+que nos diz como fazer os vários cálculos associados à aplicação da teoria. É
+importante ter em mente, porém, os motivos pelos quais introduzimos a
+probabilidade em primeiro lugar. Como discutimos na Seção 1.1, a probabilidade
+trata de medir ou quantificar a incerteza.</p>
+<p>É claro que temos incerteza sobre muitas coisas, e não podemos afirmar que a
+probabilidade se aplica a todas essas situações. Vamos supor, porém, que estamos
+numa situação em que achamos que a probabilidade se aplica e que temos uma
+medida de probabilidade \(P\) definida numa coleção de subconjuntos de um espaço
+amostral<sup class="nota-ref nota-termo"><a href="#nota-8" id="ref-8">8</a></sup> \(S\) para uma resposta \(s\).</p>
+<p>Numa aplicação da probabilidade, supomos que conhecemos \(P\) e temos incerteza
+sobre um valor de resposta \(s \in S\) futuro, ou oculto. Nesse contexto, podemos
+precisar, ou querer, fazer uma <em>inferência</em> sobre o valor desconhecido de
+\(s\). Isso pode tomar a forma de uma <em>predição<sup class="nota-ref nota-termo"><a href="#nota-9" id="ref-9">9</a></sup></em> ou <em>estimativa<sup class="nota-ref nota-termo"><a href="#nota-10" id="ref-10">10</a></sup></em> de um
+valor plausível para \(s\); por exemplo, sob condições adequadas, poderíamos tomar
+o valor esperado<sup class="nota-ref nota-termo"><a href="#nota-11" id="ref-11">11</a></sup> de \(s\) como nossa predição. Em outros contextos, podem nos pedir
+que construamos um subconjunto que tenha alta probabilidade de conter \(s\) e que
+seja, em algum sentido, pequeno; por exemplo, encontrar a região que contém pelo
+menos 95% da probabilidade e que tem o menor tamanho entre todas essas regiões.
+Ou então podem nos pedir que avaliemos se um valor dado \(s_0\) é ou não um valor
+implausível segundo a \(P\) conhecida; por exemplo, avaliar se \(s_0\) está ou não
+numa região a que \(P\) atribui baixa probabilidade e, portanto, é implausível.
+Esses são exemplos de inferências relevantes para as aplicações da teoria da
+probabilidade.</p>
+<div class="ex" id="exemplo-5.2.1"><div class="cab"><span class="rot">Exemplo 5.2.1</span></div><div class="txt fim"><p>Como aplicação específica, considere o tempo de vida \(X\), em anos, de uma
+máquina, em que se sabe que \(X \sim \text{Exponencial}(1)\) (ver Figura 5.2.1). Então, para uma máquina nova, poderíamos predizer seu tempo de vida por
+\(E(X) = 1\) ano. Além disso, pelo gráfico da densidade \(\text{Exponencial}(1)\),
+fica claro que o menor intervalo que contém 95% da probabilidade para \(X\) é
+\((0, c)\), em que \(c\) satisfaz
+<span class="eq">\[
+0{,}95 = \int_0^c e^{-x}\, dx = 1 - e^{-c}
+\]</span>
+ou \(c = -\ln(0{,}05) = 2{,}9957\). Esse intervalo nos dá uma faixa razoável de tempos
+de vida prováveis para a máquina nova. Por fim, se quiséssemos avaliar se
+\(x_0 = 5\) é ou não um tempo de vida plausível para uma máquina recém-comprada,
+poderíamos calcular a probabilidade de cauda
+<span class="eq">\[
+P(X &gt; 5) = \int_5^\infty e^{-x}\, dx = e^{-5} = 0{,}0067,
+\]</span>
+que, neste caso, é muito pequena e, portanto, indica que \(x_0 = 5\) está bem longe
+na cauda. A cauda direita dessa densidade é uma região de baixa probabilidade
+para essa distribuição, de modo que \(x_0 = 5\) pode ser considerado implausível.
+Assim, é pouco provável que uma máquina dure 5 anos, e um comprador teria de
+planejar substituir a máquina antes do fim desse período.</p></div></div>
+<figure class="figura">
+  <img class="figura" src="figuras/tikz-1160554eb816.svg" alt="" style="width: min(100%, 29.0em)">
+  <figcaption id="figura-5.2.1"><span class="rot">Figura 5.2.1:</span> Gráfico da densidade Exponencial(1) \(f\).</figcaption>
+</figure>
+<p>Em algumas aplicações, recebemos alguma informação parcial sobre o \(s\)
+desconhecido, na forma \(s \in C \subset S\). Nesse caso, substituímos \(P\) pela
+medida de probabilidade condicional<sup class="nota-ref nota-termo"><a href="#nota-12" id="ref-12">12</a></sup> \(P(\cdot \mid C)\) ao derivar nossas
+inferências. São muitos os motivos para fazer isso e, em geral, podemos dizer
+que a maioria dos estatísticos concorda que essa é a coisa certa a fazer. É
+importante reconhecer, porém, que esse passo não decorre de um teorema
+matemático; ele pode, antes, ser visto como um axioma ou princípio básico de
+inferência. Vamos nos referir a ele como o <em>princípio da probabilidade
+condicional</em>, que terá papel fundamental em alguns desenvolvimentos posteriores.</p>
+<div class="ex" id="exemplo-5.2.2"><div class="cab"><span class="rot">Exemplo 5.2.2</span></div><div class="txt fim"><p>Suponha que temos uma máquina cujo tempo de vida tem a distribuição do
+Exemplo 5.2.1 e que a máquina já está funcionando há um ano. Então as inferências
+sobre o tempo de vida da máquina se baseiam na distribuição condicional<sup class="nota-ref nota-termo"><a href="#nota-13" id="ref-13">13</a></sup>, dado que
+\(X &gt; 1\). A densidade dessa distribuição condicional é dada por \(e^{-(x-1)}\) para
+\(x &gt; 1\). O tempo de vida predito passa a ser
+<span class="eq">\begin{align*}
+E(X \mid X &gt; 1) &amp;= \int_1^\infty x e^{-(x-1)}\, dx \\
+&amp;= -x e^{-(x-1)} \Big|_1^\infty + \int_1^\infty e^{-(x-1)}\, dx = 2.
+\end{align*}</span>
+O fato de o tempo de vida adicional ser igual ao tempo de vida predito antes de a
+máquina começar a funcionar é uma característica especial da distribuição
+Exponencial. Isso não vale em geral (ver Exercício 5.2.4).</p>
+<p>A probabilidade de cauda que mede quão plausível é o valor \(x_0 = 5\) é dada por
+<span class="eq">\[
+P(X &gt; 5 \mid X &gt; 1) = \int_5^\infty e^{-(x-1)}\, dx = e^{-4} = 0{,}0183,
+\]</span>
+o que indica que \(x_0 = 5\) é um pouco mais plausível diante do fato de a máquina
+já ter sobrevivido um ano. O menor intervalo que contém 0,95 da probabilidade
+condicional passa a ser da forma \((1, c)\), em que \(c\) é a solução de
+<span class="eq">\[
+0{,}95 = \int_1^c e^{-(x-1)}\, dx = e(e^{-1} - e^{-c}),
+\]</span>
+o que implica <span class="mat-quebravel">\(c = -\ln\bigl(e^{-1} - 0{,}95e^{-1}\bigr)\) \({}= 3{,}9957\)</span>.</p></div></div>
+<p>Nosso ponto principal nesta seção é simplesmente que já temos alguma
+familiaridade com conceitos inferenciais. Além disso, por meio do princípio da
+probabilidade condicional, temos uma regra ou axioma básico que governa como
+fazemos inferências no contexto em que a medida de probabilidade \(P\) é conhecida
+e \(s\) não é conhecido.</p>
+<section class="resumo"><h4>Resumo da Seção 5.2</h4><ul><li>Modelos de probabilidade são usados para modelar a incerteza sobre
+  respostas futuras.</li>
+<li>Podemos usar a distribuição de probabilidade para predizer uma resposta
+  futura ou para avaliar se um dado valor faz sentido ou não como um possível
+  valor futuro da distribuição.</li></ul></section>
+<h4 class="bloco bloco-exercicios">Exercícios</h4>
+<p class="exerc" id="exerc-5.2.1"><span class="k">5.2.1</span> Às vezes, a <em>moda de uma densidade</em> (o ponto em que a
+densidade assume seu valor máximo) é escolhida como preditor<sup class="nota-ref nota-termo"><a href="#nota-14" id="ref-14">14</a></sup> de um valor futuro
+de uma resposta. Determine esse preditor nos Exemplos 5.2.1 e 5.2.2 e comente
+sua adequação como preditor.</p>
+<p class="exerc" id="exerc-5.2.2"><span class="k">5.2.2</span> Suponha que se tenha decidido usar a média de uma distribuição para
+predizer uma resposta futura. No Exemplo 5.2.1, calcule o erro quadrático médio<sup class="nota-ref nota-termo"><a href="#nota-15" id="ref-15">15</a></sup>
+(o valor esperado do quadrado do erro entre um valor futuro e seu preditor) desse
+preditor, antes de observar o valor. A que característica da distribuição do
+tempo de vida isso corresponde?</p>
+<p class="exerc" id="exerc-5.2.3"><span class="k">5.2.3</span> Faça o gráfico da densidade da distribuição obtida como mistura de
+uma distribuição normal com média 4 e variância<sup class="nota-ref nota-termo"><a href="#nota-16" id="ref-16">16</a></sup> 1 e uma distribuição normal com
+média \(-4\) e variância 1, em que a probabilidade de mistura é 0,5. Explique por
+que nem a média nem a moda é um preditor adequado neste caso. (Sugestão:
+Seção 2.5.4.)</p>
+<p class="exerc" id="exerc-5.2.4"><span class="k">5.2.4</span> Repita os cálculos dos Exemplos 5.2.1 e 5.2.2 quando se sabe que o
+tempo de vida de uma máquina tem a distribuição de \(Y = 10X\), em que
+\(X \sim \text{Uniforme}[0, 1]\).</p>
+<p class="exerc" id="exerc-5.2.5"><span class="k">5.2.5</span> Suponha que \(X \sim N(10, 2)\). Que valor você registraria como
+predição de um valor futuro de \(X\)? Como você justificaria sua escolha?</p>
+<p class="exerc" id="exerc-5.2.6"><span class="k">5.2.6</span> Suponha que \(X \sim N(10, 2)\). Registre o menor intervalo que
+contém 0,95 da probabilidade para uma resposta futura. (Sugestão: considere um
+gráfico da densidade.)</p>
+<p class="exerc" id="exerc-5.2.7"><span class="k">5.2.7</span> Suponha que \(X \sim \text{Gama}(3, 6)\). Que valor você registraria
+como predição de um valor futuro de \(X\)? Como você justificaria sua escolha?</p>
+<p class="exerc" id="exerc-5.2.8"><span class="k">5.2.8</span> Suponha que \(X \sim \text{Poisson}(5)\). Que valor você registraria
+como predição de um valor futuro de \(X\)? Como você justificaria sua escolha?</p>
+<p class="exerc" id="exerc-5.2.9"><span class="k">5.2.9</span> Suponha que \(X \sim \text{Geométrica}(1/3)\). Que valor você
+registraria como predição de um valor futuro de \(X\)?</p>
+<p class="exerc" id="exerc-5.2.10"><span class="k">5.2.10</span> Suponha que \(X\) tenha a seguinte distribuição de probabilidade.</p>
+<div class="centro"><div class="tbl"><table><tr><th>\(x\)</th><th>\(1\)</th><th>\(2\)</th><th>\(3\)</th><th>\(4\)</th></tr><tr><td>\(P(X = x)\)</td><td>\(1/2\)</td><td>\(1/4\)</td><td>\(1/8\)</td><td>\(1/8\)</td></tr></table></div></div>
+<p><span class="parte"><span class="pl">(a)</span>  Registre uma predição de um valor futuro de \(X\).</span><span class="parte"><span class="pl">(b)</span>  Suponha que, em seguida, lhe digam que \(X \ge 2\). Registre uma predição
+de um valor futuro de \(X\) que use essa informação.</span></p>
+<h4 class="bloco bloco-problemas">Problemas</h4>
+<p class="exerc" id="exerc-5.2.11"><span class="k">5.2.11</span> Suponha que uma moeda honesta seja lançada 10 vezes e que a
+resposta \(X\) medida seja o número de vezes que observamos cara.
+<span class="parte"><span class="pl">(a)</span>  Se você usar o valor esperado da resposta como preditor, qual é a
+predição de uma resposta futura \(X\)?</span><span class="parte"><span class="pl">(b)</span>  Usando a Tabela D.6 (ou um pacote estatístico), calcule um menor
+intervalo que contenha pelo menos 0,95 da probabilidade para \(X\). Observe que
+pode ajudar fazer antes o gráfico da função de probabilidade<sup class="nota-ref nota-termo"><a href="#nota-17" id="ref-17">17</a></sup> de \(X\).</span><span class="parte"><span class="pl">(c)</span>  Que região você usaria para avaliar se um valor \(s_0\) é ou não um
+valor futuro possível? (Sugestão: quais são as regiões de baixa probabilidade
+da distribuição?) Avalie se \(x = 8\) é ou não plausível.</span></p>
+<p class="exerc" id="exerc-5.2.12"><span class="k">5.2.12</span> No Exemplo 5.2.1, explique (intuitivamente) por que o intervalo
+\((0; 2{,}9957)\) é o menor intervalo que contém 0,95 da probabilidade para o tempo
+de vida.</p>
+<p class="exerc" id="exerc-5.2.13"><span class="k">5.2.13</span> (Continuação do Problema 5.2.11) Suponha que nos digam que o
+número de caras observado é par. Repita as partes (a), (b) e (c).</p>
+<p class="exerc" id="exerc-5.2.14"><span class="k">5.2.14</span> Suponha que uma resposta \(X\) tenha distribuição
+\(\text{Beta}(a, b)\) com \(a, b &gt; 1\) fixos (ver Problema 2.4.16). Determine a média
+e a moda (ponto em que a densidade assume seu máximo) dessa distribuição e avalie
+qual é o preditor mais preciso de um \(X\) futuro quando se usa o erro quadrático
+médio, isto é, a distância quadrática esperada entre \(X\) e a predição.</p>
+<p class="exerc" id="exerc-5.2.15"><span class="k">5.2.15</span> Suponha que uma resposta \(X\) tenha distribuição \(N(0, 1)\) e que
+decidimos predizer um valor futuro usando a média da distribuição.
+<span class="parte"><span class="pl">(a)</span>  Determine a predição de um \(X\) futuro.</span><span class="parte"><span class="pl">(b)</span>  Determine a predição de um \(Y = X^2\) futuro.</span><span class="parte"><span class="pl">(c)</span>  Comente a relação (ou a falta dela) entre as respostas das partes (a)
+e (b).</span></p>
+<p class="exerc" id="exerc-5.2.16"><span class="k">5.2.16</span> Suponha que \(X \sim \text{Geométrica}(1/3)\). Determine o menor
+intervalo que contém 0,95 da probabilidade para um \(X\) futuro. (Sugestão: faça o
+gráfico da função de probabilidade e registre a função de distribuição.)</p>
+<p class="exerc" id="exerc-5.2.17"><span class="k">5.2.17</span> Suponha que \(X \sim \text{Geométrica}(1/3)\) e que nos digam que
+\(X &gt; 5\). Que valor você registraria como predição de um valor futuro de \(X\)?
+Determine o menor intervalo que contém 0,95 da probabilidade para um \(X\) futuro.
+(Sugestão: faça o gráfico da função de probabilidade e registre a função de
+distribuição.)</p>
+<h4 class="bloco bloco-discussao">Tópicos para discussão</h4>
+<p class="exerc" id="exerc-5.2.18"><span class="k">5.2.18</span> Você acha realista que um profissional proceda como se conhecesse
+a verdadeira distribuição de probabilidade de uma resposta num problema?</p>
+<h2 id="sec-5.3"><span class="n">5.3</span> <span class="t">Modelos Estatísticos</span></h2>
+<p>Em um problema estatístico, enfrentamos uma incerteza de natureza diferente
+daquela que surge na Seção 5.2. Em um contexto estatístico, observamos os
+<em>dados</em> \(s\), mas não temos certeza sobre \(P\). Numa situação assim,
+queremos construir inferências sobre \(P\) com base em \(s\). Essa é a situação
+inversa da discutida na Seção 5.2.</p>
+<p>Como devemos proceder para fazer essas <em>inferências estatísticas</em>
+provavelmente não é nada óbvio. Na verdade, há várias abordagens possíveis, que
+discutiremos nos capítulos seguintes. Neste capítulo, vamos desenvolver os
+ingredientes básicos de todas as abordagens.</p>
+<p>Comum a praticamente todas as abordagens da inferência estatística é o conceito
+de <em>modelo estatístico</em> para os dados \(s\). Ele toma a forma de um conjunto
+\(\{P_\theta : \theta \in \negrito{\Omega}\}\) de medidas de probabilidade, uma
+das quais corresponde à verdadeira medida de probabilidade desconhecida \(P\) que
+produziu os dados \(s\). Em outras palavras, estamos afirmando que <em>existe</em>
+um mecanismo aleatório gerando \(s\), e <em>sabemos</em> que a medida de
+probabilidade correspondente \(P\) é uma das medidas de probabilidade em
+\(\{P_\theta : \theta \in \negrito{\Omega}\}\).</p>
+<p>O modelo estatístico \(\{P_\theta : \theta \in \negrito{\Omega}\}\) corresponde à
+informação que um estatístico traz para a aplicação sobre qual é a verdadeira
+medida de probabilidade, ou pelo menos sobre o que ele está disposto a supor
+sobre ela. A variável \(\theta\) é chamada de <em>parâmetro</em> do modelo, e o
+conjunto \(\negrito{\Omega}\) é chamado de <em>espaço paramétrico<sup class="nota-ref nota-termo"><a href="#nota-18" id="ref-18">18</a></sup></em>. Em geral,
+usamos modelos em que \(\theta \in \negrito{\Omega}\) indexa as medidas de
+probabilidade do modelo, isto é, \(P_{\theta_1} = P_{\theta_2}\) se e somente se
+\(\theta_1 = \theta_2\). Se todas as medidas de probabilidade \(P_\theta\) puderem
+ser apresentadas por meio de funções de probabilidade ou de funções densidade
+\(f_\theta\) (por conveniência, não vamos distinguir na notação entre o caso
+discreto e o contínuo), então é comum escrever o modelo estatístico como
+\(\{f_\theta : \theta \in \negrito{\Omega}\}\).</p>
+<p>Pela definição de modelo estatístico, vemos que existe um único valor
+\(\theta \in \negrito{\Omega}\) tal que \(P_\theta\) é a verdadeira medida de
+probabilidade. Chamamos esse valor de <em>valor verdadeiro do parâmetro</em>.
+Evidentemente, é equivalente falar em fazer inferências sobre o valor
+verdadeiro do parâmetro em vez de sobre a verdadeira medida de probabilidade,
+isto é, uma inferência sobre o valor verdadeiro de \(\theta\) é, ao mesmo tempo,
+uma inferência sobre a verdadeira distribuição de probabilidade. Assim, por
+exemplo, podemos querer estimar o valor verdadeiro de \(\theta\), construir
+pequenas regiões em \(\negrito{\Omega}\) que provavelmente contêm o valor
+verdadeiro, ou avaliar se os dados estão ou não de acordo com algum valor
+particular \(\theta_0\), sugerido como o valor verdadeiro. Esses são tipos de
+inferência exatamente como os que discutimos na Seção 5.2, mas aqui a situação
+é bem diferente.</p>
+<div class="ex" id="exemplo-5.3.1"><div class="cab"><span class="rot">Exemplo 5.3.1</span></div><div class="txt fim"><p>Suponha que temos uma urna com 100 fichas, cada uma preta \(B\) ou branca \(W\).
+Suponha ainda que nos dizem que há 50 ou 60 fichas pretas na urna. As fichas
+são bem misturadas e, em seguida, duas fichas são retiradas sem reposição. O
+objetivo é fazer uma inferência sobre o verdadeiro número de fichas pretas na
+urna, tendo observado os dados \(s = (s_1, s_2)\), em que \(s_i\) é a cor da
+\(i\)-ésima ficha retirada.</p>
+<p>Nesse caso, podemos tomar o modelo estatístico como
+\(\{P_\theta : \theta \in \negrito{\Omega}\}\), em que \(\theta\) é o número de
+fichas pretas na urna, de modo que \(\negrito{\Omega} = \{50, 60\}\), e
+\(P_\theta\) é a medida de probabilidade em
+<span class="eq">\[
+S = \{(B, B), (B, W), (W, B), (W, W)\}
+\]</span>
+correspondente a \(\theta\). Portanto, \(P_{50}\) atribui a probabilidade
+\(50 \cdot 49/(100 \cdot 99)\) a cada uma das sequências \((B, B)\) e \((W, W)\) e a
+probabilidade \(50 \cdot 50/(100 \cdot 99)\) a cada uma das sequências \((B, W)\) e
+\((W, B)\), e \(P_{60}\) atribui a probabilidade \(60 \cdot 59/(100 \cdot 99)\) à
+sequência \((B, B)\), a probabilidade \(40 \cdot 39/(100 \cdot 99)\) à sequência
+\((W, W)\) e a probabilidade \(60 \cdot 40/(100 \cdot 99)\) a cada uma das
+sequências \((B, W)\) e \((W, B)\).</p>
+<p>A escolha do parâmetro é um tanto arbitrária, pois poderíamos facilmente ter
+rotulado as medidas de probabilidade possíveis como \(P_1\) e \(P_2\),
+respectivamente. O parâmetro é, em essência, apenas um rótulo que nos permite
+distinguir entre os possíveis candidatos à verdadeira medida de probabilidade.
+É comum, no entanto, escolher esse rótulo de forma conveniente, para que ele
+signifique algo no problema em discussão.</p></div></div>
+<p>Registramos aqui mais alguma terminologia de uso comum. Se um único valor
+observado de uma resposta \(X\) tem o modelo estatístico
+\(\{f_\theta : \theta \in \negrito{\Omega}\}\), então uma amostra
+\((X_1, \ldots, X_n)\) (lembre que, aqui, amostra significa que as \(X_i\) são
+independentes e identicamente distribuídas<sup class="nota-ref nota-termo"><a href="#nota-19" id="ref-19">19</a></sup>; veja a Definição 2.8.6) tem
+densidade conjunta<sup class="nota-ref nota-termo"><a href="#nota-20" id="ref-20">20</a></sup> dada por
+\(f_\theta(x_1)\, f_\theta(x_2) \cdots f_\theta(x_n)\) para algum
+\(\theta \in \negrito{\Omega}\). Isso especifica o modelo estatístico para a
+resposta \((X_1, \ldots, X_n)\). Chamamos isso de <em>modelo estatístico para
+uma amostra</em>. Naturalmente, o valor verdadeiro de \(\theta\) no modelo
+estatístico para uma amostra é o mesmo que para uma única observação. Às vezes,
+em vez de falar do modelo estatístico para uma amostra, falamos de uma amostra
+do modelo estatístico \(\{f_\theta : \theta \in \negrito{\Omega}\}\).</p>
+<p>Observe que, sempre que possível, usaremos letras maiúsculas para denotar um
+valor não observado de uma variável aleatória<sup class="nota-ref nota-termo"><a href="#nota-21" id="ref-21">21</a></sup> \(X\) e letras minúsculas para
+denotar o valor observado. Assim, uma amostra observada \((X_1, \ldots, X_n)\)
+será denotada por \((x_1, \ldots, x_n)\).</p>
+<div class="ex" id="exemplo-5.3.2"><div class="cab"><span class="rot">Exemplo 5.3.2</span></div><div class="txt fim"><p>Suponha que há duas fábricas de máquinas. Sabe-se que as máquinas construídas
+pela primeira fábrica têm tempos de vida com distribuição Exponencial\((1)\),
+enquanto as máquinas fabricadas pela segunda fábrica têm tempos de vida com
+distribuição Exponencial\((2/3)\). As densidades dessas distribuições estão
+representadas na Figura 5.3.1.<sup class="nota-ref nota-tradutor"><a href="#nota-22" id="ref-22">22</a></sup></p>
+<p>Você comprou cinco dessas máquinas sabendo que todas as cinco vieram da mesma
+fábrica, mas não sabe de qual. Em seguida, você observa os tempos de vida
+dessas máquinas, obtendo a amostra \((x_1, \ldots, x_5)\), e quer fazer
+inferências sobre a verdadeira \(P\).</p>
+<p>Nesse caso, o modelo estatístico para uma única observação é formado por duas
+medidas de probabilidade \(\{P_1, P_2\}\), em que \(P_1\) é a medida de
+probabilidade Exponencial\((1)\) e \(P_2\) é a medida de probabilidade
+Exponencial\((2/3)\). Aqui, tomamos o parâmetro como
+\(\theta \in \negrito{\Omega} = \{1, 2\}\).</p>
+<p>Claramente, tempos de vida observados mais longos favorecem \(\theta = 2\). Por
+exemplo, se
+<span class="eq">\[
+(x_1, \ldots, x_5) = (5{,}0;\ 3{,}5;\ 3{,}3;\ 4{,}1;\ 2{,}8),
+\]</span>
+então intuitivamente temos mais certeza de que \(\theta = 2\) do que se
+<span class="eq">\[
+(x_1, \ldots, x_5) = (2{,}0;\ 2{,}5;\ 3{,}0;\ 3{,}1;\ 1{,}8).
+\]</span>
+O objeto da inferência estatística é tornar mais precisas afirmações como essa
+e quantificar nossa incerteza quanto à validade dessas afirmações.</p>
+<p>Observamos de novo que a quantidade \(\theta\) serve apenas como rótulo para as
+distribuições do modelo. O valor de \(\theta\) não tem outra interpretação além
+de rótulo, e poderíamos muito bem ter usado outros valores como rótulos. Em
+muitas aplicações, no entanto, o parâmetro \(\theta\) é tomado como alguma
+característica da distribuição que assume um valor único para cada
+distribuição do modelo. Aqui, poderíamos ter tomado \(\theta\) como a média, e
+então o espaço paramétrico seria \(\negrito{\Omega} = \{1;\ 1{,}5\}\). Note que
+poderíamos igualmente ter usado o primeiro quartil, ou, aliás, qualquer outro
+quantil, para rotular as distribuições, desde que cada distribuição da família
+forneça um valor único para a característica escolhida. De modo geral,
+qualquer transformação injetora<sup class="nota-ref nota-termo"><a href="#nota-23" id="ref-23">23</a></sup> de um parâmetro é aceitável como
+parametrização de um modelo estatístico. Quando trocamos os rótulos, dizemos
+que fizemos uma <em>reparametrização</em> do modelo estatístico.</p></div></div>
+<figure class="figura">
+<img class="figura" src="figuras/tikz-29f9b68352dc.svg" alt="" style="width: min(100%, 29.0em)">
+<figcaption id="figura-5.3.1"><span class="rot">Figura 5.3.1:</span> Gráfico das densidades Exponencial\((1)\) (linha contínua) e
+Exponencial\((1{,}5)\) (linha tracejada).</figcaption>
+</figure>
+<p>Consideramos agora dois exemplos importantes de modelos estatísticos. Eles são
+importantes porque aparecem com frequência nas aplicações.</p>
+<div class="ex" id="exemplo-5.3.3"><div class="cab"><span class="rot">Exemplo 5.3.3</span> <span class="nome">Modelo de Bernoulli</span></div><div class="txt fim"><p>Suponha que \((x_1, \ldots, x_n)\) seja uma amostra de uma distribuição
+Bernoulli\((\theta)\) com \(\theta \in [0, 1]\) desconhecido. Poderíamos estar
+observando os resultados de lançamentos de uma moeda e registrando \(X_i\) igual
+a 1 sempre que sai cara no \(i\)-ésimo lançamento e igual a 0 caso contrário.
+Ou então poderíamos estar observando itens produzidos num processo industrial
+e registrando \(X_i\) igual a 1 sempre que o \(i\)-ésimo item é defeituoso e 0
+caso contrário. Numa aplicação biomédica, a resposta \(X_i = 1\) poderia indicar
+que um tratamento num paciente teve sucesso, enquanto \(X_i = 0\) indica um
+fracasso. Em todos esses casos, queremos conhecer o valor verdadeiro de
+\(\theta\), pois ele nos diz algo importante sobre a moeda que estamos lançando,
+sobre o processo industrial ou sobre o tratamento médico, respectivamente.</p>
+<p>Suponha agora que não temos nenhuma informação sobre a verdadeira
+probabilidade \(\theta\). Por isso, tomamos o espaço paramétrico como
+\(\negrito{\Omega} = [0, 1]\), o conjunto de todos os valores possíveis de
+\(\theta\). A função de probabilidade do \(i\)-ésimo item da amostra é dada por
+<span class="eq">\[
+f_\theta(x_i) = \theta^{x_i} (1 - \theta)^{1 - x_i},
+\]</span>
+e a função de probabilidade da amostra é dada por
+<span class="eq">\[
+\prod_{i=1}^n f_\theta(x_i)
+= \prod_{i=1}^n \theta^{x_i} (1 - \theta)^{1 - x_i}
+= \theta^{n\bar x} (1 - \theta)^{n(1 - \bar x)}.
+\]</span>
+Isso especifica o modelo para uma amostra.</p>
+<p>Note que poderíamos parametrizar esse modelo por qualquer função injetora de
+\(\theta\). Por exemplo, \(\alpha = \theta^2\) serviria (pois é injetora em
+\(\negrito{\Omega}\)), assim como \(\psi = \ln\{\theta/(1 - \theta)\}\).</p></div></div>
+<div class="ex" id="exemplo-5.3.4"><div class="cab"><span class="rot">Exemplo 5.3.4</span> <span class="nome">Modelo Normal de Locação e Escala<sup class="nota-ref nota-termo"><a href="#nota-24" id="ref-24">24</a></sup></span></div><div class="txt fim"><p>Suponha que \((x_1, \ldots, x_n)\) seja uma amostra de uma distribuição
+\(N(\mu, \sigma^2)\) com \(\theta = (\mu, \sigma^2) \in R^1 \times R^+\)
+desconhecido, em que \(R^+ = (0, \infty)\). Por exemplo, podemos ter observações
+das alturas, em centímetros, de indivíduos de uma população e achar razoável
+supor que a distribuição das alturas na população é normal, com média e desvio
+padrão<sup class="nota-ref nota-termo"><a href="#nota-25" id="ref-25">25</a></sup> desconhecidos.</p>
+<p>A densidade da amostra é então dada por
+<span class="eq">\begin{align*}
+\prod_{i=1}^n f_{(\mu, \sigma^2)}(x_i)
+&amp;= \left(2\pi\sigma^2\right)^{-n/2}
+   \exp\left\{-\frac{1}{2\sigma^2} \sum_{i=1}^n (x_i - \mu)^2\right\}\\
+&amp;= \left(2\pi\sigma^2\right)^{-n/2}
+   \exp\left\{-\frac{n}{2\sigma^2} (\bar x - \mu)^2
+   - \frac{n - 1}{2\sigma^2} s^2\right\},
+\end{align*}</span>
+pois (Problema 5.3.13)
+<span class="eq">\begin{equation}
+\sum_{i=1}^n (x_i - \mu)^2 = n(\bar x - \mu)^2 + \sum_{i=1}^n (x_i - \bar x)^2,
+\tag{5.3.1}
+\end{equation}</span>
+em que
+<span class="eq">\[
+\bar x = \frac{1}{n} \sum_{i=1}^n x_i
+\]</span>
+é a <em>média amostral</em> e
+<span class="eq">\[
+s^2 = \frac{1}{n - 1} \sum_{i=1}^n (x_i - \bar x)^2
+\]</span>
+é a <em>variância amostral</em>.</p>
+<p>Parametrizações alternativas desse modelo são de uso comum. Por exemplo, em vez
+de usar \((\mu, \sigma^2)\), às vezes \((\mu, \sigma^{-2})\), ou \((\mu, \sigma)\), ou
+\((\mu, \ln\sigma)\) é uma escolha conveniente. Note que \(\ln\sigma\) percorre
+\(R^1\) quando \(\sigma\) varia em \(R^+\).</p></div></div>
+<p>Na verdade, podemos nos perguntar quão adequado é o modelo do Exemplo 5.3.4
+para a distribuição das alturas numa população, já que, em qualquer população
+finita, a verdadeira distribuição é discreta (há apenas uma quantidade finita
+de estudantes). É claro que uma distribuição normal pode dar uma boa
+aproximação de uma distribuição discreta, como no Exemplo 4.4.9. Assim, no
+Exemplo 5.3.4, estamos supondo também que uma distribuição de probabilidade
+contínua pode dar uma aproximação próxima da verdadeira distribuição discreta.
+Acontece que essas aproximações podem levar a grandes simplificações na
+obtenção das inferências, e por isso as usamos sempre que possível. Uma
+aproximação assim, é claro, não se aplica ao Exemplo 5.3.3.</p>
+<p>Note também que as alturas serão sempre expressas em alguma unidade
+específica, por exemplo, centímetros; com base nisso, sabemos que a média
+populacional tem de estar numa certa faixa de valores, por exemplo,
+\(\mu \in (0, 300)\), mas o modelo estatístico permite qualquer valor de \(\mu\).
+Assim, muitas vezes temos de fato informação adicional sobre o valor
+verdadeiro do parâmetro de um modelo, mas ela é um tanto imprecisa; por
+exemplo, provavelmente também temos \(\mu \in (100, 300)\). No Capítulo 7,
+discutiremos maneiras de incorporar essa informação à nossa análise.</p>
+<p>De onde vem, numa aplicação, a informação do modelo
+\(\{P_\theta : \theta \in \negrito{\Omega}\}\)? Por exemplo, como poderíamos
+saber que as alturas têm distribuição aproximadamente normal no Exemplo 5.3.4?
+Às vezes essa informação se baseia na experiência anterior com aplicações
+relacionadas, mas muitas vezes ela é uma <em>suposição</em> que precisa ser
+verificada antes que os procedimentos de inferência possam ser usados. Os
+procedimentos concebidos para verificar essas suposições são chamados de
+procedimentos de <em>verificação de modelos<sup class="nota-ref nota-termo"><a href="#nota-26" id="ref-26">26</a></sup></em>, que serão discutidos no
+Capítulo 9. Na prática, os procedimentos de verificação de modelos são
+indispensáveis; do contrário, as inferências tiradas dos dados e do modelo
+estatístico podem estar erradas se o modelo estiver errado.</p>
+<section class="resumo"><h4>Resumo da Seção 5.3</h4><ul><li>Numa aplicação estatística, não conhecemos a distribuição de uma
+  resposta, mas sabemos (ou estamos dispostos a supor) que a verdadeira
+  distribuição de probabilidade é uma de um conjunto de distribuições possíveis
+  \(\{f_\theta : \theta \in \negrito{\Omega}\}\), em que \(f_\theta\) é a densidade
+  ou a função de probabilidade (a que for pertinente) da resposta. O conjunto
+  das distribuições possíveis é chamado de <em>modelo estatístico</em>.</li>
+<li>O conjunto \(\negrito{\Omega}\) é chamado de <em>espaço paramétrico</em>, e
+  a variável \(\theta\) é chamada de <em>parâmetro</em> do modelo. Como cada valor
+  de \(\theta\) corresponde a uma distribuição de probabilidade distinta no
+  modelo, podemos falar do <em>valor verdadeiro</em> de \(\theta\), já que ele dá
+  a verdadeira distribuição por meio de \(f_\theta\).</li></ul></section>
+<h4 class="bloco bloco-exercicios">Exercícios</h4>
+<p class="exerc" id="exerc-5.3.1"><span class="k">5.3.1</span> Suponha que há três moedas: sabe-se que uma é honesta, outra tem
+probabilidade \(1/3\) de dar cara num único lançamento e a outra tem
+probabilidade \(2/3\) de dar cara num único lançamento. Uma moeda é escolhida
+(não aleatoriamente) e lançada cinco vezes. O objetivo é fazer uma inferência,
+com base na amostra, sobre qual das moedas está sendo lançada. Descreva
+completamente um modelo estatístico para uma única resposta e para a amostra.</p>
+<p class="exerc" id="exerc-5.3.2"><span class="k">5.3.2</span> Suponha que uma face de um dado simétrico de seis faces está
+duplicada, mas não sabemos qual. Sabemos que, se o 1 está duplicado, então o 2
+não aparece; caso contrário, o 1 não aparece. Descreva o modelo estatístico para
+um único lançamento.</p>
+<p class="exerc" id="exerc-5.3.3"><span class="k">5.3.3</span> Suponha que temos duas populações (I e II) e que se sabe que a
+variável \(X\) tem distribuição \(N(10, 2)\) na população I e distribuição
+\(N(8, 3)\) na população II. Uma amostra \((X_1, \ldots, X_n)\) é gerada a partir
+de uma das populações; não lhe dizem de qual população a amostra veio, mas
+pedem que você tire inferências sobre a verdadeira distribuição com base na
+amostra. Descreva o modelo estatístico para esse problema. Você poderia
+parametrizar esse modelo pela média populacional? E pela variância
+populacional? Às vezes, problemas como esse são chamados de <em>problemas de
+classificação</em>, porque fazer inferências sobre a verdadeira distribuição
+equivale a classificar a amostra como pertencente a uma das populações.</p>
+<p class="exerc" id="exerc-5.3.4"><span class="k">5.3.4</span> Suponha a mesma situação do Exercício 5.3.3, mas agora a
+distribuição da população I é \(N(10, 2)\) e a da população II é \(N(10, 3)\).
+Você poderia parametrizar o modelo pela média populacional? E pela variância
+populacional? Justifique sua resposta.</p>
+<p class="exerc" id="exerc-5.3.5"><span class="k">5.3.5</span> Suponha que um processo de fabricação produz baterias cujos tempos
+de vida sabidamente têm distribuição exponencial, mas com a média da
+distribuição completamente desconhecida. Descreva o modelo estatístico para uma
+única observação. É possível parametrizar esse modelo pela média? É possível
+parametrizar esse modelo pela variância? É possível parametrizar esse modelo
+pelo <em>coeficiente de variação</em> (o coeficiente de variação de uma
+distribuição é igual ao desvio padrão dividido pela média)?</p>
+<p class="exerc" id="exerc-5.3.6"><span class="k">5.3.6</span> Suponha que se sabe que uma resposta \(X\) tem distribuição
+\(\text{Uniforme}[0, \beta]\), em que \(\beta &gt; 0\) é desconhecido. É possível
+parametrizar esse modelo pelo primeiro quartil da distribuição? (O primeiro
+quartil da distribuição de uma variável aleatória \(X\) é o ponto \(c\) que
+satisfaz \(P(X \le c) = 0{,}25\).) Explique por quê.</p>
+<p class="exerc" id="exerc-5.3.7"><span class="k">5.3.7</span> Suponha que se sabe que uma variável aleatória \(X\) segue uma das
+seguintes distribuições.</p>
+<div class="centro"><div class="tbl"><table><tr><th>\(\theta\)</th><th>\(P_\theta(X = 1)\)</th><th>\(P_\theta(X = 2)\)</th><th>\(P_\theta(X = 3)\)</th></tr><tr><td>\(A\)</td><td>\(1/2\)</td><td>\(1/2\)</td><td>\(0\)</td></tr><tr><td>\(B\)</td><td>\(0\)</td><td>\(1/2\)</td><td>\(1/2\)</td></tr></table></div></div>
+<p><span class="parte"><span class="pl">(a)</span>  Qual é o espaço paramétrico \(\negrito{\Omega}\)?</span><span class="parte"><span class="pl">(b)</span>  Suponha que observamos o valor \(X = 1\). Qual é o valor verdadeiro do
+parâmetro? Qual é a verdadeira distribuição de \(X\)?</span><span class="parte"><span class="pl">(c)</span>  O que você poderia dizer sobre o valor verdadeiro do parâmetro se
+tivesse observado \(X = 2\)?</span></p>
+<p class="exerc" id="exerc-5.3.8"><span class="k">5.3.8</span> Suponha que temos um modelo estatístico \(\{P_1, P_2\}\), em que
+\(P_1\) e \(P_2\) são medidas de probabilidade num espaço amostral \(S\). Suponha
+ainda que existe um subconjunto \(C \subset S\) tal que \(P_1(C) = 1\), enquanto
+\(P_2(C^c) = 1\). Discuta como você faria uma inferência sobre a verdadeira
+distribuição de uma resposta \(s\) depois de ter observado uma única observação.</p>
+<p class="exerc" id="exerc-5.3.9"><span class="k">5.3.9</span> Suponha que você sabe que a distribuição de probabilidade de uma
+variável \(X\) é \(P_1\) ou \(P_2\). Se você observa \(X = 1\) e
+\(P_1(X = 1) = 0{,}75\), enquanto \(P_2(X = 1) = 0{,}001\), qual você diria que é a
+verdadeira distribuição de \(X\)? Justifique essa conclusão.</p>
+<p class="exerc" id="exerc-5.3.10"><span class="k">5.3.10</span> Suponha que lhe dizem que a turma nº 1 tem 35 homens e 65
+mulheres, enquanto a turma nº 2 tem 45 homens e 55 mulheres. Dizem-lhe também
+que uma determinada pessoa de uma dessas turmas é mulher, mas não lhe dizem de
+qual turma ela veio.
+<span class="parte"><span class="pl">(a)</span>  Construa um modelo estatístico para esse problema, identificando o
+parâmetro, o espaço paramétrico e a família de distribuições. Identifique
+também os dados.</span><span class="parte"><span class="pl">(b)</span>  Com base nos dados, você acha que é possível fazer uma inferência
+confiável sobre o valor verdadeiro do parâmetro? Explique por quê.</span><span class="parte"><span class="pl">(c)</span>  Se você tivesse de arriscar de qual distribuição vieram os dados, que
+escolha faria? Explique por quê.</span></p>
+<h4 class="bloco bloco-problemas">Problemas</h4>
+<p class="exerc" id="exerc-5.3.11"><span class="k">5.3.11</span> Suponha que, no Exemplo 5.3.3, parametrizamos o modelo por
+\(\psi = \ln\{\theta/(1 - \theta)\}\). Escreva o modelo estatístico com essa
+parametrização, isto é, escreva a função de probabilidade usando \(\psi\) como
+parâmetro e escreva o espaço paramétrico correspondente.</p>
+<p class="exerc" id="exerc-5.3.12"><span class="k">5.3.12</span> Suponha que, no Exemplo 5.3.4, parametrizamos o modelo por
+\((\mu, \ln\sigma) = (\mu, \psi)\). Escreva o modelo estatístico com essa
+parametrização, isto é, escreva a função densidade<sup class="nota-ref nota-termo"><a href="#nota-27" id="ref-27">27</a></sup> usando \((\mu, \psi)\) como
+parâmetro e escreva o espaço paramétrico correspondente.</p>
+<p class="exerc" id="exerc-5.3.13"><span class="k">5.3.13</span> Prove a identidade (5.3.1).</p>
+<p class="exerc" id="exerc-5.3.14"><span class="k">5.3.14</span> Uma amostra \((X_1, \ldots, X_n)\) é gerada a partir de uma
+distribuição Bernoulli\((\theta)\) com \(\theta \in [0, 1]\) desconhecido, mas o
+estatístico observa apenas \(T = \sum_{i=1}^n X_i\). Descreva o modelo
+estatístico para os dados observados.</p>
+<p class="exerc" id="exerc-5.3.15"><span class="k">5.3.15</span> Suponha que se sabe que uma resposta \(X\) tem distribuição
+\(N(\mu, \sigma^2)\), em que \(\theta = (\mu, \sigma^2) \in R^1 \times R^+\) e
+\(\theta\) é completamente desconhecido. Mostre como calcular o primeiro quartil
+de cada distribuição desse modelo a partir dos valores \((\mu, \sigma^2)\). É
+possível parametrizar o modelo pelo primeiro quartil? Justifique sua resposta.</p>
+<p class="exerc" id="exerc-5.3.16"><span class="k">5.3.16</span> Suponha que se sabe que a resposta \(X\) tem distribuição
+\(N(Y, \sigma^2)\), em que \(Y \sim N(0, \delta^2)\) e \(\sigma^2, \delta^2 &gt; 0\) são
+completamente desconhecidos. Descreva o modelo estatístico para uma observação
+\((X, Y)\). Se \(Y\) não é observada, descreva o modelo estatístico para \(X\).</p>
+<p class="exerc" id="exerc-5.3.17"><span class="k">5.3.17</span> Suponha que temos um modelo estatístico \(\{P_1, P_2\}\), em que
+\(P_1\) é uma distribuição \(N(10, 1)\), enquanto \(P_2\) é uma distribuição
+\(N(0, 1)\).
+<span class="parte"><span class="pl">(a)</span>  É possível fazer algum tipo de inferência confiável sobre a
+verdadeira distribuição com base numa única observação? Por quê?</span><span class="parte"><span class="pl">(b)</span>  Repita a parte (a), mas agora suponha que \(P_1\) é uma distribuição
+\(N(1, 1)\).</span></p>
+<p class="exerc" id="exerc-5.3.18"><span class="k">5.3.18</span> Suponha que temos um modelo estatístico \(\{P_1, P_2\}\), em que
+\(P_1\) é uma distribuição \(N(1, 1)\), enquanto \(P_2\) é uma distribuição
+\(N(0, 1)\). Suponha ainda que temos uma amostra \(x_1, \ldots, x_{100}\) da
+verdadeira distribuição. Discuta como você poderia fazer uma inferência sobre a
+verdadeira distribuição com base na amostra.</p>
+<h4 class="bloco bloco-discussao">Tópicos para discussão</h4>
+<p class="exerc" id="exerc-5.3.19"><span class="k">5.3.19</span> Explique por que você acha importante que os estatísticos digam
+com toda a clareza o que estão supondo sempre que fazem uma análise
+estatística.</p>
+<p class="exerc" id="exerc-5.3.20"><span class="k">5.3.20</span> Considere o modelo estatístico dado pela coleção das
+distribuições \(N(\mu, \sigma_0^2)\), em que \(\mu \in R^1\) é considerado
+completamente desconhecido, mas \(\sigma_0^2\) é suposto conhecido. Você acha que
+esse é um modelo razoável para usar numa aplicação? Justifique sua resposta.</p>
+<h2 id="sec-5.4"><span class="n">5.4</span> <span class="t">Coleta de Dados</span></h2>
+<p>Os desenvolvimentos das Seções 5.2 e 5.3 se baseiam no fato de a resposta observada \(s\)
+ser uma realização de uma medida de probabilidade \(P\). Na verdade, em muitas
+aplicações, isso é uma suposição. Muitas vezes recebemos dados que poderiam ter
+sido produzidos dessa forma, mas nem sempre podemos ter certeza.</p>
+<p>Quando não podemos ter certeza de que os dados foram produzidos por um
+mecanismo aleatório, a análise estatística dos dados é chamada de
+<em>estudo observacional<sup class="nota-ref nota-termo"><a href="#nota-28" id="ref-28">28</a></sup></em>. Num estudo observacional, o estatístico apenas
+observa os dados, em vez de intervir diretamente na geração deles para garantir
+que a suposição de aleatoriedade valha. Por exemplo, suponha que um professor
+coleta dados de seus alunos para um estudo que examina a relação entre as notas
+e o emprego de meio período. É razoável considerar que os dados coletados vieram
+de uma distribuição de probabilidade? Se sim, como justificaríamos isso?</p>
+<p>É importante que o estatístico distinga com cuidado entre as situações que são
+estudos observacionais e as que não são. Como ilustra a discussão a seguir, há
+ressalvas que precisam ser feitas à análise de um estudo observacional. Embora
+as análises estatísticas de estudos observacionais sejam válidas e, de fato,
+importantes, precisamos estar cientes de suas limitações ao interpretar os
+resultados.</p>
+<h3 id="subsec-5.4.1"><span class="n">5.4.1</span> <span class="t">Populações Finitas</span></h3>
+<p>Suponha que temos um conjunto finito \(\Pi\) de objetos, chamado de
+<em>população</em>, e uma função real \(X\) (às vezes chamada de
+<em>medição</em>) definida em \(\Pi\). Assim, para cada \(\pi \in \Pi\), temos uma
+quantidade real \(X(\pi)\) que mede algum aspecto ou característica de \(\pi\).</p>
+<p>Por exemplo, \(\Pi\) poderia ser o conjunto de todos os alunos atualmente
+matriculados em tempo integral numa certa universidade, com \(X(\pi)\) a altura do
+aluno \(\pi\) em centímetros. Ou, para o mesmo \(\Pi\), poderíamos tomar \(X(\pi)\)
+como o gênero do aluno \(\pi\), em que \(X(\pi) = 1\) indica feminino e
+\(X(\pi) = 2\) indica masculino. Aqui, a altura é uma <em>variável
+quantitativa</em>, porque seus valores significam algo numa escala numérica, e
+podemos fazer contas com esses valores, por exemplo, calcular uma média. Já o
+gênero é um exemplo de <em>variável categórica</em>, porque seus valores servem
+apenas para classificar, e qualquer outra escolha de números reais distintos
+teria servido tão bem quanto a que fizemos. O primeiro passo de uma análise
+estatística é determinar os tipos de variáveis com que estamos trabalhando,
+porque as técnicas de análise estatística adequadas dependem disso.</p>
+<p>A população e a medição, juntas, produzem uma <em>distribuição populacional</em>
+sobre a população. Ela é especificada pela <em>função de distribuição
+acumulada<sup class="nota-ref nota-termo"><a href="#nota-29" id="ref-29">29</a></sup> populacional</em> \(F_X : R^1 \to [0, 1]\), em que
+<span class="eq">\[
+F_X(x) = \frac{\lvert \{\pi : X(\pi) \le x\} \rvert}{N},
+\]</span>
+sendo \(\lvert A \rvert\) o número de elementos do conjunto \(A\) e
+\(N = \lvert \Pi \rvert\). Portanto, \(F_X(x)\) é a proporção de elementos de \(\Pi\)
+cuja medição é menor ou igual a \(x\).</p>
+<p>Considere o exemplo simples a seguir, em que podemos calcular \(F_X\) exatamente.</p>
+<div class="ex" id="exemplo-5.4.1"><div class="cab"><span class="rot">Exemplo 5.4.1</span></div><div class="txt fim"><p>Suponha que \(\Pi\) é uma população de \(N = 20\) lotes de terra do mesmo tamanho.
+Suponha ainda que \(X(\pi)\) é uma medida da fertilidade do lote \(\pi\) numa escala
+de 10 pontos e que foram obtidas as seguintes medições.</p>
+<div class="centro"><div class="tbl"><table><tr><th>4</th><th>8</th><th>6</th><th>7</th><th>8</th><th>3</th><th>7</th><th>5</th><th>4</th><th>6</th></tr><tr><td>9</td><td>5</td><td>7</td><td>5</td><td>8</td><td>3</td><td>4</td><td>7</td><td>8</td><td>3</td></tr></table></div></div>
+<p>Temos então
+<span class="eq">\[
+F_X(x) =
+\begin{cases}
+0 &amp; x &lt; 3 \\
+3/20 &amp; 3 \le x &lt; 4 \\
+6/20 &amp; 4 \le x &lt; 5 \\
+9/20 &amp; 5 \le x &lt; 6 \\
+11/20 &amp; 6 \le x &lt; 7 \\
+15/20 &amp; 7 \le x &lt; 8 \\
+19/20 &amp; 8 \le x &lt; 9 \\
+1 &amp; 9 \le x
+\end{cases}
+\]</span>
+porque, por exemplo, 6 dos 20 lotes têm medição de fertilidade menor ou igual
+a 4.</p></div></div>
+<p>O objetivo do estatístico nesse contexto é conhecer a função \(F_X\) com a maior
+precisão possível. Se conhecemos \(F_X\) exatamente, então identificamos a
+distribuição de \(X\) sobre \(\Pi\). Uma forma de conhecer a distribuição
+exatamente é fazer um <em>censo</em>, em que o estatístico sai a campo, observa
+\(X(\pi)\) para todo \(\pi \in \Pi\) e então calcula \(F_X\). Às vezes isso é
+viável, mas muitas vezes não é possível nem mesmo desejável, por causa dos
+custos de reunir com exatidão todas as medições — pense em como seria
+difícil coletar as alturas de todos os alunos da sua escola.</p>
+<p>Embora às vezes um censo seja necessário, e até exigido por lei, muitas vezes
+é possível obter uma aproximação muito precisa de \(F_X\) selecionando um
+subconjunto
+<span class="eq">\[
+\{\pi_1, \ldots, \pi_n\} \subset \Pi
+\]</span>
+para algum \(n &lt; N\). Aproximamos então \(F_X(x)\) pela <em>função de
+distribuição empírica<sup class="nota-ref nota-termo"><a href="#nota-30" id="ref-30">30</a></sup></em>, definida por
+<span class="eq">\begin{align*}
+\hat{F}_X(x) &amp;= \frac{\lvert \{\pi_i : X(\pi_i) \le x, i = 1, \ldots, n\} \rvert}{n} \\
+&amp;= \frac{1}{n} \sum_{i=1}^{n} I_{(-\infty, x]}(X(\pi_i)).
+\end{align*}</span></p>
+<p>Poderíamos também medir mais de um aspecto de \(\pi\) para produzir uma
+<em>medição multivariada</em> \(X : \Pi \to R^k\) para algum \(k\). Por exemplo, se
+\(\Pi\) é de novo a população de alunos, poderíamos ter
+\(X(\pi) = (X_1(\pi), X_2(\pi))\), em que \(X_1(\pi)\) é a altura em centímetros do
+aluno \(\pi\) e \(X_2(\pi)\) é o peso do aluno \(\pi\) em quilogramas. Discutiremos
+medições multivariadas no Capítulo 10, em que nosso interesse está nas relações
+entre variáveis, mas aqui nos concentramos em medições univariadas.</p>
+<p>Há duas perguntas que precisamos responder agora — a saber, como devemos
+selecionar o subconjunto \(\{\pi_1, \ldots, \pi_n\}\) e quão grande deve ser \(n\)?</p>
+<h3 id="subsec-5.4.2"><span class="n">5.4.2</span> <span class="t">Amostragem Aleatória Simples</span></h3>
+<p>Vamos tratar primeiro da questão de selecionar \(\{\pi_1, \ldots, \pi_n\}\).
+Suponha que selecionamos esse subconjunto de acordo com alguma regra dada,
+baseada no rótulo único que cada \(\pi \in \Pi\) possui. Por exemplo, se o
+rótulo é um número, poderíamos ordenar os números e tomar os \(n\) elementos de
+menores rótulos. Ou poderíamos ordenar os números e tomar um elemento sim, um
+não, até ter um subconjunto de \(n\) elementos, e assim por diante.</p>
+<p>Há muitas regras desse tipo que poderíamos aplicar, e todas elas têm um
+problema básico. Se queremos que \(\hat{F}_X\) aproxime \(F_X\) para a população
+inteira, então, ao usarmos uma regra, corremos o risco de selecionar
+\(\{\pi_1, \ldots, \pi_n\}\) apenas de uma subpopulação. Por exemplo, se usamos
+os números de matrícula para identificar cada elemento de uma população de
+alunos, e os alunos mais antigos têm números de matrícula menores, então,
+quando \(n\) é muito menor que \(N\) e selecionamos os alunos de menores números de
+matrícula, \(\hat{F}_X\), na melhor das hipóteses, está apenas aproximando a
+distribuição de \(X\) na população dos alunos mais antigos. Essa distribuição
+pode ser muito diferente de \(F_X\). Da mesma forma, para qualquer outra regra
+que usemos, mesmo que não consigamos imaginar qual poderia ser a subpopulação,
+pode haver um <em>efeito de seleção</em>, ou <em>viés</em>, induzido que torna a
+estimativa inválida.</p>
+<p>Essa é a ressalva que precisamos fazer ao analisar os resultados de estudos
+observacionais. Num estudo observacional, os dados são gerados por alguma
+regra, em geral desconhecida do estatístico; isso significa que quaisquer
+conclusões tiradas com base nos dados \(X(\pi_1), \ldots, X(\pi_n)\) podem não
+valer para a população inteira.</p>
+<p>Parece haver apenas uma forma de garantir que os efeitos de seleção sejam
+evitados: o conjunto \(\{\pi_1, \ldots, \pi_n\}\) precisa ser selecionado usando
+aleatoriedade. Na <em>amostragem aleatória simples<sup class="nota-ref nota-termo"><a href="#nota-31" id="ref-31">31</a></sup></em>, isso significa que um
+mecanismo aleatório é usado para selecionar os \(\pi_i\) de modo que cada
+subconjunto de \(n\) elementos tenha probabilidade \(1/\binom{N}{n}\) de ser
+escolhido. Por exemplo, poderíamos colocar \(N\) fichas numa tigela, cada uma com
+um rótulo único correspondente a um elemento da população, e então retirar ao
+acaso \(n\) fichas da tigela, sem reposição. Os rótulos das fichas retiradas
+identificam os indivíduos que foram selecionados de \(\Pi\). Como alternativa,
+para a aleatorização, poderíamos usar uma tabela de números aleatórios, como a
+Tabela D.1 do Apêndice D (veja a Tabela D.1 para uma descrição de como ela é
+usada), ou gerar valores aleatórios com um algoritmo de computador (veja a
+Seção 2.10).</p>
+<p>Note que, com a amostragem aleatória simples, \((X(\pi_1), \ldots, X(\pi_n))\) é
+aleatório. Em particular, quando \(n = 1\), temos então
+<span class="eq">\[
+P(X(\pi_1) \le x) = F_X(x),
+\]</span>
+isto é, a distribuição de probabilidade da variável aleatória \(X(\pi_1)\) é a
+mesma que a distribuição populacional.</p>
+<div class="ex" id="exemplo-5.4.2"><div class="cab"><span class="rot">Exemplo 5.4.2</span></div><div class="txt fim"><p>Considere o contexto do Exemplo 5.4.1. Quando selecionamos ao acaso o primeiro
+lote de \(\Pi\), é claro que cada lote tem probabilidade \(1/20\) de ser
+selecionado. Temos então
+<span class="eq">\[
+P(X(\pi_1) \le x) = \frac{\lvert \{\pi : X(\pi) \le x\} \rvert}{20} = F_X(x)
+\]</span>
+para todo \(x \in R^1\).</p></div></div>
+<p>Antes de observar a amostra, temos também \(P(X(\pi_2) \le x) = F_X(x)\).
+Considere, porém, a distribuição de \(X(\pi_2)\) dado que \(X(\pi_1) = x_1\). Como
+removemos um membro da população, com valor de medição \(x_1\), então
+\(NF_X(x) - 1\) é o número de indivíduos que restam em \(\Pi\) com
+\(X(\pi) \le x_1\). Portanto,
+<span class="eq">\[
+P(X(\pi_2) \le x \mid X(\pi_1) = x_1) =
+\begin{cases}
+\dfrac{NF_X(x) - 1}{N - 1} &amp; x \ge x_1 \\[2ex]
+\dfrac{NF_X(x)}{N - 1} &amp; x &lt; x_1.
+\end{cases}
+\]</span>
+Note que isso não é igual a \(F_X(x)\).</p>
+<p>Assim, com a amostragem aleatória simples, \(X(\pi_1)\) e \(X(\pi_2)\) não são
+independentes. Observe, porém, que, quando \(N\) é grande,
+<span class="eq">\[
+P(X(\pi_2) \le x \mid X(\pi_1) = x_1) \approx F_X(x),
+\]</span>
+de modo que \(X(\pi_1)\) e \(X(\pi_2)\) são aproximadamente independentes e
+identicamente distribuídas (i.i.d.). Contas semelhantes levam à conclusão de
+que, quando \(N\) é grande e \(n\) é pequeno em relação a \(N\), então, com a
+amostragem aleatória simples da população, as variáveis aleatórias
+<span class="eq">\[
+X(\pi_1), \ldots, X(\pi_n)
+\]</span>
+são aproximadamente i.i.d. e com distribuição dada por \(F_X\). Assim,
+trataremos os valores observados \((x_1, \ldots, x_n)\) de
+\((X(\pi_1), \ldots, X(\pi_n))\) como uma amostra (no sentido da
+Definição 2.8.6) de \(F_X\). Neste texto, salvo indicação em contrário, sempre
+suporemos que \(n\) é pequeno em relação a \(N\), de modo que essa aproximação
+faça sentido.</p>
+<p>Sob a suposição i.i.d., a lei fraca dos grandes números<sup class="nota-ref nota-termo"><a href="#nota-32" id="ref-32">32</a></sup> (Teorema 4.2.1)
+implica que a função de distribuição empírica \(\hat{F}_X\) satisfaz
+<span class="eq">\[
+\hat{F}_X(x) = \frac{1}{n} \sum_{i=1}^{n} I_{(-\infty, x]}(X(\pi_i))
+\xrightarrow{P} F_X(x)
+\]</span>
+quando \(n \to \infty\). Vemos então que \(\hat{F}_X\) pode ser considerada uma
+estimativa da função de distribuição acumulada (fda) populacional \(F_X\).</p>
+<p>Sempre que os dados tiverem sido coletados por amostragem aleatória simples,
+chamaremos a investigação estatística de <em>estudo amostral</em>. É um princípio
+básico da boa prática estatística que estudos amostrais são sempre preferíveis
+a estudos observacionais, sempre que forem viáveis. Isso porque podemos ter
+certeza de que, com um estudo amostral, quaisquer conclusões que tiremos com
+base na amostra \(\pi_1, \ldots, \pi_n\) valerão para a população de interesse
+\(\Pi\). Com estudos observacionais, nunca podemos ter certeza de que os dados
+amostrais não foram, na verdade, selecionados de algum subconjunto próprio de
+\(\Pi\). Por exemplo, se lhe pedissem para fazer inferências sobre a
+distribuição das alturas dos alunos da sua escola, mas você selecionasse alguns
+dos seus amigos como amostra, então é claro que a fda estimada poderia ser
+muito diferente da fda verdadeira (possivelmente, mais amigos seus são de um
+gênero do que do outro).</p>
+<p>Muitas vezes, porém, não temos escolha senão usar dados observacionais numa
+análise estatística. Amostrar diretamente da população de interesse pode ser
+extremamente difícil ou até impossível. Ainda podemos tratar os resultados de
+tais análises como uma forma de evidência, mas precisamos ter cautela com
+possíveis efeitos de seleção e reconhecer essa possibilidade. Estudos
+amostrais constituem um nível mais alto de evidência estatística do que
+estudos observacionais, já que evitam a possibilidade de efeitos de seleção.</p>
+<p>No Capítulo 10, discutiremos <em>experimentos</em>, que constituem o nível mais
+alto de evidência estatística. Experimentos são apropriados quando estamos
+investigando a possibilidade de existirem relações de causa e efeito entre
+variáveis definidas em populações.</p>
+<p>A segunda pergunta que precisamos tratar diz respeito à escolha do tamanho da
+amostra \(n\). Parece natural que queiramos escolher uma amostra tão grande
+quanto possível. Por outro lado, há sempre custos associados à amostragem, e às
+vezes cada valor amostral é muito caro de obter. Além disso, muitas vezes,
+quanto mais dados coletamos, mais difícil é garantir que os dados não sejam
+corrompidos por diversos erros que podem surgir no processo de coleta. Assim,
+nossa resposta sobre quão grande \(n\) precisa ser é que queremos escolhê-lo
+grande o suficiente para obter a precisão necessária, mas não maior que isso.
+Por conseguinte, o estatístico precisa especificar qual precisão é exigida e,
+então, \(n\) é determinado.</p>
+<p>Veremos nos capítulos seguintes que há vários métodos para especificar a
+precisão exigida num problema e, então, determinar um valor apropriado para
+\(n\). Determinar \(n\) é um componente-chave da implementação de um estudo
+amostral e costuma ser chamado de <em>cálculo do tamanho da amostra</em>.</p>
+<p>Se definimos
+<span class="eq">\[
+f_X(x) = \frac{\lvert \{\pi : X(\pi) = x\} \rvert}{N}
+= \frac{1}{N} \sum_{\pi \in \Pi} I_{\{x\}}(X(\pi)),
+\]</span>
+isto é, \(f_X(x)\) é a proporção de membros da população que satisfazem
+\(X(\pi) = x\), então vemos que \(f_X\) faz o papel da função de probabilidade,
+porque
+<span class="eq">\[
+F_X(x) = \sum_{z \le x} f_X(z).
+\]</span>
+Chamamos \(f_X\) de <em>função de frequência relativa<sup class="nota-ref nota-termo"><a href="#nota-33" id="ref-33">33</a></sup> populacional</em>. Agora,
+\(f_X(x)\) pode ser estimada, com base na amostra \(\{\pi_1, \ldots, \pi_n\}\), por
+<span class="eq">\[
+\hat{f}_X(x) = \frac{\lvert \{\pi_i : X(\pi_i) = x, i = 1, \ldots, n\} \rvert}{n}
+= \frac{1}{n} \sum_{i=1}^{n} I_{\{x\}}(X(\pi_i)),
+\]</span>
+isto é, a proporção de membros \(\pi\) da amostra que satisfazem \(X(\pi) = x\).</p>
+<p>Com variáveis categóricas, \(\hat{f}_X(x)\) estima a proporção populacional
+\(f_X(x)\) na categoria especificada por \(x\). Com algumas variáveis
+quantitativas, porém, \(f_X\) não é uma quantidade apropriada a estimar, e é
+preciso considerar uma função alternativa.</p>
+<h3 id="subsec-5.4.3"><span class="n">5.4.3</span> <span class="t">Histogramas</span></h3>
+<p>Variáveis quantitativas podem ainda ser classificadas como variáveis discretas
+ou contínuas. Variáveis contínuas são aquelas que podemos medir com precisão
+arbitrária à medida que aumentamos a exatidão de um instrumento de medição. Por
+exemplo, a altura de um indivíduo poderia ser considerada uma variável
+contínua, enquanto o número de anos de estudo de um indivíduo seria
+considerado uma variável quantitativa discreta. Para variáveis quantitativas
+discretas, \(f_X\) é uma quantidade apropriada para descrever uma distribuição
+populacional, mas procedemos de outro modo com variáveis quantitativas
+contínuas.</p>
+<p>Suponha que \(X\) é uma variável quantitativa contínua. Nesse caso, faz mais
+sentido <em>agrupar</em> os valores em intervalos, dados por
+<span class="eq">\[
+(h_1, h_2], (h_2, h_3], \ldots, (h_{m-1}, h_m],
+\]</span>
+em que os \(h_i\) são escolhidos de modo que \(h_1 &lt; h_2 &lt; \cdots &lt; h_m\), com
+\((h_1, h_m)\) cobrindo, na prática, o intervalo de valores possíveis de \(X\).
+Definimos então
+<span class="eq">\[
+h_X(x) =
+\begin{cases}
+\dfrac{\lvert \{\pi : X(\pi) \in (h_i, h_{i+1}]\} \rvert}{N(h_{i+1} - h_i)}
+&amp; x \in (h_i, h_{i+1}] \\[2ex]
+0 &amp; \text{caso contrário}
+\end{cases}
+\]</span>
+e chamamos \(h_X\) de <em>função histograma de densidade</em>. Aqui, \(h_X(x)\) é a
+proporção de elementos \(\pi\) da população cuja medição \(X(\pi)\) está no
+intervalo \((h_i, h_{i+1}]\) que contém \(x\), dividida pelo comprimento do
+intervalo.</p>
+<p>Na Figura 5.4.1, traçamos um histograma de densidade baseado numa amostra de
+10.000 da distribuição \(N(0, 1)\) (estamos tratando essa amostra como a
+população inteira), usando os valores \(h_1 = -5, h_2 = -4, \ldots, h_{11} = 5\).
+Note que as linhas verticais são apenas artefatos do programa de gráficos e não
+representam valores de \(h_X\), que são dados pelas linhas horizontais.</p>
+<figure class="figura">
+<img class="figura" src="figuras/fig-5.4.1.png" alt="">
+<figcaption id="figura-5.4.1"><span class="rot">Figura 5.4.1:</span> Função histograma de densidade de uma amostra de 10.000 da
+distribuição \(N(0, 1)\), usando os valores \(h_1 = -5, h_2 = -4, \ldots,
+h_{11} = 5\).</figcaption>
+</figure>
+<p>Se \(x \in (h_i, h_{i+1}]\), então \(h_X(x)(h_{i+1} - h_i)\) dá a proporção de
+indivíduos da população cuja medição \(X(\pi)\) está em \((h_i, h_{i+1}]\). Além
+disso, temos
+<span class="eq">\[
+F_X(h_j) = \int_{-\infty}^{h_j} h_X(x)\, dx
+\]</span>
+para cada extremo de intervalo e
+<span class="eq">\[
+F_X(h_j) - F_X(h_i) = \int_{h_i}^{h_j} h_X(x)\, dx
+\]</span>
+quando \(h_i \le h_j\). Se os intervalos \((h_i, h_{i+1}]\) são pequenos, esperamos
+que
+<span class="eq">\[
+F_X(b) - F_X(a) \approx \int_a^b h_X(x)\, dx
+\]</span>
+para qualquer escolha de \(a &lt; b\).</p>
+<p>Suponha agora que os comprimentos \(h_{i+1} - h_i\) são pequenos e que \(N\) é muito
+grande. Então faz sentido imaginar uma função suave e contínua \(f_X\), por
+exemplo, talvez uma função densidade normal ou gama, que aproxima \(h_X\) no
+sentido de que
+<span class="eq">\[
+\int_a^b f_X(x)\, dx \approx \int_a^b h_X(x)\, dx
+\]</span>
+para todo \(a &lt; b\). Então teremos também
+<span class="eq">\[
+\int_a^b f_X(x)\, dx \approx F_X(b) - F_X(a)
+\]</span>
+para todo \(a &lt; b\). Chamaremos tal \(f_X\) de função densidade da distribuição
+populacional.</p>
+<p>Em essência, é assim que muitas distribuições contínuas surgem na prática. Na
+Figura 5.4.2, traçamos um histograma de densidade para os mesmos valores usados
+na Figura 5.4.1, mas desta vez usamos os extremos de intervalo
+\(h_1 = -5, h_2 = -4{,}75, \ldots, h_{41} = 5\). Notamos que a Figura 5.4.2 se
+parece muito mais com uma função contínua do que a Figura 5.4.1.</p>
+<figure class="figura">
+<img class="figura" src="figuras/fig-5.4.2.png" alt="">
+<figcaption id="figura-5.4.2"><span class="rot">Figura 5.4.2:</span> Função histograma de densidade de uma amostra de 10.000 da
+distribuição \(N(0, 1)\), usando os valores \(h_1 = -5, h_2 = -4{,}75, \ldots,
+h_{41} = 5\).</figcaption>
+</figure>
+<h3 id="subsec-5.4.4"><span class="n">5.4.4</span> <span class="t">Amostragem por Levantamento</span></h3>
+<p>A amostragem de populações finitas fornece a formulação de uma aplicação muito
+importante da estatística, a saber, a <em>amostragem por levantamento<sup class="nota-ref nota-termo"><a href="#nota-34" id="ref-34">34</a></sup></em> ou
+<em>pesquisa de opinião</em>. Em geral, um levantamento consiste num conjunto de
+perguntas feitas a uma amostra \(\{\pi_1, \ldots, \pi_n\}\) de uma população
+\(\Pi\). Cada pergunta corresponde a uma medição, de modo que, se há \(m\)
+perguntas, a resposta de um respondente \(\pi\) é o vetor \(m\)-dimensional
+\((X_1(\pi), X_2(\pi), \ldots, X_m(\pi))\). Um exemplo muito importante de
+amostragem por levantamento são as pesquisas eleitorais feitas para prever o
+resultado de uma votação. Além disso, muitas empresas de bens de consumo
+realizam extensas pesquisas de mercado para tentar descobrir o que os
+consumidores querem e, assim, obter informações que possam levar a vendas
+maiores.</p>
+<p>Em geral, a análise dos resultados se interessa não só pelas distribuições
+populacionais de cada \(X_i\) sobre a população, mas também pelas distribuições
+populacionais conjuntas. Por exemplo, a função de distribuição acumulada
+conjunta de \((X_1, X_2)\) é dada por
+<span class="eq">\[
+F_{(X_1, X_2)}(x_1, x_2)
+= \frac{\lvert \{\pi : X_1(\pi) \le x_1, X_2(\pi) \le x_2\} \rvert}{N},
+\]</span>
+isto é, \(F_{(X_1, X_2)}(x_1, x_2)\) é a proporção dos indivíduos da população
+cuja medição \(X_1\) não passa de \(x_1\) e cuja medição \(X_2\) não passa de \(x_2\).
+É claro que podemos também definir as distribuições conjuntas de três ou mais
+medições. Essas distribuições conjuntas são o que usamos para responder a
+perguntas como: há relação entre \(X_1\) e \(X_2\) e, se houver, que forma ela
+assume? Esse tema será discutido extensamente no Capítulo 10. Podemos também
+definir \(f_{(X_1, X_2)}\) para a distribuição conjunta<sup class="nota-ref nota-termo"><a href="#nota-35" id="ref-35">35</a></sup>, e histogramas de
+densidade conjuntos são de novo úteis quando \(X_1\) e \(X_2\) são ambas variáveis
+quantitativas contínuas.</p>
+<div class="ex" id="exemplo-5.4.3"><div class="cab"><span class="rot">Exemplo 5.4.3</span></div><div class="txt fim"><p>Suponha que há quatro candidatos concorrendo a prefeito de certa cidade. Uma
+amostra aleatória de 1000 eleitores é selecionada; cada um deles é perguntado
+se vai votar e, em caso afirmativo, em qual dos quatro candidatos vai votar.
+Além disso, pergunta-se a idade dos respondentes. Denotamos a resposta à
+pergunta sobre se vão ou não votar por \(X_1\), com \(X_1(\pi) = 1\) significando
+sim e \(X_1(\pi) = 0\) significando não. Para os que vão votar, denotamos por
+\(X_2\) a resposta sobre o candidato em quem vão votar, com \(X_2(\pi) = i\)
+indicando o candidato \(i\). Por fim, a idade do respondente, em anos, é denotada
+por \(X_3\). Além das distribuições de \(X_1\) e \(X_2\), o pesquisador também se
+interessa pelas distribuições conjuntas de \((X_1, X_3)\) e \((X_2, X_3)\), pois
+elas nos informam sobre a relação entre a participação dos eleitores e a idade,
+no primeiro caso, e entre a escolha de candidato e a idade, no segundo.</p></div></div>
+<p>Há muitos aspectos interessantes e importantes da amostragem por levantamento
+que vão bem além deste livro. Por exemplo, muitas vezes acontece, em
+populações humanas, que uma pessoa selecionada ao acaso não responda a um
+levantamento. Isso se chama <em>erro de não resposta<sup class="nota-ref nota-termo"><a href="#nota-36" id="ref-36">36</a></sup></em>, e é um efeito de
+seleção sério. Quem faz a amostragem precisa planejar o estudo com cuidado para
+tentar atenuar os efeitos do erro de não resposta. Além disso, há variantes da
+amostragem aleatória simples (veja o Desafio 5.4.20) que podem ser preferíveis
+em certos contextos, pois aumentam a precisão dos resultados. O desenho do
+questionário usado também é muito importante, pois precisamos garantir que as
+respostas tratem das questões pretendidas sem enviesar os resultados.</p>
+<section class="resumo"><h4>Resumo da Seção 5.4</h4><ul><li>A amostragem aleatória simples de uma população \(\Pi\) significa que
+  selecionamos ao acaso um subconjunto de tamanho \(n\) de \(\Pi\) de modo que
+  cada subconjunto de \(n\) elementos tenha a mesma probabilidade — a saber,
+  \(1/\binom{\lvert \Pi \rvert}{n}\) — de ser selecionado.</li>
+<li>Os dados que surgem de um estudo amostral são gerados pela distribuição
+  da medição de interesse \(X\) sobre a população \(\Pi\) inteira, e não sobre
+  alguma subpopulação. É por isso que estudos amostrais são preferíveis a
+  estudos observacionais.</li>
+<li>Quando o tamanho da amostra \(n\) é pequeno em relação a
+  \(\lvert \Pi \rvert\), podemos tratar os valores observados de \(X\) como uma
+  amostra da distribuição de \(X\) sobre a população.</li></ul></section>
+<h4 class="bloco bloco-exercicios">Exercícios</h4>
+<p class="exerc" id="exerc-5.4.1"><span class="k">5.4.1</span> Suponha que temos uma população
+\(\Pi = \{\pi_1, \ldots, \pi_{10}\}\) e a medição quantitativa \(X\) dada por:</p>
+<div class="centro"><div class="tbl"><table><tr><th>\(i\)</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th></tr><tr><td>\(X(\pi_i)\)</td><td>1</td><td>1</td><td>2</td><td>1</td><td>2</td><td>3</td><td>3</td><td>1</td><td>2</td><td>4</td></tr></table></div></div>
+<p>Calcule \(F_X\), \(f_X\), \(\mu_X\) e \(\sigma_X^2\).</p>
+<p class="exerc" id="exerc-5.4.2"><span class="k">5.4.2</span> Suponha que você toma uma amostra de \(n = 3\) (sem reposição) da
+população do Exercício 5.4.1.
+<span class="parte"><span class="pl">(a)</span>  Você pode considerar isso uma amostra aproximadamente i.i.d. da
+distribuição populacional? Por quê?</span><span class="parte"><span class="pl">(b)</span>  Explique como você faria fisicamente a amostragem da população nesse
+caso. (Sugestão: Tabela D.1.)</span><span class="parte"><span class="pl">(c)</span>  Usando o método que você descreveu na parte (b), gere três amostras
+de tamanho \(n = 3\) e calcule \(\bar{X}\) para cada amostra.</span></p>
+<p class="exerc" id="exerc-5.4.3"><span class="k">5.4.3</span> Suponha que você toma uma amostra de \(n = 4\) (com reposição) da
+população do Exercício 5.4.1.
+<span class="parte"><span class="pl">(a)</span>  Você pode considerar isso uma amostra aproximadamente i.i.d. da
+distribuição populacional? Por quê?</span><span class="parte"><span class="pl">(b)</span>  Explique como você faria fisicamente a amostragem nesse caso.</span><span class="parte"><span class="pl">(c)</span>  Usando o método que você descreveu na parte (b), gere três amostras
+de tamanho \(n = 3\)<sup class="nota-ref nota-tradutor"><a href="#nota-37" id="ref-37">37</a></sup> e calcule \(\bar{X}\) para cada amostra.</span></p>
+<p class="exerc" id="exerc-5.4.4"><span class="k">5.4.4</span> Suponha que temos uma população finita \(\Pi\) e uma medição
+\(X : \Pi \to \{0, 1\}\), em que \(\lvert \Pi \rvert = N\) e
+\(\lvert \{\pi : X(\pi) = 0\} \rvert = a\).
+<span class="parte"><span class="pl">(a)</span>  Determine \(f_X(0)\) e \(f_X(1)\). Você consegue identificar essa
+distribuição populacional?</span><span class="parte"><span class="pl">(b)</span>  Para uma amostra aleatória simples de tamanho \(n\), determine a
+probabilidade de que \(n\hat{f}_X(0) = x\).</span><span class="parte"><span class="pl">(c)</span>  Sob a suposição de amostragem i.i.d., determine a probabilidade de
+que \(n\hat{f}_X(0) = x\).</span></p>
+<p class="exerc" id="exerc-5.4.5"><span class="k">5.4.5</span> Suponha que a seguinte amostra de tamanho \(n = 20\) é obtida de um
+processo industrial.</p>
+<div class="centro"><div class="tbl"><table><tr><th>3,9</th><th>7,2</th><th>6,9</th><th>4,5</th><th>5,8</th><th>3,7</th><th>4,4</th><th>4,5</th><th>5,6</th><th>2,5</th></tr><tr><td>4,8</td><td>8,5</td><td>4,3</td><td>1,2</td><td>2,3</td><td>3,1</td><td>3,4</td><td>4,8</td><td>1,8</td><td>3,7</td></tr></table></div></div>
+<p><span class="parte"><span class="pl">(a)</span>  Construa um histograma de densidade para esse conjunto de dados
+usando os intervalos \((1; 4{,}5]\), \((4{,}5; 5{,}5]\), \((5{,}5; 6{,}5]\), \((6{,}5; 10]\).</span><span class="parte"><span class="pl">(b)</span>  Construa um histograma de densidade para esse conjunto de dados
+usando os intervalos \((1; 3{,}5]\), \((3{,}5; 4{,}5]\), \((4{,}5; 6{,}5]\), \((6{,}5; 10]\).</span><span class="parte"><span class="pl">(c)</span>  Com base nos resultados das partes (a) e (b), o que você conclui
+sobre histogramas?</span></p>
+<p class="exerc" id="exerc-5.4.6"><span class="k">5.4.6</span> Suponha que se sabe que, numa população de 1000 alunos, 350 alunos
+vão votar no partido \(A\), 550 alunos vão votar no partido \(B\) e os alunos
+restantes vão votar no partido \(C\).
+<span class="parte"><span class="pl">(a)</span>  Explique como tal informação pode ser obtida.</span><span class="parte"><span class="pl">(b)</span>  Se tomamos \(X : \Pi \to \{A, B, C\}\) tal que \(X(\pi)\) é o partido em
+que \(\pi\) vai votar, explique por que não podemos representar a distribuição
+populacional de \(X\) por \(F_X\).</span><span class="parte"><span class="pl">(c)</span>  Calcule \(f_X\).</span><span class="parte"><span class="pl">(d)</span>  Explique como se poderia estimar \(f_X\) antes da eleição.</span><span class="parte"><span class="pl">(e)</span>  O que há de irrealista na distribuição populacional especificada por
+\(f_X\)? (Sugestão: isso parece realista, com base no que você sabe sobre o
+comportamento dos eleitores?)</span></p>
+<p class="exerc" id="exerc-5.4.7"><span class="k">5.4.7</span> Considere a população \(\Pi\) como os arquivos armazenados num
+computador num certo momento. Suponha que \(X(\pi)\) é o tipo do arquivo, conforme
+indicado por sua extensão, por exemplo, .mp3. \(X\) é uma variável categórica ou
+quantitativa?</p>
+<p class="exerc" id="exerc-5.4.8"><span class="k">5.4.8</span> Suponha que lhe pedem para estimar a proporção de alunos de uma
+faculdade de 15.000 alunos que pretendem trabalhar durante as férias de verão.
+<span class="parte"><span class="pl">(a)</span>  Identifique a população \(\Pi\), a variável \(X\) e \(f_X\). Que tipo de
+variável é \(X\)?</span><span class="parte"><span class="pl">(b)</span>  Como você poderia determinar \(f_X\) exatamente?</span><span class="parte"><span class="pl">(c)</span>  Por que você poderia não conseguir determinar \(f_X\) exatamente?
+Proponha um procedimento para estimar \(f_X\) nessa situação.</span><span class="parte"><span class="pl">(d)</span>  Suponha que lhe pediram também para estimar a proporção de alunos que
+pretendiam trabalhar mas não conseguiram encontrar emprego. Repita as
+partes (a), (b) e (c) para essa situação.</span></p>
+<p class="exerc" id="exerc-5.4.9"><span class="k">5.4.9</span> Às vezes, os participantes de uma pesquisa de opinião não
+respondem com sinceridade a uma pergunta. Por exemplo, alunos a quem se
+pergunta “Você já baixou música ilegalmente?” podem não responder com
+sinceridade, mesmo que tenham a garantia de que suas respostas são
+confidenciais. Suponha que uma amostra aleatória simples de alunos foi
+escolhida numa faculdade e que essa pergunta foi feita aos alunos.
+<span class="parte"><span class="pl">(a)</span>  Se a pergunta foi feita aos alunos por uma pessoa, comente como você
+acha que os resultados do estudo amostral seriam afetados.</span><span class="parte"><span class="pl">(b)</span>  Se os alunos puderam responder anonimamente, talvez enviando um
+questionário pelo correio, comente como você acha que os resultados seriam
+afetados.</span><span class="parte"><span class="pl">(c)</span>  Uma técnica para lidar com o viés do respondente induzido por tais
+perguntas é fazer os alunos responderem com sinceridade apenas quando ocorre
+certo evento aleatório. Por exemplo, poderíamos pedir a um aluno que lance uma
+moeda honesta três vezes e minta sempre que obtiver duas caras. Qual é a
+probabilidade de que um aluno diga a verdade? Depois de concluir o estudo e
+registrar a proporção de alunos que disseram ter trapaceado, que proporção você
+registraria como sua estimativa da proporção de alunos que de fato
+trapacearam?</span></p>
+<p class="exerc" id="exerc-5.4.10"><span class="k">5.4.10</span> Uma empresa de pesquisa de mercado é contratada para determinar
+quão satisfeitos os proprietários estão com a compra de um carro novo nos
+últimos 6 meses. A satisfação deve ser medida pelos respondentes escolhendo um
+ponto numa escala de sete pontos \(\{1, 2, 3, 4, 5, 6, 7\}\), em que 1 indica
+completamente insatisfeito e 7 indica completamente satisfeito (tal escala é
+comumente chamada de <em>escala Likert</em>).
+<span class="parte"><span class="pl">(a)</span>  Identifique \(\Pi\), a variável \(X\) e \(f_X\).</span><span class="parte"><span class="pl">(b)</span>  É comum tratar uma variável como \(X\) como uma variável quantitativa.
+Você acha que isso está correto? Seria correto tratar \(X\) como uma variável
+categórica?</span><span class="parte"><span class="pl">(c)</span>  Uma crítica comum ao uso de tal escala é que a interpretação de uma
+afirmação como \(3 = {}\)“estou um pouco insatisfeito” varia de uma pessoa para
+outra. Comente como isso afeta a validade do estudo.</span></p>
+<h4 class="bloco bloco-exercicios-computacionais">Exercícios computacionais</h4>
+<p class="exerc" id="exerc-5.4.11"><span class="k">5.4.11</span> Gere uma amostra de 1000 da distribuição \(N(3, 2)\).
+<span class="parte"><span class="pl">(a)</span>  Calcule \(\hat{F}_X\) para essa amostra.</span><span class="parte"><span class="pl">(b)</span>  Trace um histograma de densidade baseado nesses dados usando os
+intervalos de comprimento 1 na faixa \((-5, 10)\).</span><span class="parte"><span class="pl">(c)</span>  Trace um histograma de densidade baseado nesses dados usando os
+intervalos de comprimento \(0{,}1\) na faixa \((-5, 10)\).</span><span class="parte"><span class="pl">(d)</span>  Comente a diferença na aparência dos histogramas das partes (b) e (c).
+A que você atribui isso?</span><span class="parte"><span class="pl">(e)</span>  O que limita o tamanho dos intervalos que usamos para agrupar as
+observações quando traçamos histogramas?</span></p>
+<p class="exerc" id="exerc-5.4.12"><span class="k">5.4.12</span> Suponha que temos uma população de 10.000 elementos, cada um com
+um rótulo único do conjunto \(\{1, 2, 3, \ldots, 10.000\}\).
+<span class="parte"><span class="pl">(a)</span>  Gere uma amostra de 500 rótulos dessa população usando amostragem
+aleatória simples.</span><span class="parte"><span class="pl">(b)</span>  Gere uma amostra de 500 rótulos dessa população usando amostragem
+i.i.d.</span></p>
+<h4 class="bloco bloco-problemas">Problemas</h4>
+<p class="exerc" id="exerc-5.4.13"><span class="k">5.4.13</span> Suponha que temos uma população finita \(\Pi\) e uma medição
+\(X : \Pi \to \{0, 1, 2\}\), em que \(\lvert \Pi \rvert = N\),
+\(\lvert \{\pi : X(\pi) = 0\} \rvert = a\) e
+\(\lvert \{\pi : X(\pi) = 1\} \rvert = b\). Este problema generaliza o
+Exercício 5.4.4.
+<span class="parte"><span class="pl">(a)</span>  Determine \(f_X(0)\), \(f_X(1)\) e \(f_X(2)\).</span><span class="parte"><span class="pl">(b)</span>  Para uma amostra aleatória simples de tamanho \(n\), determine a
+probabilidade de que \(\hat{f}_X(0) = f_0\), \(\hat{f}_X(1) = f_1\) e
+\(\hat{f}_X(2) = f_2\).</span><span class="parte"><span class="pl">(c)</span>  Sob a suposição de amostragem i.i.d., determine a probabilidade de
+que \(\hat{f}_X(0) = f_0\), \(\hat{f}_X(1) = f_1\) e \(\hat{f}_X(2) = f_2\).</span></p>
+<p class="exerc" id="exerc-5.4.14"><span class="k">5.4.14</span> Suponha que \(X\) é uma medição quantitativa definida numa
+população finita.
+<span class="parte"><span class="pl">(a)</span>  Prove que a média populacional é igual a
+\(\mu_X = \sum_x x f_X(x)\), isto é, que a média de \(X(\pi)\) sobre todos os
+elementos \(\pi\) da população é igual a \(\mu_X\).</span><span class="parte"><span class="pl">(b)</span>  Prove que a variância populacional é dada por
+\(\sigma_X^2 = \sum_x (x - \mu_X)^2 f_X(x)\), isto é, que a média de
+\((X(\pi) - \mu_X)^2\) sobre todos os elementos \(\pi\) da população é igual a
+\(\sigma_X^2\).</span></p>
+<p class="exerc" id="exerc-5.4.15"><span class="k">5.4.15</span> Suponha que temos a situação descrita no Exercício 5.4.4 e que
+tomamos uma amostra aleatória simples de tamanho \(n\) de \(\Pi\), em que
+\(\lvert \Pi \rvert = N\).
+<span class="parte"><span class="pl">(a)</span>  Prove que a média de \(\hat{f}_X(0)\) é dada por \(f_X(0)\). (Sugestão:
+note que podemos escrever
+<span class="mat-quebravel">\(\hat{f}_X(0)\) \({}= n^{-1} \sum_{i=1}^{n} I_{\{0\}}(X(\pi_i))\)</span> e
+\(I_{\{0\}}(X(\pi_i)) \sim \text{Bernoulli}(f_X(0))\).)</span><span class="parte"><span class="pl">(b)</span>  Prove que a variância de \(\hat{f}_X(0)\) é dada por
+<span class="eq">\begin{equation}
+\frac{f_X(0)(1 - f_X(0))}{n} \, \frac{N - n}{N - 1}.
+\tag{5.4.1}
+\end{equation}</span>
+(Sugestão: use a sugestão da parte (a), mas note que os \(I_{\{0\}}(X(\pi_i))\)
+não são independentes. Use o Teorema 3.3.4(b) e calcule
+\(\Cov\bigl(I_{\{0\}}(X(\pi_i)), I_{\{0\}}(X(\pi_i))\bigr)\)<sup class="nota-ref nota-tradutor"><a href="#nota-38" id="ref-38">38</a></sup> em termos de \(f_X(0)\).)</span><span class="parte"><span class="pl">(c)</span>  Repita as contas das partes (a) e (b), mas desta vez suponha que você
+toma uma amostra de \(n\) com reposição. (Sugestão: use o
+Exercício 5.4.4(c).)</span><span class="parte"><span class="pl">(d)</span>  Explique por que o fator \((N - n)/(N - 1)\) em (5.4.1) é chamado de
+<em>fator de correção para população finita<sup class="nota-ref nota-termo"><a href="#nota-39" id="ref-39">39</a></sup></em>.</span></p>
+<p class="exerc" id="exerc-5.4.16"><span class="k">5.4.16</span> Suponha que temos uma população finita \(\Pi\) e que não
+conhecemos \(\lvert \Pi \rvert = N\). Além disso, suponha que temos uma variável
+de medição \(X : \Pi \to \{0, 1\}\) e que sabemos que \(Nf_X(0) = a\), em que \(a\) é
+conhecido. Com base numa amostra aleatória simples de \(n\) elementos de \(\Pi\),
+determine um estimador de \(N\). (Sugestão: use uma função de \(\hat{f}_X(0)\).)</p>
+<p class="exerc" id="exerc-5.4.17"><span class="k">5.4.17</span> Suponha que \(X\) é uma variável quantitativa definida numa
+população \(\Pi\) e que tomamos uma amostra aleatória simples de tamanho \(n\) de
+\(\Pi\).
+<span class="parte"><span class="pl">(a)</span>  Se estimamos a média populacional \(\mu_X\) pela média amostral
+\(\bar{X} = \frac{1}{n} \sum_{i=1}^{n} X(\pi_i)\), prove que
+\(E(\bar{X}) = \mu_X\), em que \(\mu_X\) é definida no Problema 5.4.14(a).
+(Sugestão: qual é a distribuição de cada \(X(\pi_i)\)?)</span><span class="parte"><span class="pl">(b)</span>  Sob a suposição de que a amostragem i.i.d. faz sentido, mostre que
+a variância de \(\bar{X}\) é igual a \(\sigma_X^2/n\), em que \(\sigma_X^2\) é
+definida no Problema 5.4.14(b).</span></p>
+<p class="exerc" id="exerc-5.4.18"><span class="k">5.4.18</span> Suponha que temos uma população finita \(\Pi\) e que não
+conhecemos \(\lvert \Pi \rvert = N\). Além disso, suponha que temos uma variável
+de medição \(X : \Pi \to R^1\) e que conhecemos \(T = \sum_\pi X(\pi)\). Com base
+numa amostra aleatória simples de \(n\) elementos de \(\Pi\), determine um estimador
+de \(N\). (Sugestão: use uma função de \(\bar{X}\).)</p>
+<p class="exerc" id="exerc-5.4.19"><span class="k">5.4.19</span> Sob amostragem i.i.d., prove que
+\(\hat{f}_X(x) \xrightarrow{D} f_X(x)\) quando \(n \to \infty\). (Sugestão:
+<span class="mat-quebravel">\(\hat{f}_X(x)\) \({}= n^{-1} \sum_{i=1}^{n} I_{\{x\}}(X(\pi_i))\)</span>.)</p>
+<h4 class="bloco bloco-desafios">Desafios</h4>
+<p class="exerc" id="exerc-5.4.20"><span class="k">5.4.20</span> (<em>Amostragem estratificada<sup class="nota-ref nota-termo"><a href="#nota-40" id="ref-40">40</a></sup></em>) Suponha que \(X\) é uma variável
+quantitativa definida numa população \(\Pi\) e que podemos particionar \(\Pi\) em
+duas subpopulações \(\Pi_1\) e \(\Pi_2\), de modo que uma proporção \(p\) da
+população inteira esteja em \(\Pi_1\). Seja \(f_{iX}\) a distribuição populacional
+condicional de \(X\) em \(\Pi_i\).
+<span class="parte"><span class="pl">(a)</span>  Prove que \(f_X(x) = p f_{1X}(x) + (1 - p) f_{2X}(x)\).</span><span class="parte"><span class="pl">(b)</span>  Estabeleça que \(\mu_X = p\mu_{1X} + (1 - p)\mu_{2X}\), em que
+\(\mu_{iX}\) é a média de \(X\) em \(\Pi_i\).</span><span class="parte"><span class="pl">(c)</span>  Estabeleça que
+<span class="mat-quebravel">\(\sigma_X^2 = p\sigma_{1X}^2\) \({}+ (1 - p)\sigma_{2X}^2\) \({}+ p(1 - p)(\mu_{1X} - \mu_{2X})^2\)</span>.</span><span class="parte"><span class="pl">(d)</span>  Suponha que faz sentido supor amostragem i.i.d. sempre que tomamos
+uma amostra da população inteira ou de qualquer uma das subpopulações, isto é,
+sempre que os tamanhos de amostra que estamos considerando são pequenos em
+relação aos tamanhos dessas populações. Implementamos a amostragem
+estratificada tomando uma amostra aleatória simples de tamanho \(n_i\) da
+subpopulação \(\Pi_i\). Estimamos então \(\mu_X\) por
+\(p\bar{X}_1 + (1 - p)\bar{X}_2\), em que \(\bar{X}_i\) é a média amostral baseada
+na amostra de \(\Pi_i\). Prove que \(E(p\bar{X}_1 + (1 - p)\bar{X}_2) = \mu_X\) e
+<span class="eq">\[
+\Var\bigl(p\bar{X}_1 + (1 - p)\bar{X}_2\bigr)
+= p^2 \frac{\sigma_{1X}^2}{n_1} + (1 - p)^2 \frac{\sigma_{2X}^2}{n_2}.
+\]</span></span><span class="parte"><span class="pl">(e)</span>  Sob as suposições da parte (d), prove que
+<span class="eq">\[
+\Var\bigl(p\bar{X}_1 + (1 - p)\bar{X}_2\bigr) \le \Var\bigl(\bar{X}\bigr)
+\]</span>
+quando \(\bar{X}\) se baseia numa amostra aleatória simples de tamanho \(n\) da
+população inteira e \(n_1 = pn\), \(n_2 = (1 - p)n\). Isso se chama
+<em>amostragem estratificada proporcional</em>.</span><span class="parte"><span class="pl">(f)</span>  Em que condições não há benefício na amostragem estratificada
+proporcional? O que você conclui sobre as situações em que a amostragem
+estratificada será mais benéfica?</span></p>
+<h4 class="bloco bloco-discussao">Tópicos para discussão</h4>
+<p class="exerc" id="exerc-5.4.21"><span class="k">5.4.21</span> Às vezes, argumenta-se que um profissional habilidoso consegue
+escolher, de forma determinística, uma amostra representativa de uma população
+mais precisa do que empregando a amostragem aleatória simples. Esse argumento
+se baseia, em parte, no argumento de que, com a amostragem aleatória simples,
+é sempre possível obter, por puro acaso, uma amostra muito pouco
+representativa, e que isso pode ser evitado por um especialista. Comente essa
+afirmação.</p>
+<p class="exerc" id="exerc-5.4.22"><span class="k">5.4.22</span> Suponha que se afirma que uma medição quantitativa \(X\) definida
+numa população finita \(\Pi\) tem distribuição aproximadamente normal, com média
+desconhecida e variância desconhecida. Explique detalhadamente o que essa
+afirmação significa.</p>
+<h2 id="sec-5.5"><span class="n">5.5</span> <span class="t">Algumas Inferências Básicas</span></h2>
+<p>Suponha agora que estamos numa situação que envolve uma medição \(X\), cuja
+distribuição é desconhecida, e que obtivemos os dados \((x_1, x_2, \ldots, x_n)\),
+isto é, observamos \(n\) valores de \(X\). Espera-se que esses dados tenham resultado
+de uma amostragem aleatória simples, mas talvez eles tenham sido coletados como
+parte de um estudo observacional. Denote por \(f_X\) a função de frequência relativa
+populacional desconhecida associada, ou uma densidade que a aproxime, e por \(F_X\)
+a função de distribuição populacional.</p>
+<p>O que fazemos agora com os dados depende de duas coisas. Primeiro, temos de
+determinar o que queremos saber sobre a distribuição populacional subjacente.
+Tipicamente, nosso interesse está em apenas algumas características dessa
+distribuição — a média e a variância. Segundo, temos de usar a teoria
+estatística para combinar os dados com o modelo estatístico e fazer inferências
+sobre as características de interesse.</p>
+<p>Discutimos agora algumas características de interesse típicas e apresentamos
+alguns métodos informais de estimação<sup class="nota-ref nota-termo"><a href="#nota-41" id="ref-41">41</a></sup> dessas características, conhecidos como
+<em>estatísticas descritivas</em>. Elas costumam ser usadas como um passo
+preliminar antes de se tirarem inferências mais formais e se justificam por
+razões intuitivas simples. São chamadas de descritivas porque estimam
+quantidades que <em>descrevem</em> aspectos da distribuição subjacente.</p>
+<h3 id="subsec-5.5.1"><span class="n">5.5.1</span> <span class="t">Estatísticas Descritivas</span></h3>
+<p>Os estatísticos muitas vezes se concentram em várias características das
+distribuições. Apresentamos algumas delas nos exemplos a seguir.</p>
+<div class="ex" id="exemplo-5.5.1"><div class="cab"><span class="rot">Exemplo 5.5.1</span> <span class="nome">Estimando Proporções e Proporções Acumuladas</span></div><div class="txt fim"><p>Muitas vezes queremos fazer inferências sobre o valor \(f_X(x)\) ou o valor
+\(F_X(x)\) para um \(x\) específico. Lembre que \(f_X(x)\) é a proporção de membros da
+população cuja medição \(X\) é igual a \(x\). Em geral, \(F_X(x)\) é a proporção de
+membros da população cuja medição \(X\) é menor ou igual a \(x\).</p>
+<p>Suponha agora que temos uma amostra \((x_1, x_2, \ldots, x_n)\) de \(f_X\). Uma
+estimativa natural de \(f_X(x)\) é dada por \(\hat{f}_X(x)\), a proporção de valores
+amostrais iguais a \(x\). Uma estimativa natural de \(F_X(x)\) é dada por
+<span class="mat-quebravel">\(\hat{F}_X(x)\) \({}= n^{-1} \sum_{i=1}^{n} I_{(-\infty, x]}(x_i)\)</span>, a proporção de
+valores amostrais menores ou iguais a \(x\), também conhecida como a função de
+distribuição empírica avaliada em \(x\).</p>
+<p>Suponha que obtivemos a seguinte amostra de \(n = 10\) valores.</p>
+<div class="centro"><div class="tbl"><table><tr><th>\(1{,}2\)</th><th>\(2{,}1\)</th><th>\(0{,}4\)</th><th>\(3{,}3\)</th><th>\(-2{,}1\)</th><th>\(4{,}0\)</th><th>\(-0{,}3\)</th><th>\(2{,}2\)</th><th>\(1{,}5\)</th><th>\(5{,}0\)</th></tr></table></div></div>
+<p>Nesse caso, \(\hat{f}_X(x) = 0{,}1\) sempre que \(x\) é um valor dos dados, e vale \(0\)
+caso contrário. Para calcular \(\hat{F}_X(x)\), basta contar quantos valores
+amostrais são menores ou iguais a \(x\) e dividir por \(n = 10\). Por exemplo,
+\(\hat{F}_X(-3) = 0/10 = 0\), \(\hat{F}_X(0) = 2/10 = 0{,}2\) e
+\(\hat{F}_X(4) = 9/10 = 0{,}9\).</p></div></div>
+<p>Uma classe importante de características da distribuição de uma variável
+quantitativa \(X\) é dada pela definição a seguir.</p>
+<div class="def definicao" id="definicao-5.5.1"><div class="cab"><span class="rot">Definição 5.5.1</span></div><div class="txt"><p>Para \(p \in [0, 1]\), o <em>\(p\)-ésimo quantil</em> (ou <em>\(100p\)-ésimo
+percentil</em>) \(x_p\) da distribuição com fda \(F_X\) é definido como o menor número
+\(x_p\) que satisfaz \(p \le F_X(x_p)\).</p></div></div>
+<p>Por exemplo, se a sua nota numa prova o colocou no 90º percentil, então sua nota
+é igual a \(x_{0{,}9}\) e 90% dos colegas que fizeram a prova tiraram a sua nota ou
+menos. Observe que, pela definição da função de distribuição acumulada inversa
+(Definição 2.10.1), podemos escrever
+\(x_p = F_X^{-1}(p) = \min\{x : p \le F_X(x)\}\).</p>
+<p>Quando \(F_X\) é estritamente crescente<sup class="nota-ref nota-termo"><a href="#nota-42" id="ref-42">42</a></sup> e contínua, \(F_X^{-1}(p)\) é o único valor
+\(x_p\) que satisfaz
+<span class="eq">\begin{equation}
+F_X(x_p) = p. \tag{5.5.1}
+\end{equation}</span>
+A Figura 5.5.1 ilustra a situação em que há uma única solução de (5.5.1). Quando
+\(F_X\) não é estritamente crescente ou não é contínua (como quando \(X\) é
+discreta), pode haver mais de uma solução de (5.5.1), ou nenhuma. A Figura 5.5.2
+ilustra a situação em que não há solução de (5.5.1).</p>
+<figure class="figura">
+  <img class="figura" src="figuras/tikz-e03b133cd281.svg" alt="" style="width: min(100%, 39.1em)">
+  <figcaption id="figura-5.5.1"><span class="rot">Figura 5.5.1:</span> O \(p\)-ésimo quantil \(x_p\) quando há uma única solução de (5.5.1).</figcaption>
+</figure>
+<figure class="figura">
+  <img class="figura" src="figuras/tikz-0cbc61dd4d08.svg" alt="" style="width: min(100%, 41.5em)">
+  <figcaption id="figura-5.5.2"><span class="rot">Figura 5.5.2:</span> O \(p\)-ésimo quantil \(x_p\) determinado por uma fda \(F_X\) quando não há
+  solução de (5.5.1).</figcaption>
+</figure>
+<p>Assim, quando \(X\) é uma medição contínua, uma proporção \(p\) da população tem sua
+medição \(X\) menor ou igual a \(x_p\). Como casos particulares,
+\(x_{0{,}5} = F_X^{-1}(0{,}5)\) é a <em>mediana</em>, enquanto
+\(x_{0{,}25} = F_X^{-1}(0{,}25)\) e \(x_{0{,}75} = F_X^{-1}(0{,}75)\) são,
+respectivamente, o primeiro e o terceiro <em>quartis</em> da distribuição.</p>
+<div class="ex" id="exemplo-5.5.2"><div class="cab"><span class="rot">Exemplo 5.5.2</span> <span class="nome">Estimando Quantis</span></div><div class="txt fim"><p>Uma estimativa natural de um quantil populacional \(x_p = F_X^{-1}(p)\) é usar
+\(\hat{x}_p = \hat{F}_X^{-1}(p)\). Observe, porém, que \(\hat{F}_X\) não é contínua,
+de modo que pode não haver solução de (5.5.1) usando \(\hat{F}_X\).</p>
+<p>Aplicar a Definição 5.5.1, porém, leva à estimativa a seguir. Primeiro, ordene os
+valores amostrais observados \((x_1, \ldots, x_n)\) para obter as
+<em>estatísticas de ordem<sup class="nota-ref nota-termo"><a href="#nota-43" id="ref-43">43</a></sup></em> \(x_{(1)} &lt; \cdots &lt; x_{(n)}\) (ver Seção 2.8.4).
+Depois, observe que \(x_{(i)}\) é o \((i/n)\)-ésimo quantil da distribuição empírica,
+porque
+<span class="eq">\[
+\hat{F}_X(x_{(i)}) = \frac{i}{n}
+\]</span>
+e \(\hat{F}_X(x) &lt; i/n\) sempre que \(x &lt; x_{(i)}\). Em geral, temos que o
+<em>\(p\)-ésimo quantil amostral</em> é \(\hat{x}_p = x_{(i)}\) sempre que
+<span class="eq">\begin{equation}
+\frac{i - 1}{n} &lt; p \le \frac{i}{n}. \tag{5.5.2}
+\end{equation}</span></p>
+<p>Algumas modificações dessa estimativa são usadas às vezes. Por exemplo, se
+encontrarmos \(i\) tal que (5.5.2) seja satisfeita e pusermos
+<span class="eq">\begin{equation}
+\tilde{x}_p = x_{(i-1)} + n\bigl(x_{(i)} - x_{(i-1)}\bigr)\left(p - \frac{i - 1}{n}\right),
+\tag{5.5.3}
+\end{equation}</span>
+então \(\tilde{x}_p\) é a interpolação linear entre \(x_{(i-1)}\) e \(x_{(i)}\). Quando
+\(n\) é par, essa definição dá a <em>mediana amostral<sup class="nota-ref nota-termo"><a href="#nota-44" id="ref-44">44</a></sup></em> como
+\(\tilde{x}_{0{,}5} = x_{(n/2)}\); uma fórmula parecida vale quando \(n\) é ímpar
+(Problema 5.5.21). Veja também o Problema 5.5.22 para mais discussão sobre
+(5.5.3).</p>
+<p>Com bastante frequência, a mediana amostral é definida como
+<span class="eq">\begin{equation}
+\check{x}_{0{,}5} =
+\begin{cases}
+x_{((n+1)/2)} &amp; n \text{ ímpar} \\[1ex]
+\frac{1}{2}\bigl(x_{(n/2)} + x_{(n/2+1)}\bigr) &amp; n \text{ par,}
+\end{cases}
+\tag{5.5.4}
+\end{equation}</span>
+isto é, o valor do meio quando \(n\) é ímpar e a média dos dois valores do meio
+quando \(n\) é par. Para \(n\) grande o bastante, todas essas definições dão
+respostas parecidas. Qualquer uma delas pode ser usada numa aplicação.</p>
+<p>Considere os dados do Exemplo 5.5.1. Ordenando os dados do menor para o maior,
+as estatísticas de ordem são dadas pela tabela a seguir.</p>
+<div class="centro"><div class="tbl"><table><tr><th>\(x_{(1)} = -2{,}1\)</th><th>\(x_{(2)} = -0{,}3\)</th><th>\(x_{(3)} = 0{,}4\)</th><th>\(x_{(4)} = 1{,}2\)</th><th>\(x_{(5)} = 1{,}5\)</th></tr><tr><td>\(x_{(6)} = 2{,}1\)</td><td>\(x_{(7)} = 2{,}2\)</td><td>\(x_{(8)} = 3{,}3\)</td><td>\(x_{(9)} = 4{,}0\)</td><td>\(x_{(10)} = 5{,}0\)</td></tr></table></div></div>
+<p>Então, usando (5.5.3), a mediana amostral é dada por
+\(\tilde{x}_{0{,}5} = x_{(5)} = 1{,}5\), enquanto os quartis amostrais<sup class="nota-ref nota-termo"><a href="#nota-45" id="ref-45">45</a></sup> são dados por
+<span class="eq">\begin{align*}
+\tilde{x}_{0{,}25} &amp;= x_{(2)} + 10\bigl(x_{(3)} - x_{(2)}\bigr)(0{,}25 - 0{,}2) \\
+&amp;= -0{,}3 + 10\,(0{,}4 - (-0{,}3))\,(0{,}25 - 0{,}2) = 0{,}05
+\end{align*}</span>
+e
+<span class="eq">\begin{align*}
+\tilde{x}_{0{,}75} &amp;= x_{(7)} + 10\bigl(x_{(8)} - x_{(7)}\bigr)(0{,}75 - 0{,}7) \\
+&amp;= 2{,}2 + 10\,(3{,}3 - 2{,}2)\,(0{,}75 - 0{,}7) = 2{,}75.
+\end{align*}</span>
+Assim, nesse caso, estimamos que 25% da população em estudo tem medição \(X\)
+menor que \(0{,}05\) etc.</p></div></div>
+<div class="ex" id="exemplo-5.5.3"><div class="cab"><span class="rot">Exemplo 5.5.3</span> <span class="nome">Medindo a Locação e a Escala de uma Distribuição Populacional</span></div><div class="txt fim"><p>Muitas vezes nos pedem para fazer inferências sobre o valor da <em>média
+populacional</em>
+<span class="eq">\[
+\mu_X = \frac{1}{\lvert\Pi\rvert} \sum_{\pi \in \Pi} X(\pi)
+\]</span>
+e da <em>variância populacional</em>
+<span class="eq">\[
+\sigma_X^2 = \frac{1}{\lvert\Pi\rvert} \sum_{\pi \in \Pi} \bigl(X(\pi) - \mu_X\bigr)^2,
+\]</span>
+em que \(\Pi\) é uma população finita e \(X\) é uma medição a valores reais definida
+sobre ela. Elas são, respectivamente, medidas da posição e da dispersão da
+distribuição populacional em torno da média. Observe que calcular uma média ou
+uma variância só faz sentido quando \(X\) é uma variável quantitativa.</p>
+<p>Quando \(X\) é discreta, podemos também escrever
+<span class="eq">\[
+\mu_X = \sum_{x} x f_X(x)
+\]</span>
+porque \(\lvert\Pi\rvert f_X(x)\) é igual ao número de elementos \(\pi \in \Pi\) com
+\(X(\pi) = x\). No caso contínuo, usando uma densidade aproximada \(f_X\), podemos
+escrever
+<span class="eq">\[
+\mu_X \approx \int_{-\infty}^{\infty} x f_X(x)\, dx.
+\]</span>
+Existem fórmulas parecidas para a variância populacional de \(X\) (ver Problema
+5.4.14).</p>
+<p>Provavelmente lhe ocorrerá que uma estimativa natural da média populacional
+\(\mu_X\) é dada pela média amostral
+<span class="eq">\[
+\bar{x} = \frac{1}{n} \sum_{i=1}^{n} x_i.
+\]</span>
+Do mesmo modo, uma estimativa natural da variância populacional \(\sigma_X^2\) é
+dada pela <em>variância amostral</em>
+<span class="eq">\begin{equation}
+s^2 = \frac{1}{n - 1} \sum_{i=1}^{n} (x_i - \bar{x})^2. \tag{5.5.5}
+\end{equation}</span>
+Mais adiante explicaremos por que dividimos por \(n - 1\) em (5.5.5), e não por
+\(n\). Na verdade, faz pouca diferença qual usamos, mesmo para valores modestos de
+\(n\). O <em>desvio padrão amostral</em> é dado por \(s\), a raiz quadrada positiva de
+\(s^2\). Para os dados do Exemplo 5.1.1, obtemos \(\bar{x} = 1{,}73\) e
+\(s = 2{,}097\).<sup class="nota-ref nota-tradutor"><a href="#nota-46" id="ref-46">46</a></sup></p>
+<p>A média populacional \(\mu_X\) e o desvio padrão populacional \(\sigma_X\) funcionam
+como um par, em que \(\mu_X\) mede onde a distribuição está localizada na reta real
+e \(\sigma_X\) mede quanta dispersão há na distribuição em torno de \(\mu_X\).
+Claramente, quanto maior o valor de \(\sigma_X\), mais variabilidade há na
+distribuição.</p>
+<p>Alternativamente, poderíamos usar a mediana populacional \(x_{0{,}5}\) como medida
+de posição da distribuição e a <em>amplitude interquartil<sup class="nota-ref nota-termo"><a href="#nota-47" id="ref-47">47</a></sup> populacional</em>
+\(x_{0{,}75} - x_{0{,}25}\) como medida da quantidade de variabilidade na distribuição
+em torno da mediana. A mediana e a amplitude interquartil são a escolha preferida
+para medir esses aspectos da distribuição sempre que a distribuição é
+<em>assimétrica</em>, isto é, não simétrica. Isso porque a mediana é insensível a
+valores muito extremos, enquanto a média não é. Por exemplo, sabe-se bem que os
+preços dos imóveis numa região apresentam uma distribuição assimétrica à
+direita. Umas poucas casas vendidas por preços muito altos não mudam o preço
+mediano, mas podem provocar uma grande mudança no preço médio.</p>
+<p>Quando temos uma distribuição simétrica, a média e a mediana coincidem (desde que
+a média exista). Quanto maior a assimetria<sup class="nota-ref nota-termo"><a href="#nota-48" id="ref-48">48</a></sup> de uma distribuição, porém, maior será
+a discrepância entre sua média e sua mediana. Por exemplo, na Figura 5.5.3
+traçamos o gráfico da densidade de uma distribuição \(\chi^2(4)\). Essa distribuição
+é assimétrica à direita, e a média é \(4\), enquanto a mediana é \(3{,}3567\).</p>
+<p>Estimamos a amplitude interquartil populacional pela <em>amplitude interquartil
+amostral</em> (IQR), dada por \(I\hat{Q}R = \tilde{x}_{0{,}75} - \tilde{x}_{0{,}25}\). Para
+os dados do Exemplo 5.5.1, obtemos a mediana amostral \(\tilde{x}_{0{,}5} = 1{,}5\),
+enquanto \(I\hat{Q}R = 2{,}75 - 0{,}05 = 2{,}70\).</p>
+<p>Se mudarmos o maior valor da amostra de \(x_{(10)} = 5{,}0\) para
+\(x_{(10)} = 500{,}0\), a mediana amostral continua \(\tilde{x}_{0{,}5} = 1{,}5\), mas
+observe que a média amostral vai de \(1{,}73\) para \(51{,}23\)!</p></div></div>
+<figure class="figura">
+  <img class="figura" src="figuras/tikz-32637b8fbbbe.svg" alt="" style="width: min(100%, 29.5em)">
+  <figcaption id="figura-5.5.3"><span class="rot">Figura 5.5.3:</span> A densidade \(f\) de uma distribuição \(\chi^2(4)\).<sup class="nota-ref nota-tradutor"><a href="#nota-49" id="ref-49">49</a></sup></figcaption>
+</figure>
+<h3 id="subsec-5.5.2"><span class="n">5.5.2</span> <span class="t">Gráficos dos Dados</span></h3>
+<p>É sempre uma boa ideia fazer o gráfico dos dados. Para variáveis quantitativas
+discretas, podemos fazer o gráfico de \(\hat{f}_X\), isto é, das proporções
+amostrais (frequências relativas). Para variáveis quantitativas contínuas,
+apresentamos o histograma de densidade na Seção 5.4.3. Esses gráficos nos dão
+alguma ideia da forma da distribuição da qual estamos amostrando. Por exemplo,
+podemos ver se há algum indício de que a distribuição seja fortemente
+assimétrica.</p>
+<p>Consideramos agora outro gráfico muito útil para variáveis quantitativas.</p>
+<div class="ex" id="exemplo-5.5.4"><div class="cab"><span class="rot">Exemplo 5.5.4</span> <span class="nome">Boxplots e Valores Atípicos</span></div><div class="txt fim"><p>Outro gráfico útil para variáveis quantitativas é conhecido como <em>boxplot</em>.
+Por exemplo, a Figura 5.5.4 mostra um boxplot dos dados do Exemplo 5.5.1. A linha
+no centro da caixa é a mediana. A linha abaixo da mediana é o primeiro quartil, e
+a linha acima da mediana é o terceiro quartil.</p>
+<p>As linhas verticais que saem dos quartis são chamadas de <em>bigodes</em> e vão dos
+quartis até os <em>valores adjacentes</em>. Os valores adjacentes são dados pelo
+maior valor menor ou igual ao <em>limite superior</em> (o terceiro quartil mais
+\(1{,}5\) vez o \(I\hat{Q}R\)) e pelo menor valor maior ou igual ao <em>limite
+inferior</em> (o primeiro quartil menos \(1{,}5\) vez o \(I\hat{Q}R\)). Valores além dos
+valores adjacentes, quando existem, são marcados com um \(*\); neste caso, não há
+nenhum. Se mudarmos \(x_{(10)} = 5{,}0\) para \(x_{(10)} = 15{,}0\), porém, vemos esse
+valor extremo marcado com um \(*\), como mostra a Figura 5.5.5.</p>
+<p>Os pontos fora dos limites superior e inferior, e portanto marcados com \(*\),
+costumam ser chamados de <em>valores atípicos</em>. Um valor atípico<sup class="nota-ref nota-termo"><a href="#nota-50" id="ref-50">50</a></sup> é um valor
+extremo em relação ao resto das observações. Às vezes, os valores atípicos
+ocorrem porque se cometeu um erro ao coletar ou registrar os dados, mas eles
+também ocorrem simplesmente porque estamos amostrando de uma distribuição de
+cauda longa. Muitas vezes é difícil saber qual é o caso numa aplicação
+específica, mas cada uma dessas observações deve ser registrada. Vimos no
+Exemplo 5.5.3 que valores atípicos podem ter um grande impacto nas análises
+estatísticas. Seus efeitos devem ser registrados ao relatar os resultados de uma
+análise estatística.</p></div></div>
+<figure class="figura">
+  <img class="figura" src="figuras/tikz-9d5a216faee5.svg" alt="" style="width: min(100%, 27.1em)">
+  <figcaption id="figura-5.5.4"><span class="rot">Figura 5.5.4:</span> Um boxplot dos dados do Exemplo 5.5.1.</figcaption>
+</figure>
+<figure class="figura">
+  <img class="figura" src="figuras/tikz-64dd7522fb86.svg" alt="" style="width: min(100%, 26.9em)">
+  <figcaption id="figura-5.5.5"><span class="rot">Figura 5.5.5:</span> Um boxplot dos dados do Exemplo 5.5.1, trocando \(x_{(10)} = 5{,}0\) por
+  \(x_{(10)} = 15{,}0\).</figcaption>
+</figure>
+<p>Para variáveis categóricas, é comum fazer o gráfico dos dados num gráfico de
+barras, como descrito no próximo exemplo.</p>
+<div class="ex" id="exemplo-5.5.5"><div class="cab"><span class="rot">Exemplo 5.5.5</span> <span class="nome">Gráficos de Barras</span></div><div class="txt fim"><p>Para variáveis categóricas, codificamos os valores da variável como números
+igualmente espaçados e então desenhamos retângulos de largura constante (as
+barras) sobre esses valores, de modo que a altura do retângulo sobre um valor seja
+igual à proporção de vezes que esse valor ocorre. Um gráfico assim é chamado de
+<em>gráfico de barras</em>. Observe que os valores ao longo do eixo \(x\) são apenas
+rótulos e não devem ser tratados como números com os quais podemos fazer contas
+etc.</p>
+<p>Por exemplo, suponha que tomamos uma amostra aleatória simples de 100 estudantes
+e registramos o sabor de sorvete favorito de cada um (entre quatro
+possibilidades), obtendo os resultados dados na tabela a seguir.</p>
+<div class="centro"><div class="tbl"><table><tr><th>Sabor</th><th>Contagem</th><th>Proporção</th></tr><tr><td>Chocolate</td><td>42</td><td>0,42</td></tr><tr><td>Baunilha</td><td>28</td><td>0,28</td></tr><tr><td>Caramelo</td><td>22</td><td>0,22</td></tr><tr><td>Morango</td><td>8</td><td>0,08</td></tr></table></div></div>
+<p>Codificando Chocolate como 1, Baunilha como 2, Caramelo como 3 e Morango como 4,
+a Figura 5.5.6 apresenta um gráfico de barras desses dados. É comum que as barras
+desses gráficos não se toquem.</p></div></div>
+<figure class="figura">
+  <img class="figura" src="figuras/tikz-9a4ac054df0d.svg" alt="" style="width: min(100%, 29.0em)">
+  <figcaption id="figura-5.5.6"><span class="rot">Figura 5.5.6:</span> Um gráfico de barras dos dados do Exemplo 5.5.5.</figcaption>
+</figure>
+<h3 id="subsec-5.5.3"><span class="n">5.5.3</span> <span class="t">Tipos de Inferências</span></h3>
+<p>Certamente, apresentar estatísticas descritivas e fazer gráficos dos dados são
+métodos que um estatístico usa para tentar aprender algo sobre a distribuição
+populacional subjacente. Essa abordagem tem dificuldades, porém, pois acabamos de
+escolher esses métodos com base na intuição. Muitas vezes não está claro quais
+estatísticas descritivas devemos usar. Além disso, esses resumos dos dados não
+fazem uso nenhum da informação que temos sobre a verdadeira distribuição
+populacional, expressa pelo modelo estatístico, a saber,
+\(f_X \in \{f_\theta : \theta \in \negrito{\Omega}\}\). Levar essa informação em
+conta nos leva a desenvolver uma teoria da inferência estatística, isto é, a
+especificar como devemos combinar a informação do modelo com os dados para fazer
+inferências sobre quantidades populacionais. Faremos isso nos Capítulos 6, 7 e
+8, mas antes discutimos os tipos de inferência mais usados nas aplicações.</p>
+<p>Na Seção 5.2, discutimos três tipos de inferência no contexto de um modelo de
+probabilidade conhecido, especificado por alguma função densidade ou função de
+probabilidade \(f\). Observamos que poderíamos querer fazer qualquer uma das
+seguintes coisas a respeito de um valor de resposta \(s\) não observado.</p>
+<p><span class="parte"><span class="pl">(i)</span>  Predizer um valor de resposta \(s\) desconhecido por meio de uma predição
+\(t\).</span></p>
+<p><span class="parte"><span class="pl">(ii)</span>  Construir um subconjunto \(C\) do espaço amostral \(S\) que tenha alta
+probabilidade de conter um valor de resposta \(s\) desconhecido.</span></p>
+<p><span class="parte"><span class="pl">(iii)</span>  Avaliar se \(s_0 \in S\) é ou não um valor plausível da distribuição de
+probabilidade especificada por \(f\).</span></p>
+<p>Chamamos (i), (ii) e (iii) de <em>inferências</em> sobre o \(s\) não
+observado. Os exemplos da Seção 5.2 mostram que esses são conceitos
+intuitivamente razoáveis.</p>
+<p>Numa aplicação, não conhecemos \(f\); sabemos apenas que
+\(f \in \{f_\theta : \theta \in \negrito{\Omega}\}\), e observamos os dados \(s\).
+Não temos certeza de qual candidata \(f_\theta\) é a correta ou, de modo
+equivalente, de qual dos valores possíveis de \(\theta\) é o correto.</p>
+<p>Como mencionado na Seção 5.5.1, nosso objetivo principal pode ser determinar não
+a verdadeira \(f_\theta\), mas alguma característica da verdadeira distribuição,
+como sua média, sua mediana ou o valor da verdadeira função de distribuição \(F\)
+num valor especificado. Vamos denotar essa característica de interesse por
+\(\psi(\theta)\). Por exemplo, quando a característica de interesse é a média da
+verdadeira distribuição de uma variável aleatória contínua, então
+<span class="eq">\[
+\psi(\theta) = \int_{-\infty}^{\infty} x f_\theta(x)\, dx.
+\]</span>
+Alternativamente, poderíamos estar interessados em
+\(\psi(\theta) = F_\theta^{-1}(0{,}5)\), a mediana da distribuição de uma variável
+aleatória com função de distribuição dada por \(F_\theta\).</p>
+<p>Valores diferentes de \(\theta\) levam a valores possivelmente diferentes da
+característica \(\psi(\theta)\). Depois de observar os dados \(s\), queremos fazer
+inferências sobre qual é o valor correto. Vamos considerar os três tipos de
+inferência para \(\psi(\theta)\).</p>
+<p><span class="parte"><span class="pl">(i)</span>  Escolher uma estimativa \(T(s)\) de \(\psi(\theta)\), o que chamamos de
+<em>problema de estimação</em>.</span></p>
+<p><span class="parte"><span class="pl">(ii)</span>  Construir um subconjunto \(C(s)\) do conjunto de valores possíveis de
+\(\psi(\theta)\) que acreditamos conter o valor verdadeiro, o que chamamos de
+problema de construção de uma <em>região de credibilidade<sup class="nota-ref nota-termo"><a href="#nota-51" id="ref-51">51</a></sup></em> ou de uma
+<em>região de confiança<sup class="nota-ref nota-termo"><a href="#nota-52" id="ref-52">52</a></sup></em>.</span></p>
+<p><span class="parte"><span class="pl">(iii)</span>  Avaliar se \(\psi_0\) é ou não um valor plausível para \(\psi(\theta)\)
+depois de observar \(s\), o que chamamos de problema de <em>avaliação de
+hipóteses<sup class="nota-ref nota-termo"><a href="#nota-53" id="ref-53">53</a></sup></em>.</span></p>
+<p>Assim, estimativas, regiões de credibilidade ou de confiança e
+avaliação de hipóteses são exemplos de tipos de inferência. Em particular,
+queremos construir estimativas \(T(s)\) de \(\psi(\theta)\), construir regiões de
+credibilidade ou de confiança \(C(s)\) para \(\psi(\theta)\) e avaliar quão
+plausível é um valor hipotético \(\psi_0\) para \(\psi(\theta)\).</p>
+<p>O <em>problema da inferência estatística</em> consiste em determinar como devemos
+combinar a informação do modelo \(\{f_\theta : \theta \in \negrito{\Omega}\}\) com
+os dados \(s\) para realizar essas inferências sobre \(\psi(\theta)\).</p>
+<p>Um modelo estatístico muito importante nas aplicações é o modelo normal de
+locação e escala, apresentado no Exemplo 5.3.4. Ilustramos algumas das ideias
+discutidas nesta seção por meio desse modelo.</p>
+<div class="ex" id="exemplo-5.5.6"><div class="cab"><span class="rot">Exemplo 5.5.6</span> <span class="nome">Aplicação do Modelo Normal de Locação e Escala</span></div><div class="txt fim"><p>Suponha que foi coletada a seguinte amostra aleatória simples das alturas (em
+polegadas) de 30 estudantes.</p>
+<div class="centro"><div class="tbl"><table><tr><th>64,9</th><th>61,4</th><th>66,3</th><th>64,3</th><th>65,1</th><th>64,4</th><th>59,8</th><th>63,6</th><th>66,5</th><th>65,0</th></tr><tr><td>64,9</td><td>64,3</td><td>62,5</td><td>63,1</td><td>65,0</td><td>65,8</td><td>63,4</td><td>61,9</td><td>66,6</td><td>60,9</td></tr><tr><td>61,6</td><td>64,0</td><td>61,5</td><td>64,2</td><td>66,8</td><td>66,4</td><td>65,8</td><td>71,4</td><td>67,8</td><td>66,3</td></tr></table></div></div>
+<p>A estatística que analisa os dados acredita que a distribuição das alturas na população pode ser bem
+aproximada por uma distribuição normal com alguma média e alguma variância
+desconhecidas, e ela não está disposta a fazer nenhuma suposição adicional sobre
+a verdadeira distribuição. Assim, o modelo estatístico é dado pela família das
+distribuições \(N(\mu, \sigma^2)\), em que
+<span class="mat-quebravel">\(\theta = (\mu, \sigma^2) \in \negrito{\Omega}\) \({}= R^1 \times R^\) \({}+\)</span> é desconhecido.</p>
+<p>Esse modelo estatístico faz sentido, isto é, a suposição de normalidade é
+adequada para essa situação? O histograma de densidade (baseado em 12
+intervalos de mesmo comprimento, de 59,5 a 71,5) da Figura 5.5.7 parece
+normal, de modo bem grosseiro, mas a observação extrema na cauda direita pode
+ser algum motivo de preocupação. De todo modo, seguimos como se essa suposição
+fosse razoável. No Capítulo 9, discutiremos métodos mais refinados para avaliar
+essa suposição.</p>
+<p>Suponha que estejamos interessados em fazer inferências sobre a altura média da
+população, isto é, a característica de interesse é \(\psi(\mu, \sigma^2) = \mu\).
+Alternativamente, poderíamos querer fazer inferências sobre o 90º percentil
+dessa distribuição, isto é,
+<span class="mat-quebravel">\(\psi(\mu, \sigma^2)\) \({}= x_{0{,}90}\) \({}= \mu + \sigma z_{0{,}90}\)</span>, em que \(z_{0{,}90}\) é o
+90º percentil da distribuição \(N(0, 1)\) (quando \(X \sim N(\mu, \sigma^2)\), então
+<span class="mat-quebravel">\(P(X \le \mu + \sigma z_{0{,}90})\) \({}= P((X - \mu)/\sigma \le z_{0{,}90})\) \({}= \Phi(z_{0{,}90})\) \({}= 0{,}90\)</span>). Assim, 90% da população em estudo tem altura menor
+que \(x_{0{,}90}\), um valor que desconhecemos porque não sabemos o valor de
+\((\mu, \sigma^2)\). Obviamente, há muitas outras características da verdadeira
+distribuição sobre as quais poderíamos querer fazer inferências.</p>
+<p>Usando apenas a intuição, \(T(x_1, \ldots, x_n) = \bar x\) parece uma estimativa
+sensata de \(\mu\), e \(T(x_1, \ldots, x_n) = \bar x + s z_{0{,}90}\) parece uma
+estimativa sensata de \(\mu + \sigma z_{0{,}90}\). Para justificar a escolha dessas
+estimativas, vamos precisar das teorias desenvolvidas nos capítulos seguintes.
+Neste caso, obtemos \(\bar x = 64{,}517\) e, por (5.5.5), calculamos \(s = 2{,}379\).
+Da Tabela D.2, obtemos \(z_{0{,}90} = 1{,}2816\), de modo que
+<span class="eq">\[
+\bar x + s z_{0{,}90} = 64{,}517 + 2{,}379\,(1{,}2816) = 67{,}566.
+\]</span></p>
+<p>Quão precisa é a estimativa \(\bar x\) de \(\mu\)? Uma abordagem natural para
+responder a essa pergunta é construir um intervalo de credibilidade<sup class="nota-ref nota-termo"><a href="#nota-54" id="ref-54">54</a></sup>, baseado na
+estimativa, que acreditamos ter alta probabilidade de conter o verdadeiro valor
+de \(\mu\) e que seja o mais curto possível. Por exemplo, a teoria do Capítulo 6
+leva a usar intervalos de confiança para \(\mu\) da forma
+<span class="eq">\[
+[\bar x - sc, \bar x + sc]
+\]</span>
+para alguma escolha da constante \(c\). Observe que \(\bar x\) está no centro do
+intervalo. A teoria do Capítulo 6 vai mostrar que, neste caso, escolher
+\(c = 0{,}3734\) leva ao que se conhece como intervalo de confiança<sup class="nota-ref nota-termo"><a href="#nota-55" id="ref-55">55</a></sup> 0,95 para \(\mu\).
+Tomamos então o semicomprimento<sup class="nota-ref nota-termo"><a href="#nota-56" id="ref-56">56</a></sup> desse intervalo, a saber,
+<span class="eq">\[
+sc = 2{,}379\,(0{,}3734) = 0{,}888,
+\]</span>
+como medida da precisão da estimativa \(\bar x = 64{,}517\) de \(\mu\). Neste caso,
+temos informação suficiente para dizer que conhecemos o verdadeiro valor de
+\(\mu\) com margem de uma polegada, pelo menos com “confiança” igual a 0,95.</p>
+<p>Por fim, suponha que temos um valor hipotético \(\mu_0\) para a altura média da
+população. Por exemplo, podemos acreditar que a altura média da população de
+indivíduos em estudo é igual à altura média de outra população, para a qual se
+sabe que essa quantidade é igual a \(\mu_0 = 65\). Então, com base na amostra de
+alturas observada, queremos avaliar se o valor \(\mu_0 = 65\) faz sentido ou não.
+Se a altura média amostral \(\bar x\) estiver longe de \(\mu_0\), isso parece ser
+evidência contra o valor hipotético. No Capítulo 6, vamos mostrar que podemos
+basear nossa avaliação no valor de
+<span class="eq">\[
+t = \frac{\bar x - \mu_0}{s/\sqrt{n}} = \frac{64{,}517 - 65}{2{,}379/\sqrt{30}}
+= -1{,}112.
+\]</span>
+Se o valor de \(\lvert t\rvert\) for muito grande, concluiremos que temos
+evidência contra o valor hipotético \(\mu_0 = 65\). Precisamos especificar o que
+queremos dizer com <em>grande</em> aqui, e faremos isso no Capítulo 6. Acontece
+que \(t = -1{,}112\) é um valor plausível para \(t\) quando o verdadeiro valor de
+\(\mu\) é igual a 65, de modo que não temos evidência contra a hipótese.</p></div></div>
+<figure class="figura">
+<img class="figura" src="figuras/tikz-ba41fb37e425.svg" alt="" style="width: min(100%, 28.8em)">
+<figcaption id="figura-5.5.7"><span class="rot">Figura 5.5.7:</span> Histograma de densidade das alturas do Exemplo 5.5.6.</figcaption>
+</figure>
+<section class="resumo"><h4>Resumo da Seção 5.5</h4><ul><li>Estatísticas descritivas são métodos estatísticos informais usados para
+  fazer inferências sobre a distribuição de uma variável \(X\) de interesse, com
+  base numa amostra observada dessa distribuição. Essas quantidades resumem
+  características da amostra observada e podem ser vistas como estimativas das
+  quantidades populacionais desconhecidas correspondentes. São necessários
+  métodos mais formais para avaliar o erro dessas estimativas, ou mesmo para
+  substituí-las por estimativas de maior precisão.</li>
+<li>É importante fazer gráficos dos dados usando gráficos relevantes. Eles nos
+  dão alguma ideia da forma da distribuição populacional da qual estamos
+  amostrando.</li>
+<li>Há três tipos principais de inferência: estimativas, intervalos de
+  credibilidade ou de confiança e avaliação de hipóteses.</li></ul></section>
+<h4 class="bloco bloco-exercicios">Exercícios</h4>
+<p class="exerc" id="exerc-5.5.1"><span class="k">5.5.1</span> Suponha que os dados a seguir foram obtidos registrando-se \(X\), o
+número de clientes que chegam a um caixa eletrônico durante 15 intervalos
+sucessivos de um minuto.</p>
+<div class="centro"><div class="tbl"><table><tr><th>2</th><th>1</th><th>3</th><th>2</th><th>0</th><th>1</th><th>4</th><th>2</th></tr><tr><td>0</td><td>2</td><td>3</td><td>1</td><td>0</td><td>0</td><td>4</td><td></td></tr></table></div></div>
+<p><span class="parte"><span class="pl">(a)</span>  Registre estimativas de \(f_X(0)\), \(f_X(1)\), \(f_X(2)\), \(f_X(3)\) e
+\(f_X(4)\).</span><span class="parte"><span class="pl">(b)</span>  Registre estimativas de \(F_X(0)\), \(F_X(1)\), \(F_X(2)\), \(F_X(3)\) e
+\(F_X(4)\).</span><span class="parte"><span class="pl">(c)</span>  Faça o gráfico de \(\hat f_X\).</span><span class="parte"><span class="pl">(d)</span>  Registre a média e a variância.</span><span class="parte"><span class="pl">(e)</span>  Registre a mediana e a IQR e faça um boxplot. Usando a regra
+estabelecida no Exemplo 5.5.4, decida se há valores atípicos.</span></p>
+<p class="exerc" id="exerc-5.5.2"><span class="k">5.5.2</span> Suponha que a amostra de tempos de espera (em minutos) a seguir
+foi obtida para clientes numa fila de um caixa eletrônico.</p>
+<div class="centro"><div class="tbl"><table><tr><th>15</th><th>10</th><th>2</th><th>3</th><th>1</th><th>0</th><th>4</th><th>5</th></tr><tr><td>5</td><td>3</td><td>3</td><td>4</td><td>2</td><td>1</td><td>4</td><td>5</td></tr></table></div></div>
+<p><span class="parte"><span class="pl">(a)</span>  Registre a função de distribuição empírica.</span><span class="parte"><span class="pl">(b)</span>  Faça o gráfico de \(\hat f_X\).</span><span class="parte"><span class="pl">(c)</span>  Registre a média e a variância.</span><span class="parte"><span class="pl">(d)</span>  Registre a mediana e a IQR e faça um boxplot. Usando a regra dada no
+Exemplo 5.5.4, decida se há valores atípicos.</span></p>
+<p class="exerc" id="exerc-5.5.3"><span class="k">5.5.3</span> Suponha que foi feito um experimento para ver se os mosquitos são
+atraídos de maneira diferente por cores diferentes. Foram usadas três cores
+diferentes de tecido, e o número de mosquitos que pousaram em cada pedaço foi
+registrado durante um intervalo de 15 minutos. Foram obtidos os dados a seguir.</p>
+<div class="centro"><div class="tbl"><table><tr><th></th><th>Número de pousos</th></tr><tr><td>Cor 1</td><td>25</td></tr><tr><td>Cor 2</td><td>35</td></tr><tr><td>Cor 3</td><td>22</td></tr></table></div></div>
+<p><span class="parte"><span class="pl">(a)</span>  Registre estimativas de \(f_X(1)\), \(f_X(2)\) e \(f_X(3)\), em que usamos
+\(i\) para a cor \(i\).</span><span class="parte"><span class="pl">(b)</span>  Faz sentido estimar \(F_X(i)\)? Explique por quê.</span><span class="parte"><span class="pl">(c)</span>  Faça um gráfico de barras desses dados.</span></p>
+<p class="exerc" id="exerc-5.5.4"><span class="k">5.5.4</span> Um estudante fica sabendo que sua nota numa prova ficou no 90º
+percentil da população de todos os estudantes que fizeram a prova. Explique
+exatamente o que isso significa.</p>
+<p class="exerc" id="exerc-5.5.5"><span class="k">5.5.5</span> Determine a função de distribuição empírica com base na amostra
+dada abaixo.</p>
+<div class="centro"><div class="tbl"><table><tr><th>\(1{,}0\)</th><th>\(-1{,}2\)</th><th>\(0{,}4\)</th><th>\(1{,}3\)</th><th>\(-0{,}3\)</th></tr><tr><td>\(-1{,}4\)</td><td>\(0{,}4\)</td><td>\(-0{,}5\)</td><td>\(-0{,}2\)</td><td>\(-1{,}3\)</td></tr><tr><td>\(0{,}0\)</td><td>\(-1{,}0\)</td><td>\(-1{,}3\)</td><td>\(2{,}0\)</td><td>\(1{,}0\)</td></tr><tr><td>\(0{,}9\)</td><td>\(0{,}4\)</td><td>\(2{,}1\)</td><td>\(0{,}0\)</td><td>\(-1{,}3\)</td></tr></table></div></div>
+<p>Faça o gráfico dessa função. Determine a mediana amostral, o primeiro e o
+terceiro quartis e a amplitude interquartil. Qual é a sua estimativa de \(F(1)\)?</p>
+<p class="exerc" id="exerc-5.5.6"><span class="k">5.5.6</span> Considere o histograma de densidade da Figura 5.5.8. Se lhe
+pedissem para registrar medidas de posição<sup class="nota-ref nota-termo"><a href="#nota-57" id="ref-57">57</a></sup> e de dispersão para os dados
+correspondentes a esse gráfico, o que você escolheria? Justifique sua resposta.</p>
+<p class="exerc" id="exerc-5.5.7"><span class="k">5.5.7</span> Suponha que um modelo estatístico é dado pela família das
+distribuições \(N(\mu, \sigma_0^2)\), em que \(\theta = \mu \in R^1\) é desconhecido,
+enquanto \(\sigma_0^2\) é conhecido. Se nosso interesse é fazer inferências sobre o
+primeiro quartil da verdadeira distribuição, determine \(\psi(\mu)\).</p>
+<p class="exerc" id="exerc-5.5.8"><span class="k">5.5.8</span> Suponha que um modelo estatístico é dado pela família das
+distribuições \(N(\mu, \sigma_0^2)\), em que \(\theta = \mu \in R^1\) é desconhecido,
+enquanto \(\sigma_0^2\) é conhecido. Se nosso interesse é fazer inferências sobre o
+terceiro momento da distribuição, determine \(\psi(\mu)\).</p>
+<p class="exerc" id="exerc-5.5.9"><span class="k">5.5.9</span> Suponha que um modelo estatístico é dado pela família das
+distribuições \(N(\mu, \sigma_0^2)\), em que \(\theta = \mu \in R^1\) é desconhecido,
+enquanto \(\sigma_0^2\) é conhecido. Se nosso interesse é fazer inferências sobre a
+função de distribuição avaliada em 3, determine \(\psi(\mu)\).</p>
+<p class="exerc" id="exerc-5.5.10"><span class="k">5.5.10</span> Suponha que um modelo estatístico é dado pela família das
+distribuições \(N(\mu, \sigma^2)\), em que
+\(\theta = (\mu, \sigma^2) \in R^1 \times R^+\) é desconhecido. Se nosso interesse
+é fazer inferências sobre o primeiro quartil da verdadeira distribuição,
+determine \(\psi(\mu, \sigma^2)\).</p>
+<p class="exerc" id="exerc-5.5.11"><span class="k">5.5.11</span> Suponha que um modelo estatístico é dado pela família das
+distribuições \(N(\mu, \sigma^2)\), em que
+\(\theta = (\mu, \sigma^2) \in R^1 \times R^+\) é desconhecido. Se nosso interesse
+é fazer inferências sobre a função de distribuição avaliada em 3, determine
+\(\psi(\mu, \sigma^2)\).</p>
+<p class="exerc" id="exerc-5.5.12"><span class="k">5.5.12</span> Suponha que um modelo estatístico é dado pela família das
+distribuições Bernoulli\((\theta)\), em que \(\theta \in \negrito{\Omega} = [0, 1]\).
+Se nosso interesse é fazer inferências sobre a probabilidade de que duas
+observações independentes desse modelo sejam iguais, determine \(\psi(\theta)\).</p>
+<p class="exerc" id="exerc-5.5.13"><span class="k">5.5.13</span> Suponha que um modelo estatístico é dado pela família das
+distribuições Bernoulli\((\theta)\), em que \(\theta \in \negrito{\Omega} = [0, 1]\).
+Se nosso interesse é fazer inferências sobre a probabilidade de obtermos um 0 e
+um 1 em duas observações independentes desse modelo, determine \(\psi(\theta)\).</p>
+<p class="exerc" id="exerc-5.5.14"><span class="k">5.5.14</span> Suponha que um modelo estatístico é dado pela família das
+distribuições Uniforme\([0, \theta]\), em que
+\(\theta \in \negrito{\Omega} = (0, \infty)\). Se nosso interesse é fazer
+inferências sobre o coeficiente de variação (veja o Exercício 5.3.5) da
+verdadeira distribuição, determine \(\psi(\theta)\). O que você observa sobre essa
+característica?</p>
+<p class="exerc" id="exerc-5.5.15"><span class="k">5.5.15</span> Suponha que um modelo estatístico é dado pela família das
+distribuições Gama\((\alpha_0, \beta)\), em que
+<span class="mat-quebravel">\(\theta = \beta \in \negrito{\Omega}\) \({}= (0, \infty)\)</span>. Se nosso interesse é fazer
+inferências sobre a variância da verdadeira distribuição, determine
+\(\psi(\theta)\).</p>
+<figure class="figura">
+<img class="figura" src="figuras/fig-5.5.8.png" alt="">
+<figcaption id="figura-5.5.8"><span class="rot">Figura 5.5.8:</span> Histograma de densidade do Exercício 5.5.6.</figcaption>
+</figure>
+<h4 class="bloco bloco-exercicios-computacionais">Exercícios computacionais</h4>
+<p class="exerc" id="exerc-5.5.16"><span class="k">5.5.16</span> Faça o seguinte com base nos dados do Exercício 5.4.5.
+<span class="parte"><span class="pl">(a)</span>  Calcule as estatísticas de ordem desses dados.</span><span class="parte"><span class="pl">(b)</span>  Calcule a função de distribuição empírica nos pontos dos dados.</span><span class="parte"><span class="pl">(c)</span>  Calcule a média amostral e o desvio padrão amostral.</span><span class="parte"><span class="pl">(d)</span>  Obtenha a mediana amostral e a amplitude interquartil amostral.</span><span class="parte"><span class="pl">(e)</span>  Com base nos histogramas obtidos no Exercício 5.4.5, que conjunto de
+estatísticas descritivas você acha adequado para medir a posição e a dispersão?</span><span class="parte"><span class="pl">(f)</span>  Suponha que o primeiro valor dos dados foi registrado incorretamente
+como 13,9 em vez de 3,9. Repita os itens (c) e (d) usando esse conjunto de
+dados e compare suas respostas com as obtidas antes. Você consegue tirar alguma
+conclusão geral sobre essas medidas? Justifique seu raciocínio.</span></p>
+<p class="exerc" id="exerc-5.5.17"><span class="k">5.5.17</span> Faça o seguinte com base nos dados do Exemplo 5.5.6.
+<span class="parte"><span class="pl">(a)</span>  Calcule as estatísticas de ordem desses dados.</span><span class="parte"><span class="pl">(b)</span>  Faça o gráfico da função de distribuição empírica (só nos pontos da
+amostra).</span><span class="parte"><span class="pl">(c)</span>  Calcule a mediana amostral e a amplitude interquartil amostral e faça
+um boxplot. Há valores atípicos?</span><span class="parte"><span class="pl">(d)</span>  Com base no boxplot, que conjunto de estatísticas descritivas você acha
+adequado para medir a posição e a dispersão?</span><span class="parte"><span class="pl">(e)</span>  Suponha que o primeiro valor dos dados foi registrado incorretamente
+como 84,9 em vez de 64,9. Repita os itens (c) e (d) usando esse conjunto de
+dados e veja se alguma observação é classificada como valor atípico.</span></p>
+<p class="exerc" id="exerc-5.5.18"><span class="k">5.5.18</span> Gere uma amostra de 30 de uma distribuição \(N(10, 2)\) e uma
+amostra de 1 de uma distribuição \(N(30, 2)\). Junte-as para formar uma única
+amostra de 31.
+<span class="parte"><span class="pl">(a)</span>  Faça um boxplot desses dados.</span><span class="parte"><span class="pl">(b)</span>  O que você observa nesse gráfico?</span><span class="parte"><span class="pl">(c)</span>  Com base no boxplot, que característica você acha que seria adequada
+para medir a posição e a dispersão da distribuição? Explique por quê.</span></p>
+<p class="exerc" id="exerc-5.5.19"><span class="k">5.5.19</span> Gere uma amostra de 50 de uma distribuição \(\chi^2(1)\).
+<span class="parte"><span class="pl">(a)</span>  Faça um boxplot desses dados.</span><span class="parte"><span class="pl">(b)</span>  O que você observa nesse gráfico?</span><span class="parte"><span class="pl">(c)</span>  Com base no boxplot, que característica você acha que seria adequada
+para medir a posição e a dispersão da distribuição? Explique por quê.</span></p>
+<p class="exerc" id="exerc-5.5.20"><span class="k">5.5.20</span> Gere uma amostra de 50 de uma distribuição \(N(4, 1)\). Suponha
+que seu interesse seja estimar o 90º percentil \(x_{0{,}9}\) dessa distribuição e
+que fingimos que \(\mu = 4\) e \(\sigma = 1\) são desconhecidos.
+<span class="parte"><span class="pl">(a)</span>  Calcule uma estimativa de \(x_{0{,}9}\) com base na estatística de ordem
+adequada.</span><span class="parte"><span class="pl">(b)</span>  Calcule uma estimativa com base no fato de que
+\(x_{0{,}9} = \mu + \sigma z_{0{,}9}\), em que \(z_{0{,}9}\) é o 90º percentil da
+distribuição \(N(0, 1)\).</span><span class="parte"><span class="pl">(c)</span>  Se você soubesse, ou pelo menos estivesse disposto a supor, que a
+amostra veio de uma distribuição normal, qual das estimativas dos itens (a) ou
+(b) você preferiria? Explique por quê.</span></p>
+<h4 class="bloco bloco-problemas">Problemas</h4>
+<p class="exerc" id="exerc-5.5.21"><span class="k">5.5.21</span> Determine uma fórmula para a mediana amostral baseada em
+interpolação (isto é, usando (5.5.3)) quando \(n\) é ímpar. (Sugestão: use a
+<em>função menor inteiro</em>, ou <em>teto</em>, \(\lceil x\rceil = {}\)menor inteiro
+maior ou igual a \(x\).)</p>
+<p class="exerc" id="exerc-5.5.22"><span class="k">5.5.22</span> Uma alternativa à função de distribuição empírica é definir uma
+função de distribuição \(\tilde F\) por \(\tilde F(x) = 0\) se \(x &lt; x_{(1)}\),
+\(\tilde F(x) = 1\) se \(x \ge x_{(n)}\), \(\tilde F(x) = \hat F(x_{(i)})\) se
+\(x = x_{(i)}\), e
+<span class="eq">\[
+\tilde F(x) = \hat F(x_{(i)})
++ \frac{\hat F(x_{(i+1)}) - \hat F(x_{(i)})}{x_{(i+1)} - x_{(i)}}
+\bigl(x - x_{(i)}\bigr)
+\]</span>
+se \(x_{(i)} \le x \le x_{(i+1)}\), para \(i = 1, \ldots, n\).
+<span class="parte"><span class="pl">(a)</span>  Mostre que \(\tilde F(x_{(i)}) = \hat F(x_{(i)})\) para
+\(i = 1, \ldots, n\) e que \(\tilde F\) é crescente de 0 a 1.</span><span class="parte"><span class="pl">(b)</span>  Prove que \(\tilde F\) é contínua em \(\bigl(x_{(1)}, \infty\bigr)\) e
+contínua à direita<sup class="nota-ref nota-termo"><a href="#nota-58" id="ref-58">58</a></sup> em toda parte.</span><span class="parte"><span class="pl">(c)</span>  Mostre que, para \(p \in [1/n, 1)\), o valor \(\tilde x_p\) definido em
+(5.5.3) é a solução de \(\tilde F(\tilde x_p) = p\).</span></p>
+<h4 class="bloco bloco-discussao">Tópicos para discussão</h4>
+<p class="exerc" id="exerc-5.5.23"><span class="k">5.5.23</span> Às vezes se argumenta que a estatística não precisa de uma teoria
+formal para prescrever inferências. Em vez disso, seria melhor deixar a prática
+estatística a cargo do profissional experiente, que decide qual é a abordagem
+sensata em cada problema. Comente essas afirmações.</p>
+<p class="exerc" id="exerc-5.5.24"><span class="k">5.5.24</span> Quão razoável você acha que é um pesquisador supor que uma
+variável aleatória tem distribuição normal? Discuta o papel das suposições na
+modelagem científica.</p>
+<section class="notas" aria-label="Notas do capítulo"><h4>Notas do capítulo</h4><ol><li id="nota-1" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">modelo de probabilidade</span> — no original, <em lang="en">probability model</em></span> <a class="voltar" href="#ref-1" aria-label="Voltar ao texto">↩</a></li><li id="nota-2" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">medida de probabilidade</span> — no original, <em lang="en">probability measure</em></span> <a class="voltar" href="#ref-2" aria-label="Voltar ao texto">↩</a></li><li id="nota-3" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">verossimilhança</span> — no original, <em lang="en">likelihood</em></span> <a class="voltar" href="#ref-3" aria-label="Voltar ao texto">↩</a></li><li id="nota-4" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">tempo de vida</span> — no original, <em lang="en">lifelength</em></span> <a class="voltar" href="#ref-4" aria-label="Voltar ao texto">↩</a></li><li id="nota-5" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">tratamento</span> — no original, <em lang="en">treatment</em></span> <a class="voltar" href="#ref-5" aria-label="Voltar ao texto">↩</a></li><li id="nota-6" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">esperança</span> — no original, <em lang="en">expectation</em></span> <a class="voltar" href="#ref-6" aria-label="Voltar ao texto">↩</a></li><li id="nota-7" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">tamanho da amostra</span> — no original, <em lang="en">sample size</em></span> <a class="voltar" href="#ref-7" aria-label="Voltar ao texto">↩</a></li><li id="nota-8" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">espaço amostral</span> — no original, <em lang="en">sample space</em></span> <a class="voltar" href="#ref-8" aria-label="Voltar ao texto">↩</a></li><li id="nota-9" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">predição</span> — no original, <em lang="en">prediction</em></span> <a class="voltar" href="#ref-9" aria-label="Voltar ao texto">↩</a></li><li id="nota-10" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">estimativa</span> — no original, <em lang="en">estimate</em></span> <a class="voltar" href="#ref-10" aria-label="Voltar ao texto">↩</a></li><li id="nota-11" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">valor esperado</span> — no original, <em lang="en">expected value</em></span> <a class="voltar" href="#ref-11" aria-label="Voltar ao texto">↩</a></li><li id="nota-12" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">probabilidade condicional</span> — no original, <em lang="en">conditional probability</em></span> <a class="voltar" href="#ref-12" aria-label="Voltar ao texto">↩</a></li><li id="nota-13" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">distribuição condicional</span> — no original, <em lang="en">conditional distribution</em></span> <a class="voltar" href="#ref-13" aria-label="Voltar ao texto">↩</a></li><li id="nota-14" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">preditor</span> — no original, <em lang="en">predictor</em></span> <a class="voltar" href="#ref-14" aria-label="Voltar ao texto">↩</a></li><li id="nota-15" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">erro quadrático médio</span> — no original, <em lang="en">mean-squared error</em></span> <a class="voltar" href="#ref-15" aria-label="Voltar ao texto">↩</a></li><li id="nota-16" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">variância</span> — no original, <em lang="en">variance</em></span> <a class="voltar" href="#ref-16" aria-label="Voltar ao texto">↩</a></li><li id="nota-17" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">função de probabilidade</span> — no original, <em lang="en">probability function</em></span> <a class="voltar" href="#ref-17" aria-label="Voltar ao texto">↩</a></li><li id="nota-18" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">espaço paramétrico</span> — no original, <em lang="en">parameter space</em></span> <a class="voltar" href="#ref-18" aria-label="Voltar ao texto">↩</a></li><li id="nota-19" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">independentes e identicamente distribuídas</span> — no original, <em lang="en">independent and identically distributed</em></span> <a class="voltar" href="#ref-19" aria-label="Voltar ao texto">↩</a></li><li id="nota-20" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">densidade conjunta</span> — no original, <em lang="en">joint density</em></span> <a class="voltar" href="#ref-20" aria-label="Voltar ao texto">↩</a></li><li id="nota-21" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">variável aleatória</span> — no original, <em lang="en">random variable</em></span> <a class="voltar" href="#ref-21" aria-label="Voltar ao texto">↩</a></li><li id="nota-22" class="nota-tradutor"><span class="tipo">Nota do tradutor</span> <span class="conteudo">Na legenda da Figura 5.3.1, o original traz
+Exponencial\((1{,}5)\), mas o texto e a curva impressa (que começa em
+\(f(0) \approx 0{,}67\)) correspondem à Exponencial\((2/3)\), cuja média é
+\(1{,}5\); a curva foi desenhada pela Exponencial\((2/3)\).</span> <a class="voltar" href="#ref-22" aria-label="Voltar ao texto">↩</a></li><li id="nota-23" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">injetora</span> — no original, <em lang="en">one-to-one</em></span> <a class="voltar" href="#ref-23" aria-label="Voltar ao texto">↩</a></li><li id="nota-24" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">modelo normal de locação e escala</span> — no original, <em lang="en">location-scale normal model</em></span> <a class="voltar" href="#ref-24" aria-label="Voltar ao texto">↩</a></li><li id="nota-25" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">desvio padrão</span> — no original, <em lang="en">standard deviation</em></span> <a class="voltar" href="#ref-25" aria-label="Voltar ao texto">↩</a></li><li id="nota-26" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">verificação de modelos</span> — no original, <em lang="en">model checking</em></span> <a class="voltar" href="#ref-26" aria-label="Voltar ao texto">↩</a></li><li id="nota-27" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">função densidade</span> — no original, <em lang="en">density function</em></span> <a class="voltar" href="#ref-27" aria-label="Voltar ao texto">↩</a></li><li id="nota-28" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">estudo observacional</span> — no original, <em lang="en">observational study</em></span> <a class="voltar" href="#ref-28" aria-label="Voltar ao texto">↩</a></li><li id="nota-29" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">função de distribuição acumulada</span> — no original, <em lang="en">cumulative distribution function</em></span> <a class="voltar" href="#ref-29" aria-label="Voltar ao texto">↩</a></li><li id="nota-30" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">função de distribuição empírica</span> — no original, <em lang="en">empirical distribution function</em></span> <a class="voltar" href="#ref-30" aria-label="Voltar ao texto">↩</a></li><li id="nota-31" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">amostragem aleatória simples</span> — no original, <em lang="en">simple random sampling</em></span> <a class="voltar" href="#ref-31" aria-label="Voltar ao texto">↩</a></li><li id="nota-32" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">lei fraca dos grandes números</span> — no original, <em lang="en">weak law of large numbers</em></span> <a class="voltar" href="#ref-32" aria-label="Voltar ao texto">↩</a></li><li id="nota-33" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">frequência relativa</span> — no original, <em lang="en">relative frequency</em></span> <a class="voltar" href="#ref-33" aria-label="Voltar ao texto">↩</a></li><li id="nota-34" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">amostragem por levantamento</span> — no original, <em lang="en">survey sampling</em></span> <a class="voltar" href="#ref-34" aria-label="Voltar ao texto">↩</a></li><li id="nota-35" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">distribuição conjunta</span> — no original, <em lang="en">joint distribution</em></span> <a class="voltar" href="#ref-35" aria-label="Voltar ao texto">↩</a></li><li id="nota-36" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">erro de não resposta</span> — no original, <em lang="en">nonresponse error</em></span> <a class="voltar" href="#ref-36" aria-label="Voltar ao texto">↩</a></li><li id="nota-37" class="nota-tradutor"><span class="tipo">Nota do tradutor</span> <span class="conteudo">o original traz \(n = 3\); pelo enunciado (amostra
+de \(n = 4\)) seria \(n = 4\)</span> <a class="voltar" href="#ref-37" aria-label="Voltar ao texto">↩</a></li><li id="nota-38" class="nota-tradutor"><span class="tipo">Nota do tradutor</span> <span class="conteudo">o original
+traz \(\pi_i\) nos dois argumentos; pelo contexto seria \(\pi_i\) e \(\pi_j\), com
+\(i \ne j\)</span> <a class="voltar" href="#ref-38" aria-label="Voltar ao texto">↩</a></li><li id="nota-39" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">fator de correção para população finita</span> — no original, <em lang="en">finite population correction factor</em></span> <a class="voltar" href="#ref-39" aria-label="Voltar ao texto">↩</a></li><li id="nota-40" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">amostragem estratificada</span> — no original, <em lang="en">stratified sampling</em></span> <a class="voltar" href="#ref-40" aria-label="Voltar ao texto">↩</a></li><li id="nota-41" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">estimação</span> — no original, <em lang="en">estimation</em></span> <a class="voltar" href="#ref-41" aria-label="Voltar ao texto">↩</a></li><li id="nota-42" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">estritamente crescente</span> — no original, <em lang="en">strictly increasing</em></span> <a class="voltar" href="#ref-42" aria-label="Voltar ao texto">↩</a></li><li id="nota-43" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">estatísticas de ordem</span> — no original, <em lang="en">order statistics</em></span> <a class="voltar" href="#ref-43" aria-label="Voltar ao texto">↩</a></li><li id="nota-44" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">mediana amostral</span> — no original, <em lang="en">sample median</em></span> <a class="voltar" href="#ref-44" aria-label="Voltar ao texto">↩</a></li><li id="nota-45" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">quartis amostrais</span> — no original, <em lang="en">sample quartiles</em></span> <a class="voltar" href="#ref-45" aria-label="Voltar ao texto">↩</a></li><li id="nota-46" class="nota-tradutor"><span class="tipo">Nota do tradutor</span> <span class="conteudo">o original traz “Exemplo 5.1.1”; os valores
+\(\bar{x} = 1{,}73\) e \(s = 2{,}097\) são os dos dados do Exemplo 5.5.1</span> <a class="voltar" href="#ref-46" aria-label="Voltar ao texto">↩</a></li><li id="nota-47" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">amplitude interquartil</span> — no original, <em lang="en">interquartile range</em></span> <a class="voltar" href="#ref-47" aria-label="Voltar ao texto">↩</a></li><li id="nota-48" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">assimetria</span> — no original, <em lang="en">skewness</em></span> <a class="voltar" href="#ref-48" aria-label="Voltar ao texto">↩</a></li><li id="nota-49" class="nota-tradutor"><span class="tipo">Nota do tradutor</span> <span class="conteudo">No original, o
+  eixo vertical vai até \(0{,}03\) e o pico da curva fica perto de \(0{,}03\); a densidade
+  \(\chi^2(4)\), \(f(x) = x e^{-x/2}/4\), tem máximo \(f(2) = 2e^{-1}/4 \approx 0{,}184\).
+  O gráfico foi traçado pela fórmula, com o eixo ampliado até \(0{,}20\).</span> <a class="voltar" href="#ref-49" aria-label="Voltar ao texto">↩</a></li><li id="nota-50" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">valor atípico</span> — no original, <em lang="en">outlier</em></span> <a class="voltar" href="#ref-50" aria-label="Voltar ao texto">↩</a></li><li id="nota-51" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">região de credibilidade</span> — no original, <em lang="en">credible region</em></span> <a class="voltar" href="#ref-51" aria-label="Voltar ao texto">↩</a></li><li id="nota-52" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">região de confiança</span> — no original, <em lang="en">confidence region</em></span> <a class="voltar" href="#ref-52" aria-label="Voltar ao texto">↩</a></li><li id="nota-53" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">avaliação de hipóteses</span> — no original, <em lang="en">hypothesis assessment</em></span> <a class="voltar" href="#ref-53" aria-label="Voltar ao texto">↩</a></li><li id="nota-54" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">intervalo de credibilidade</span> — no original, <em lang="en">credible interval</em></span> <a class="voltar" href="#ref-54" aria-label="Voltar ao texto">↩</a></li><li id="nota-55" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">intervalo de confiança</span> — no original, <em lang="en">confidence interval</em></span> <a class="voltar" href="#ref-55" aria-label="Voltar ao texto">↩</a></li><li id="nota-56" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">semicomprimento</span> — no original, <em lang="en">half-length</em></span> <a class="voltar" href="#ref-56" aria-label="Voltar ao texto">↩</a></li><li id="nota-57" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">medidas de posição</span> — no original, <em lang="en">measures of location</em></span> <a class="voltar" href="#ref-57" aria-label="Voltar ao texto">↩</a></li><li id="nota-58" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">contínua à direita</span> — no original, <em lang="en">right continuous</em></span> <a class="voltar" href="#ref-58" aria-label="Voltar ao texto">↩</a></li></ol></section>
+<nav class="paginacao"><a class="ant" href="cap04.html">← Capítulo 4</a><a class="prox" href="cap06.html">Capítulo 6 →</a></nav>
+</main>
+<script>
+window.MathJax = { tex: { inlineMath: [["\\(", "\\)"]], displayMath: [["\\[", "\\]"]], tags: "none",
+  macros: { allowbreak: "", nolinebreak: "", upshape: "", itshape: "", sloppy: "", negrito: ["\\boldsymbol{#1}", 1],
+    Var: "\\operatorname{Var}", Cov: "\\operatorname{Cov}", Corr: "\\operatorname{Corr}", Sd: "\\operatorname{Sd}" } },
+  output: { font: "mathjax-stix2" }, svg: { fontCache: "global" }, options: { enableMenu: false } };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@4.0.0/tex-svg.js"></script>
+<script src="leitor.js"></script>
+</body>
+</html>
