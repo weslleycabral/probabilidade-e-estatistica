@@ -8,18 +8,14 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=IBM+Plex+Sans+Condensed:wght@500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Sans+3:wght@500;600;700&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
 <link rel="stylesheet" href="leitor.css">
-<script>try{var c=JSON.parse(localStorage.getItem('leitor-config')||'{}');for(var k in c)document.documentElement.setAttribute('data-'+k,c[k]);}catch(e){}</script>
+<script>try{var a=JSON.parse(localStorage.getItem("leitor-ajustes")||"{}"),r=document.documentElement;
+[["escala","--escala",""],["entrelinha","--entrelinha",""],["letra","--esp-letra","em"],["palavra","--esp-palavra","em"],["margem","--margem",""]].forEach(function(x){if(typeof a[x[0]]==="number")r.style.setProperty(x[1],a[x[0]]+x[2]);});
+["tema","fonte","justificar"].forEach(function(k){if(a[k]&&a[k]!=="auto"&&a[k]!=="literata"&&a[k]!=="nao")r.dataset[k]=a[k];});if(a.termos==="nao")r.dataset.notasTermos="nao";}catch(e){}
+document.documentElement.classList.add("carregando");</script>
 </head>
-<body data-pagina="cap10">
-<header class="barra">
-  <button class="botao" id="abrir-sumario" type="button" aria-label="Sumário" aria-expanded="false">☰</button>
-  <a class="livro" href="index.html">Probabilidade e Estatística: A Ciência da Incerteza</a>
-  <span class="onde">Capítulo 10 · Relações entre Variáveis</span>
-  <button class="botao" id="abrir-ajustes" type="button" aria-label="Ajustes de leitura" aria-expanded="false">Aa</button>
-  <div class="progresso" id="progresso"></div>
-</header>
+<body data-pagina="cap10" data-livro="probabilidade-e-estatistica" data-obra="Probabilidade e Estatística" data-citacao="Evans e Rosenthal, Probabilidade e Estatística" data-rotulo="Capítulo 10" data-titulo="Relações entre Variáveis">
+<div class="carga" role="status"><span class="carga-barra"></span><span class="carga-texto">Preparando as fórmulas…</span></div>
 <nav class="sumario" id="sumario" aria-label="Sumário do capítulo"><ol><li class="nivel-2"><a href="#sec-10.1"><span class="n">10.1</span> Variáveis Relacionadas</a></li><li class="nivel-3"><a href="#subsec-10.1.1"><span class="n">10.1.1</span> A Definição de Relação</a></li><li class="nivel-3"><a href="#subsec-10.1.2"><span class="n">10.1.2</span> Relações de Causa e Efeito e Experimentos</a></li><li class="nivel-3"><a href="#subsec-10.1.3"><span class="n">10.1.3</span> Planejamento de Experimentos</a></li><li class="nivel-2"><a href="#sec-10.2"><span class="n">10.2</span> Resposta e Preditores Categóricos</a></li><li class="nivel-3"><a href="#subsec-10.2.1"><span class="n">10.2.1</span> Preditor Aleatório</a></li><li class="nivel-3"><a href="#subsec-10.2.2"><span class="n">10.2.2</span> Preditor Determinístico</a></li><li class="nivel-3"><a href="#subsec-10.2.3"><span class="n">10.2.3</span> Formulação Bayesiana</a></li><li class="nivel-2"><a href="#sec-10.3"><span class="n">10.3</span> Resposta e Preditores Quantitativos</a></li><li class="nivel-3"><a href="#subsec-10.3.1"><span class="n">10.3.1</span> O Método dos Mínimos Quadrados</a></li><li class="nivel-3"><a href="#subsec-10.3.2"><span class="n">10.3.2</span> O Modelo de Regressão Linear Simples</a></li><li class="nivel-3"><a href="#subsec-10.3.3"><span class="n">10.3.3</span> Modelo Linear Simples Bayesiano (Avançado)</a></li><li class="nivel-3"><a href="#subsec-10.3.4"><span class="n">10.3.4</span> O Modelo de Regressão Linear Múltipla (Avançado)</a></li><li class="nivel-2"><a href="#sec-10.4"><span class="n">10.4</span> Resposta Quantitativa e Preditores Categóricos</a></li><li class="nivel-3"><a href="#subsec-10.4.1"><span class="n">10.4.1</span> Um Preditor Categórico (ANOVA com Um Fator)</a></li><li class="nivel-3"><a href="#subsec-10.4.2"><span class="n">10.4.2</span> Medidas Repetidas (Comparações Pareadas)</a></li><li class="nivel-3"><a href="#subsec-10.4.3"><span class="n">10.4.3</span> Dois Preditores Categóricos (ANOVA com Dois Fatores)</a></li><li class="nivel-3"><a href="#subsec-10.4.4"><span class="n">10.4.4</span> Blocos Aleatorizados</a></li><li class="nivel-3"><a href="#subsec-10.4.5"><span class="n">10.4.5</span> Um Preditor Categórico e Um Preditor Quantitativo</a></li><li class="nivel-2"><a href="#sec-10.5"><span class="n">10.5</span> Resposta Categórica e Preditores Quantitativos</a></li><li class="nivel-2"><a href="#sec-10.6"><span class="n">10.6</span> Demonstrações Adicionais (Avançado)</a></li></ol></nav>
-<div class="ajustes" id="ajustes" hidden></div>
 <main class="corpo">
 <h1 id="cap-10"><span class="n">Capítulo 10</span><span class="t">Relações entre Variáveis</span></h1>
 <section class="esboco"><h4>Esboço do capítulo</h4><ul><li><strong>Seção 1</strong> Variáveis Relacionadas</li>
@@ -1400,7 +1396,7 @@ usá-las para fazer inferências sobre \(\beta_1\) e \(\beta_2\). Essas estimati
 propriedade de serem não viesadas.</p>
 <div class="teo teorema" id="teorema-10.3.2"><div class="cab"><span class="rot">Teorema 10.3.2</span></div><div class="txt"><p>Se \(E(Y \mid X = x) = \beta_1 + \beta_2 x\) e observamos os valores independentes
 \((x_1, y_1), \ldots, (x_n, y_n)\) de \((X, Y)\), então
-<span class="parte"><span class="pl">(i)</span>  <span class="mat-quebravel">\(E(B_1 \mid X_1 = x_1, \ldots, X_n = x_n)\) \({}= \beta_1\)</span>,</span></span><span class="parte"><span class="pl">(ii)</span>  <span class="mat-quebravel">\(E(B_2 \mid X_1 = x_1, \ldots, X_n = x_n)\) \({}= \beta_2\)</span>.</span></p></div></div></span>
+<span class="parte"><span class="pl">(i)</span>  <span class="mat-quebravel">\(E(B_1 \mid X_1 = x_1, \ldots, X_n = x_n)\) \({}= \beta_1\)</span>,</span><span class="parte"><span class="pl">(ii)</span>  <span class="mat-quebravel">\(E(B_2 \mid X_1 = x_1, \ldots, X_n = x_n)\) \({}= \beta_2\)</span>.</span></p></div></div>
 <div class="dem fim"><span class="rot">Demonstração.</span> <p>A demonstração deste resultado está na Seção 10.6.</p></div>
 <p>Observe que o Teorema 10.3.2 e o teorema da esperança total implicam que
 \(E(B_1) = \beta_1\) e \(E(B_2) = \beta_2\) também incondicionalmente.</p>
@@ -1409,7 +1405,7 @@ teorema a seguir.</p>
 <div class="teo teorema" id="teorema-10.3.3"><div class="cab"><span class="rot">Teorema 10.3.3</span></div><div class="txt"><p>Se \(E(Y \mid X = x) = \beta_1 + \beta_2 x\), \(\Var(Y \mid X = x) = \sigma^2\) para todo
 \(x\), e observamos os valores independentes \((x_1, y_1), \ldots, (x_n, y_n)\) de
 \((X, Y)\), então
-<span class="parte"><span class="pl">(i)</span>  <span class="mat-quebravel">\(\Var(B_1 \mid X_1 = x_1, \ldots, X_n = x_n)\) \({}= \sigma^2 \left(1/n + \bar{x}^2 \big/ \sum_{i=1}^{n} (x_i - \bar{x})^2\right)\)</span>,</span></span><span class="parte"><span class="pl">(ii)</span>  <span class="mat-quebravel">\(\Var(B_2 \mid X_1 = x_1, \ldots, X_n = x_n)\) \({}= \sigma^2 \big/ \sum_{i=1}^{n} (x_i - \bar{x})^2\)</span>,</span></span><span class="parte"><span class="pl">(iii)</span>  <span class="mat-quebravel">\(\Cov(B_1, B_2 \mid X_1 = x_1, \ldots, X_n = x_n)\) \({}= -\sigma^2 \bar{x} \big/ \sum_{i=1}^{n} (x_i - \bar{x})^2\)</span>.</span></p></div></div></span>
+<span class="parte"><span class="pl">(i)</span>  <span class="mat-quebravel">\(\Var(B_1 \mid X_1 = x_1, \ldots, X_n = x_n)\) \({}= \sigma^2 \left(1/n + \bar{x}^2 \big/ \sum_{i=1}^{n} (x_i - \bar{x})^2\right)\)</span>,</span><span class="parte"><span class="pl">(ii)</span>  <span class="mat-quebravel">\(\Var(B_2 \mid X_1 = x_1, \ldots, X_n = x_n)\) \({}= \sigma^2 \big/ \sum_{i=1}^{n} (x_i - \bar{x})^2\)</span>,</span><span class="parte"><span class="pl">(iii)</span>  <span class="mat-quebravel">\(\Cov(B_1, B_2 \mid X_1 = x_1, \ldots, X_n = x_n)\) \({}= -\sigma^2 \bar{x} \big/ \sum_{i=1}^{n} (x_i - \bar{x})^2\)</span>.</span></p></div></div>
 <div class="dem fim"><span class="rot">Demonstração.</span> <p>Ver a Seção 10.6 para a demonstração deste resultado.</p></div>
 <p>Para a estimativa de mínimos quadrados \(b_1 + b_2 x\) da média
 \(E(Y \mid X = x) = \beta_1 + \beta_2 x\), temos o resultado a seguir.</p>
@@ -1595,13 +1591,13 @@ das diversas estatísticas que introduzimos. Temos os resultados a seguir.</p>
 observamos os valores independentes \((x_1, y_1), \ldots, (x_n, y_n)\) de \((X, Y)\),
 então as distribuições condicionais de \(B_1\), \(B_2\) e \(S^2\), dados
 \(X_1 = x_1, \ldots, X_n = x_n\), são as seguintes.
-<span class="parte"><span class="pl">(i)</span>  \(B_1 \sim N\left(\beta_1, \sigma^2 \left(1/n + \bar{x}^2 \big/ \sum_{i=1}^{n} (x_i - \bar{x})^2\right)\right)\)</span></span><span class="parte"><span class="pl">(ii)</span>  \(B_2 \sim N\left(\beta_2, \sigma^2 \big/ \sum_{i=1}^{n} (x_i - \bar{x})^2\right)\)</span></span><span class="parte"><span class="pl">(iii)</span>  \(B_1 + B_2 x \sim N\left(\beta_1 + \beta_2 x, \sigma^2 \left(1/n + (x - \bar{x})^2 \big/ \sum_{i=1}^{n} (x_i - \bar{x})^2\right)\right)\)</span></span><span class="parte"><span class="pl">(iv)</span>  \((n - 2) S^2/\sigma^2 \sim \chi^2(n - 2)\), independente de \((B_1, B_2)\)</span></p></div></div></span>
+<span class="parte"><span class="pl">(i)</span>  \(B_1 \sim N\left(\beta_1, \sigma^2 \left(1/n + \bar{x}^2 \big/ \sum_{i=1}^{n} (x_i - \bar{x})^2\right)\right)\)</span><span class="parte"><span class="pl">(ii)</span>  \(B_2 \sim N\left(\beta_2, \sigma^2 \big/ \sum_{i=1}^{n} (x_i - \bar{x})^2\right)\)</span><span class="parte"><span class="pl">(iii)</span>  \(B_1 + B_2 x \sim N\left(\beta_1 + \beta_2 x, \sigma^2 \left(1/n + (x - \bar{x})^2 \big/ \sum_{i=1}^{n} (x_i - \bar{x})^2\right)\right)\)</span><span class="parte"><span class="pl">(iv)</span>  \((n - 2) S^2/\sigma^2 \sim \chi^2(n - 2)\), independente de \((B_1, B_2)\)</span></p></div></div>
 <div class="dem fim"><span class="rot">Demonstração.</span> <p>A demonstração deste resultado está na Seção 10.6.</p></div>
-<div class="teo corolario" id="corolario-10.3.2"><div class="cab"><span class="rot">Corolário 10.3.2</span></div><div class="txt"><p><span class="parte"><span class="pl">(i)</span>  \((B_1 - \beta_1) \big/ \left(S\left(1/n + \bar{x}^2 \big/ \sum_{i=1}^{n} (x_i - \bar{x})^2\right)^{1/2}\right) \sim t(n - 2)\)</span></span><span class="parte"><span class="pl">(ii)</span>  \((B_2 - \beta_2)\left(\sum_{i=1}^{n} (x_i - \bar{x})^2\right)^{1/2} \big/ S \sim t(n - 2)\)</span></span><span class="parte"><span class="pl">(iii)</span> <sup class="nota-ref nota-tradutor"><a href="#nota-63" id="ref-63">63</a></sup>
+<div class="teo corolario" id="corolario-10.3.2"><div class="cab"><span class="rot">Corolário 10.3.2</span></div><div class="txt"><p><span class="parte"><span class="pl">(i)</span>  \((B_1 - \beta_1) \big/ \left(S\left(1/n + \bar{x}^2 \big/ \sum_{i=1}^{n} (x_i - \bar{x})^2\right)^{1/2}\right) \sim t(n - 2)\)</span><span class="parte"><span class="pl">(ii)</span>  \((B_2 - \beta_2)\left(\sum_{i=1}^{n} (x_i - \bar{x})^2\right)^{1/2} \big/ S \sim t(n - 2)\)</span><span class="parte"><span class="pl">(iii)</span> <sup class="nota-ref nota-tradutor"><a href="#nota-63" id="ref-63">63</a></sup>
 <span class="eq">\[
 \frac{B_1 + B_2 x - \beta_1 - \beta_2 x}{S\left(\left(1/n + (x - \bar{x})^2\right) \big/ \sum_{i=1}^{n} (x_i - \bar{x})^2\right)^{1/2}} \sim t(n - 2)
-\]</span></span></span><span class="parte"><span class="pl">(iv)</span>  Se \(F\) é definida como em (10.3.8), então \(H_0 : \beta_2 = 0\) é
-verdadeira se e somente se \(F \sim F(1, n - 2)\).</span></p></div></div></span>
+\]</span></span><span class="parte"><span class="pl">(iv)</span>  Se \(F\) é definida como em (10.3.8), então \(H_0 : \beta_2 = 0\) é
+verdadeira se e somente se \(F \sim F(1, n - 2)\).</span></p></div></div>
 <div class="dem fim"><span class="rot">Demonstração.</span> <p>A demonstração deste resultado está na Seção 10.6.</p></div>
 <p>Pelo Corolário 10.3.2(i), temos que
 <span class="eq">\[
@@ -1649,7 +1645,7 @@ baseia nos resíduos \(y_i - b_1 - b_2 x_i\) (depois de padronizados), como disc
 na Seção 9.1. Observe que o \(i\)-ésimo resíduo é simplesmente a diferença entre o
 valor observado \(y_i\) em \(x_i\) e o valor predito \(b_1 + b_2 x_i\) em \(x_i\).</p>
 <p>Da demonstração do Teorema 10.3.4, temos o resultado a seguir.</p>
-<div class="teo corolario" id="corolario-10.3.3"><div class="cab"><span class="rot">Corolário 10.3.3</span></div><div class="txt"><p><span class="parte"><span class="pl">(i)</span>  <span class="mat-quebravel">\(E(Y_i - B_1 - B_2 x_i \mid X_1 = x_1, \ldots, X_n = x_n)\) \({}= 0\)</span></span></span><span class="parte"><span class="pl">(ii)</span>  <span class="mat-quebravel">\(\Var(Y_i - B_1 - B_2 x_i \mid X_1 = x_1, \ldots, X_n = x_n)\) \({}= \sigma^2 \left(1 - \frac{1}{n} - \frac{(x_i - \bar{x})^2}{\sum_{i=1}^{n} (x_i - \bar{x})^2}\right)\)</span></span></p></div></div></span>
+<div class="teo corolario" id="corolario-10.3.3"><div class="cab"><span class="rot">Corolário 10.3.3</span></div><div class="txt"><p><span class="parte"><span class="pl">(i)</span>  <span class="mat-quebravel">\(E(Y_i - B_1 - B_2 x_i \mid X_1 = x_1, \ldots, X_n = x_n)\) \({}= 0\)</span></span><span class="parte"><span class="pl">(ii)</span>  <span class="mat-quebravel">\(\Var(Y_i - B_1 - B_2 x_i \mid X_1 = x_1, \ldots, X_n = x_n)\) \({}= \sigma^2 \left(1 - \frac{1}{n} - \frac{(x_i - \bar{x})^2}{\sum_{i=1}^{n} (x_i - \bar{x})^2}\right)\)</span></span></p></div></div>
 <p>Isso leva à definição do \(i\)-ésimo <em>resíduo padronizado<sup class="nota-ref nota-termo"><a href="#nota-65" id="ref-65">65</a></sup></em> como
 <span class="eq">\begin{equation}
 \frac{y_i - b_1 - b_2 x_i}{s\left(1 - \frac{1}{n} - (x_i - \bar{x})^2 \big/ \sum_{j=1}^{n} (x_j - \bar{x})^2\right)^{1/2}}. \tag{10.3.11}
@@ -2238,19 +2234,19 @@ coeficiente de correlação múltipla neste texto.</p>
 independentes \((x_{i1}, \ldots, x_{ik}, y_i)\) para \(i = 1, \ldots, n\), então as
 distribuições condicionais dos \(B_i\) e de \(S^2\), dados \(X_{ij} = x_{ij}\) para
 todo \(i, j\), são as seguintes.
-<span class="parte"><span class="pl">(i)</span>  \(B_i \sim N(\beta_i, \sigma^2 c_{ii})\)</span></span><span class="parte"><span class="pl">(ii)</span>  \(B_1 x_1 + \cdots + B_k x_k\) tem distribuição
+<span class="parte"><span class="pl">(i)</span>  \(B_i \sim N(\beta_i, \sigma^2 c_{ii})\)</span><span class="parte"><span class="pl">(ii)</span>  \(B_1 x_1 + \cdots + B_k x_k\) tem distribuição
 <span class="eq">\[
 N\Bigl(\beta_1 x_1 + \cdots + \beta_k x_k, \sigma^2 \Bigl(\sum_{i=1}^{k} x_i^2 c_{ii} + 2 \sum_{i&lt;j} x_i x_j c_{ij}\Bigr)\Bigr)
-\]</span></span></span><span class="parte"><span class="pl">(iii)</span>  \((n - k) S^2/\sigma^2 \sim \chi^2(n - k)\), independente de
-\((B_1, \ldots, B_k)\)</span></p></div></div></span>
-<div class="teo corolario" id="corolario-10.3.5"><div class="cab"><span class="rot">Corolário 10.3.5</span></div><div class="txt"><p><span class="parte"><span class="pl">(i)</span>  \((B_i - \beta_i)/s c_{ii}^{1/2} \sim t(n - k)\)</span></span><span class="parte"><span class="pl">(ii)</span> 
+\]</span></span><span class="parte"><span class="pl">(iii)</span>  \((n - k) S^2/\sigma^2 \sim \chi^2(n - k)\), independente de
+\((B_1, \ldots, B_k)\)</span></p></div></div>
+<div class="teo corolario" id="corolario-10.3.5"><div class="cab"><span class="rot">Corolário 10.3.5</span></div><div class="txt"><p><span class="parte"><span class="pl">(i)</span>  \((B_i - \beta_i)/s c_{ii}^{1/2} \sim t(n - k)\)</span><span class="parte"><span class="pl">(ii)</span> 
 <span class="eq">\[
 \frac{B_1 x_1 + \cdots + B_k x_k - \beta_1 x_1 - \cdots - \beta_k x_k}{S \left(\sum_{i=1}^{k} x_i^2 c_{ii} + 2 \sum_{i&lt;j} x_i x_j c_{ij}\right)^{1/2}} \sim t(n - k)
-\]</span></span></span><span class="parte"><span class="pl">(iii)</span>  \(H_0 : \beta_{l+1} = \cdots = \beta_k = 0\) é verdadeira se e somente
+\]</span></span><span class="parte"><span class="pl">(iii)</span>  \(H_0 : \beta_{l+1} = \cdots = \beta_k = 0\) é verdadeira se e somente
 se
 <span class="eq">\[
 F = \frac{\left(\mathrm{RSS}(X_2, \ldots, X_k) - \mathrm{RSS}(X_2, \ldots, X_l)\right)/(k - l)}{S^2} \sim F(k - l, n - k)
-\]</span></span></p></div></div></span>
+\]</span></span></p></div></div>
 <h4 class="intertitulo">Análise dos Resíduos</h4>
 <p>Numa aplicação do modelo de regressão múltipla, precisamos verificar se as
 suposições fazem sentido. A verificação do modelo se baseia nos resíduos
@@ -2260,9 +2256,9 @@ diferença entre o valor observado \(y_i\) em \((x_{i1}, \ldots, x_{ik})\) e o v
 predito \(b_1 x_{i1} + \cdots + b_k x_{ik}\) em \((x_{i1}, \ldots, x_{ik})\).</p>
 <p>Temos também o seguinte resultado (que pode ser provado como corolário do
 Teorema 10.3.10).</p>
-<div class="teo corolario" id="corolario-10.3.6"><div class="cab"><span class="rot">Corolário 10.3.6</span></div><div class="txt"><p><span class="parte"><span class="pl">(i)</span>  <span class="mat-quebravel">\(E\left(Y_i - B_1 x_{i1} - \cdots - B_k x_{ik} \mid V\right)\) \({}= 0\)</span></span></span><span class="parte"><span class="pl">(ii)</span> 
+<div class="teo corolario" id="corolario-10.3.6"><div class="cab"><span class="rot">Corolário 10.3.6</span></div><div class="txt"><p><span class="parte"><span class="pl">(i)</span>  <span class="mat-quebravel">\(E\left(Y_i - B_1 x_{i1} - \cdots - B_k x_{ik} \mid V\right)\) \({}= 0\)</span></span><span class="parte"><span class="pl">(ii)</span> 
 <span class="mat-quebravel">\(\Cov\left(Y_i - B_1 x_{i1} - \cdots - B_k x_{ik}, Y_j - B_1 x_{j1} - \cdots - B_k x_{jk} \mid V\right)\) \({}= \sigma^2 d_{ij}\)</span>,
-em que \(d_{ij}\) é o elemento \((i, j)\) da matriz \(I - V(V'V)^{-1}V'\).</span></p></div></div></span>
+em que \(d_{ij}\) é o elemento \((i, j)\) da matriz \(I - V(V'V)^{-1}V'\).</span></p></div></div>
 <p>Portanto, os resíduos padronizados são dados por<sup class="nota-ref nota-tradutor"><a href="#nota-77" id="ref-77">77</a></sup>
 <span class="eq">\begin{equation}
 \frac{y_j - b_1 x_{j1} - \cdots - b_k x_{jk}}{s d_{ii}^{1/2}}.
@@ -3806,7 +3802,7 @@ todo \(i\). Como os \(x_i\) não são todos iguais, isso vale se e somente se
 <div class="dem fim demonstracaode"><div class="cab"><span class="rot">Demonstração do Teorema 10.3.2</span></div><p><em>Queremos provar que, se \(E(Y \mid X = x) = \beta_1 + \beta_2 x\) e
 observamos os valores independentes \((x_1, y_1), \ldots, (x_n, y_n)\) de
 \((X, Y)\), então</em>
-<span class="parte"><span class="pl">(i)</span>  <em><span class="mat-quebravel">\(E(B_1 \mid X_1 = x_1, \ldots, X_n = x_n)\) \({}= \beta_1\)</span>,</em></span></span><span class="parte"><span class="pl">(ii)</span>  <em><span class="mat-quebravel">\(E(B_2 \mid X_1 = x_1, \ldots, X_n = x_n)\) \({}= \beta_2\)</span>.</em></span></p>
+<span class="parte"><span class="pl">(i)</span>  <em><span class="mat-quebravel">\(E(B_1 \mid X_1 = x_1, \ldots, X_n = x_n)\) \({}= \beta_1\)</span>,</em></span><span class="parte"><span class="pl">(ii)</span>  <em><span class="mat-quebravel">\(E(B_2 \mid X_1 = x_1, \ldots, X_n = x_n)\) \({}= \beta_2\)</span>.</em></span></p>
 <p>Pelo Teorema 10.3.1 e por
 <span class="mat-quebravel">\(E(\bar{Y} \mid X_1 = x_1, \ldots, X_n = x_n)\) \({}= \beta_1 + \beta_2\bar{x}\)</span>,
 temos que
@@ -3818,11 +3814,11 @@ E(B_2 \mid X_1 = x_1, \ldots, X_n = x_n)
 Além disso, pelo Teorema 10.3.1 e pelo que acabamos de provar,
 <span class="eq">\[
 E(B_1 \mid X_1 = x_1, \ldots, X_n = x_n) = \beta_1 + \beta_2\bar{x} - \beta_2\bar{x} = \beta_1.
-\]</span></p></div></span>
+\]</span></p></div>
 <div class="dem fim demonstracaode"><div class="cab"><span class="rot">Demonstração do Teorema 10.3.3</span></div><p><em>Queremos provar que, se \(E(Y \mid X = x) = \beta_1 + \beta_2 x\),
 \(\Var(Y \mid X = x) = \sigma^2\) para todo \(x\), e observamos os valores
 independentes \((x_1, y_1), \ldots, (x_n, y_n)\) de \((X, Y)\), então</em>
-<span class="parte"><span class="pl">(i)</span>  <em><span class="mat-quebravel">\(\Var(B_1 \mid X_1 = x_1, \ldots, X_n = x_n)\) \({}= \sigma^2(1/n + \bar{x}^2/\sum_{i=1}^{n}(x_i - \bar{x})^2)\)</span>,</em></span></span><span class="parte"><span class="pl">(ii)</span>  <em><span class="mat-quebravel">\(\Var(B_2 \mid X_1 = x_1, \ldots, X_n = x_n)\) \({}= \sigma^2/\sum_{i=1}^{n}(x_i - \bar{x})^2\)</span>,</em></span></span><span class="parte"><span class="pl">(iii)</span>  <em><span class="mat-quebravel">\(\Cov(B_1, B_2 \mid X_1 = x_1, \ldots, X_n = x_n)\) \({}= -\sigma^2\bar{x}/\sum_{i=1}^{n}(x_i - \bar{x})^2\)</span>.</em></span></p>
+<span class="parte"><span class="pl">(i)</span>  <em><span class="mat-quebravel">\(\Var(B_1 \mid X_1 = x_1, \ldots, X_n = x_n)\) \({}= \sigma^2(1/n + \bar{x}^2/\sum_{i=1}^{n}(x_i - \bar{x})^2)\)</span>,</em></span><span class="parte"><span class="pl">(ii)</span>  <em><span class="mat-quebravel">\(\Var(B_2 \mid X_1 = x_1, \ldots, X_n = x_n)\) \({}= \sigma^2/\sum_{i=1}^{n}(x_i - \bar{x})^2\)</span>,</em></span><span class="parte"><span class="pl">(iii)</span>  <em><span class="mat-quebravel">\(\Cov(B_1, B_2 \mid X_1 = x_1, \ldots, X_n = x_n)\) \({}= -\sigma^2\bar{x}/\sum_{i=1}^{n}(x_i - \bar{x})^2\)</span>.</em></span></p>
 <p>Primeiro provamos (ii). Observe que \(b_2\) é uma combinação linear dos valores
 \(y_i - \bar{y}\), de modo que podemos calcular a variância condicional depois de
 obter as variâncias e covariâncias condicionais dos valores \(Y_i - \bar{Y}\).
@@ -3882,7 +3878,7 @@ Portanto,
 &amp;\quad - 2\Cov(\bar{Y}, B_2 \mid X_1 = x_1, \ldots, X_n = x_n),
 \end{align*}</span>
 em que <span class="mat-quebravel">\(\Var(\bar{Y} \mid X_1 = x_1, \ldots, X_n = x_n)\) \({}= \sigma^2/n\)</span>.
-Substituir os resultados de (ii) e (iii) completa a demonstração do teorema.</p></div></span>
+Substituir os resultados de (ii) e (iii) completa a demonstração do teorema.</p></div>
 <div class="dem fim demonstracaode"><div class="cab"><span class="rot">Demonstração do Corolário 10.3.1</span></div><p><em>Precisamos mostrar que</em>
 <span class="eq">\[
 \Var(B_1 + B_2 x \mid X_1 = x_1, \ldots, X_n = x_n)
@@ -3977,25 +3973,25 @@ e isso completa a demonstração.</p></div>
 \((x_1, y_1), \ldots, (x_n, y_n)\) de \((X, Y)\), então as distribuições
 condicionais de \(B_1\), \(B_2\) e \(S^2\), dados \(X_1 = x_1, \ldots, X_n = x_n\), são
 as seguintes.</em>
-<span class="parte"><span class="pl">(i)</span>  \(B_1 \sim N(\beta_1, \sigma^2(1/n + \bar{x}^2/\sum_{i=1}^{n}(x_i - \bar{x})^2))\)</span></span><span class="parte"><span class="pl">(ii)</span>  \(B_2 \sim N(\beta_2, \sigma^2/\sum_{i=1}^{n}(x_i - \bar{x})^2)\)</span></span><span class="parte"><span class="pl">(iii)</span> 
+<span class="parte"><span class="pl">(i)</span>  \(B_1 \sim N(\beta_1, \sigma^2(1/n + \bar{x}^2/\sum_{i=1}^{n}(x_i - \bar{x})^2))\)</span><span class="parte"><span class="pl">(ii)</span>  \(B_2 \sim N(\beta_2, \sigma^2/\sum_{i=1}^{n}(x_i - \bar{x})^2)\)</span><span class="parte"><span class="pl">(iii)</span> 
 <span class="eq">\[
 B_1 + B_2 x \sim N\left(\beta_1 + \beta_2 x,\
   \sigma^2\left(\frac{1}{n} + \frac{(x - \bar{x})^2}{\sum_{i=1}^{n}(x_i - \bar{x})^2}\right)\right)
-\]</span></span></span><span class="parte"><span class="pl">(iv)</span>  \((n - 2)S^2/\sigma^2 \sim \chi^2(n - 2)\) <em>independente de</em>
+\]</span></span><span class="parte"><span class="pl">(iv)</span>  \((n - 2)S^2/\sigma^2 \sim \chi^2(n - 2)\) <em>independente de</em>
 \((B_1, B_2)\)</span></p>
 <p>Primeiro provamos (i). Como \(B_1\) pode ser escrito como uma combinação linear
 dos \(Y_i\), o Teorema 4.6.1 implica que a distribuição de \(B_1\) tem de ser
 normal. O resultado segue, então, dos Teoremas 10.3.2 e 10.3.3. Uma
 demonstração semelhante estabelece (ii) e (iii). A demonstração de (iv) é
 semelhante à do Teorema 4.6.6, e a deixamos para um curso posterior de
-estatística.</p></div></span>
+estatística.</p></div>
 <div class="dem fim demonstracaode"><div class="cab"><span class="rot">Demonstração do Corolário 10.3.2</span></div><p><em>Queremos mostrar que</em>
-<span class="parte"><span class="pl">(i)</span>  \((B_1 - \beta_1)/S\left(1/n + \bar{x}^2/\sum_{i=1}^{n}(x_i - \bar{x})^2\right)^{1/2} \sim t(n - 2)\)</span></span><span class="parte"><span class="pl">(ii)</span>  \((B_2 - \beta_2)\left(\sum_{i=1}^{n}(x_i - \bar{x})^2\right)^{1/2}/S \sim t(n - 2)\)</span></span><span class="parte"><span class="pl">(iii)</span> <sup class="nota-ref nota-tradutor"><a href="#nota-109" id="ref-109">109</a></sup>
+<span class="parte"><span class="pl">(i)</span>  \((B_1 - \beta_1)/S\left(1/n + \bar{x}^2/\sum_{i=1}^{n}(x_i - \bar{x})^2\right)^{1/2} \sim t(n - 2)\)</span><span class="parte"><span class="pl">(ii)</span>  \((B_2 - \beta_2)\left(\sum_{i=1}^{n}(x_i - \bar{x})^2\right)^{1/2}/S \sim t(n - 2)\)</span><span class="parte"><span class="pl">(iii)</span> <sup class="nota-ref nota-tradutor"><a href="#nota-109" id="ref-109">109</a></sup>
 <span class="eq">\[
 \frac{B_1 + B_2 x - \beta_1 - \beta_2 x}
   {S\left((1/n + (x - \bar{x})^2)/\sum_{i=1}^{n}(x_i - \bar{x})^2\right)^{1/2}}
 \sim t(n - 2)
-\]</span></span></span><span class="parte"><span class="pl">(iv)</span>  <em>Se \(F\) for definida como em (10.3.8), então
+\]</span></span><span class="parte"><span class="pl">(iv)</span>  <em>Se \(F\) for definida como em (10.3.8), então
 \(H_0 : \beta_2 = 0\) é verdadeira se e somente se \(F \sim F(1, n - 2)\).</em></span></p>
 <p>Primeiro provamos (i). Como \(B_1\) e \(S^2\) são independentes,
 <span class="eq">\[
@@ -4024,7 +4020,7 @@ G = \frac{(B_2 - \beta_2)^2}{S^2\left(\sum_{i=1}^{n}(x_i - \bar{x})^2\right)^{-1
 \]</span>
 Observe agora que a \(F\) definida por (10.3.8) é igual a \(G\) quando
 \(\beta_2 = 0\). A recíproca, de que \(F \sim F(1, n - 2)\) só se \(\beta_2 = 0\),
-é um pouco mais difícil de provar, e a deixamos para um curso posterior.</p></div></span>
+é um pouco mais difícil de provar, e a deixamos para um curso posterior.</p></div>
 <section class="notas" aria-label="Notas do capítulo"><h4>Notas do capítulo</h4><ol><li id="nota-1" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">tempo de vida</span> — no original, <em lang="en">lifelength</em></span> <a class="voltar" href="#ref-1" aria-label="Voltar ao texto">↩</a></li><li id="nota-2" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">verificação do modelo</span> — no original, <em lang="en">model checking</em></span> <a class="voltar" href="#ref-2" aria-label="Voltar ao texto">↩</a></li><li id="nota-3" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">distribuição condicional</span> — no original, <em lang="en">conditional distribution</em></span> <a class="voltar" href="#ref-3" aria-label="Voltar ao texto">↩</a></li><li id="nota-4" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">variável aleatória</span> — no original, <em lang="en">random variable</em></span> <a class="voltar" href="#ref-4" aria-label="Voltar ao texto">↩</a></li><li id="nota-5" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">assimetria</span> — no original, <em lang="en">skewness</em></span> <a class="voltar" href="#ref-5" aria-label="Voltar ao texto">↩</a></li><li id="nota-6" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">variância condicional</span> — no original, <em lang="en">conditional variance</em></span> <a class="voltar" href="#ref-6" aria-label="Voltar ao texto">↩</a></li><li id="nota-7" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">variável resposta</span> — no original, <em lang="en">response variable</em></span> <a class="voltar" href="#ref-7" aria-label="Voltar ao texto">↩</a></li><li id="nota-8" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">variável preditora</span> — no original, <em lang="en">predictor variable</em></span> <a class="voltar" href="#ref-8" aria-label="Voltar ao texto">↩</a></li><li id="nota-9" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">modelo de regressão linear múltipla</span> — no original, <em lang="en">multiple linear regression model</em></span> <a class="voltar" href="#ref-9" aria-label="Voltar ao texto">↩</a></li><li id="nota-10" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">preditor</span> — no original, <em lang="en">predictor</em></span> <a class="voltar" href="#ref-10" aria-label="Voltar ao texto">↩</a></li><li id="nota-11" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">quase certamente</span> — no original, <em lang="en">almost surely</em></span> <a class="voltar" href="#ref-11" aria-label="Voltar ao texto">↩</a></li><li id="nota-12" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">tratamento</span> — no original, <em lang="en">treatment</em></span> <a class="voltar" href="#ref-12" aria-label="Voltar ao texto">↩</a></li><li id="nota-13" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">tamanho da amostra</span> — no original, <em lang="en">sample size</em></span> <a class="voltar" href="#ref-13" aria-label="Voltar ao texto">↩</a></li><li id="nota-14" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">variância</span> — no original, <em lang="en">variance</em></span> <a class="voltar" href="#ref-14" aria-label="Voltar ao texto">↩</a></li><li id="nota-15" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">planejamento experimental</span> — no original, <em lang="en">experimental design</em></span> <a class="voltar" href="#ref-15" aria-label="Voltar ao texto">↩</a></li><li id="nota-16" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">interação</span> — no original, <em lang="en">interaction</em></span> <a class="voltar" href="#ref-16" aria-label="Voltar ao texto">↩</a></li><li id="nota-17" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">variável de bloqueio</span> — no original, <em lang="en">blocking variable</em></span> <a class="voltar" href="#ref-17" aria-label="Voltar ao texto">↩</a></li><li id="nota-18" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">variável indicadora</span> — no original, <em lang="en">dummy variable</em></span> <a class="voltar" href="#ref-18" aria-label="Voltar ao texto">↩</a></li><li id="nota-19" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">planejamento de experimentos</span> — no original, <em lang="en">design of experiments</em></span> <a class="voltar" href="#ref-19" aria-label="Voltar ao texto">↩</a></li><li id="nota-20" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">frequência relativa</span> — no original, <em lang="en">relative frequency</em></span> <a class="voltar" href="#ref-20" aria-label="Voltar ao texto">↩</a></li><li id="nota-21" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">distribuição conjunta</span> — no original, <em lang="en">joint distribution</em></span> <a class="voltar" href="#ref-21" aria-label="Voltar ao texto">↩</a></li><li id="nota-22" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">distribuição degenerada</span> — no original, <em lang="en">degenerate distribution</em></span> <a class="voltar" href="#ref-22" aria-label="Voltar ao texto">↩</a></li><li id="nota-23" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">correlação</span> — no original, <em lang="en">correlation</em></span> <a class="voltar" href="#ref-23" aria-label="Voltar ao texto">↩</a></li><li id="nota-24" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">função de probabilidade</span> — no original, <em lang="en">probability function</em></span> <a class="voltar" href="#ref-24" aria-label="Voltar ao texto">↩</a></li><li id="nota-25" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">função de verossimilhança</span> — no original, <em lang="en">likelihood function</em></span> <a class="voltar" href="#ref-25" aria-label="Voltar ao texto">↩</a></li><li id="nota-26" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">erro padrão</span> — no original, <em lang="en">standard error</em></span> <a class="voltar" href="#ref-26" aria-label="Voltar ao texto">↩</a></li><li id="nota-27" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">estimativa</span> — no original, <em lang="en">estimate</em></span> <a class="voltar" href="#ref-27" aria-label="Voltar ao texto">↩</a></li><li id="nota-28" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">hipótese nula</span> — no original, <em lang="en">null hypothesis</em></span> <a class="voltar" href="#ref-28" aria-label="Voltar ao texto">↩</a></li><li id="nota-29" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">verossimilhança</span> — no original, <em lang="en">likelihood</em></span> <a class="voltar" href="#ref-29" aria-label="Voltar ao texto">↩</a></li><li id="nota-30" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">espaço paramétrico</span> — no original, <em lang="en">parameter space</em></span> <a class="voltar" href="#ref-30" aria-label="Voltar ao texto">↩</a></li><li id="nota-31" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">estatística suficiente minimal</span> — no original, <em lang="en">minimal sufficient statistic</em></span> <a class="voltar" href="#ref-31" aria-label="Voltar ao texto">↩</a></li><li id="nota-32" class="nota-tradutor"><span class="tipo">Nota do tradutor</span> <span class="conteudo">o original traz \(\hat{\theta}\) sem índice no
 denominador; pelo contexto seria \(n_i\hat{\theta}_j(1 - \hat{\theta}_j)\).</span> <a class="voltar" href="#ref-32" aria-label="Voltar ao texto">↩</a></li><li id="nota-33" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">a priori</span> — no original, <em lang="en">prior</em></span> <a class="voltar" href="#ref-33" aria-label="Voltar ao texto">↩</a></li><li id="nota-34" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">priori conjugada</span> — no original, <em lang="en">conjugate prior</em></span> <a class="voltar" href="#ref-34" aria-label="Voltar ao texto">↩</a></li><li id="nota-35" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">a posteriori</span> — no original, <em lang="en">posterior</em></span> <a class="voltar" href="#ref-35" aria-label="Voltar ao texto">↩</a></li><li id="nota-36" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">a posteriori</span> — no original, <em lang="en">posterior</em></span> <a class="voltar" href="#ref-36" aria-label="Voltar ao texto">↩</a></li><li id="nota-37" class="nota-termo"><span class="tipo">Termo</span> <span class="conteudo"><span class="termo-pt">distribuição Dirichlet</span> — no original, <em lang="en">Dirichlet distribution</em></span> <a class="voltar" href="#ref-37" aria-label="Voltar ao texto">↩</a></li><li id="nota-38" class="nota-tradutor"><span class="tipo">Nota do tradutor</span> <span class="conteudo">o original traz
 \(\alpha_{a|i}\) como último parâmetro; como a distribuição tem \(b\) componentes,
@@ -4061,7 +4057,8 @@ strength” (resistência plena).</span> <a class="voltar" href="#ref-96" aria-l
 window.MathJax = { tex: { inlineMath: [["\\(", "\\)"]], displayMath: [["\\[", "\\]"]], tags: "none",
   macros: { allowbreak: "", nolinebreak: "", upshape: "", itshape: "", sloppy: "", negrito: ["\\boldsymbol{#1}", 1],
     Var: "\\operatorname{Var}", Cov: "\\operatorname{Cov}", Corr: "\\operatorname{Corr}", Sd: "\\operatorname{Sd}" } },
-  output: { font: "mathjax-stix2" }, svg: { fontCache: "global" }, options: { enableMenu: false } };
+  output: { displayOverflow: "linebreak", linebreaks: { inline: true, width: "100%" }, font: "mathjax-stix2" }, svg: { fontCache: "global" }, options: { enableMenu: false },
+  loader: { load: ["ui/lazy"] } };
 </script>
 <script src="https://cdn.jsdelivr.net/npm/mathjax@4.0.0/tex-svg.js"></script>
 <script src="leitor.js"></script>

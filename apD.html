@@ -8,18 +8,14 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=IBM+Plex+Sans+Condensed:wght@500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Sans+3:wght@500;600;700&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
 <link rel="stylesheet" href="leitor.css">
-<script>try{var c=JSON.parse(localStorage.getItem('leitor-config')||'{}');for(var k in c)document.documentElement.setAttribute('data-'+k,c[k]);}catch(e){}</script>
+<script>try{var a=JSON.parse(localStorage.getItem("leitor-ajustes")||"{}"),r=document.documentElement;
+[["escala","--escala",""],["entrelinha","--entrelinha",""],["letra","--esp-letra","em"],["palavra","--esp-palavra","em"],["margem","--margem",""]].forEach(function(x){if(typeof a[x[0]]==="number")r.style.setProperty(x[1],a[x[0]]+x[2]);});
+["tema","fonte","justificar"].forEach(function(k){if(a[k]&&a[k]!=="auto"&&a[k]!=="literata"&&a[k]!=="nao")r.dataset[k]=a[k];});if(a.termos==="nao")r.dataset.notasTermos="nao";}catch(e){}
+document.documentElement.classList.add("carregando");</script>
 </head>
-<body data-pagina="apD">
-<header class="barra">
-  <button class="botao" id="abrir-sumario" type="button" aria-label="Sumário" aria-expanded="false">☰</button>
-  <a class="livro" href="index.html">Probabilidade e Estatística: A Ciência da Incerteza</a>
-  <span class="onde">Apêndice D · Tabelas</span>
-  <button class="botao" id="abrir-ajustes" type="button" aria-label="Ajustes de leitura" aria-expanded="false">Aa</button>
-  <div class="progresso" id="progresso"></div>
-</header>
-<nav class="sumario" id="sumario" aria-label="Sumário do capítulo"><ol><li class="nivel-2"><a href="#sec-D.1"><span class="n">D.1</span> Números Aleatórios</a></li><li class="nivel-2"><a href="#sec-D.2"><span class="n">D.2</span> Fda da Normal Padrão</a></li><li class="nivel-2"><a href="#sec-D.3"><span class="n">D.3</span> Quantis da Distribuição Qui-Quadrado</a></li><li class="nivel-2"><a href="#sec-D.4"><span class="n">D.4</span> Quantis da Distribuição \(t\)</a></li><li class="nivel-2"><a href="#sec-D.5"><span class="n">D.5</span> Quantis da Distribuição \(F\)</a></li><li class="nivel-2"><a href="#sec-D.6"><span class="n">D.6</span> Probabilidades da Distribuição Binomial</a></li></ol></nav>
-<div class="ajustes" id="ajustes" hidden></div>
+<body data-pagina="apD" data-livro="probabilidade-e-estatistica" data-obra="Probabilidade e Estatística" data-citacao="Evans e Rosenthal, Probabilidade e Estatística" data-rotulo="Apêndice D" data-titulo="Tabelas">
+<div class="carga" role="status"><span class="carga-barra"></span><span class="carga-texto">Preparando as fórmulas…</span></div>
+<nav class="sumario" id="sumario" aria-label="Sumário do apêndice"><ol><li class="nivel-2"><a href="#sec-D.1"><span class="n">D.1</span> Números Aleatórios</a></li><li class="nivel-2"><a href="#sec-D.2"><span class="n">D.2</span> Fda da Normal Padrão</a></li><li class="nivel-2"><a href="#sec-D.3"><span class="n">D.3</span> Quantis da Distribuição Qui-Quadrado</a></li><li class="nivel-2"><a href="#sec-D.4"><span class="n">D.4</span> Quantis da Distribuição \(t\)</a></li><li class="nivel-2"><a href="#sec-D.5"><span class="n">D.5</span> Quantis da Distribuição \(F\)</a></li><li class="nivel-2"><a href="#sec-D.6"><span class="n">D.6</span> Probabilidades da Distribuição Binomial</a></li></ol></nav>
 <main class="corpo">
 <h1 id="ap-D"><span class="n">Apêndice D</span><span class="t">Tabelas</span></h1>
 <p>As tabelas a seguir podem ser usadas em diversos cálculos. Recomenda-se, porém,
@@ -130,7 +126,8 @@ original repete \(P(Z &lt; 1{,}03)\); o segundo termo provavelmente seria \(P(Z 
 window.MathJax = { tex: { inlineMath: [["\\(", "\\)"]], displayMath: [["\\[", "\\]"]], tags: "none",
   macros: { allowbreak: "", nolinebreak: "", upshape: "", itshape: "", sloppy: "", negrito: ["\\boldsymbol{#1}", 1],
     Var: "\\operatorname{Var}", Cov: "\\operatorname{Cov}", Corr: "\\operatorname{Corr}", Sd: "\\operatorname{Sd}" } },
-  output: { font: "mathjax-stix2" }, svg: { fontCache: "global" }, options: { enableMenu: false } };
+  output: { displayOverflow: "linebreak", linebreaks: { inline: true, width: "100%" }, font: "mathjax-stix2" }, svg: { fontCache: "global" }, options: { enableMenu: false },
+  loader: { load: ["ui/lazy"] } };
 </script>
 <script src="https://cdn.jsdelivr.net/npm/mathjax@4.0.0/tex-svg.js"></script>
 <script src="leitor.js"></script>

@@ -8,18 +8,14 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=IBM+Plex+Sans+Condensed:wght@500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Sans+3:wght@500;600;700&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
 <link rel="stylesheet" href="leitor.css">
-<script>try{var c=JSON.parse(localStorage.getItem('leitor-config')||'{}');for(var k in c)document.documentElement.setAttribute('data-'+k,c[k]);}catch(e){}</script>
+<script>try{var a=JSON.parse(localStorage.getItem("leitor-ajustes")||"{}"),r=document.documentElement;
+[["escala","--escala",""],["entrelinha","--entrelinha",""],["letra","--esp-letra","em"],["palavra","--esp-palavra","em"],["margem","--margem",""]].forEach(function(x){if(typeof a[x[0]]==="number")r.style.setProperty(x[1],a[x[0]]+x[2]);});
+["tema","fonte","justificar"].forEach(function(k){if(a[k]&&a[k]!=="auto"&&a[k]!=="literata"&&a[k]!=="nao")r.dataset[k]=a[k];});if(a.termos==="nao")r.dataset.notasTermos="nao";}catch(e){}
+document.documentElement.classList.add("carregando");</script>
 </head>
-<body data-pagina="cap06">
-<header class="barra">
-  <button class="botao" id="abrir-sumario" type="button" aria-label="Sumário" aria-expanded="false">☰</button>
-  <a class="livro" href="index.html">Probabilidade e Estatística: A Ciência da Incerteza</a>
-  <span class="onde">Capítulo 6 · Inferência por Verossimilhança</span>
-  <button class="botao" id="abrir-ajustes" type="button" aria-label="Ajustes de leitura" aria-expanded="false">Aa</button>
-  <div class="progresso" id="progresso"></div>
-</header>
+<body data-pagina="cap06" data-livro="probabilidade-e-estatistica" data-obra="Probabilidade e Estatística" data-citacao="Evans e Rosenthal, Probabilidade e Estatística" data-rotulo="Capítulo 6" data-titulo="Inferência por Verossimilhança">
+<div class="carga" role="status"><span class="carga-barra"></span><span class="carga-texto">Preparando as fórmulas…</span></div>
 <nav class="sumario" id="sumario" aria-label="Sumário do capítulo"><ol><li class="nivel-2"><a href="#sec-6.1"><span class="n">6.1</span> A Função de Verossimilhança</a></li><li class="nivel-3"><a href="#subsec-6.1.1"><span class="n">6.1.1</span> Estatísticas Suficientes</a></li><li class="nivel-2"><a href="#sec-6.2"><span class="n">6.2</span> Estimação por Máxima Verossimilhança</a></li><li class="nivel-3"><a href="#subsec-6.2.1"><span class="n">6.2.1</span> Cálculo do EMV</a></li><li class="nivel-3"><a href="#subsec-6.2.2"><span class="n">6.2.2</span> O Caso Multidimensional (Avançado)</a></li><li class="nivel-2"><a href="#sec-6.3"><span class="n">6.3</span> Inferências Baseadas no EMV</a></li><li class="nivel-3"><a href="#subsec-6.3.1"><span class="n">6.3.1</span> Erros Padrão, Viés e Consistência</a></li><li class="nivel-3"><a href="#subsec-6.3.2"><span class="n">6.3.2</span> Intervalos de Confiança</a></li><li class="nivel-3"><a href="#subsec-6.3.3"><span class="n">6.3.3</span> Testes de Hipóteses e Valores-p</a></li><li class="nivel-3"><a href="#subsec-6.3.4"><span class="n">6.3.4</span> Inferências para a Variância</a></li><li class="nivel-3"><a href="#subsec-6.3.5"><span class="n">6.3.5</span> Cálculos de Tamanho da Amostra: Intervalos de Confiança</a></li><li class="nivel-3"><a href="#subsec-6.3.6"><span class="n">6.3.6</span> Cálculo do Tamanho da Amostra: Poder</a></li><li class="nivel-2"><a href="#sec-6.4"><span class="n">6.4</span> Métodos Livres de Distribuição</a></li><li class="nivel-3"><a href="#subsec-6.4.1"><span class="n">6.4.1</span> Método dos Momentos</a></li><li class="nivel-3"><a href="#subsec-6.4.2"><span class="n">6.4.2</span> Bootstrap</a></li><li class="nivel-3"><a href="#subsec-6.4.3"><span class="n">6.4.3</span> A Estatística do Sinal e Inferências sobre Quantis</a></li><li class="nivel-2"><a href="#sec-6.5"><span class="n">6.5</span> Assintótica do EMV (Avançado)</a></li></ol></nav>
-<div class="ajustes" id="ajustes" hidden></div>
 <main class="corpo">
 <h1 id="cap-6"><span class="n">Capítulo 6</span><span class="t">Inferência por Verossimilhança</span></h1>
 <section class="esboco"><h4>Esboço do capítulo</h4><ul><li><strong>Seção 1</strong> A Função de Verossimilhança</li>
@@ -3662,7 +3658,8 @@ seria \([-2{,}13;\ 1{,}15)\).</span> <a class="voltar" href="#ref-81" aria-label
 window.MathJax = { tex: { inlineMath: [["\\(", "\\)"]], displayMath: [["\\[", "\\]"]], tags: "none",
   macros: { allowbreak: "", nolinebreak: "", upshape: "", itshape: "", sloppy: "", negrito: ["\\boldsymbol{#1}", 1],
     Var: "\\operatorname{Var}", Cov: "\\operatorname{Cov}", Corr: "\\operatorname{Corr}", Sd: "\\operatorname{Sd}" } },
-  output: { font: "mathjax-stix2" }, svg: { fontCache: "global" }, options: { enableMenu: false } };
+  output: { displayOverflow: "linebreak", linebreaks: { inline: true, width: "100%" }, font: "mathjax-stix2" }, svg: { fontCache: "global" }, options: { enableMenu: false },
+  loader: { load: ["ui/lazy"] } };
 </script>
 <script src="https://cdn.jsdelivr.net/npm/mathjax@4.0.0/tex-svg.js"></script>
 <script src="leitor.js"></script>

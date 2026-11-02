@@ -8,18 +8,14 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=IBM+Plex+Sans+Condensed:wght@500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Sans+3:wght@500;600;700&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
 <link rel="stylesheet" href="leitor.css">
-<script>try{var c=JSON.parse(localStorage.getItem('leitor-config')||'{}');for(var k in c)document.documentElement.setAttribute('data-'+k,c[k]);}catch(e){}</script>
+<script>try{var a=JSON.parse(localStorage.getItem("leitor-ajustes")||"{}"),r=document.documentElement;
+[["escala","--escala",""],["entrelinha","--entrelinha",""],["letra","--esp-letra","em"],["palavra","--esp-palavra","em"],["margem","--margem",""]].forEach(function(x){if(typeof a[x[0]]==="number")r.style.setProperty(x[1],a[x[0]]+x[2]);});
+["tema","fonte","justificar"].forEach(function(k){if(a[k]&&a[k]!=="auto"&&a[k]!=="literata"&&a[k]!=="nao")r.dataset[k]=a[k];});if(a.termos==="nao")r.dataset.notasTermos="nao";}catch(e){}
+document.documentElement.classList.add("carregando");</script>
 </head>
-<body data-pagina="cap03">
-<header class="barra">
-  <button class="botao" id="abrir-sumario" type="button" aria-label="Sumário" aria-expanded="false">☰</button>
-  <a class="livro" href="index.html">Probabilidade e Estatística: A Ciência da Incerteza</a>
-  <span class="onde">Capítulo 3 · Esperança</span>
-  <button class="botao" id="abrir-ajustes" type="button" aria-label="Ajustes de leitura" aria-expanded="false">Aa</button>
-  <div class="progresso" id="progresso"></div>
-</header>
+<body data-pagina="cap03" data-livro="probabilidade-e-estatistica" data-obra="Probabilidade e Estatística" data-citacao="Evans e Rosenthal, Probabilidade e Estatística" data-rotulo="Capítulo 3" data-titulo="Esperança">
+<div class="carga" role="status"><span class="carga-barra"></span><span class="carga-texto">Preparando as fórmulas…</span></div>
 <nav class="sumario" id="sumario" aria-label="Sumário do capítulo"><ol><li class="nivel-2"><a href="#sec-3.1"><span class="n">3.1</span> O Caso Discreto</a></li><li class="nivel-2"><a href="#sec-3.2"><span class="n">3.2</span> O Caso Absolutamente Contínuo</a></li><li class="nivel-2"><a href="#sec-3.3"><span class="n">3.3</span> Variância, Covariância e Correlação</a></li><li class="nivel-2"><a href="#sec-3.4"><span class="n">3.4</span> Funções Geradoras</a></li><li class="nivel-3"><a href="#subsec-3.4.1"><span class="n">3.4.1</span> Funções Características (Avançado)</a></li><li class="nivel-2"><a href="#sec-3.5"><span class="n">3.5</span> Esperança Condicional</a></li><li class="nivel-3"><a href="#subsec-3.5.1"><span class="n">3.5.1</span> Caso Discreto</a></li><li class="nivel-3"><a href="#subsec-3.5.2"><span class="n">3.5.2</span> Caso Absolutamente Contínuo</a></li><li class="nivel-3"><a href="#subsec-3.5.3"><span class="n">3.5.3</span> Esperanças Duplas</a></li><li class="nivel-3"><a href="#subsec-3.5.4"><span class="n">3.5.4</span> Variância Condicional (Avançado)</a></li><li class="nivel-2"><a href="#sec-3.6"><span class="n">3.6</span> Desigualdades</a></li><li class="nivel-3"><a href="#subsec-3.6.1"><span class="n">3.6.1</span> Desigualdade de Jensen (Avançado)</a></li><li class="nivel-2"><a href="#sec-3.7"><span class="n">3.7</span> Esperanças Gerais (Avançado)</a></li><li class="nivel-2"><a href="#sec-3.8"><span class="n">3.8</span> Demonstrações Adicionais (Avançado)</a></li></ol></nav>
-<div class="ajustes" id="ajustes" hidden></div>
 <main class="corpo">
 <h1 id="cap-3"><span class="n">Capítulo 3</span><span class="t">Esperança</span></h1>
 <section class="esboco"><h4>Esboço do capítulo</h4><ul><li><strong>Seção 1</strong> O Caso Discreto</li>
@@ -256,12 +252,12 @@ teorema a seguir.</p>
 uma função tal que a esperança da variável aleatória \(g(X)\) existe. Então
 <span class="eq">\[
 E(g(X)) = \sum_x g(x)\, P(X = x).
-\]</span></span></span><span class="parte"><span class="pl">(b)</span>  Sejam \(X\) e \(Y\) variáveis aleatórias discretas, e seja
+\]</span></span><span class="parte"><span class="pl">(b)</span>  Sejam \(X\) e \(Y\) variáveis aleatórias discretas, e seja
 \(h : R^2 \to R^1\) uma função tal que a esperança da variável aleatória
 \(h(X, Y)\) existe. Então
 <span class="eq">\[
 E(h(X, Y)) = \sum_{x,y} h(x, y) P(X = x,\ Y = y).
-\]</span></span></p></div></div></span>
+\]</span></span></p></div></div>
 <div class="dem fim"><span class="rot">Demonstração.</span> <p>Demonstramos aqui a parte (b). A parte (a) segue então simplesmente tomando
 \(h(x, y) = g(x)\) e observando que
 <span class="eq">\[
@@ -651,13 +647,13 @@ densidade \(f_X\), e seja \(g : R^1 \to R^1\) uma função qualquer. Então, qua
 esperança de \(g(X)\) existe,
 <span class="eq">\[
 E\left(g(X)\right) = \int_{-\infty}^{\infty} g(x)\, f_X(x)\, dx.
-\]</span></span></span><span class="parte"><span class="pl">(b)</span>  Sejam \(X\) e \(Y\) variáveis aleatórias conjuntamente absolutamente
+\]</span></span><span class="parte"><span class="pl">(b)</span>  Sejam \(X\) e \(Y\) variáveis aleatórias conjuntamente absolutamente
 contínuas<sup class="nota-ref nota-termo"><a href="#nota-19" id="ref-19">19</a></sup>, com função densidade conjunta<sup class="nota-ref nota-termo"><a href="#nota-20" id="ref-20">20</a></sup> \(f_{X,Y}\), e seja
 \(h : R^2 \to R^1\) uma função qualquer. Então, quando a esperança de \(h(X, Y)\)
 existe,
 <span class="eq">\[
 E\left(h(X, Y)\right) = \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} h(x, y)\, f_{X,Y}(x, y)\, dx\, dy.
-\]</span></span></p></div></div></span>
+\]</span></span></p></div></div>
 <p>Não demonstraremos o Teorema 3.2.1 aqui; no entanto, vamos usá-lo com
 frequência. Como primeira aplicação desse resultado, demonstramos que os valores
 esperados de variáveis aleatórias absolutamente contínuas continuam sendo
@@ -938,25 +934,25 @@ fazemos uma pausa para apresentar algumas propriedades importantes de
 \(\Var\).</p>
 <div class="teo teorema" id="teorema-3.3.1"><div class="cab"><span class="rot">Teorema 3.3.1</span></div><div class="txt"><p>Seja \(X\) uma variável aleatória qualquer, com valor esperado \(\mu_X = E(X)\) e
 variância \(\Var(X)\). Então valem as seguintes afirmações:
-<span class="parte"><span class="pl">(a)</span>  \(\Var(X) \ge 0\).</span></span><span class="parte"><span class="pl">(b)</span>  Se \(a\) e \(b\) são números reais,
-\(\Var(aX + b) = a^2 \Var(X)\).</span></span><span class="parte"><span class="pl">(c)</span>  <span class="mat-quebravel">\(\Var(X) = E(X^2) - (\mu_X)^2\) \({}= E(X^2) - E(X)^2\)</span>. (Isto
+<span class="parte"><span class="pl">(a)</span>  \(\Var(X) \ge 0\).</span><span class="parte"><span class="pl">(b)</span>  Se \(a\) e \(b\) são números reais,
+\(\Var(aX + b) = a^2 \Var(X)\).</span><span class="parte"><span class="pl">(c)</span>  <span class="mat-quebravel">\(\Var(X) = E(X^2) - (\mu_X)^2\) \({}= E(X^2) - E(X)^2\)</span>. (Isto
 é, a variância é igual ao segundo momento menos o quadrado do primeiro
-momento.)</span></span><span class="parte"><span class="pl">(d)</span>  \(\Var(X) \le E(X^2)\).</span></p></div></div></span>
+momento.)</span><span class="parte"><span class="pl">(d)</span>  \(\Var(X) \le E(X^2)\).</span></p></div></div>
 <div class="dem fim"><span class="rot">Demonstração.</span> <p><span class="parte"><span class="pl">(a)</span>  Isso é imediato, porque sempre temos \((X - \mu_X)^2 \ge 0\).</span></p>
-<p></span><span class="parte"><span class="pl">(b)</span>  Notamos que <span class="mat-quebravel">\(\mu_{aX+b} = E(aX + b)\) \({}= aE(X) + b = a\mu_X\) \({}+ b\)</span>, por
+<p><span class="parte"><span class="pl">(b)</span>  Notamos que <span class="mat-quebravel">\(\mu_{aX+b} = E(aX + b)\) \({}= aE(X) + b = a\mu_X\) \({}+ b\)</span>, por
 linearidade. Logo, usando de novo a linearidade,
 <span class="eq">\begin{align*}
 \Var(aX + b) &amp;= E\Bigl((aX + b - \mu_{aX+b})^2\Bigr) = E\Bigl((aX + b - a\mu_X - b)^2\Bigr)\\
 &amp;= a^2 E\Bigl((X - \mu_X)^2\Bigr) = a^2 \Var(X).
 \end{align*}</span></span></p>
-<p></span><span class="parte"><span class="pl">(c)</span>  Novamente, usando a linearidade,
+<p><span class="parte"><span class="pl">(c)</span>  Novamente, usando a linearidade,
 <span class="eq">\begin{align*}
 \Var(X) &amp;= E\Bigl((X - \mu_X)^2\Bigr) = E\Bigl(X^2 - 2X\mu_X + (\mu_X)^2\Bigr)\\
 &amp;= E(X^2) - 2E(X)\mu_X + (\mu_X)^2 = E(X^2) - 2(\mu_X)^2 + (\mu_X)^2\\
 &amp;= E(X^2) - (\mu_X)^2.
 \end{align*}</span></span></p>
-<p></span><span class="parte"><span class="pl">(d)</span>  Isso segue imediatamente da parte (c), porque temos
-\(-(\mu_X)^2 \le 0\).</span></p></div></span>
+<p><span class="parte"><span class="pl">(d)</span>  Isso segue imediatamente da parte (c), porque temos
+\(-(\mu_X)^2 \le 0\).</span></p></div>
 <p>O Teorema 3.3.1 muitas vezes oferece maneiras mais fáceis de calcular a
 variância, como nos exemplos a seguir.</p>
 <div class="ex" id="exemplo-3.3.4"><div class="cab"><span class="rot">Exemplo 3.3.4</span> <span class="nome">Variância da Distribuição Exponencial\((\lambda)\)</span></div><div class="txt fim"><p>Seja \(W \sim \text{Exponencial}(\lambda)\), de modo que
@@ -1116,11 +1112,11 @@ Obtemos <span class="mat-quebravel">\(\Cov(X, Y) = E(XY) - E(X)\,E(Y)\) \({}= 35
 <div class="teo teorema" id="teorema-3.3.4"><div class="cab"><span class="rot">Teorema 3.3.4</span></div><div class="txt"><p><span class="parte"><span class="pl">(a)</span>  Para quaisquer variáveis aleatórias \(X\) e \(Y\),
 <span class="eq">\[
 \Var(X + Y) = \Var(X) + \Var(Y) + 2 \Cov(X, Y).
-\]</span></span></span><span class="parte"><span class="pl">(b)</span>  Mais geralmente, para quaisquer variáveis aleatórias
+\]</span></span><span class="parte"><span class="pl">(b)</span>  Mais geralmente, para quaisquer variáveis aleatórias
 \(X_1, \dots, X_n\),
 <span class="eq">\[
 \Var\left(\sum_i X_i\right) = \sum_i \Var(X_i) + 2 \sum_{i&lt;j} \Cov(X_i, X_j).
-\]</span></span></p></div></div></span>
+\]</span></span></p></div></div>
 <div class="dem fim"><span class="rot">Demonstração.</span> <p>Demonstramos aqui a parte (b); a parte (a) segue então como o caso particular
 \(n = 2\).</p>
 <p>Note que, por linearidade,
@@ -1138,8 +1134,8 @@ Portanto, temos que
 \end{align*}</span></p></div>
 <p>Combinando o Teorema 3.3.4 com o Corolário 3.3.2, obtemos o seguinte.</p>
 <div class="teo corolario" id="corolario-3.3.3"><div class="cab"><span class="rot">Corolário 3.3.3</span></div><div class="txt"><p><span class="parte"><span class="pl">(a)</span>  Se \(X\) e \(Y\) são independentes, então
-\(\Var(X + Y) = \Var(X) + \Var(Y)\).</span></span><span class="parte"><span class="pl">(b)</span>  Se \(X_1, \dots, X_n\) são independentes, então
-<span class="mat-quebravel">\(\Var\bigl(\sum_{i=1}^n X_i\bigr)\) \({}= \sum_{i=1}^n \Var(X_i)\)</span>.</span></p></div></div></span>
+\(\Var(X + Y) = \Var(X) + \Var(Y)\).</span><span class="parte"><span class="pl">(b)</span>  Se \(X_1, \dots, X_n\) são independentes, então
+<span class="mat-quebravel">\(\Var\bigl(\sum_{i=1}^n X_i\bigr)\) \({}= \sum_{i=1}^n \Var(X_i)\)</span>.</span></p></div></div>
 <p>Um uso do Corolário 3.3.3 é o seguinte.</p>
 <div class="ex" id="exemplo-3.3.11"><div class="cab"><span class="rot">Exemplo 3.3.11</span></div><div class="txt fim"><p>Seja \(Y \sim \text{Binomial}(n, \theta)\). Quanto vale \(\Var(Y)\)?
 Lembre que podemos escrever
@@ -1613,7 +1609,7 @@ como afirmado.</p></div>
 <p>Uma propriedade útil tanto das funções geradoras de probabilidade quanto das
 funções geradoras de momentos é a seguinte.</p>
 <div class="teo teorema" id="teorema-3.4.5"><div class="cab"><span class="rot">Teorema 3.4.5</span></div><div class="txt"><p>Sejam \(X\) e \(Y\) variáveis aleatórias independentes. Então temos
-<span class="parte"><span class="pl">(a)</span>  \(r_{X+Y}(t) = r_X(t)\, r_Y(t)\), e</span></span><span class="parte"><span class="pl">(b)</span>  \(m_{X+Y}(t) = m_X(t)\, m_Y(t)\).</span></p></div></div></span>
+<span class="parte"><span class="pl">(a)</span>  \(r_{X+Y}(t) = r_X(t)\, r_Y(t)\), e</span><span class="parte"><span class="pl">(b)</span>  \(m_{X+Y}(t) = m_X(t)\, m_Y(t)\).</span></p></div></div>
 <div class="dem fim"><span class="rot">Demonstração.</span> <p>Como \(X\) e \(Y\) são independentes, \(t^X\) e \(t^Y\) também são (pelo
 Teorema 2.8.5). Logo, sabemos (pelos Teoremas 3.1.3 e 3.2.3) que
 \(E(t^X t^Y) = E(t^X)\, E(t^Y)\). Usando isso, temos
@@ -1690,7 +1686,7 @@ distribuição de \(S\), pois isso ajudará a determinar quanto ela precisa cobr
 pelo seguro para garantir lucro.</p>
 <p>O teorema a seguir é importante no estudo de distribuições compostas.</p>
 <div class="teo teorema" id="teorema-3.4.7"><div class="cab"><span class="rot">Teorema 3.4.7</span></div><div class="txt"><p>Se \(S\) tem uma distribuição composta como em (3.4.2), então
-<span class="parte"><span class="pl">(a)</span>  \(E(S) = E(X_1) E(N)\).</span></span><span class="parte"><span class="pl">(b)</span>  \(m_S(s) = r_N(m_{X_1}(s))\).</span></p></div></div></span>
+<span class="parte"><span class="pl">(a)</span>  \(E(S) = E(X_1) E(N)\).</span><span class="parte"><span class="pl">(b)</span>  \(m_S(s) = r_N(m_{X_1}(s))\).</span></p></div></div>
 <div class="dem fim"><span class="rot">Demonstração.</span> <p>Veja a Seção 3.8 para a demonstração desse resultado.</p></div>
 <h3 id="subsec-3.4.1"><span class="n">3.4.1</span> <span class="t">Funções Características (Avançado)</span></h3>
 <p>Um problema das funções geradoras de momentos é que elas podem ser
@@ -2000,7 +1996,7 @@ porque esse caso nunca ocorrerá.</p></div></div>
 linear.</p>
 <div class="teo teorema" id="teorema-3.5.1"><div class="cab"><span class="rot">Teorema 3.5.1</span></div><div class="txt"><p>Sejam \(X_1\), \(X_2\) e \(Y\) variáveis aleatórias; seja \(A\) um evento; sejam \(a\),
 \(b\) e \(y\) números reais; e seja \(Z = aX_1 + bX_2\). Então
-<span class="parte"><span class="pl">(a)</span>  <span class="mat-quebravel">\(E(Z \mid A) = aE(X_1 \mid A)\) \({}+ bE(X_2 \mid A)\)</span>.</span></span><span class="parte"><span class="pl">(b)</span>  <span class="mat-quebravel">\(E(Z \mid Y = y)\) \({}= aE(X_1 \mid Y = y)\) \({}+ bE(X_2 \mid Y = y)\)</span>.</span></span><span class="parte"><span class="pl">(c)</span>  <span class="mat-quebravel">\(E(Z \mid Y) = aE(X_1 \mid Y)\) \({}+ bE(X_2 \mid Y)\)</span>.</span></p></div></div></span>
+<span class="parte"><span class="pl">(a)</span>  <span class="mat-quebravel">\(E(Z \mid A) = aE(X_1 \mid A)\) \({}+ bE(X_2 \mid A)\)</span>.</span><span class="parte"><span class="pl">(b)</span>  <span class="mat-quebravel">\(E(Z \mid Y = y)\) \({}= aE(X_1 \mid Y = y)\) \({}+ bE(X_2 \mid Y = y)\)</span>.</span><span class="parte"><span class="pl">(c)</span>  <span class="mat-quebravel">\(E(Z \mid Y) = aE(X_1 \mid Y)\) \({}+ bE(X_2 \mid Y)\)</span>.</span></p></div></div>
 <h3 id="subsec-3.5.2"><span class="n">3.5.2</span> <span class="t">Caso Absolutamente Contínuo</span></h3>
 <p>Suponha agora que \(X\) e \(Y\) são conjuntamente absolutamente contínuas. Então
 condicionar em \(Y = y\), para algum valor particular de \(y\), parece
@@ -2652,13 +2648,13 @@ Definição 3.7.1 coincide com a definição anterior de \(E(X)\). Isto é,
 \int_{0}^{\infty} P(X &gt; t)\,dt - \int_{-\infty}^{0} P(X &lt; t)\,dt
   = \sum_{i} x_i\,p_i.
 \]</span></span></p>
-<p></span><span class="parte"><span class="pl">(b)</span>  Seja \(X\) uma variável aleatória absolutamente contínua com
+<p><span class="parte"><span class="pl">(b)</span>  Seja \(X\) uma variável aleatória absolutamente contínua com
 densidade \(f_X\). Então a Definição 3.7.1 coincide com a definição anterior
 de \(E(X)\). Isto é,
 <span class="eq">\[
 \int_{0}^{\infty} P(X &gt; t)\,dt - \int_{-\infty}^{0} P(X &lt; t)\,dt
   = \int_{-\infty}^{\infty} x\,f_X(x)\,dx.
-\]</span></span></p></div></div></span>
+\]</span></span></p></div></div>
 <div class="dem fim"><span class="rot">Demonstração.</span> <p>O ponto-chave da demonstração é trocar a ordem da integração/soma.</p>
 <p><span class="parte"><span class="pl">(a)</span>  Temos
 <span class="eq">\[
@@ -2668,7 +2664,7 @@ de \(E(X)\). Isto é,
   = \sum_{i} p_i\,x_i,
 \]</span>
 como afirmado.</span></p>
-<p></span><span class="parte"><span class="pl">(b)</span>  Temos
+<p><span class="parte"><span class="pl">(b)</span>  Temos
 <span class="eq">\begin{align*}
 \int_{0}^{\infty} P(X &gt; t)\,dt
   &amp;= \int_{0}^{\infty} \left(\int_{t}^{\infty} f_X(x)\,dx\right) dt
@@ -2688,7 +2684,7 @@ Logo,
   &amp;= \int_{0}^{\infty} x\,f_X(x)\,dx - \int_{-\infty}^{0} (-x)\,f_X(x)\,dx\\
   &amp;= \int_{-\infty}^{\infty} x\,f_X(x)\,dx,
 \end{align*}</span>
-como afirmado.</span></p></div></span>
+como afirmado.</span></p></div>
 <p>Em outras palavras, o Teorema 3.7.1 diz que a Definição 3.7.1 inclui as
 nossas definições anteriores de valor esperado, tanto para variáveis
 aleatórias discretas quanto para absolutamente contínuas, e ao mesmo tempo
@@ -2702,8 +2698,8 @@ veja o Desafio 3.7.10 para uma demonstração da parte (c).)</p>
 contínuas, com valores esperados definidos pela Definição 3.7.1.</p>
 <p><span class="parte"><span class="pl">(a)</span>  (<em>Linearidade</em>) Se \(a\) e \(b\) são números reais quaisquer,
 então \(E(aX + bY) = a\,E(X) + b\,E(Y)\).</span></p>
-<p></span><span class="parte"><span class="pl">(b)</span>  Se \(X\) e \(Y\) são independentes, então \(E(XY) = E(X)\,E(Y)\).</span></p>
-<p></span><span class="parte"><span class="pl">(c)</span>  (<em>Monotonicidade</em>) Se \(X \le Y\), então \(E(X) \le E(Y)\).</span></p></div></div></span>
+<p><span class="parte"><span class="pl">(b)</span>  Se \(X\) e \(Y\) são independentes, então \(E(XY) = E(X)\,E(Y)\).</span></p>
+<p><span class="parte"><span class="pl">(c)</span>  (<em>Monotonicidade</em>) Se \(X \le Y\), então \(E(X) \le E(Y)\).</span></p></div></div>
 <p>A Definição 3.7.1 também nos diz algo sobre valores esperados de
 distribuições de mistura, como segue.</p>
 <div class="teo teorema" id="teorema-3.7.3"><div class="cab"><span class="rot">Teorema 3.7.3</span></div><div class="txt"><p>Para \(1 \le i \le k\), seja \(Y_i\) uma variável aleatória com fda \(F_i\). Seja
@@ -2945,7 +2941,8 @@ de \(S\), seria \(N\).</span> <a class="voltar" href="#ref-67" aria-label="Volta
 window.MathJax = { tex: { inlineMath: [["\\(", "\\)"]], displayMath: [["\\[", "\\]"]], tags: "none",
   macros: { allowbreak: "", nolinebreak: "", upshape: "", itshape: "", sloppy: "", negrito: ["\\boldsymbol{#1}", 1],
     Var: "\\operatorname{Var}", Cov: "\\operatorname{Cov}", Corr: "\\operatorname{Corr}", Sd: "\\operatorname{Sd}" } },
-  output: { font: "mathjax-stix2" }, svg: { fontCache: "global" }, options: { enableMenu: false } };
+  output: { displayOverflow: "linebreak", linebreaks: { inline: true, width: "100%" }, font: "mathjax-stix2" }, svg: { fontCache: "global" }, options: { enableMenu: false },
+  loader: { load: ["ui/lazy"] } };
 </script>
 <script src="https://cdn.jsdelivr.net/npm/mathjax@4.0.0/tex-svg.js"></script>
 <script src="leitor.js"></script>

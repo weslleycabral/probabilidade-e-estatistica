@@ -8,18 +8,14 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=IBM+Plex+Sans+Condensed:wght@500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Sans+3:wght@500;600;700&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
 <link rel="stylesheet" href="leitor.css">
-<script>try{var c=JSON.parse(localStorage.getItem('leitor-config')||'{}');for(var k in c)document.documentElement.setAttribute('data-'+k,c[k]);}catch(e){}</script>
+<script>try{var a=JSON.parse(localStorage.getItem("leitor-ajustes")||"{}"),r=document.documentElement;
+[["escala","--escala",""],["entrelinha","--entrelinha",""],["letra","--esp-letra","em"],["palavra","--esp-palavra","em"],["margem","--margem",""]].forEach(function(x){if(typeof a[x[0]]==="number")r.style.setProperty(x[1],a[x[0]]+x[2]);});
+["tema","fonte","justificar"].forEach(function(k){if(a[k]&&a[k]!=="auto"&&a[k]!=="literata"&&a[k]!=="nao")r.dataset[k]=a[k];});if(a.termos==="nao")r.dataset.notasTermos="nao";}catch(e){}
+document.documentElement.classList.add("carregando");</script>
 </head>
-<body data-pagina="cap02">
-<header class="barra">
-  <button class="botao" id="abrir-sumario" type="button" aria-label="Sumário" aria-expanded="false">☰</button>
-  <a class="livro" href="index.html">Probabilidade e Estatística: A Ciência da Incerteza</a>
-  <span class="onde">Capítulo 2 · Variáveis Aleatórias e Distribuições</span>
-  <button class="botao" id="abrir-ajustes" type="button" aria-label="Ajustes de leitura" aria-expanded="false">Aa</button>
-  <div class="progresso" id="progresso"></div>
-</header>
+<body data-pagina="cap02" data-livro="probabilidade-e-estatistica" data-obra="Probabilidade e Estatística" data-citacao="Evans e Rosenthal, Probabilidade e Estatística" data-rotulo="Capítulo 2" data-titulo="Variáveis Aleatórias e Distribuições">
+<div class="carga" role="status"><span class="carga-barra"></span><span class="carga-texto">Preparando as fórmulas…</span></div>
 <nav class="sumario" id="sumario" aria-label="Sumário do capítulo"><ol><li class="nivel-2"><a href="#sec-2.1"><span class="n">2.1</span> Variáveis Aleatórias</a></li><li class="nivel-2"><a href="#sec-2.2"><span class="n">2.2</span> Distribuições de Variáveis Aleatórias</a></li><li class="nivel-2"><a href="#sec-2.3"><span class="n">2.3</span> Distribuições Discretas</a></li><li class="nivel-3"><a href="#subsec-2.3.1"><span class="n">2.3.1</span> Distribuições Discretas Importantes</a></li><li class="nivel-2"><a href="#sec-2.4"><span class="n">2.4</span> Distribuições Contínuas</a></li><li class="nivel-3"><a href="#subsec-2.4.1"><span class="n">2.4.1</span> Distribuições Absolutamente Contínuas Importantes</a></li><li class="nivel-2"><a href="#sec-2.5"><span class="n">2.5</span> Funções de Distribuição Acumulada</a></li><li class="nivel-3"><a href="#subsec-2.5.1"><span class="n">2.5.1</span> Propriedades das Funções de Distribuição</a></li><li class="nivel-3"><a href="#subsec-2.5.2"><span class="n">2.5.2</span> Fdas de Distribuições Discretas</a></li><li class="nivel-3"><a href="#subsec-2.5.3"><span class="n">2.5.3</span> Fdas de Distribuições Absolutamente Contínuas</a></li><li class="nivel-3"><a href="#subsec-2.5.4"><span class="n">2.5.4</span> Distribuições de Mistura</a></li><li class="nivel-3"><a href="#subsec-2.5.5"><span class="n">2.5.5</span> Distribuições Nem Discretas Nem Contínuas (Avançado)</a></li><li class="nivel-2"><a href="#sec-2.6"><span class="n">2.6</span> Mudança de Variável Unidimensional</a></li><li class="nivel-3"><a href="#subsec-2.6.1"><span class="n">2.6.1</span> O Caso Discreto</a></li><li class="nivel-3"><a href="#subsec-2.6.2"><span class="n">2.6.2</span> O Caso Contínuo</a></li><li class="nivel-2"><a href="#sec-2.7"><span class="n">2.7</span> Distribuições Conjuntas</a></li><li class="nivel-3"><a href="#subsec-2.7.1"><span class="n">2.7.1</span> Funções de Distribuição Acumulada Conjuntas</a></li><li class="nivel-3"><a href="#subsec-2.7.2"><span class="n">2.7.2</span> Distribuições Marginais</a></li><li class="nivel-3"><a href="#subsec-2.7.3"><span class="n">2.7.3</span> Funções de Probabilidade Conjuntas</a></li><li class="nivel-3"><a href="#subsec-2.7.4"><span class="n">2.7.4</span> Funções Densidade Conjuntas</a></li><li class="nivel-2"><a href="#sec-2.8"><span class="n">2.8</span> Condicionamento e Independência</a></li><li class="nivel-3"><a href="#subsec-2.8.1"><span class="n">2.8.1</span> Condicionamento em Variáveis Aleatórias Discretas</a></li><li class="nivel-3"><a href="#subsec-2.8.2"><span class="n">2.8.2</span> Condicionamento em Variáveis Aleatórias Contínuas</a></li><li class="nivel-3"><a href="#subsec-2.8.3"><span class="n">2.8.3</span> Independência de Variáveis Aleatórias</a></li><li class="nivel-3"><a href="#subsec-2.8.4"><span class="n">2.8.4</span> Estatísticas de Ordem</a></li><li class="nivel-2"><a href="#sec-2.9"><span class="n">2.9</span> Mudança de Variável Multidimensional</a></li><li class="nivel-3"><a href="#subsec-2.9.1"><span class="n">2.9.1</span> O Caso Discreto</a></li><li class="nivel-3"><a href="#subsec-2.9.2"><span class="n">2.9.2</span> O Caso Contínuo (Avançado)</a></li><li class="nivel-3"><a href="#subsec-2.9.3"><span class="n">2.9.3</span> Convolução</a></li><li class="nivel-2"><a href="#sec-2.10"><span class="n">2.10</span> Simulando Distribuições de Probabilidade</a></li><li class="nivel-3"><a href="#subsec-2.10.1"><span class="n">2.10.1</span> Simulando Distribuições Discretas</a></li><li class="nivel-3"><a href="#subsec-2.10.2"><span class="n">2.10.2</span> Simulando Distribuições Contínuas</a></li><li class="nivel-2"><a href="#sec-2.11"><span class="n">2.11</span> Demonstrações Adicionais (Avançado)</a></li></ol></nav>
-<div class="ajustes" id="ajustes" hidden></div>
 <main class="corpo">
 <h1 id="cap-2"><span class="n">Capítulo 2</span><span class="t">Variáveis Aleatórias e Distribuições</span></h1>
 <section class="esboco"><h4>Esboço do capítulo</h4><ul><li><strong>Seção 1</strong> Variáveis Aleatórias</li>
@@ -1244,23 +1240,23 @@ são muito úteis. Assim, registramos aqui algumas de suas propriedades básicas
 <div class="teo teorema" id="teorema-2.5.2"><div class="cab"><span class="rot">Teorema 2.5.2</span></div><div class="txt"><p>Seja \(F_X\) a função de distribuição acumulada de uma variável aleatória \(X\).
 Então</p>
 <p><span class="parte"><span class="pl">(a)</span>  \(0 \le F_X(x) \le 1\) para todo \(x\),</span></p>
-<p></span><span class="parte"><span class="pl">(b)</span>  \(F_X(x) \le F_X(y)\) sempre que \(x \le y\) (isto é, \(F_X\) é crescente),</span></p>
-<p></span><span class="parte"><span class="pl">(c)</span>  \(\lim_{x \to +\infty} F_X(x) = 1\),</span></p>
-<p></span><span class="parte"><span class="pl">(d)</span>  \(\lim_{x \to -\infty} F_X(x) = 0\).</span></p></div></div></span>
+<p><span class="parte"><span class="pl">(b)</span>  \(F_X(x) \le F_X(y)\) sempre que \(x \le y\) (isto é, \(F_X\) é crescente),</span></p>
+<p><span class="parte"><span class="pl">(c)</span>  \(\lim_{x \to +\infty} F_X(x) = 1\),</span></p>
+<p><span class="parte"><span class="pl">(d)</span>  \(\lim_{x \to -\infty} F_X(x) = 0\).</span></p></div></div>
 <div class="dem fim"><span class="rot">Demonstração.</span> <p><span class="parte"><span class="pl">(a)</span>  Como \(F_X(x) = P(X \le x)\) é uma probabilidade, está entre 0 e 1.</span></p>
-<p></span><span class="parte"><span class="pl">(b)</span>  Sejam \(A = \{X \le x\}\) e \(B = \{X \le y\}\). Então, se \(x \le y\), temos
+<p><span class="parte"><span class="pl">(b)</span>  Sejam \(A = \{X \le x\}\) e \(B = \{X \le y\}\). Então, se \(x \le y\), temos
 \(A \subseteq B\), de modo que \(P(A) \le P(B)\). Mas \(P(A) = F_X(x)\) e
 \(P(B) = F_X(y)\), e o resultado segue.</span></p>
-<p></span><span class="parte"><span class="pl">(c)</span>  Seja \(A_n = \{X \le n\}\). Como \(X\) tem de assumir <em>algum</em> valor e,
+<p><span class="parte"><span class="pl">(c)</span>  Seja \(A_n = \{X \le n\}\). Como \(X\) tem de assumir <em>algum</em> valor e,
 portanto, \(X \le n\) para \(n\) suficientemente grande, vemos que \(\{A_n\}\) cresce
 para \(S\), isto é, \(\{A_n\} \nearrow S\) (ver Seção 1.6). Portanto, pela
 continuidade de \(P\) (ver Teorema 1.6.1), \(\lim_{n \to \infty} P(A_n) = P(S) = 1\).
 Mas \(P(A_n) = P(X \le n) = F_X(n)\), e o resultado segue.</span></p>
-<p></span><span class="parte"><span class="pl">(d)</span>  Seja \(B_n = \{X \le -n\}\). Como \(X \ge -n\) para \(n\) suficientemente grande,
+<p><span class="parte"><span class="pl">(d)</span>  Seja \(B_n = \{X \le -n\}\). Como \(X \ge -n\) para \(n\) suficientemente grande,
 \(\{B_n\}\) decresce para o conjunto vazio, isto é, \(\{B_n\} \searrow \emptyset\).
 Portanto, de novo pela continuidade de \(P\),
 <span class="mat-quebravel">\(\lim_{n \to \infty} P(B_n)\) \({}= P(\emptyset)\) \({}= 0\)</span>. Mas
-\(P(B_n) = P(X \le -n) = F_X(-n)\), e o resultado segue.</span></p></div></span>
+\(P(B_n) = P(X \le -n) = F_X(-n)\), e o resultado segue.</span></p></div>
 <p>Se \(F_X\) é uma função de distribuição acumulada, então \(F_X\) também é
 <em>contínua à direita<sup class="nota-ref nota-termo"><a href="#nota-45" id="ref-45">45</a></sup></em>; ver Problema 2.5.17. Acontece que, se uma função
 \(F : R^1 \to R^1\) satisfaz as propriedades (a) a (d) e é contínua à direita,
@@ -2711,13 +2707,13 @@ somente se sua função de probabilidade conjunta \(p_{X,Y}\) satisfaz
 p_{X,Y}(x, y) = p_X(x)\, p_Y(y)
 \]</span>
 para todo \(x, y \in R^1\).</span></p>
-<p></span><span class="parte"><span class="pl">(b)</span>  Se \(X\) e \(Y\) são conjuntamente absolutamente contínuas, então \(X\) e
+<p><span class="parte"><span class="pl">(b)</span>  Se \(X\) e \(Y\) são conjuntamente absolutamente contínuas, então \(X\) e
 \(Y\) são independentes se e somente se sua função densidade conjunta \(f_{X,Y}\)
 pode ser escolhida de modo a satisfazer
 <span class="eq">\[
 f_{X,Y}(x, y) = f_X(x)\, f_Y(y)
 \]</span>
-para todo \(x, y \in R^1\).</span></p></div></div></span>
+para todo \(x, y \in R^1\).</span></p></div></div>
 <div class="dem fim"><span class="rot">Demonstração.</span> <p><span class="parte"><span class="pl">(a)</span>  Se \(X\) e \(Y\) são independentes, então, fazendo \(a = b = x\) e \(c = d = y\)
 em (2.8.1), vemos que \(P(X = x,\ Y = y) = P(X = x)\,P(Y = y)\). Portanto,
 \(p_{X,Y}(x, y) = p_X(x)\, p_Y(y)\).</span></p>
@@ -2730,7 +2726,7 @@ em (2.8.1), vemos que \(P(X = x,\ Y = y) = P(X = x)\,P(Y = y)\). Portanto,
  = P(a \le X \le b)\, P(c \le Y \le d).
 \end{align*}</span>
 Isso completa a demonstração de (a).</p>
-<p></span><span class="parte"><span class="pl">(b)</span>  Se \(f_{X,Y}(x, y) = f_X(x)\, f_Y(y)\) para todo \(x\) e \(y\), então
+<p><span class="parte"><span class="pl">(b)</span>  Se \(f_{X,Y}(x, y) = f_X(x)\, f_Y(y)\) para todo \(x\) e \(y\), então
 <span class="eq">\begin{align*}
 &amp;P(a \le X \le b,\ c \le Y \le d)\\
 &amp;\quad= \int_a^b \int_c^d f_{X,Y}(x, y)\,dy\,dx
@@ -2739,7 +2735,7 @@ Isso completa a demonstração de (a).</p>
  = P(a \le X \le b)\, P(c \le Y \le d).
 \end{align*}</span>
 Isso completa a demonstração da parte “se” de (b). A demonstração da parte
-“somente se” de (b) é mais técnica, e não a incluímos aqui.</span></p></div></span>
+“somente se” de (b) é mais técnica, e não a incluímos aqui.</span></p></div>
 <div class="ex" id="exemplo-2.8.3"><div class="cab"><span class="rot">Exemplo 2.8.3</span></div><div class="txt fim"><p>Sejam \(X\) e \(Y\) com densidade conjunta, como no Exemplo 2.7.6,
 <span class="eq">\[
 f_{X,Y}(x, y) = \begin{cases}
@@ -2808,9 +2804,9 @@ independência.</p>
 <div class="teo teorema" id="teorema-2.8.4"><div class="cab"><span class="rot">Teorema 2.8.4</span></div><div class="txt"><p>Sejam \(X\) e \(Y\) duas variáveis aleatórias.</p>
 <p><span class="parte"><span class="pl">(a)</span>  Se \(X\) e \(Y\) são discretas, então \(X\) e \(Y\) são independentes se e
 somente se \(p_{Y \mid X}(y \mid x) = p_Y(y)\) para todo \(x, y \in R^1\).</span></p>
-<p></span><span class="parte"><span class="pl">(b)</span>  Se \(X\) e \(Y\) são conjuntamente absolutamente contínuas, então \(X\) e
+<p><span class="parte"><span class="pl">(b)</span>  Se \(X\) e \(Y\) são conjuntamente absolutamente contínuas, então \(X\) e
 \(Y\) são independentes se e somente se \(f_{Y \mid X}(y \mid x) = f_Y(y)\) para
-todo \(x, y \in R^1\).</span></p></div></div></span>
+todo \(x, y \in R^1\).</span></p></div></div>
 <p>Embora seja bem difícil trabalhar com a Definição 2.8.5, ela fornece o modo
 mais fácil de demonstrar uma propriedade muito importante da independência,
 como segue.</p>
@@ -2840,7 +2836,7 @@ independentes se e somente se sua função de probabilidade conjunta
 p_{X_1, \ldots, X_n}(x_1, \ldots, x_n) = p_{X_1}(x_1) \cdots p_{X_n}(x_n)
 \]</span>
 para todo \(x_1, \ldots, x_n \in R^1\).</span></p>
-<p></span><span class="parte"><span class="pl">(b)</span>  Se \(X_1, \ldots, X_n\) são conjuntamente absolutamente contínuas,
+<p><span class="parte"><span class="pl">(b)</span>  Se \(X_1, \ldots, X_n\) são conjuntamente absolutamente contínuas,
 então \(X_1, \ldots, X_n\) são independentes se e somente se sua função
 densidade conjunta \(f_{X_1, \ldots, X_n}\) pode ser escolhida de modo a
 satisfazer
@@ -2848,7 +2844,7 @@ satisfazer
 f_{X_1, \ldots, X_n}(x, y) = f_{X_1}(x_1) \cdots f_{X_n}(x_n)
 \]</span>
 <sup class="nota-ref nota-tradutor"><a href="#nota-69" id="ref-69">69</a></sup>
-para todo \(x_1, \ldots, x_n \in R^1\).</span></p></div></div></span>
+para todo \(x_1, \ldots, x_n \in R^1\).</span></p></div></div>
 <p>Um caso particularmente comum em estatística é o seguinte.</p>
 <div class="def definicao" id="definicao-2.8.6"><div class="cab"><span class="rot">Definição 2.8.6</span></div><div class="txt"><p>Uma coleção \(X_1, \ldots, X_n\) de variáveis aleatórias é
 <em>independente e identicamente distribuída</em> (ou <em>i.i.d.</em>) se a
@@ -3451,12 +3447,12 @@ Felizmente, a convolução costuma ser razoavelmente simples de calcular.</p>
 <span class="eq">\[
 p_Z(z) = \sum_w p_X(z - w)\,p_Y(w).
 \]</span></span></p>
-<p></span><span class="parte"><span class="pl">(b)</span>  Se \(X\) e \(Y\) são conjuntamente absolutamente contínuas, com funções
+<p><span class="parte"><span class="pl">(b)</span>  Se \(X\) e \(Y\) são conjuntamente absolutamente contínuas, com funções
 densidade \(f_X\) e \(f_Y\), então \(Z\) também é absolutamente contínua, com função
 densidade \(f_Z\) dada por
 <span class="eq">\[
 f_Z(z) = \int_{-\infty}^{\infty} f_X(z - w)\,f_Y(w)\,dw.
-\]</span></span></p></div></div></span>
+\]</span></span></p></div></div>
 <div class="dem fim"><span class="rot">Demonstração.</span> <p><span class="parte"><span class="pl">(a)</span>  Tomamos \(W = Y\) e consideramos a transformação bidimensional de \((X, Y)\)
 em \((Z, W) = (X + Y, Y)\).</span></p>
 <p>No caso discreto, pelo Corolário 2.9.1,
@@ -3464,7 +3460,7 @@ em \((Z, W) = (X + Y, Y)\).</span></p>
 <span class="mat-quebravel">\(p_Z(z) = \sum_w p_{Z,W}(z, w)\) \({}= \sum_w p_{X,Y}(z - w, w)\)</span>. Mas, como \(X\) e
 \(Y\) são independentes, \(p_{X,Y}(x, y) = p_X(x)\,p_Y(y)\), de modo que
 \(p_{X,Y}(z - w, w) = p_X(z - w)\,p_Y(w)\). Isso prova a parte (a).</p>
-<p></span><span class="parte"><span class="pl">(b)</span>  No caso contínuo, precisamos calcular o jacobiano \(J(x, y)\) da
+<p><span class="parte"><span class="pl">(b)</span>  No caso contínuo, precisamos calcular o jacobiano \(J(x, y)\) da
 transformação de \((X, Y)\) em \((Z, W) = (X + Y, Y)\). Felizmente, isso é muito
 fácil, pois obtemos
 <span class="eq">\[
@@ -3481,7 +3477,7 @@ f_Z(z) = \int_{-\infty}^{\infty} f_{Z,W}(z, w)\,dw
 \]</span>
 Mas, como \(X\) e \(Y\) são independentes, podemos tomar
 \(f_{X,Y}(x, y) = f_X(x)\,f_Y(y)\), de modo que
-\(f_{X,Y}(z - w, w) = f_X(z - w)\,f_Y(w)\). Isso prova a parte (b).</span></p></div></span>
+\(f_{X,Y}(z - w, w) = f_X(z - w)\,f_Y(w)\). Isso prova a parte (b).</span></p></div>
 <div class="ex" id="exemplo-2.9.4"><div class="cab"><span class="rot">Exemplo 2.9.4</span></div><div class="txt fim"><p>Sejam \(X \sim \text{Binomial}(4, 1/5)\) e \(Y \sim \text{Bernoulli}(1/4)\), com
 \(X\) e \(Y\) independentes. Seja \(Z = X + Y\). Então
 <span class="eq">\begin{align*}
@@ -4162,7 +4158,8 @@ de dentro, \(w\) de \(c\) a \(d\) na de fora) seria \(dz\,dw\).</span> <a class=
 window.MathJax = { tex: { inlineMath: [["\\(", "\\)"]], displayMath: [["\\[", "\\]"]], tags: "none",
   macros: { allowbreak: "", nolinebreak: "", upshape: "", itshape: "", sloppy: "", negrito: ["\\boldsymbol{#1}", 1],
     Var: "\\operatorname{Var}", Cov: "\\operatorname{Cov}", Corr: "\\operatorname{Corr}", Sd: "\\operatorname{Sd}" } },
-  output: { font: "mathjax-stix2" }, svg: { fontCache: "global" }, options: { enableMenu: false } };
+  output: { displayOverflow: "linebreak", linebreaks: { inline: true, width: "100%" }, font: "mathjax-stix2" }, svg: { fontCache: "global" }, options: { enableMenu: false },
+  loader: { load: ["ui/lazy"] } };
 </script>
 <script src="https://cdn.jsdelivr.net/npm/mathjax@4.0.0/tex-svg.js"></script>
 <script src="leitor.js"></script>

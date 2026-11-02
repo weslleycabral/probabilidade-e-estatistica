@@ -8,18 +8,14 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=IBM+Plex+Sans+Condensed:wght@500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Sans+3:wght@500;600;700&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
 <link rel="stylesheet" href="leitor.css">
-<script>try{var c=JSON.parse(localStorage.getItem('leitor-config')||'{}');for(var k in c)document.documentElement.setAttribute('data-'+k,c[k]);}catch(e){}</script>
+<script>try{var a=JSON.parse(localStorage.getItem("leitor-ajustes")||"{}"),r=document.documentElement;
+[["escala","--escala",""],["entrelinha","--entrelinha",""],["letra","--esp-letra","em"],["palavra","--esp-palavra","em"],["margem","--margem",""]].forEach(function(x){if(typeof a[x[0]]==="number")r.style.setProperty(x[1],a[x[0]]+x[2]);});
+["tema","fonte","justificar"].forEach(function(k){if(a[k]&&a[k]!=="auto"&&a[k]!=="literata"&&a[k]!=="nao")r.dataset[k]=a[k];});if(a.termos==="nao")r.dataset.notasTermos="nao";}catch(e){}
+document.documentElement.classList.add("carregando");</script>
 </head>
-<body data-pagina="cap11">
-<header class="barra">
-  <button class="botao" id="abrir-sumario" type="button" aria-label="Sumário" aria-expanded="false">☰</button>
-  <a class="livro" href="index.html">Probabilidade e Estatística: A Ciência da Incerteza</a>
-  <span class="onde">Capítulo 11 · Tópico Avançado — Processos Estocásticos</span>
-  <button class="botao" id="abrir-ajustes" type="button" aria-label="Ajustes de leitura" aria-expanded="false">Aa</button>
-  <div class="progresso" id="progresso"></div>
-</header>
+<body data-pagina="cap11" data-livro="probabilidade-e-estatistica" data-obra="Probabilidade e Estatística" data-citacao="Evans e Rosenthal, Probabilidade e Estatística" data-rotulo="Capítulo 11" data-titulo="Tópico Avançado — Processos Estocásticos">
+<div class="carga" role="status"><span class="carga-barra"></span><span class="carga-texto">Preparando as fórmulas…</span></div>
 <nav class="sumario" id="sumario" aria-label="Sumário do capítulo"><ol><li class="nivel-2"><a href="#sec-11.1"><span class="n">11.1</span> Passeio Aleatório Simples</a></li><li class="nivel-3"><a href="#subsec-11.1.1"><span class="n">11.1.1</span> A Distribuição da Fortuna</a></li><li class="nivel-3"><a href="#subsec-11.1.2"><span class="n">11.1.2</span> O Problema da Ruína do Jogador</a></li><li class="nivel-2"><a href="#sec-11.2"><span class="n">11.2</span> Cadeias de Markov</a></li><li class="nivel-3"><a href="#subsec-11.2.1"><span class="n">11.2.1</span> Exemplos de Cadeias de Markov</a></li><li class="nivel-3"><a href="#subsec-11.2.2"><span class="n">11.2.2</span> Cálculos com Cadeias de Markov</a></li><li class="nivel-3"><a href="#subsec-11.2.3"><span class="n">11.2.3</span> Distribuições Estacionárias</a></li><li class="nivel-3"><a href="#subsec-11.2.4"><span class="n">11.2.4</span> Teorema Limite para Cadeias de Markov</a></li><li class="nivel-2"><a href="#sec-11.3"><span class="n">11.3</span> Monte Carlo via Cadeias de Markov</a></li><li class="nivel-3"><a href="#subsec-11.3.1"><span class="n">11.3.1</span> O Algoritmo de Metropolis–Hastings</a></li><li class="nivel-3"><a href="#subsec-11.3.2"><span class="n">11.3.2</span> O Amostrador de Gibbs</a></li><li class="nivel-2"><a href="#sec-11.4"><span class="n">11.4</span> Martingais</a></li><li class="nivel-3"><a href="#subsec-11.4.1"><span class="n">11.4.1</span> Definição de Martingal</a></li><li class="nivel-3"><a href="#subsec-11.4.2"><span class="n">11.4.2</span> Valores Esperados</a></li><li class="nivel-3"><a href="#subsec-11.4.3"><span class="n">11.4.3</span> Tempos de Parada</a></li><li class="nivel-2"><a href="#sec-11.5"><span class="n">11.5</span> Movimento Browniano</a></li><li class="nivel-3"><a href="#subsec-11.5.1"><span class="n">11.5.1</span> Passeios Aleatórios Cada Vez Mais Rápidos</a></li><li class="nivel-3"><a href="#subsec-11.5.2"><span class="n">11.5.2</span> O Movimento Browniano como Limite</a></li><li class="nivel-3"><a href="#subsec-11.5.3"><span class="n">11.5.3</span> Difusões e Preços de Ações</a></li><li class="nivel-2"><a href="#sec-11.6"><span class="n">11.6</span> Processos de Poisson</a></li><li class="nivel-2"><a href="#sec-11.7"><span class="n">11.7</span> Demonstrações Adicionais</a></li></ol></nav>
-<div class="ajustes" id="ajustes" hidden></div>
 <main class="corpo">
 <h1 id="cap-11"><span class="n">Capítulo 11</span><span class="t">Tópico Avançado — Processos Estocásticos</span></h1>
 <section class="esboco"><h4>Esboço do capítulo</h4><ul><li><strong>Seção 1</strong> Passeio Aleatório Simples</li>
@@ -86,12 +82,12 @@ a probabilidade de você ter US$ 7 depois de três apostas é dada por
 P(X_3 = 7) = P(8 + Z_1 + Z_2 + Z_3 = 7) = P(Z_1 + Z_2 + Z_3 = -1).
 \]</span>
 Ora, há três maneiras diferentes de termos \(Z_1 + Z_2 + Z_3 = -1\), a saber:
-<span class="parte"><span class="pl">(a)</span>  \(Z_1 = 1\), enquanto \(Z_2 = Z_3 = -1\);</span></span><span class="parte"><span class="pl">(b)</span>  \(Z_2 = 1\), enquanto \(Z_1 = Z_3 = -1\); ou</span></span><span class="parte"><span class="pl">(c)</span>  \(Z_3 = 1\), enquanto \(Z_1 = Z_2 = -1\).</span></p>
+<span class="parte"><span class="pl">(a)</span>  \(Z_1 = 1\), enquanto \(Z_2 = Z_3 = -1\);</span><span class="parte"><span class="pl">(b)</span>  \(Z_2 = 1\), enquanto \(Z_1 = Z_3 = -1\); ou</span><span class="parte"><span class="pl">(c)</span>  \(Z_3 = 1\), enquanto \(Z_1 = Z_2 = -1\).</span></p>
 <p>Cada uma dessas três opções tem probabilidade \((1/3)(2/3)(2/3)\).
 Logo,
 <span class="eq">\[
 P(X_3 = 7) = (1/3)(2/3)(2/3) + (1/3)(2/3)(2/3) + (1/3)(2/3)(2/3) = 4/9.
-\]</span></p></div></div></span>
+\]</span></p></div></div>
 <p>Se o número de apostas for muito maior que três, fica cada vez menos cômodo
 calcular probabilidades da maneira acima. É preciso uma abordagem mais
 sistemática, que é o que veremos a seguir.</p>
@@ -1779,10 +1775,10 @@ opcional<sup class="nota-ref nota-termo"><a href="#nota-42" id="ref-42">42</a></
 <div class="teo teorema" id="teorema-11.4.2"><div class="cab"><span class="rot">Teorema 11.4.2</span> <span class="nome">(Teorema da parada opcional)</span></div><div class="txt"><p>Suponha que \(\{X_n\}\) seja um martingal com \(X_0 = a\) e que \(T\) seja um tempo
 de parada. Suponha ainda que
 <span class="parte"><span class="pl">(a)</span>  o martingal seja limitado até o tempo \(T\), isto é, para algum
-\(M &gt; 0\), tenhamos \(\lvert X_n\rvert \le M\) para todo \(n \le T\); ou</span></span><span class="parte"><span class="pl">(b)</span>  o tempo de parada seja limitado, isto é, para algum \(M &gt; 0\),
+\(M &gt; 0\), tenhamos \(\lvert X_n\rvert \le M\) para todo \(n \le T\); ou</span><span class="parte"><span class="pl">(b)</span>  o tempo de parada seja limitado, isto é, para algum \(M &gt; 0\),
 tenhamos \(T \le M\).</span></p>
 <p>Então \(E(X_T) = a\), isto é, em média, o valor do processo no tempo aleatório
-\(T\) é igual ao valor inicial \(a\).</p></div></div></span>
+\(T\) é igual ao valor inicial \(a\).</p></div></div>
 <div class="dem fim"><span class="rot">Demonstração.</span> <p>Para uma demonstração e mais discussão, veja, por exemplo, a página 273 de
 <em>Probability: Theory and Examples</em>, 2.ª ed., de R. Durrett (Duxbury
 Press, Nova York, 1996).</p></div>
@@ -2040,14 +2036,14 @@ teorema a seguir.</p>
 <div class="teo teorema" id="teorema-11.5.1"><div class="cab"><span class="rot">Teorema 11.5.1</span></div><div class="txt"><p>Seja \(\{Y_t^{*(M)} : t \ge 0\}\) como definido anteriormente. Então, para \(M\)
 grande:
 <span class="parte"><span class="pl">(a)</span>  Para \(t \ge 0\), a distribuição de \(Y_t^{*(M)}\) é aproximadamente
-\(N(0, t)\), isto é, normal com média \(t\).<sup class="nota-ref nota-tradutor"><a href="#nota-52" id="ref-52">52</a></sup></span></span><span class="parte"><span class="pl">(b)</span>  Para \(s, t \ge 0\), a covariância<sup class="nota-ref nota-termo"><a href="#nota-53" id="ref-53">53</a></sup><sup class="nota-ref nota-tradutor"><a href="#nota-54" id="ref-54">54</a></sup>
+\(N(0, t)\), isto é, normal com média \(t\).<sup class="nota-ref nota-tradutor"><a href="#nota-52" id="ref-52">52</a></sup></span><span class="parte"><span class="pl">(b)</span>  Para \(s, t \ge 0\), a covariância<sup class="nota-ref nota-termo"><a href="#nota-53" id="ref-53">53</a></sup><sup class="nota-ref nota-tradutor"><a href="#nota-54" id="ref-54">54</a></sup>
 <span class="eq">\[
 \Cov\left(Y_t^{*(M)}, Y_t^{*(M)}\right)
 \]</span>
-é aproximadamente igual a \(\min\{s, t\}\).</span></span><span class="parte"><span class="pl">(c)</span>  Para \(t \ge s \ge 0\), a distribuição do incremento
+é aproximadamente igual a \(\min\{s, t\}\).</span><span class="parte"><span class="pl">(c)</span>  Para \(t \ge s \ge 0\), a distribuição do incremento
 \(Y_t^{*(M)} - Y_s^{*(M)}\) é aproximadamente \(N(0, t - s)\), isto é, normal com
 média 0 e variância \(t - s\), e é aproximadamente independente de
-\(Y_s^{*(M)}\).</span></span><span class="parte"><span class="pl">(d)</span>  \(Y_t^{*(M)}\) é uma função contínua de \(t\).</span></p></div></div></span>
+\(Y_s^{*(M)}\).</span><span class="parte"><span class="pl">(d)</span>  \(Y_t^{*(M)}\) é uma função contínua de \(t\).</span></p></div></div>
 <div class="dem fim"><span class="rot">Demonstração.</span> <p>Veja a Seção 11.7 para a demonstração deste resultado.</p></div>
 <p>Usaremos esse teorema limite para construir o movimento browniano.</p>
 <h3 id="subsec-11.5.2"><span class="n">11.5.2</span> <span class="t">O Movimento Browniano como Limite</span></h3>
@@ -2066,9 +2062,9 @@ browniano está na Figura 11.5.2.</p>
 <p>Dessa forma, todas as propriedades de \(Y_t^{*(M)}\) para \(M\) grande,
 desenvolvidas no Teorema 11.5.1, valem para o movimento browniano, como segue.</p>
 <div class="teo teorema" id="teorema-11.5.2"><div class="cab"><span class="rot">Teorema 11.5.2</span></div><div class="txt"><p>Seja \(\{B_t : t \ge 0\}\) o movimento browniano. Então
-<span class="parte"><span class="pl">(a)</span>  \(B_t\) tem distribuição normal: \(B_t \sim N(0, t)\) para todo \(t \ge 0\);</span></span><span class="parte"><span class="pl">(b)</span>  \(\Cov(B_s, B_t) = E(B_s B_t) = \min\{s, t\}\) para \(s, t \ge 0\);</span></span><span class="parte"><span class="pl">(c)</span>  se \(0 &lt; s &lt; t\), então o incremento \(B_t - B_s\) tem distribuição
+<span class="parte"><span class="pl">(a)</span>  \(B_t\) tem distribuição normal: \(B_t \sim N(0, t)\) para todo \(t \ge 0\);</span><span class="parte"><span class="pl">(b)</span>  \(\Cov(B_s, B_t) = E(B_s B_t) = \min\{s, t\}\) para \(s, t \ge 0\);</span><span class="parte"><span class="pl">(c)</span>  se \(0 &lt; s &lt; t\), então o incremento \(B_t - B_s\) tem distribuição
 normal: \(B_t - B_s \sim N(0, t - s)\); além disso, \(B_t - B_s\) é independente
-de \(B_s\);</span></span><span class="parte"><span class="pl">(d)</span>  a função \(\{B_t\}_{t \ge 0}\) é uma função contínua.</span></p></div></div></span>
+de \(B_s\);</span><span class="parte"><span class="pl">(d)</span>  a função \(\{B_t\}_{t \ge 0}\) é uma função contínua.</span></p></div></div>
 <p>Esse teorema pode ser usado para calcular muitas coisas sobre o movimento
 browniano.</p>
 <div class="ex" id="exemplo-11.5.1"><div class="cab"><span class="rot">Exemplo 11.5.1</span></div><div class="txt fim"><p>Seja \(\{B_t\}\) o movimento browniano. Quanto vale \(P(B_5 \le 3)\)?</p>
@@ -2175,7 +2171,7 @@ mas, por causa da aleatoriedade do movimento browniano, \(X_t\) assume valores
 <p>A distribuição exata de \(X_t\) pode ser calculada, como segue.</p>
 <div class="teo teorema" id="teorema-11.5.3"><div class="cab"><span class="rot">Teorema 11.5.3</span></div><div class="txt"><p>Seja \(\{B_t\}\) o movimento browniano, e seja \(X_t = a + \delta t + \sigma B_t\)
 uma difusão. Então
-<span class="parte"><span class="pl">(a)</span>  \(E(X_t) = a + \delta t\),</span></span><span class="parte"><span class="pl">(b)</span>  \(\Var(X_t) = \sigma^2 t\),</span></span><span class="parte"><span class="pl">(c)</span>  \(X_t \sim N(a + \delta t, \sigma^2 t)\).</span></p></div></div></span>
+<span class="parte"><span class="pl">(a)</span>  \(E(X_t) = a + \delta t\),</span><span class="parte"><span class="pl">(b)</span>  \(\Var(X_t) = \sigma^2 t\),</span><span class="parte"><span class="pl">(c)</span>  \(X_t \sim N(a + \delta t, \sigma^2 t)\).</span></p></div></div>
 <div class="dem fim"><span class="rot">Demonstração.</span> <p>Sabemos que \(B_t \sim N(0, 1)\),
 de modo que \(E(B_t) = 0\) e \(\Var(B_t) = t\).<sup class="nota-ref nota-tradutor"><a href="#nota-58" id="ref-58">58</a></sup> Além disso, \(a + \delta t\) não é
 aleatório (isto é, é uma <em>constante</em> do ponto de vista das variáveis
@@ -2630,16 +2626,16 @@ Segue que (11.7.3) é verdadeira.</p></div>
 <div class="dem fim demonstracaode"><div class="cab"><span class="rot">Demonstração do Teorema 11.5.1</span></div><p>Queremos provar que, quando \(\{Y_t^{*(M)} : t \ge 0\}\) é como definido
 anteriormente, então, para \(M\) grande:
 <span class="parte"><span class="pl">(a)</span>  Para \(t \ge 0\), a distribuição de \(Y_t^{*(M)}\) é aproximadamente
-\(N(0, t)\), isto é, normal com média \(t\)<sup class="nota-ref nota-tradutor"><a href="#nota-66" id="ref-66">66</a></sup>.</span></span><span class="parte"><span class="pl">(b)</span>  Para \(s, t \ge 0\), a covariância
+\(N(0, t)\), isto é, normal com média \(t\)<sup class="nota-ref nota-tradutor"><a href="#nota-66" id="ref-66">66</a></sup>.</span><span class="parte"><span class="pl">(b)</span>  Para \(s, t \ge 0\), a covariância
 <span class="eq">\[
 \Cov\left(Y_t^{*(M)}, Y_t^{*(M)}\right)
 \]</span>
-é aproximadamente igual a \(\min\{s, t\}\)<sup class="nota-ref nota-tradutor"><a href="#nota-67" id="ref-67">67</a></sup>.</span></span><span class="parte"><span class="pl">(c)</span>  Para \(t \ge s \ge 0\), a distribuição do incremento
+é aproximadamente igual a \(\min\{s, t\}\)<sup class="nota-ref nota-tradutor"><a href="#nota-67" id="ref-67">67</a></sup>.</span><span class="parte"><span class="pl">(c)</span>  Para \(t \ge s \ge 0\), a distribuição do incremento
 <span class="eq">\[
 Y_t^{*(M)} - Y_s^{*(M)}
 \]</span>
 é aproximadamente \(N(0, t - s)\), isto é, normal com média 0 e variância
-\(t - s\), e é aproximadamente independente de \(Y_s^{*(M)}\).</span></span><span class="parte"><span class="pl">(d)</span>  \(Y_t^{*(M)}\) é uma função contínua de \(t\).</span></p>
+\(t - s\), e é aproximadamente independente de \(Y_s^{*(M)}\).</span><span class="parte"><span class="pl">(d)</span>  \(Y_t^{*(M)}\) é uma função contínua de \(t\).</span></p>
 <p>Escreva \(\lfloor r \rfloor\) para o maior inteiro que não excede \(r\), de modo
 que, por exemplo, \(\lfloor 7{,}6 \rfloor = 7\). Vemos então que, para \(M\)
 grande, \(t\) fica muito próximo de \(\lfloor tM \rfloor / M\), de modo que
@@ -2679,7 +2675,7 @@ Como \(E(Z_i) = 0\), devemos ter \(E(A) = E(B) = 0\), de modo que
 que converge para \(s\) quando \(M \to \infty\). Isso prova o item (b).</p>
 <p>O item (c) segue de modo muito parecido com o item (a). Por fim, o item (d)
 segue porque a função \(Y_t^{(M)}\) foi construída de maneira contínua (como na
-Figura 11.5.1).</p></div></span>
+Figura 11.5.1).</p></div>
 <div class="dem fim demonstracaode"><div class="cab"><span class="rot">Demonstração do Teorema 11.6.1</span></div><p>Queremos provar que, para qualquer \(t &gt; 0\), a distribuição de \(N_t\) é
 Poisson\((at)\).</p>
 <p>Primeiro precisamos de um lema técnico.</p>
@@ -2795,7 +2791,8 @@ pelo evento \(T_n \le t\), seria “até o instante \(t\)”</span> <a class="vo
 window.MathJax = { tex: { inlineMath: [["\\(", "\\)"]], displayMath: [["\\[", "\\]"]], tags: "none",
   macros: { allowbreak: "", nolinebreak: "", upshape: "", itshape: "", sloppy: "", negrito: ["\\boldsymbol{#1}", 1],
     Var: "\\operatorname{Var}", Cov: "\\operatorname{Cov}", Corr: "\\operatorname{Corr}", Sd: "\\operatorname{Sd}" } },
-  output: { font: "mathjax-stix2" }, svg: { fontCache: "global" }, options: { enableMenu: false } };
+  output: { displayOverflow: "linebreak", linebreaks: { inline: true, width: "100%" }, font: "mathjax-stix2" }, svg: { fontCache: "global" }, options: { enableMenu: false },
+  loader: { load: ["ui/lazy"] } };
 </script>
 <script src="https://cdn.jsdelivr.net/npm/mathjax@4.0.0/tex-svg.js"></script>
 <script src="leitor.js"></script>
