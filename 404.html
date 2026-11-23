@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Probabilidade e Estatística mudou de endereço</title>
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://weslleycabral.com/livros/probabilidade-e-estatistica/">
+<style>
+  :root { --fundo: #f7f8fa; --texto: #1c2230; --suave: #5b6475; --acento: #2c4f86; }
+  @media (prefers-color-scheme: dark) { :root { --fundo: #14171e; --texto: #dfe3ea; --suave: #98a1b2; --acento: #8fb0e6; } }
+  body { margin: 0; background: var(--fundo); color: var(--texto); font: 17px/1.6 Georgia, serif; }
+  main { max-width: 36rem; margin: 0 auto; padding: 3rem 16px; }
+  a { color: var(--acento); }
+  button { font: 600 1rem system-ui, sans-serif; padding: .6rem 1rem; border-radius: 8px; border: 1px solid var(--acento); background: var(--acento); color: var(--fundo); cursor: pointer; }
+  .suave { color: var(--suave); }
+  [hidden] { display: none; }
+</style>
+</head>
+<body>
+<main>
+  <h1>O livro mudou de endereço</h1>
+  <p>Agora ele fica em <a id="novo" href="https://weslleycabral.com/livros/probabilidade-e-estatistica/">weslleycabral.com/livros/probabilidade-e-estatistica</a>.</p>
+  <div id="marcas" hidden>
+    <p>Você tem <strong id="qtd"></strong> salvos neste navegador no endereço antigo. Eles não passam sozinhos para o novo: baixe o arquivo, abra o livro no endereço novo e use <em>Marcações → Importar</em>.</p>
+    <p><button type="button" id="baixar">Baixar marcações</button></p>
+    <p class="suave">Ajustes de leitura (fonte, tema) precisam ser refeitos no endereço novo.</p>
+  </div>
+</main>
+<script>
+(function () {
+  // Antigo: /probabilidade-e-estatistica/<arquivo>; novo: weslleycabral.com/livros/probabilidade-e-estatistica/<arquivo>.
+  var resto = location.pathname.replace(/^\/probabilidade-e-estatistica\/?/, '').replace(/^index\.html$/, '');
+  var novo = 'https://weslleycabral.com/livros/probabilidade-e-estatistica/' + resto + location.search + location.hash;
+  document.getElementById('novo').href = novo;
+
+  function ler(k) { try { return JSON.parse(localStorage.getItem(k) || '[]'); } catch (e) { return []; } }
+  var marcacoes = ler('leitor-marcacoes'), marcadores = ler('leitor-marcadores');
+  if (!marcacoes.length && !marcadores.length) { location.replace(novo); return; }
+
+  // Mesmo formato do Exportar do leitor (leitor.js), com os arquivos do IndexedDB dentro.
+  var partes = [];
+  if (marcacoes.length) partes.push(marcacoes.length + (marcacoes.length === 1 ? ' marcação' : ' marcações'));
+  if (marcadores.length) partes.push(marcadores.length + (marcadores.length === 1 ? ' marcador' : ' marcadores'));
+  document.getElementById('qtd').textContent = partes.join(' e ');
+  document.getElementById('marcas').hidden = false;
+
+  function arquivos() {
+    return new Promise(function (ok) {
+      try {
+        var r = indexedDB.open('leitor-arquivos', 1);
+        r.onupgradeneeded = function () { r.result.createObjectStore('arquivos', { keyPath: 'id' }); };
+        r.onerror = function () { ok([]); };
+        r.onsuccess = function () {
+          var q = r.result.transaction('arquivos', 'readonly').objectStore('arquivos').getAll();
+          q.onsuccess = function () { ok(q.result || []); };
+          q.onerror = function () { ok([]); };
+        };
+      } catch (e) { ok([]); }
+    });
+  }
+  function dataURL(b) { return new Promise(function (ok) { var f = new FileReader(); f.onload = function () { ok(f.result); }; f.readAsDataURL(b); }); }
+  document.getElementById('baixar').addEventListener('click', function () {
+    arquivos().then(function (fs) {
+      return Promise.all(fs.map(function (f) { return dataURL(f.blob).then(function (u) { return { id: f.id, nome: f.nome, tipo: f.tipo, tamanho: f.tamanho, dados: u }; }); }));
+    }).then(function (fs) {
+      var j = JSON.stringify({ formato: 'leitor-marcacoes', versao: 1, livro: 'probabilidade-e-estatistica', exportado: new Date().toISOString(), marcacoes: marcacoes, marcadores: marcadores, arquivos: fs }, null, 1);
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(new Blob([j], { type: 'application/json' }));
+      a.download = 'marcacoes-probabilidade-e-estatistica-' + new Date().toISOString().slice(0, 10) + '.json';
+      document.body.appendChild(a); a.click(); a.remove();
+    });
+  });
+})();
+</script>
+<noscript><p style="text-align:center"><a href="https://weslleycabral.com/livros/probabilidade-e-estatistica/">Ir para o endereço novo</a></p></noscript>
+</body>
+</html>
